@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics Dashboard - Indian Political Analysis</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #fafafa;
+            color: #171717;
+            line-height: 1.6;
+        }
+
+        /* Top Bar - Logo and Icons */
+        .top-bar {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #171717;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .top-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #fafafa;
+            border-color: #d4d4d4;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Navigation Bar - Second Layer */
+        .nav-bar {
+            background: white;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 32px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 16px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #525252;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nav-item:hover {
+            background: #fafafa;
+            color: #171717;
+        }
+
+        .nav-item.active {
+            color: #171717;
+            background: #fafafa;
+        }
+
+        .nav-arrow {
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item.show-dropdown .nav-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            min-width: 240px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .nav-item.show-dropdown .dropdown {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            font-size: 14px;
+            color: #525252;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .dropdown-item:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+
+        .dropdown-item:hover {
+            background: #fafafa;
+            color: #171717;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 4px 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 32px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #737373;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: #d4d4d4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #737373;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 8px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: #16a34a;
+        }
+
+        .stat-change.negative {
+            color: #dc2626;
+        }
+
+        /* Module Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .module-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .module-card:hover {
+            border-color: #d4d4d4;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .module-header {
+            padding: 24px;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .module-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #171717;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-badge {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .module-body {
+            padding: 24px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 16px;
+        }
+
+        /* Table Styles */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #737373;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .data-table td {
+            padding: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .data-table tr:hover {
+            background: #fafafa;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .filter-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #737373;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            min-width: 160px;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #171717;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #171717;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #000000;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #171717;
+            border: 1px solid #e5e5e5;
+        }
+
+        .btn-secondary:hover {
+            background: #fafafa;
+        }
+
+        /* Color Schemes */
+        .bg-blue { background: #dbeafe; }
+        .text-blue { color: #1e40af; }
+        .bg-green { background: #dcfce7; }
+        .text-green { color: #15803d; }
+        .bg-purple { background: #f3e8ff; }
+        .text-purple { color: #7e22ce; }
+        .bg-orange { background: #fed7aa; }
+        .text-orange { color: #c2410c; }
+        .bg-red { background: #fee2e2; }
+        .text-red { color: #b91c1c; }
+        .bg-indigo { background: #e0e7ff; }
+        .text-indigo { color: #4338ca; }
+
+        /* Large Module Card */
+        .large-module {
+            grid-column: 1 / -1;
+        }
+
+        /* Data Stats */
+        .data-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .data-stat-item {
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .data-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 4px;
+        }
+
+        .data-stat-label {
+            font-size: 12px;
+            color: #737373;
+            font-weight: 500;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        /* List Styles */
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Badge */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* Metric Card */
+        .metric-card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .metric-title {
+            font-size: 14px;
+            color: #737373;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #171717;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            height: 1px;
+            background: #e5e5e5;
+            margin: 32px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 48px 0 24px 0;
+            color: #171717;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar, .nav-bar, .main-content {
+                padding: 16px;
+            }
+
+            .stats-grid, .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-select {
+                width: 100%;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo">
+                <span class="logo-icon">📊</span>
+                <span>Indian Political Analysis</span>
+            </div>
+        </div>
+        <div class="top-icons">
+            <button class="icon-btn" title="Search">🔍</button>
+            <button class="icon-btn" title="Notifications">🔔</button>
+            <button class="icon-btn" title="Settings">⚙️</button>
+            <div class="user-avatar">AD</div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="nav-item" data-section="overview">
+            <span>📊</span> Overview
+        </div>
+        <div class="nav-item" data-has-dropdown="true">
+            <span>📈</span> Reports <span class="nav-arrow">▼</span>
+            <div class="dropdown">
+                <div class="dropdown-item" data-section="voter-analytics">📄 Voter Analytics</div>
+                <div class="dropdown-item" data-section="survey-reports">📊 Survey Reports</div>
+                <div class="dropdown-item" data-section="performance-metrics">📉 Performance Metrics</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="custom-reports">⚙️ Custom Reports</div>
+            </div>
+        </div>
+        <div class="nav-item" data-has-dropdown="true">
+            <span>🎯</span> Constituencies <span class="nav-arrow">▼</span>
+            <div class="dropdown">
+                <div class="dropdown-item" data-section="all-constituencies">🗺️ All Constituencies</div>
+                <div class="dropdown-item" data-section="district-view">📍 District View</div>
+                <div class="dropdown-item" data-section="booth-analysis">🏘️ Booth Analysis</div>
+                <div class="dropdown-item" data-section="demographics">👥 Demographics</div>
+            </div>
+        </div>
+        <div class="nav-item" data-has-dropdown="true">
+            <span>📱</span> Campaigns <span class="nav-arrow">▼</span>
+            <div class="dropdown">
+                <div class="dropdown-item" data-section="active-campaigns">🚀 Active Campaigns</div>
+                <div class="dropdown-item" data-section="campaign-analytics">📊 Campaign Analytics</div>
+                <div class="dropdown-item" data-section="social-media">💬 Social Media</div>
+                <div class="dropdown-item" data-section="email-tracking">📧 Email Tracking</div>
+            </div>
+        </div>
+        <div class="nav-item" data-has-dropdown="true">
+            <span>👥</span> Voters <span class="nav-arrow">▼</span>
+            <div class="dropdown">
+                <div class="dropdown-item" data-section="voter-database">📋 Voter Database</div>
+                <div class="dropdown-item" data-section="segmentation">🔍 Segmentation</div>
+                <div class="dropdown-item" data-section="behavior-analysis">📊 Behavior Analysis</div>
+                <div class="dropdown-item" data-section="targeting">🎯 Targeting</div>
+            </div>
+        </div>
+        <div class="nav-item active" data-section="data-analytics">
+            <span>📈</span> Data Analytics
+        </div>
+        <div class="nav-item" data-has-dropdown="true">
+            <span>⚙️</span> Tools <span class="nav-arrow">▼</span>
+            <div class="dropdown">
+                <div class="dropdown-item" data-section="import-data">📥 Import Data</div>
+                <div class="dropdown-item" data-section="export-reports">📤 Export Reports</div>
+                <div class="dropdown-item" data-section="data-sync">🔄 Data Sync</div>
+                <div class="dropdown-item" data-section="archive">🗄️ Archive</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <span>📈</span> Data Analytics
+            </h1>
+            <p class="page-subtitle">Comprehensive analytics and insights for Karnataka 2028 Assembly Elections</p>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label class="filter-label">Time Period</label>
+                <select class="filter-select" id="timePeriod">
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                    <option>Last 3 Months</option>
+                    <option>Last 6 Months</option>
+                    <option>This Year</option>
+                    <option>Custom Range</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Region</label>
+                <select class="filter-select" id="region">
+                    <option>All Karnataka</option>
+                    <option>Bangalore Division</option>
+                    <option>Mysore Division</option>
+                    <option>Belgaum Division</option>
+                    <option>Gulbarga Division</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">District</label>
+                <select class="filter-select" id="district">
+                    <option>All Districts (31)</option>
+                    <option>Bangalore Urban</option>
+                    <option>Bangalore Rural</option>
+                    <option>Mysore</option>
+                    <option>Belgaum</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Party</label>
+                <select class="filter-select" id="party">
+                    <option>All Parties</option>
+                    <option>INC</option>
+                    <option>BJP</option>
+                    <option>JD(S)</option>
+                    <option>Others</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" style="margin-top: 20px;" onclick="applyFilters()">
+                <span>🔍</span> Apply Filters
+            </button>
+            <button class="btn btn-secondary" style="margin-top: 20px;" onclick="resetFilters()">
+                <span>🔄</span> Reset
+            </button>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Total Voters Analyzed</span>
+                    <div class="stat-icon bg-blue text-blue">👥</div>
+                </div>
+                <div class="stat-value">4.85M</div>
+                <div class="stat-change positive">
+                    <span>↑</span> 12.5% from last month
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Active Data Points</span>
+                    <div class="stat-icon bg-green text-green">📊</div>
+                </div>
+                <div class="stat-value">245K</div>
+                <div class="stat-change positive">
+                    <span>↑</span> 8.3% from last month
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Survey Responses</span>
+                    <div class="stat-icon bg-purple text-purple">📋</div>
+                </div>
+                <div class="stat-value">1.2M</div>
+                <div class="stat-change positive">
+                    <span>↑</span> 15.7% from last month
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-label">Data Accuracy Score</span>
+                    <div class="stat-icon bg-orange text-orange">🎯</div>
+                </div>
+                <div class="stat-value">94.2%</div>
+                <div class="stat-change positive">
+                    <span>↑</span> 2.1% from last month
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Analytics Modules -->
+        <div class="modules-grid">
+            
+            <!-- Voter Demographics Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>👥</span> Voter Demographics Analytics
+                    </h3>
+                    <span class="module-badge">CORE</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">52.3%</div>
+                            <div class="data-stat-label">Male Voters</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">47.7%</div>
+                            <div class="data-stat-label">Female Voters</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">2.8M</div>
+                            <div class="data-stat-label">Youth (18-35)</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">485K</div>
+                            <div class="data-stat-label">First-Time Voters</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voting Patterns Analysis -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📊</span> Voting Patterns Analysis
+                    </h3>
+                    <span class="module-badge">CORE</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="votingPatternsChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Party Loyalty Rate</span>
+                            <span class="badge badge-success">68%</span>
+                        </li>
+                        <li>
+                            <span>Swing Voters Identified</span>
+                            <span class="badge badge-warning">1.2M</span>
+                        </li>
+                        <li>
+                            <span>Historical Turnout Avg</span>
+                            <span class="badge badge-info">72.4%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Survey Data Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📋</span> Survey Data Analytics
+                    </h3>
+                    <span class="module-badge">CORE</span>
+                </div>
+                <div class="module-body">
+                    <div class="metric-card">
+                        <div class="metric-title">Total Surveys Conducted</div>
+                        <div class="metric-value">1,245,678</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="surveyChart"></canvas>
+                    </div>
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">89%</div>
+                            <div class="data-stat-label">Response Rate</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">224</div>
+                            <div class="data-stat-label">Constituencies</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">58K+</div>
+                            <div class="data-stat-label">Booths Covered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Booth-Level Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🗳️</span> Booth-Level Analytics
+                    </h3>
+                    <span class="module-badge">ADVANCED</span>
+                </div>
+                <div class="module-body">
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">58,546</div>
+                            <div class="data-stat-label">Total Booths</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">12,345</div>
+                            <div class="data-stat-label">Strong Booths</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">8,567</div>
+                            <div class="data-stat-label">Weak Booths</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">37,634</div>
+                            <div class="data-stat-label">Neutral Booths</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="boothChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Media Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📱</span> Social Media Analytics
+                    </h3>
+                    <span class="module-badge">DIGITAL</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="socialMediaChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Facebook Reach</span>
+                            <span><strong>8.5M</strong></span>
+                        </li>
+                        <li>
+                            <span>Twitter Impressions</span>
+                            <span><strong>12.3M</strong></span>
+                        </li>
+                        <li>
+                            <span>Instagram Engagement</span>
+                            <span><strong>2.8M</strong></span>
+                        </li>
+                        <li>
+                            <span>WhatsApp Groups</span>
+                            <span><strong>45,678</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sentiment Analysis -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>😊</span> Sentiment Analysis
+                    </h3>
+                    <span class="module-badge">AI</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">58%</div>
+                            <div class="data-stat-label">Positive</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">25%</div>
+                            <div class="data-stat-label">Neutral</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">17%</div>
+                            <div class="data-stat-label">Negative</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Predictive & Strategic Analytics -->
+        <h2 class="section-title">Predictive & Strategic Analytics</h2>
+        <div class="modules-grid">
+            
+            <!-- Predictive Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🔮</span> Predictive Analytics
+                    </h3>
+                    <span class="module-badge">AI</span>
+                </div>
+                <div class="module-body">
+                    <div class="metric-card">
+                        <div class="metric-title">2028 Election Forecast - INC</div>
+                        <div class="metric-value">128-135 Seats</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="predictionChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Model Accuracy</span>
+                            <span class="badge badge-success">92.3%</span>
+                        </li>
+                        <li>
+                            <span>Confidence Level</span>
+                            <span class="badge badge-info">High</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Campaign Performance Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🚀</span> Campaign Performance
+                    </h3>
+                    <span class="module-badge">STRATEGY</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="campaignPerformanceChart"></canvas>
+                    </div>
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">₹45Cr</div>
+                            <div class="data-stat-label">Budget Utilized</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">85%</div>
+                            <div class="data-stat-label">Target Achieved</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">3.2x</div>
+                            <div class="data-stat-label">ROI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Geographic Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🗺️</span> Geographic Analytics
+                    </h3>
+                    <span class="module-badge">SPATIAL</span>
+                </div>
+                <div class="module-body">
+                    <ul class="info-list">
+                        <li>
+                            <span>Urban Constituencies</span>
+                            <span><strong>64</strong> (28.6%)</span>
+                        </li>
+                        <li>
+                            <span>Rural Constituencies</span>
+                            <span><strong>160</strong> (71.4%)</span>
+                        </li>
+                        <li>
+                            <span>High Density Areas</span>
+                            <span class="badge badge-warning">18</span>
+                        </li>
+                        <li>
+                            <span>Remote Areas</span>
+                            <span class="badge badge-info">45</span>
+                        </li>
+                    </ul>
+                    <div class="metric-card">
+                        <div class="metric-title">Average Voters per Constituency</div>
+                        <div class="metric-value">21,652</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Candidate Performance Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>👤</span> Candidate Analytics
+                    </h3>
+                    <span class="module-badge">STRATEGY</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="candidateChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Active Candidates</span>
+                            <span><strong>2,456</strong></span>
+                        </li>
+                        <li>
+                            <span>Our Clients</span>
+                            <span class="badge badge-success">187</span>
+                        </li>
+                        <li>
+                            <span>Success Rate (2023)</span>
+                            <span class="badge badge-success">74%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Large Integrated Modules -->
+        <h2 class="section-title">Integrated Analytics Systems</h2>
+        <div class="modules-grid">
+            
+            <!-- Real-Time Integrated Dashboard -->
+            <div class="module-card large-module">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>⚡</span> Real-Time Integrated Dashboard
+                    </h3>
+                    <span class="module-badge">LIVE</span>
+                </div>
+                <div class="module-body">
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">31</div>
+                            <div class="data-stat-label">Districts Online</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">224</div>
+                            <div class="data-stat-label">Constituencies</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">58,546</div>
+                            <div class="data-stat-label">Booths Tracked</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">1,245</div>
+                            <div class="data-stat-label">Active Users</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">99.8%</div>
+                            <div class="data-stat-label">System Uptime</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">2.3GB</div>
+                            <div class="data-stat-label">Data Today</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="realtimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Issue-Based Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📌</span> Issue-Based Analytics
+                    </h3>
+                    <span class="module-badge">INSIGHT</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="issuesChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Employment</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+                        </li>
+                        <li>
+                            <span>Infrastructure</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 72%"></div></div>
+                        </li>
+                        <li>
+                            <span>Healthcare</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+                        </li>
+                        <li>
+                            <span>Education</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Media Coverage Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📺</span> Media Coverage Analytics
+                    </h3>
+                    <span class="module-badge">PR</span>
+                </div>
+                <div class="module-body">
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">4,567</div>
+                            <div class="data-stat-label">News Mentions</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">234</div>
+                            <div class="data-stat-label">TV Appearances</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">1,890</div>
+                            <div class="data-stat-label">Print Articles</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="mediaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Specialized Demographics -->
+        <h2 class="section-title">Specialized Demographics & Segmentation</h2>
+        <div class="modules-grid">
+            
+            <!-- Youth Voter Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🎓</span> Youth Voter Analytics
+                    </h3>
+                    <span class="module-badge">DEMOGRAPHIC</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="youthChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>First-Time Voters (18-21)</span>
+                            <span><strong>485,234</strong></span>
+                        </li>
+                        <li>
+                            <span>Youth Voters (18-35)</span>
+                            <span><strong>2,845,678</strong></span>
+                        </li>
+                        <li>
+                            <span>Digital Engagement Rate</span>
+                            <span class="badge badge-success">82%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Women Voter Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>👩</span> Women Voter Analytics
+                    </h3>
+                    <span class="module-badge">DEMOGRAPHIC</span>
+                </div>
+                <div class="module-body">
+                    <div class="metric-card">
+                        <div class="metric-title">Total Women Voters</div>
+                        <div class="metric-value">2,312,456</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="womenChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Participation Rate</span>
+                            <span class="badge badge-success">74.8%</span>
+                        </li>
+                        <li>
+                            <span>Key Issues Prioritized</span>
+                            <span><strong>Safety, Education, Healthcare</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Rural vs Urban Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🏘️</span> Rural vs Urban Analytics
+                    </h3>
+                    <span class="module-badge">GEOGRAPHIC</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="ruralUrbanChart"></canvas>
+                    </div>
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">38%</div>
+                            <div class="data-stat-label">Urban Population</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">62%</div>
+                            <div class="data-stat-label">Rural Population</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Caste-Based Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📊</span> Caste-Based Analytics
+                    </h3>
+                    <span class="module-badge">SOCIAL</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="casteChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>SC Community</span>
+                            <span><strong>17.2%</strong></span>
+                        </li>
+                        <li>
+                            <span>ST Community</span>
+                            <span><strong>6.8%</strong></span>
+                        </li>
+                        <li>
+                            <span>OBC Community</span>
+                            <span><strong>54.3%</strong></span>
+                        </li>
+                        <li>
+                            <span>General Category</span>
+                            <span><strong>21.7%</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Advanced Data Intelligence -->
+        <h2 class="section-title">Advanced Data Intelligence</h2>
+        <div class="modules-grid">
+            
+            <!-- Financial Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>💰</span> Financial Analytics
+                    </h3>
+                    <span class="module-badge">COMPLIANCE</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="financialChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Total Campaign Budget</span>
+                            <span><strong>₹65 Crores</strong></span>
+                        </li>
+                        <li>
+                            <span>Spent to Date</span>
+                            <span><strong>₹45 Crores</strong></span>
+                        </li>
+                        <li>
+                            <span>Budget Remaining</span>
+                            <span class="badge badge-success">₹20 Cr</span>
+                        </li>
+                        <li>
+                            <span>Compliance Status</span>
+                            <span class="badge badge-success">100%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ground Team Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>👷</span> Ground Team Analytics
+                    </h3>
+                    <span class="module-badge">OPERATIONS</span>
+                </div>
+                <div class="module-body">
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">12,456</div>
+                            <div class="data-stat-label">Field Workers</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">45,678</div>
+                            <div class="data-stat-label">Volunteers</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">2.8M</div>
+                            <div class="data-stat-label">Doors Knocked</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="groundTeamChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🎪</span> Event Analytics
+                    </h3>
+                    <span class="module-badge">ENGAGEMENT</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="eventChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Total Events Conducted</span>
+                            <span><strong>1,245</strong></span>
+                        </li>
+                        <li>
+                            <span>Average Attendance</span>
+                            <span><strong>2,340</strong></span>
+                        </li>
+                        <li>
+                            <span>Total Reach</span>
+                            <span class="badge badge-success">2.9M</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Opposition Research -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>🕵️</span> Opposition Research
+                    </h3>
+                    <span class="module-badge">INTELLIGENCE</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="oppositionChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>BJP Strongholds</span>
+                            <span class="badge badge-danger">89</span>
+                        </li>
+                        <li>
+                            <span>INC Strongholds</span>
+                            <span class="badge badge-info">76</span>
+                        </li>
+                        <li>
+                            <span>JD(S) Strongholds</span>
+                            <span class="badge badge-warning">34</span>
+                        </li>
+                        <li>
+                            <span>Swing Constituencies</span>
+                            <span class="badge badge-success">25</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- WhatsApp Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>💬</span> WhatsApp Analytics
+                    </h3>
+                    <span class="module-badge">MESSAGING</span>
+                </div>
+                <div class="module-body">
+                    <div class="data-stats">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">45,678</div>
+                            <div class="data-stat-label">Active Groups</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">3.2M</div>
+                            <div class="data-stat-label">Total Members</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">12.5M</div>
+                            <div class="data-stat-label">Messages/Day</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-title">Message Delivery Rate</div>
+                        <div class="metric-value">96.8%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call Center Analytics -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📞</span> Call Center Analytics
+                    </h3>
+                    <span class="module-badge">OPERATIONS</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="callCenterChart"></canvas>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Calls Made Today</span>
+                            <span><strong>45,678</strong></span>
+                        </li>
+                        <li>
+                            <span>Success Rate</span>
+                            <span class="badge badge-success">72%</span>
+                        </li>
+                        <li>
+                            <span>Avg Call Duration</span>
+                            <span><strong>2m 34s</strong></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Data Quality & Tools -->
+        <h2 class="section-title">Data Management & Tools</h2>
+        <div class="modules-grid">
+            
+            <!-- Data Quality Control -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>✅</span> Data Quality Control
+                    </h3>
+                    <span class="module-badge">GOVERNANCE</span>
+                </div>
+                <div class="module-body">
+                    <div class="metric-card">
+                        <div class="metric-title">Overall Data Quality Score</div>
+                        <div class="metric-value">94.2%</div>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Completeness</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 96%"></div></div>
+                        </li>
+                        <li>
+                            <span>Accuracy</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 94%"></div></div>
+                        </li>
+                        <li>
+                            <span>Consistency</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 92%"></div></div>
+                        </li>
+                        <li>
+                            <span>Timeliness</span>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Export & Reporting -->
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>📤</span> Export & Reporting
+                    </h3>
+                    <span class="module-badge">TOOLS</span>
+                </div>
+                <div class="module-body">
+                    <ul class="info-list">
+                        <li>
+                            <span>Reports Generated This Month</span>
+                            <span><strong>1,456</strong></span>
+                        </li>
+                        <li>
+                            <span>Data Exports</span>
+                            <span><strong>567</strong></span>
+                        </li>
+                        <li>
+                            <span>Scheduled Reports</span>
+                            <span class="badge badge-info">234 Active</span>
+                        </li>
+                    </ul>
+                    <div style="margin-top: 20px;">
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>📥</span> Generate Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparative Analytics Engine -->
+            <div class="module-card large-module">
+                <div class="module-header">
+                    <h3 class="module-title">
+                        <span>⚖️</span> Comparative Analytics Engine
+                    </h3>
+                    <span class="module-badge">ADVANCED</span>
+                </div>
+                <div class="module-body">
+                    <div class="chart-container">
+                        <canvas id="comparativeChart"></canvas>
+                    </div>
+                    <div class="data-stats" style="margin-top: 20px;">
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">224</div>
+                            <div class="data-stat-label">Constituencies Compared</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">3</div>
+                            <div class="data-stat-label">Major Parties</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">2,456</div>
+                            <div class="data-stat-label">Candidates Analyzed</div>
+                        </div>
+                        <div class="data-stat-item">
+                            <div class="data-stat-value">15</div>
+                            <div class="data-stat-label">Election Cycles</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                // Handle dropdown toggle
+                if (this.getAttribute('data-has-dropdown') === 'true') {
+                    // Close other dropdowns
+                    document.querySelectorAll('.nav-item').forEach(other => {
+                        if (other !== this) {
+                            other.classList.remove('show-dropdown');
+                        }
+                    });
+                    
+                    // Toggle current dropdown
+                    this.classList.toggle('show-dropdown');
+                } else {
+                    // Handle direct navigation
+                    const section = this.getAttribute('data-section');
+                    if (section) {
+                        console.log('Navigating to:', section);
+                        // Remove active class from all
+                        document.querySelectorAll('.nav-item').forEach(nav => {
+                            nav.classList.remove('active');
+                        });
+                        // Add active class to clicked item
+                        this.classList.add('active');
+                    }
+                }
+            });
+        });
+
+        // Dropdown item clicks
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const section = this.getAttribute('data-section');
+                console.log('Dropdown item clicked:', section);
+                // Close all dropdowns
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('show-dropdown');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('show-dropdown');
+                });
+            }
+        });
+
+        // Filter functions
+        function applyFilters() {
+            const timePeriod = document.getElementById('timePeriod').value;
+            const region = document.getElementById('region').value;
+            const district = document.getElementById('district').value;
+            const party = document.getElementById('party').value;
+            
+            console.log('Filters applied:', { timePeriod, region, district, party });
+            alert('Filters applied successfully! Data will be updated based on your selection.');
+        }
+
+        function resetFilters() {
+            document.getElementById('timePeriod').selectedIndex = 0;
+            document.getElementById('region').selectedIndex = 0;
+            document.getElementById('district').selectedIndex = 0;
+            document.getElementById('party').selectedIndex = 0;
+            console.log('Filters reset');
+        }
+
+        // Initialize all charts
+        function initCharts() {
+            // Demographics Chart
+            new Chart(document.getElementById('demographicsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
+                    datasets: [{
+                        data: [15, 23, 22, 18, 12, 10],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Voting Patterns Chart
+            new Chart(document.getElementById('votingPatternsChart'), {
+                type: 'line',
+                data: {
+                    labels: ['2008', '2013', '2018', '2023', '2028 (Predicted)'],
+                    datasets: [{
+                        label: 'INC',
+                        data: [80, 122, 78, 135, 130],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'BJP',
+                        data: [110, 40, 104, 66, 75],
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
+                        tension: 0.4
+                    }, {
+                        label: 'JD(S)',
+                        data: [28, 40, 37, 19, 15],
+                        borderColor: '#4facfe',
+                        backgroundColor: 'rgba(79, 172, 254, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Survey Chart
+            new Chart(document.getElementById('surveyChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Surveys Completed',
+                        data: [45000, 52000, 48000, 61000, 55000, 67000],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Booth Chart
+            new Chart(document.getElementById('boothChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Strong', 'Weak', 'Neutral'],
+                    datasets: [{
+                        data: [12345, 8567, 37634],
+                        backgroundColor: ['#43e97b', '#fa709a', '#fed7aa']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Social Media Chart
+            new Chart(document.getElementById('socialMediaChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Facebook', 'Twitter', 'Instagram', 'WhatsApp', 'YouTube'],
+                    datasets: [{
+                        label: 'Engagement Score',
+                        data: [85, 78, 92, 88, 75],
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                        borderColor: '#667eea',
+                        pointBackgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Sentiment Chart
+            new Chart(document.getElementById('sentimentChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Positive', 'Neutral', 'Negative'],
+                    datasets: [{
+                        data: [58, 25, 17],
+                        backgroundColor: ['#43e97b', '#fed7aa', '#fa709a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Prediction Chart
+            new Chart(document.getElementById('predictionChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['INC', 'BJP', 'JD(S)', 'Others'],
+                    datasets: [{
+                        label: '2028 Seat Projection',
+                        data: [130, 75, 15, 4],
+                        backgroundColor: ['#667eea', '#f093fb', '#4facfe', '#fed7aa']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            // Campaign Performance Chart
+            new Chart(document.getElementById('campaignPerformanceChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Reach (in thousands)',
+                        data: [120, 150, 180, 220, 250, 290],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Candidate Chart
+            new Chart(document.getElementById('candidateChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Excellent', 'Good', 'Average', 'Poor'],
+                    datasets: [{
+                        label: 'Candidate Performance',
+                        data: [45, 78, 52, 12],
+                        backgroundColor: ['#43e97b', '#667eea', '#fed7aa', '#fa709a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Real-time Chart
+            new Chart(document.getElementById('realtimeChart'), {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
+                    datasets: [{
+                        label: 'Data Points Collected',
+                        data: [1200, 1800, 3400, 5600, 4200, 6800, 7200],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Issues Chart
+            new Chart(document.getElementById('issuesChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Employment', 'Infrastructure', 'Healthcare', 'Education', 'Agriculture', 'Water'],
+                    datasets: [{
+                        label: 'Priority Score',
+                        data: [85, 72, 68, 65, 58, 54],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y'
+                }
+            });
+
+            // Media Chart
+            new Chart(document.getElementById('mediaChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'TV',
+                        data: [35, 42, 38, 45, 52, 48],
+                        borderColor: '#667eea',
+                        tension: 0.4
+                    }, {
+                        label: 'Print',
+                        data: [28, 32, 30, 35, 38, 42],
+                        borderColor: '#f093fb',
+                        tension: 0.4
+                    }, {
+                        label: 'Digital',
+                        data: [45, 52, 58, 65, 72, 78],
+                        borderColor: '#4facfe',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Youth Chart
+            new Chart(document.getElementById('youthChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['18-21', '22-25', '26-30', '31-35'],
+                    datasets: [{
+                        data: [17, 21, 32, 30],
+                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Women Chart
+            new Chart(document.getElementById('womenChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
+                    datasets: [{
+                        label: 'Women Voters',
+                        data: [285000, 432000, 458000, 398000, 287000, 452000],
+                        backgroundColor: '#f093fb'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Rural Urban Chart
+            new Chart(document.getElementById('ruralUrbanChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Urban', 'Rural'],
+                    datasets: [{
+                        data: [38, 62],
+                        backgroundColor: ['#667eea', '#43e97b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Caste Chart
+            new Chart(document.getElementById('casteChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['SC', 'ST', 'OBC', 'General'],
+                    datasets: [{
+                        data: [17.2, 6.8, 54.3, 21.7],
+                        backgroundColor: ['#667eea', '#43e97b', '#f093fb', '#fed7aa']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Financial Chart
+            new Chart(document.getElementById('financialChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Digital', 'Ground', 'Events', 'Media', 'Print', 'Other'],
+                    datasets: [{
+                        label: 'Expenditure (in Crores)',
+                        data: [12, 15, 8, 5, 3, 2],
+                        backgroundColor: ['#667eea', '#f093fb', '#4facfe', '#43e97b', '#fed7aa', '#fa709a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Ground Team Chart
+            new Chart(document.getElementById('groundTeamChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                    datasets: [{
+                        label: 'Coverage (in thousands)',
+                        data: [450, 680, 820, 950],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Event Chart
+            new Chart(document.getElementById('eventChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Rallies', 'Town Halls', 'Door-to-Door', 'Public Meetings', 'Digital Events'],
+                    datasets: [{
+                        label: 'Events Count',
+                        data: [234, 156, 567, 189, 99],
+                        backgroundColor: '#667eea'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y'
+                }
+            });
+
+            // Opposition Chart
+            new Chart(document.getElementById('oppositionChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Social Media', 'Ground Work', 'Media Coverage', 'Funding', 'Organization', 'Public Support'],
+                    datasets: [{
+                        label: 'INC',
+                        data: [85, 78, 82, 75, 88, 80],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.2)'
+                    }, {
+                        label: 'BJP',
+                        data: [90, 82, 88, 85, 85, 75],
+                        borderColor: '#f093fb',
+                        backgroundColor: 'rgba(240, 147, 251, 0.2)'
+                    }, {
+                        label: 'JD(S)',
+                        data: [65, 70, 68, 62, 72, 58],
+                        borderColor: '#4facfe',
+                        backgroundColor: 'rgba(79, 172, 254, 0.2)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Call Center Chart
+            new Chart(document.getElementById('callCenterChart'), {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Calls Made',
+                        data: [42000, 45000, 48000, 46000, 49000, 38000, 35000],
+                        borderColor: '#667eea',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Comparative Chart
+            new Chart(document.getElementById('comparativeChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Urban North', 'Urban South', 'Rural North', 'Rural South', 'Coastal'],
+                    datasets: [{
+                        label: 'INC Support',
+                        data: [45, 52, 38, 48, 42],
+                        backgroundColor: '#667eea'
+                    }, {
+                        label: 'BJP Support',
+                        data: [38, 32, 45, 35, 40],
+                        backgroundColor: '#f093fb'
+                    }, {
+                        label: 'JD(S) Support',
+                        data: [12, 10, 13, 14, 15],
+                        backgroundColor: '#4facfe'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize charts when page loads
+        window.addEventListener('load', initCharts);
+    </script>
+
+</body>
+</html>

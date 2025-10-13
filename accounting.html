@@ -1,0 +1,4030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accounting Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --background: #ffffff;
+            --foreground: #000000;
+            --border: #e5e5e5;
+            --muted: #fafafa;
+            --muted-foreground: #737373;
+            --accent: #0070f3;
+            --accent-hover: #0051cc;
+            --success: #0070f0;
+            --warning: #f5a623;
+            --danger: #e00;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            --nav-height: 60px;
+            --header-height: 72px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .top-bar {
+            height: var(--nav-height);
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .top-bar-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 20px;
+            color: var(--muted-foreground);
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: var(--danger);
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #7928ca);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-bar {
+            height: var(--header-height);
+            background: var(--background);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            padding: 0 32px;
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            right: 0;
+            z-index: 999;
+            gap: 8px;
+            /* overflow-x: auto; */
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 6px 8px;
+            cursor: pointer;
+            color: var(--muted-foreground);
+            font-size: 14px;
+            font-weight: 500;
+            border: 1px solid lightgray;
+            border-radius: 6px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            .nav-arrow {
+                display: none;
+            }
+        }
+
+        .nav-item:hover {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        .nav-item.active {
+            color: var(--foreground);
+            background: var(--muted);
+        }
+
+        .nav-arrow {
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+
+        .nav-item:hover .nav-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s;
+            padding: 8px;
+            z-index: 1001;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: var(--foreground);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dropdown-item:hover {
+            background: var(--muted);
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 6px 0;
+        }
+
+        .main-content {
+            margin-top: calc(var(--nav-height) + var(--header-height));
+            padding: 32px;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--foreground);
+        }
+
+        .page-subtitle {
+            font-size: 15px;
+            color: var(--muted-foreground);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--muted-foreground);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--foreground);
+        }
+
+        .stat-change {
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: var(--danger);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--foreground);
+        }
+
+        .card-action {
+            color: var(--accent);
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .card-action:hover {
+            color: var(--accent-hover);
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--muted);
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: var(--muted);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-paid {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-overdue {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-active {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--foreground);
+            color: var(--background);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background: var(--muted);
+            color: var(--foreground);
+        }
+
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--foreground);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-box {
+            padding: 16px;
+            border-radius: 8px;
+            background: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .info-box-content {
+            font-size: 14px;
+            color: var(--muted-foreground);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 40px 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted-foreground);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: var(--muted);
+        }
+
+        .filter-btn.active {
+            background: var(--foreground);
+            color: var(--background);
+            border-color: var(--foreground);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--muted);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--muted);
+            color: var(--foreground);
+            margin-right: 6px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--muted-foreground);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar, .nav-bar {
+                padding: 0 16px;
+            }
+            .main-content {
+                padding: 20px 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .page-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo">
+                <span class="logo-icon">💰</span>
+                <span>AccounTech</span>
+            </div>
+        </div>
+        
+        <div class="top-bar-icons">
+            <button class="icon-btn" title="Search">🔍</button>
+            <button class="icon-btn" title="Notifications">
+                🔔
+                <span class="notification-badge">5</span>
+            </button>
+            <button class="icon-btn" title="Settings">⚙️</button>
+            <button class="icon-btn" title="Help">❓</button>
+            <div class="user-avatar" title="User Profile">JD</div>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <div class="nav-item active" data-section="dashboard">
+            <span>📊</span>
+            <span>Dashboard</span>
+        </div>
+
+        <div class="nav-item">
+            <span>👥</span>
+            <span>Accounts</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="customers">👤 Customers</div>
+                <div class="dropdown-item" data-section="vendors">🏢 Vendors</div>
+                <div class="dropdown-item" data-section="employees">💼 Employees</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="chart-of-accounts">📋 Chart of Accounts</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>🏦</span>
+            <span>Banking</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="bank-accounts">💳 Bank Accounts</div>
+                <div class="dropdown-item" data-section="transactions">💸 Transactions</div>
+                <div class="dropdown-item" data-section="reconciliation">✅ Reconciliation</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="payment-gateway">🔄 Payment Gateway</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>📄</span>
+            <span>Invoices</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="create-invoice">➕ Create Invoice</div>
+                <div class="dropdown-item" data-section="all-invoices">📋 All Invoices</div>
+                <div class="dropdown-item" data-section="recurring">🔁 Recurring Invoices</div>
+                <div class="dropdown-item" data-section="estimates">📊 Estimates</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="credit-notes">📝 Credit Notes</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>💳</span>
+            <span>Expenses</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="expense-tracker">📌 Expense Tracker</div>
+                <div class="dropdown-item" data-section="bills">🧾 Bills</div>
+                <div class="dropdown-item" data-section="payments">💰 Payments</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="expense-categories">🏷️ Categories</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>📈</span>
+            <span>Reports</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="profit-loss">📊 Profit & Loss</div>
+                <div class="dropdown-item" data-section="balance-sheet">⚖️ Balance Sheet</div>
+                <div class="dropdown-item" data-section="cash-flow">💵 Cash Flow</div>
+                <div class="dropdown-item" data-section="trial-balance">📑 Trial Balance</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="custom-reports">⚙️ Custom Reports</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>🏛️</span>
+            <span>Assets</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="fixed-assets">🏗️ Fixed Assets</div>
+                <div class="dropdown-item" data-section="depreciation">📉 Depreciation</div>
+                <div class="dropdown-item" data-section="asset-register">📖 Asset Register</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>💼</span>
+            <span>Payroll</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="salary-processing">💰 Salary Processing</div>
+                <div class="dropdown-item" data-section="payslips">📄 Payslips</div>
+                <div class="dropdown-item" data-section="attendance">📅 Attendance</div>
+                <div class="dropdown-item" data-section="leave-management">🏖️ Leave Management</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>📊</span>
+            <span>Tax</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="gst-filing">🇮🇳 GST Filing</div>
+                <div class="dropdown-item" data-section="tds">💼 TDS</div>
+                <div class="dropdown-item" data-section="income-tax">📝 Income Tax</div>
+                <div class="dropdown-divider"></div>
+                <div class="dropdown-item" data-section="tax-reports">📑 Tax Reports</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>📓</span>
+            <span>Journal</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="journal-entries">✍️ Journal Entries</div>
+                <div class="dropdown-item" data-section="ledger">📔 General Ledger</div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <span>💎</span>
+            <span>Budget</span>
+            <span class="nav-arrow">▼</span>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" data-section="budget-planning">📋 Budget Planning</div>
+                <div class="dropdown-item" data-section="budget-vs-actual">📊 Budget vs Actual</div>
+                <div class="dropdown-item" data-section="forecasting">🔮 Forecasting</div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">💰 Accounting Dashboard</h1>
+                <p class="page-subtitle">Welcome back! Here's your financial overview for today</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Revenue</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">💰</div>
+                    </div>
+                    <div class="stat-value">₹45,68,920</div>
+                    <div class="stat-change positive">↑ 12.5% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Expenses</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">💸</div>
+                    </div>
+                    <div class="stat-value">₹28,45,230</div>
+                    <div class="stat-change negative">↑ 8.2% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Net Profit</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">📈</div>
+                    </div>
+                    <div class="stat-value">₹17,23,690</div>
+                    <div class="stat-change positive">↑ 18.7% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Outstanding</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">₹8,92,450</div>
+                    <div class="stat-change negative">↓ 5.3% from last month</div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <div class="card full-width">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Invoices</h2>
+                        <span class="card-action">View All →</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Invoice #</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>INV-2024-1045</strong></td>
+                                    <td>Acme Corporation</td>
+                                    <td>Oct 10, 2024</td>
+                                    <td><strong>₹1,25,000</strong></td>
+                                    <td><span class="status-badge status-paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>INV-2024-1044</strong></td>
+                                    <td>Tech Solutions Ltd</td>
+                                    <td>Oct 08, 2024</td>
+                                    <td><strong>₹89,500</strong></td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>INV-2024-1043</strong></td>
+                                    <td>Global Enterprises</td>
+                                    <td>Oct 05, 2024</td>
+                                    <td><strong>₹2,45,000</strong></td>
+                                    <td><span class="status-badge status-overdue">Overdue</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>INV-2024-1042</strong></td>
+                                    <td>StartupHub Inc</td>
+                                    <td>Oct 03, 2024</td>
+                                    <td><strong>₹67,800</strong></td>
+                                    <td><span class="status-badge status-paid">Paid</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>INV-2024-1041</strong></td>
+                                    <td>Digital Marketing Co</td>
+                                    <td>Oct 01, 2024</td>
+                                    <td><strong>₹1,15,300</strong></td>
+                                    <td><span class="status-badge status-paid">Paid</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Accounts Receivable</h2>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 14px; color: var(--muted-foreground);">0-30 Days</span>
+                            <span style="font-weight: 600;">₹3,45,000</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%; background: #10b981;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 14px; color: var(--muted-foreground);">31-60 Days</span>
+                            <span style="font-weight: 600;">₹2,15,000</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 40%; background: #f59e0b;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 14px; color: var(--muted-foreground);">Over 60 Days</span>
+                            <span style="font-weight: 600;">₹3,32,450</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 62%; background: var(--danger);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Top Expenses This Month</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500;">Rent & Utilities</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">Monthly expenses</div>
+                            </div>
+                            <div style="font-weight: 600; font-size: 16px;">₹8,50,000</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500;">Salaries & Wages</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">Employee payments</div>
+                            </div>
+                            <div style="font-weight: 600; font-size: 16px;">₹12,50,000</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500;">Marketing</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">Advertising campaigns</div>
+                            </div>
+                            <div style="font-weight: 600; font-size: 16px;">₹3,25,000</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="font-weight: 500;">Office Supplies</div>
+                                <div style="font-size: 13px; color: var(--muted-foreground);">Stationery & equipment</div>
+                            </div>
+                            <div style="font-weight: 600; font-size: 16px;">₹1,20,230</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn btn-primary">➕ Create Invoice</button>
+                    <button class="btn btn-secondary">💳 Record Payment</button>
+                    <button class="btn btn-secondary">📝 Add Expense</button>
+                    <button class="btn btn-secondary">👥 New Customer</button>
+                    <button class="btn btn-secondary">📊 Generate Report</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <div id="customers" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">👤 Customers</h1>
+                <p class="page-subtitle">Manage your customer accounts and relationships</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Customers</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">👥</div>
+                    </div>
+                    <div class="stat-value">247</div>
+                    <div class="stat-change positive">↑ 15 new this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Accounts</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">198</div>
+                    <div class="stat-change positive">↑ 8% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Receivables</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">💰</div>
+                    </div>
+                    <div class="stat-value">₹8,92,450</div>
+                    <div class="stat-change negative">↓ 5% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Avg Invoice Value</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">📊</div>
+                    </div>
+                    <div class="stat-value">₹85,670</div>
+                    <div class="stat-change positive">↑ 12% from last month</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Customer List</h2>
+                    <button class="btn btn-primary">➕ Add Customer</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search customers...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All Customers</button>
+                    <button class="filter-btn">Active</button>
+                    <button class="filter-btn">Inactive</button>
+                    <button class="filter-btn">High Value</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Total Sales</th>
+                                <th>Outstanding</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Acme Corporation</strong></td>
+                                <td>contact@acme.com</td>
+                                <td>+91 98765 43210</td>
+                                <td>₹15,45,000</td>
+                                <td>₹0</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Solutions Ltd</strong></td>
+                                <td>hello@techsol.com</td>
+                                <td>+91 98765 43211</td>
+                                <td>₹8,90,000</td>
+                                <td>₹89,500</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Global Enterprises</strong></td>
+                                <td>info@global.com</td>
+                                <td>+91 98765 43212</td>
+                                <td>₹22,45,000</td>
+                                <td>₹2,45,000</td>
+                                <td><span class="status-badge status-overdue">Overdue</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>StartupHub Inc</strong></td>
+                                <td>team@startuphub.com</td>
+                                <td>+91 98765 43213</td>
+                                <td>₹5,67,800</td>
+                                <td>₹0</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Digital Marketing Co</strong></td>
+                                <td>contact@digimar.com</td>
+                                <td>+91 98765 43214</td>
+                                <td>₹9,15,300</td>
+                                <td>₹0</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vendors Section -->
+        <div id="vendors" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🏢 Vendors</h1>
+                <p class="page-subtitle">Manage your vendor accounts and purchase orders</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Vendors</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">🏢</div>
+                    </div>
+                    <div class="stat-value">128</div>
+                    <div class="stat-change positive">↑ 8 new this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Vendors</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">95</div>
+                    <div class="stat-change positive">Steady</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Payables</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">💳</div>
+                    </div>
+                    <div class="stat-value">₹6,78,900</div>
+                    <div class="stat-change negative">Due in 15 days</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Monthly Purchases</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">📦</div>
+                    </div>
+                    <div class="stat-value">₹18,45,230</div>
+                    <div class="stat-change positive">↑ 6% from last month</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Vendor List</h2>
+                    <button class="btn btn-primary">➕ Add Vendor</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search vendors...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Vendor Name</th>
+                                <th>Contact Person</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Total Purchases</th>
+                                <th>Outstanding</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Office Supplies Co</strong></td>
+                                <td>Rajesh Kumar</td>
+                                <td>sales@officesupplies.com</td>
+                                <td>+91 98765 11111</td>
+                                <td>₹3,45,000</td>
+                                <td>₹45,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Hardware Ltd</strong></td>
+                                <td>Amit Sharma</td>
+                                <td>info@techhardware.com</td>
+                                <td>+91 98765 22222</td>
+                                <td>₹8,90,000</td>
+                                <td>₹1,20,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Packaging Solutions</strong></td>
+                                <td>Priya Patel</td>
+                                <td>contact@packaging.com</td>
+                                <td>+91 98765 33333</td>
+                                <td>₹2,45,000</td>
+                                <td>₹0</td>
+                                <td><span class="status-badge status-paid">Paid</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Software Services</strong></td>
+                                <td>Vikram Singh</td>
+                                <td>sales@softservices.com</td>
+                                <td>+91 98765 44444</td>
+                                <td>₹5,67,800</td>
+                                <td>₹2,50,000</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cleaning Services</strong></td>
+                                <td>Sunita Rao</td>
+                                <td>info@cleanpro.com</td>
+                                <td>+91 98765 55555</td>
+                                <td>₹1,15,300</td>
+                                <td>₹15,300</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employees Section -->
+        <div id="employees" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💼 Employees</h1>
+                <p class="page-subtitle">Manage employee information and payroll data</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Employees</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">👥</div>
+                    </div>
+                    <div class="stat-value">68</div>
+                    <div class="stat-change positive">↑ 3 new hires</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Employees</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">65</div>
+                    <div class="stat-change">3 on leave</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Monthly Payroll</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">💰</div>
+                    </div>
+                    <div class="stat-value">₹42,50,000</div>
+                    <div class="stat-change positive">For October 2024</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Avg Salary</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">📊</div>
+                    </div>
+                    <div class="stat-value">₹62,500</div>
+                    <div class="stat-change">Per employee</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Employee Directory</h2>
+                    <button class="btn btn-primary">➕ Add Employee</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search employees...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Full Time</button>
+                    <button class="filter-btn">Part Time</button>
+                    <button class="filter-btn">Contract</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Email</th>
+                                <th>Salary</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>EMP001</strong></td>
+                                <td>Rahul Verma</td>
+                                <td>Engineering</td>
+                                <td>Senior Developer</td>
+                                <td>rahul@company.com</td>
+                                <td>₹95,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP002</strong></td>
+                                <td>Priya Sharma</td>
+                                <td>Marketing</td>
+                                <td>Marketing Manager</td>
+                                <td>priya@company.com</td>
+                                <td>₹85,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP003</strong></td>
+                                <td>Amit Patel</td>
+                                <td>Finance</td>
+                                <td>Accountant</td>
+                                <td>amit@company.com</td>
+                                <td>₹65,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP004</strong></td>
+                                <td>Neha Gupta</td>
+                                <td>HR</td>
+                                <td>HR Manager</td>
+                                <td>neha@company.com</td>
+                                <td>₹75,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP005</strong></td>
+                                <td>Vikram Singh</td>
+                                <td>Sales</td>
+                                <td>Sales Executive</td>
+                                <td>vikram@company.com</td>
+                                <td>₹55,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart of Accounts Section -->
+        <div id="chart-of-accounts" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📋 Chart of Accounts</h1>
+                <p class="page-subtitle">Manage your complete chart of accounts structure</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Account Categories</h2>
+                    <button class="btn btn-primary">➕ Add Account</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Account Code</th>
+                                <th>Account Name</th>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Balance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: var(--muted); font-weight: 600;">
+                                <td colspan="6">ASSETS</td>
+                            </tr>
+                            <tr>
+                                <td>1000</td>
+                                <td>Cash in Hand</td>
+                                <td>Current Assets</td>
+                                <td>Debit</td>
+                                <td>₹2,50,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>1010</td>
+                                <td>Bank Account - HDFC</td>
+                                <td>Current Assets</td>
+                                <td>Debit</td>
+                                <td>₹15,67,890</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>1020</td>
+                                <td>Accounts Receivable</td>
+                                <td>Current Assets</td>
+                                <td>Debit</td>
+                                <td>₹8,92,450</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>1100</td>
+                                <td>Inventory</td>
+                                <td>Current Assets</td>
+                                <td>Debit</td>
+                                <td>₹5,45,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>1500</td>
+                                <td>Fixed Assets</td>
+                                <td>Non-Current Assets</td>
+                                <td>Debit</td>
+                                <td>₹45,00,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            
+                            <tr style="background: var(--muted); font-weight: 600;">
+                                <td colspan="6">LIABILITIES</td>
+                            </tr>
+                            <tr>
+                                <td>2000</td>
+                                <td>Accounts Payable</td>
+                                <td>Current Liabilities</td>
+                                <td>Credit</td>
+                                <td>₹6,78,900</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2100</td>
+                                <td>Short Term Loan</td>
+                                <td>Current Liabilities</td>
+                                <td>Credit</td>
+                                <td>₹10,00,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2500</td>
+                                <td>Long Term Loan</td>
+                                <td>Non-Current Liabilities</td>
+                                <td>Credit</td>
+                                <td>₹25,00,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            
+                            <tr style="background: var(--muted); font-weight: 600;">
+                                <td colspan="6">INCOME</td>
+                            </tr>
+                            <tr>
+                                <td>4000</td>
+                                <td>Sales Revenue</td>
+                                <td>Operating Income</td>
+                                <td>Credit</td>
+                                <td>₹45,68,920</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>4100</td>
+                                <td>Service Revenue</td>
+                                <td>Operating Income</td>
+                                <td>Credit</td>
+                                <td>₹12,34,500</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            
+                            <tr style="background: var(--muted); font-weight: 600;">
+                                <td colspan="6">EXPENSES</td>
+                            </tr>
+                            <tr>
+                                <td>5000</td>
+                                <td>Salaries & Wages</td>
+                                <td>Operating Expenses</td>
+                                <td>Debit</td>
+                                <td>₹12,50,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5100</td>
+                                <td>Rent Expense</td>
+                                <td>Operating Expenses</td>
+                                <td>Debit</td>
+                                <td>₹3,50,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5200</td>
+                                <td>Utilities</td>
+                                <td>Operating Expenses</td>
+                                <td>Debit</td>
+                                <td>₹85,000</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bank Accounts Section -->
+        <div id="bank-accounts" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💳 Bank Accounts</h1>
+                <p class="page-subtitle">Manage your bank accounts and balances</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Balance</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">💰</div>
+                    </div>
+                    <div class="stat-value">₹28,42,890</div>
+                    <div class="stat-change positive">Across all accounts</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Accounts</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">🏦</div>
+                    </div>
+                    <div class="stat-value">4</div>
+                    <div class="stat-change">All connected</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Pending Transactions</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change">To be reconciled</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Bank Accounts</h2>
+                    <button class="btn btn-primary">➕ Link Bank Account</button>
+                </div>
+
+                <div style="display: grid; gap: 20px;">
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">HDFC Bank - Current Account</h3>
+                                <p style="color: var(--muted-foreground); font-size: 14px;">Account No: XXXX XXXX 4567</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Current Balance</p>
+                                <p style="font-size: 24px; font-weight: 700;">₹15,67,890</p>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-secondary">View Transactions</button>
+                                <button class="btn btn-secondary">Reconcile</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">ICICI Bank - Savings Account</h3>
+                                <p style="color: var(--muted-foreground); font-size: 14px;">Account No: XXXX XXXX 8901</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Current Balance</p>
+                                <p style="font-size: 24px; font-weight: 700;">₹8,25,000</p>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-secondary">View Transactions</button>
+                                <button class="btn btn-secondary">Reconcile</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Axis Bank - Current Account</h3>
+                                <p style="color: var(--muted-foreground); font-size: 14px;">Account No: XXXX XXXX 2345</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Current Balance</p>
+                                <p style="font-size: 24px; font-weight: 700;">₹4,50,000</p>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <button class="btn btn-secondary">View Transactions</button>
+                                <button class="btn btn-secondary">Reconcile</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div id="transactions" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💸 Transactions</h1>
+                <p class="page-subtitle">View and manage all financial transactions</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Transactions</h2>
+                    <button class="btn btn-primary">➕ Add Transaction</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search transactions...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Income</button>
+                    <button class="filter-btn">Expense</button>
+                    <button class="filter-btn">Transfer</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Transaction ID</th>
+                                <th>Description</th>
+                                <th>Account</th>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 13, 2024</td>
+                                <td>TXN-2024-0156</td>
+                                <td>Payment from Acme Corp</td>
+                                <td>HDFC Current</td>
+                                <td>Sales</td>
+                                <td><span class="status-badge status-paid">Income</span></td>
+                                <td style="color: #10b981; font-weight: 600;">+₹1,25,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 12, 2024</td>
+                                <td>TXN-2024-0155</td>
+                                <td>Office rent payment</td>
+                                <td>HDFC Current</td>
+                                <td>Rent</td>
+                                <td><span class="status-badge status-overdue">Expense</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹3,50,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 11, 2024</td>
+                                <td>TXN-2024-0154</td>
+                                <td>Salary payment - October</td>
+                                <td>HDFC Current</td>
+                                <td>Payroll</td>
+                                <td><span class="status-badge status-overdue">Expense</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹12,50,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 10, 2024</td>
+                                <td>TXN-2024-0153</td>
+                                <td>Payment from Tech Solutions</td>
+                                <td>HDFC Current</td>
+                                <td>Services</td>
+                                <td><span class="status-badge status-paid">Income</span></td>
+                                <td style="color: #10b981; font-weight: 600;">+₹89,500</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 09, 2024</td>
+                                <td>TXN-2024-0152</td>
+                                <td>Office supplies purchase</td>
+                                <td>ICICI Savings</td>
+                                <td>Supplies</td>
+                                <td><span class="status-badge status-overdue">Expense</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹45,670</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 08, 2024</td>
+                                <td>TXN-2024-0151</td>
+                                <td>Marketing campaign payment</td>
+                                <td>Axis Current</td>
+                                <td>Marketing</td>
+                                <td><span class="status-badge status-overdue">Expense</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹1,25,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Invoice Section -->
+        <div id="create-invoice" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">➕ Create Invoice</h1>
+                <p class="page-subtitle">Generate a new invoice for your customer</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Invoice Details</h2>
+                </div>
+
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Invoice Number *</label>
+                            <input type="text" class="form-input" value="INV-2024-1046" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Invoice Date *</label>
+                            <input type="date" class="form-input" value="2024-10-13">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Customer *</label>
+                            <select class="form-select">
+                                <option>Select Customer</option>
+                                <option>Acme Corporation</option>
+                                <option>Tech Solutions Ltd</option>
+                                <option>Global Enterprises</option>
+                                <option>StartupHub Inc</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Due Date *</label>
+                            <input type="date" class="form-input" value="2024-11-13">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Reference Number</label>
+                        <input type="text" class="form-input" placeholder="PO Number or Reference">
+                    </div>
+
+                    <div style="margin: 32px 0; padding: 20px; border: 1px solid var(--border); border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h3 style="font-size: 16px; font-weight: 600;">Line Items</h3>
+                            <button type="button" class="btn btn-secondary">➕ Add Item</button>
+                        </div>
+
+                        <table style="width: 100%;">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--border);">
+                                    <th style="padding: 12px; text-align: left; width: 40%;">Description</th>
+                                    <th style="padding: 12px; text-align: right; width: 15%;">Quantity</th>
+                                    <th style="padding: 12px; text-align: right; width: 15%;">Rate</th>
+                                    <th style="padding: 12px; text-align: right; width: 15%;">Tax</th>
+                                    <th style="padding: 12px; text-align: right; width: 15%;">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 12px;">
+                                        <input type="text" class="form-input" placeholder="Item description" value="Web Development Services">
+                                    </td>
+                                    <td style="padding: 12px;">
+                                        <input type="number" class="form-input" value="40" style="text-align: right;">
+                                    </td>
+                                    <td style="padding: 12px;">
+                                        <input type="number" class="form-input" value="2000" style="text-align: right;">
+                                    </td>
+                                    <td style="padding: 12px;">
+                                        <select class="form-select">
+                                            <option>GST 18%</option>
+                                            <option>GST 12%</option>
+                                            <option>No Tax</option>
+                                        </select>
+                                    </td>
+                                    <td style="padding: 12px; text-align: right; font-weight: 600;">₹80,000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+                        <div style="width: 300px;">
+                            <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                <span>Subtotal:</span>
+                                <span style="font-weight: 600;">₹80,000</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                <span>GST (18%):</span>
+                                <span style="font-weight: 600;">₹14,400</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-top: 2px solid var(--border); margin-top: 8px;">
+                                <span style="font-size: 18px; font-weight: 600;">Total:</span>
+                                <span style="font-size: 18px; font-weight: 700;">₹94,400</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-textarea" placeholder="Add any additional notes or terms..."></textarea>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-primary">💾 Save Invoice</button>
+                        <button type="button" class="btn btn-success">📧 Save & Send</button>
+                        <button type="button" class="btn btn-secondary">👁️ Preview</button>
+                        <button type="button" class="btn btn-secondary">❌ Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- All Invoices Section -->
+        <div id="all-invoices" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📋 All Invoices</h1>
+                <p class="page-subtitle">View and manage all your invoices</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Invoices</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📄</div>
+                    </div>
+                    <div class="stat-value">1,045</div>
+                    <div class="stat-change positive">↑ 28 this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Paid Invoices</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">892</div>
+                    <div class="stat-change positive">85% payment rate</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Pending</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">98</div>
+                    <div class="stat-change">Worth ₹5,67,890</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Overdue</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">⚠️</div>
+                    </div>
+                    <div class="stat-value">55</div>
+                    <div class="stat-change negative">Worth ₹3,25,560</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Invoice List</h2>
+                    <button class="btn btn-primary" onclick="document.querySelector('[data-section=create-invoice]').click()">➕ Create Invoice</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search invoices...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Paid</button>
+                    <button class="filter-btn">Pending</button>
+                    <button class="filter-btn">Overdue</button>
+                    <button class="filter-btn">Draft</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Customer</th>
+                                <th>Issue Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>INV-2024-1045</strong></td>
+                                <td>Acme Corporation</td>
+                                <td>Oct 10, 2024</td>
+                                <td>Nov 10, 2024</td>
+                                <td><strong>₹1,25,000</strong></td>
+                                <td><span class="status-badge status-paid">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>INV-2024-1044</strong></td>
+                                <td>Tech Solutions Ltd</td>
+                                <td>Oct 08, 2024</td>
+                                <td>Nov 08, 2024</td>
+                                <td><strong>₹89,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>INV-2024-1043</strong></td>
+                                <td>Global Enterprises</td>
+                                <td>Oct 05, 2024</td>
+                                <td>Oct 20, 2024</td>
+                                <td><strong>₹2,45,000</strong></td>
+                                <td><span class="status-badge status-overdue">Overdue</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>INV-2024-1042</strong></td>
+                                <td>StartupHub Inc</td>
+                                <td>Oct 03, 2024</td>
+                                <td>Nov 03, 2024</td>
+                                <td><strong>₹67,800</strong></td>
+                                <td><span class="status-badge status-paid">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>INV-2024-1041</strong></td>
+                                <td>Digital Marketing Co</td>
+                                <td>Oct 01, 2024</td>
+                                <td>Nov 01, 2024</td>
+                                <td><strong>₹1,15,300</strong></td>
+                                <td><span class="status-badge status-paid">Paid</span></td>
+                                <td>
+                                    <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Tracker Section -->
+        <div id="expense-tracker" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📌 Expense Tracker</h1>
+                <p class="page-subtitle">Track and categorize business expenses</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Expenses (MTD)</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">💸</div>
+                    </div>
+                    <div class="stat-value">₹28,45,230</div>
+                    <div class="stat-change negative">↑ 8.2% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Top Category</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">🏢</div>
+                    </div>
+                    <div class="stat-value">Salaries</div>
+                    <div class="stat-change">₹12,50,000 (44%)</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Pending Approvals</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-change">Worth ₹1,45,890</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Avg Daily Expense</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📊</div>
+                    </div>
+                    <div class="stat-value">₹2,18,864</div>
+                    <div class="stat-change">Based on 13 days</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Expenses</h2>
+                    <button class="btn btn-primary">➕ Add Expense</button>
+                </div>
+
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search expenses...">
+                    <span class="search-icon">🔍</span>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Approved</button>
+                    <button class="filter-btn">Pending</button>
+                    <button class="filter-btn">Rejected</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Expense ID</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Payment Mode</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 12, 2024</td>
+                                <td>EXP-2024-0245</td>
+                                <td>Office rent - October</td>
+                                <td><span class="tag">Rent</span></td>
+                                <td><strong>₹3,50,000</strong></td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-paid">Approved</span></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 11, 2024</td>
+                                <td>EXP-2024-0244</td>
+                                <td>Monthly salary payment</td>
+                                <td><span class="tag">Payroll</span></td>
+                                <td><strong>₹12,50,000</strong></td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-paid">Approved</span></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 09, 2024</td>
+                                <td>EXP-2024-0243</td>
+                                <td>Office supplies purchase</td>
+                                <td><span class="tag">Supplies</span></td>
+                                <td><strong>₹45,670</strong></td>
+                                <td>Credit Card</td>
+                                <td><span class="status-badge status-paid">Approved</span></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 08, 2024</td>
+                                <td>EXP-2024-0242</td>
+                                <td>Marketing campaign - Facebook Ads</td>
+                                <td><span class="tag">Marketing</span></td>
+                                <td><strong>₹1,25,000</strong></td>
+                                <td>Credit Card</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 07, 2024</td>
+                                <td>EXP-2024-0241</td>
+                                <td>Electricity bill</td>
+                                <td><span class="tag">Utilities</span></td>
+                                <td><strong>₹28,500</strong></td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-paid">Approved</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profit & Loss Section -->
+        <div id="profit-loss" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📊 Profit & Loss Statement</h1>
+                <p class="page-subtitle">View your income statement and profitability</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Profit & Loss - October 2024</h2>
+                    <div style="display: flex; gap: 12px;">
+                        <select class="form-select" style="width: auto;">
+                            <option>October 2024</option>
+                            <option>September 2024</option>
+                            <option>August 2024</option>
+                            <option>Q3 2024</option>
+                            <option>YTD 2024</option>
+                        </select>
+                        <button class="btn btn-secondary">📥 Export PDF</button>
+                    </div>
+                </div>
+
+                <div style="padding: 20px;">
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px;">REVENUE</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Sales Revenue</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹45,68,920</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Service Revenue</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹12,34,500</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Total Revenue</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹58,03,420</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 32px;">COST OF GOODS SOLD</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px; padding-top: 32px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Materials & Supplies</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹8,45,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Direct Labor</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹4,20,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Total COGS</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹12,65,000</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 16px; border-top: 2px solid var(--border);">
+                                <td style="padding: 16px;">GROSS PROFIT</td>
+                                <td style="padding: 16px; text-align: right; color: #10b981;">₹45,38,420</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 32px;">OPERATING EXPENSES</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px; padding-top: 32px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Salaries & Wages</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹12,50,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Rent</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹3,50,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Utilities</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹85,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Marketing & Advertising</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹3,25,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Office Supplies</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹1,20,230</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Insurance</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹75,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Professional Fees</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹1,50,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Depreciation</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹1,25,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Total Operating Expenses</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹24,80,230</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 16px; border-top: 2px solid var(--border);">
+                                <td style="padding: 16px;">OPERATING PROFIT</td>
+                                <td style="padding: 16px; text-align: right; color: #10b981;">₹20,58,190</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 32px;">OTHER INCOME/EXPENSES</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px; padding-top: 32px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Interest Income</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹45,500</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Interest Expense</td>
+                                <td style="padding: 12px 16px; text-align: right; color: var(--danger);">(₹80,000)</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 18px; border-top: 3px solid var(--foreground); background: var(--muted);">
+                                <td style="padding: 20px;">NET PROFIT</td>
+                                <td style="padding: 20px; text-align: right; color: #10b981; font-size: 24px;">₹20,23,690</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 32px; padding: 20px; background: var(--muted); border-radius: 8px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Key Metrics</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Gross Profit Margin</p>
+                                <p style="font-size: 20px; font-weight: 700; color: #10b981;">78.2%</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Operating Profit Margin</p>
+                                <p style="font-size: 20px; font-weight: 700; color: #10b981;">35.5%</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Net Profit Margin</p>
+                                <p style="font-size: 20px; font-weight: 700; color: #10b981;">34.9%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Balance Sheet Section -->
+        <div id="balance-sheet" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">⚖️ Balance Sheet</h1>
+                <p class="page-subtitle">View your assets, liabilities and equity</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Balance Sheet - As of October 13, 2024</h2>
+                    <button class="btn btn-secondary">📥 Export PDF</button>
+                </div>
+
+                <div style="padding: 20px;">
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px;">ASSETS</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px;"></td>
+                            </tr>
+                            
+                            <tr style="font-weight: 600; background: var(--muted);">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Current Assets</td>
+                                <td style="padding: 12px 16px; text-align: right;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Cash & Cash Equivalents</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹18,42,890</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Accounts Receivable</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹8,92,450</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Inventory</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹5,45,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Prepaid Expenses</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹2,15,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Total Current Assets</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹34,95,340</td>
+                            </tr>
+
+                            <tr style="font-weight: 600; background: var(--muted); padding-top: 20px;">
+                                <td style="padding: 12px 16px; padding-left: 24px; padding-top: 20px;">Fixed Assets</td>
+                                <td style="padding: 12px 16px; text-align: right; padding-top: 20px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Property & Equipment</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹45,00,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Less: Accumulated Depreciation</td>
+                                <td style="padding: 10px 16px; text-align: right; color: var(--danger);">(₹8,25,000)</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Net Fixed Assets</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹36,75,000</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 16px; border-top: 3px solid var(--foreground); background: var(--muted);">
+                                <td style="padding: 16px;">TOTAL ASSETS</td>
+                                <td style="padding: 16px; text-align: right; font-size: 18px;">₹71,70,340</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 40px;">LIABILITIES</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px; padding-top: 40px;"></td>
+                            </tr>
+                            
+                            <tr style="font-weight: 600; background: var(--muted);">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Current Liabilities</td>
+                                <td style="padding: 12px 16px; text-align: right;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Accounts Payable</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹6,78,900</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Short-term Loan</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹10,00,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Accrued Expenses</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹2,45,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Total Current Liabilities</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹19,23,900</td>
+                            </tr>
+
+                            <tr style="font-weight: 600; background: var(--muted); padding-top: 20px;">
+                                <td style="padding: 12px 16px; padding-left: 24px; padding-top: 20px;">Long-term Liabilities</td>
+                                <td style="padding: 12px 16px; text-align: right; padding-top: 20px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 16px; padding-left: 40px;">Long-term Loan</td>
+                                <td style="padding: 10px 16px; text-align: right;">₹25,00,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px; padding-left: 24px;">Total Long-term Liabilities</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹25,00,000</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 16px; border-top: 2px solid var(--border);">
+                                <td style="padding: 16px;">TOTAL LIABILITIES</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px;">₹44,23,900</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 40px;">EQUITY</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px; padding-top: 40px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Owner's Capital</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹15,00,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Retained Earnings</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹12,46,440</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 700; font-size: 16px;">
+                                <td style="padding: 16px;">TOTAL EQUITY</td>
+                                <td style="padding: 16px; text-align: right; font-size: 16px;">₹27,46,440</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 18px; border-top: 3px solid var(--foreground); background: var(--muted);">
+                                <td style="padding: 20px;">TOTAL LIABILITIES & EQUITY</td>
+                                <td style="padding: 20px; text-align: right; font-size: 18px;">₹71,70,340</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 32px; padding: 20px; background: var(--muted); border-radius: 8px;">
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Financial Ratios</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Current Ratio</p>
+                                <p style="font-size: 20px; font-weight: 700; color: #10b981;">1.82</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Debt to Equity</p>
+                                <p style="font-size: 20px; font-weight: 700; color: var(--warning);">1.61</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Return on Assets</p>
+                                <p style="font-size: 20px; font-weight: 700; color: #10b981;">28.2%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salary Processing Section -->
+        <div id="salary-processing" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💰 Salary Processing</h1>
+                <p class="page-subtitle">Process monthly salary payments</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Gross Payroll</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">💰</div>
+                    </div>
+                    <div class="stat-value">₹42,50,000</div>
+                    <div class="stat-change">October 2024</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Deductions</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">📉</div>
+                    </div>
+                    <div class="stat-value">₹8,50,000</div>
+                    <div class="stat-change">Tax + PF + ESI</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Net Payroll</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">₹34,00,000</div>
+                    <div class="stat-change">To be disbursed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Employees</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">👥</div>
+                    </div>
+                    <div class="stat-value">68</div>
+                    <div class="stat-change">Active employees</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Salary Breakdown - October 2024</h2>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn btn-success">✅ Process Payroll</button>
+                        <button class="btn btn-secondary">📥 Export</button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Basic Salary</th>
+                                <th>Allowances</th>
+                                <th>Deductions</th>
+                                <th>Net Salary</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>EMP001</strong></td>
+                                <td>Rahul Verma</td>
+                                <td>Engineering</td>
+                                <td>₹70,000</td>
+                                <td>₹25,000</td>
+                                <td>₹18,500</td>
+                                <td><strong>₹76,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP002</strong></td>
+                                <td>Priya Sharma</td>
+                                <td>Marketing</td>
+                                <td>₹60,000</td>
+                                <td>₹25,000</td>
+                                <td>₹16,500</td>
+                                <td><strong>₹68,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP003</strong></td>
+                                <td>Amit Patel</td>
+                                <td>Finance</td>
+                                <td>₹50,000</td>
+                                <td>₹15,000</td>
+                                <td>₹12,500</td>
+                                <td><strong>₹52,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP004</strong></td>
+                                <td>Neha Gupta</td>
+                                <td>HR</td>
+                                <td>₹55,000</td>
+                                <td>₹20,000</td>
+                                <td>₹14,500</td>
+                                <td><strong>₹60,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EMP005</strong></td>
+                                <td>Vikram Singh</td>
+                                <td>Sales</td>
+                                <td>₹40,000</td>
+                                <td>₹15,000</td>
+                                <td>₹10,500</td>
+                                <td><strong>₹44,500</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: var(--muted); border-radius: 8px;">
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">Payment Summary</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Total Gross Pay</p>
+                            <p style="font-size: 18px; font-weight: 700;">₹42,50,000</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Total Deductions</p>
+                            <p style="font-size: 18px; font-weight: 700; color: var(--danger);">₹8,50,000</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Net Payable Amount</p>
+                            <p style="font-size: 20px; font-weight: 700; color: #10b981;">₹34,00,000</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Payment Date</p>
+                            <p style="font-size: 18px; font-weight: 700;">October 25, 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GST Filing Section -->
+        <div id="gst-filing" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🇮🇳 GST Filing</h1>
+                <p class="page-subtitle">Manage GST returns and compliance</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Output GST (Sales)</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">📤</div>
+                    </div>
+                    <div class="stat-value">₹8,22,615</div>
+                    <div class="stat-change">October 2024</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Input GST (Purchases)</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📥</div>
+                    </div>
+                    <div class="stat-value">₹3,32,141</div>
+                    <div class="stat-change">October 2024</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Net GST Payable</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">💰</div>
+                    </div>
+                    <div class="stat-value">₹4,90,474</div>
+                    <div class="stat-change negative">Due on Nov 20</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Filing Status</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">⚠️</div>
+                    </div>
+                    <div class="stat-value">Pending</div>
+                    <div class="stat-change">GSTR-3B Oct 2024</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">GST Returns Status</h2>
+                    <button class="btn btn-primary">📄 File GSTR-3B</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Return Type</th>
+                                <th>Period</th>
+                                <th>Due Date</th>
+                                <th>Output Tax</th>
+                                <th>Input Tax</th>
+                                <th>Net Tax</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GSTR-3B</strong></td>
+                                <td>October 2024</td>
+                                <td>Nov 20, 2024</td>
+                                <td>₹8,22,615</td>
+                                <td>₹3,32,141</td>
+                                <td><strong>₹4,90,474</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 12px;">File Now</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GSTR-1</strong></td>
+                                <td>October 2024</td>
+                                <td>Nov 11, 2024</td>
+                                <td>₹8,22,615</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">Prepare</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GSTR-3B</strong></td>
+                                <td>September 2024</td>
+                                <td>Oct 20, 2024</td>
+                                <td>₹7,65,890</td>
+                                <td>₹3,12,450</td>
+                                <td><strong>₹4,53,440</strong></td>
+                                <td><span class="status-badge status-paid">Filed</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GSTR-1</strong></td>
+                                <td>September 2024</td>
+                                <td>Oct 11, 2024</td>
+                                <td>₹7,65,890</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td><span class="status-badge status-paid">Filed</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>GSTR-3B</strong></td>
+                                <td>August 2024</td>
+                                <td>Sep 20, 2024</td>
+                                <td>₹7,23,456</td>
+                                <td>₹2,98,670</td>
+                                <td><strong>₹4,24,786</strong></td>
+                                <td><span class="status-badge status-paid">Filed</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 24px; padding: 20px; background: var(--muted); border-radius: 8px;">
+                    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px;">GST Summary - October 2024</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 8px;">Sales (Taxable)</p>
+                            <p style="font-size: 18px; font-weight: 600;">₹45,68,920</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 8px;">Purchases (Taxable)</p>
+                            <p style="font-size: 18px; font-weight: 600;">₹18,45,230</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 8px;">CGST Payable</p>
+                            <p style="font-size: 18px; font-weight: 600;">₹2,45,237</p>
+                        </div>
+                        <div>
+                            <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 8px;">SGST Payable</p>
+                            <p style="font-size: 18px; font-weight: 600;">₹2,45,237</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remaining sections with "Under Construction" message -->
+        
+        <!-- Reconciliation Section -->
+        <div id="reconciliation" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">✅ Bank Reconciliation</h1>
+                <p class="page-subtitle">Reconcile your bank statements with accounting records</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Unreconciled Transactions</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change">Worth ₹2,45,670</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Bank Balance</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">🏦</div>
+                    </div>
+                    <div class="stat-value">₹15,67,890</div>
+                    <div class="stat-change">As per bank statement</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Book Balance</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">📖</div>
+                    </div>
+                    <div class="stat-value">₹15,89,450</div>
+                    <div class="stat-change">As per books</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Difference</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">⚠️</div>
+                    </div>
+                    <div class="stat-value">₹21,560</div>
+                    <div class="stat-change">To be reconciled</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">HDFC Bank - Current Account Reconciliation</h2>
+                    <button class="btn btn-primary">🔄 Start Reconciliation</button>
+                </div>
+
+                <div class="info-box">
+                    <div class="info-box-title">📌 Reconciliation Tips</div>
+                    <div class="info-box-content">
+                        Match bank statement transactions with your accounting records. Mark transactions as reconciled once verified. Common differences include outstanding checks, deposits in transit, and bank fees.
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Bank Amount</th>
+                                <th>Book Amount</th>
+                                <th>Difference</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 13, 2024</td>
+                                <td>Payment from Acme Corp</td>
+                                <td>₹1,25,000</td>
+                                <td>₹1,25,000</td>
+                                <td style="color: #10b981;">₹0</td>
+                                <td><span class="status-badge status-paid">Matched</span></td>
+                                <td><button class="btn btn-success" style="padding: 4px 8px; font-size: 12px;">✓</button></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 12, 2024</td>
+                                <td>Office rent payment</td>
+                                <td>₹3,50,000</td>
+                                <td>₹3,50,000</td>
+                                <td style="color: #10b981;">₹0</td>
+                                <td><span class="status-badge status-paid">Matched</span></td>
+                                <td><button class="btn btn-success" style="padding: 4px 8px; font-size: 12px;">✓</button></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 11, 2024</td>
+                                <td>Salary payment</td>
+                                <td>₹12,50,000</td>
+                                <td>-</td>
+                                <td style="color: var(--danger);">₹12,50,000</td>
+                                <td><span class="status-badge status-pending">Unmatched</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Match</button></td>
+                            </tr>
+                            <tr>
+                                <td>Oct 10, 2024</td>
+                                <td>Bank charges</td>
+                                <td>₹250</td>
+                                <td>-</td>
+                                <td style="color: var(--danger);">₹250</td>
+                                <td><span class="status-badge status-pending">Unmatched</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Match</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Gateway Section -->
+        <div id="payment-gateway" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🔄 Payment Gateway</h1>
+                <p class="page-subtitle">Manage online payment integrations</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Collected (MTD)</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">💰</div>
+                    </div>
+                    <div class="stat-value">₹18,45,670</div>
+                    <div class="stat-change positive">↑ 22% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Gateway Fees</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">💸</div>
+                    </div>
+                    <div class="stat-value">₹36,913</div>
+                    <div class="stat-change">2% average fee</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Success Rate</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📈</div>
+                    </div>
+                    <div class="stat-value">96.4%</div>
+                    <div class="stat-change positive">Above industry avg</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Transactions</span>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #7e22ce;">🔢</div>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-change">This month</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Connected Payment Gateways</h2>
+                    <button class="btn btn-primary">➕ Add Gateway</button>
+                </div>
+
+                <div style="display: grid; gap: 20px;">
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Razorpay</h3>
+                                <p style="color: var(--muted-foreground); font-size: 14px;">Primary Gateway</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Transactions</p>
+                                <p style="font-size: 18px; font-weight: 600;">892</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Amount Collected</p>
+                                <p style="font-size: 18px; font-weight: 600;">₹12,34,560</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Success Rate</p>
+                                <p style="font-size: 18px; font-weight: 600; color: #10b981;">97.2%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid var(--border); border-radius: 8px; padding: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                            <div>
+                                <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 4px;">Paytm</h3>
+                                <p style="color: var(--muted-foreground); font-size: 14px;">Secondary Gateway</p>
+                            </div>
+                            <span class="status-badge status-active">Active</span>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Transactions</p>
+                                <p style="font-size: 18px; font-weight: 600;">355</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Amount Collected</p>
+                                <p style="font-size: 18px; font-weight: 600;">₹6,11,110</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 13px; color: var(--muted-foreground); margin-bottom: 4px;">Success Rate</p>
+                                <p style="font-size: 18px; font-weight: 600; color: #10b981;">95.1%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Online Transactions</h2>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Transaction ID</th>
+                                <th>Date & Time</th>
+                                <th>Customer</th>
+                                <th>Gateway</th>
+                                <th>Amount</th>
+                                <th>Fee</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>RZP-2024-8956</strong></td>
+                                <td>Oct 13, 10:45 AM</td>
+                                <td>Acme Corporation</td>
+                                <td>Razorpay</td>
+                                <td>₹25,000</td>
+                                <td>₹500</td>
+                                <td><span class="status-badge status-paid">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>PTM-2024-5634</strong></td>
+                                <td>Oct 13, 09:30 AM</td>
+                                <td>Tech Solutions</td>
+                                <td>Paytm</td>
+                                <td>₹15,600</td>
+                                <td>₹312</td>
+                                <td><span class="status-badge status-paid">Success</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RZP-2024-8955</strong></td>
+                                <td>Oct 12, 04:20 PM</td>
+                                <td>Global Enterprises</td>
+                                <td>Razorpay</td>
+                                <td>₹50,000</td>
+                                <td>₹1,000</td>
+                                <td><span class="status-badge status-overdue">Failed</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RZP-2024-8954</strong></td>
+                                <td>Oct 12, 02:15 PM</td>
+                                <td>StartupHub Inc</td>
+                                <td>Razorpay</td>
+                                <td>₹32,450</td>
+                                <td>₹649</td>
+                                <td><span class="status-badge status-paid">Success</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recurring Invoices -->
+        <div id="recurring" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🔁 Recurring Invoices</h1>
+                <p class="page-subtitle">Manage recurring invoice schedules</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Subscriptions</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">🔁</div>
+                    </div>
+                    <div class="stat-value">24</div>
+                    <div class="stat-change positive">↑ 3 this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Monthly Revenue</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">💰</div>
+                    </div>
+                    <div class="stat-value">₹8,45,000</div>
+                    <div class="stat-change">From subscriptions</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Next Due</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change">To be sent this week</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recurring Invoice List</h2>
+                    <button class="btn btn-primary">➕ Create Recurring Invoice</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Amount</th>
+                                <th>Frequency</th>
+                                <th>Next Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Acme Corporation</strong></td>
+                                <td>Monthly Retainer</td>
+                                <td>₹50,000</td>
+                                <td>Monthly</td>
+                                <td>Nov 01, 2024</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tech Solutions Ltd</strong></td>
+                                <td>Software License</td>
+                                <td>₹35,000</td>
+                                <td>Monthly</td>
+                                <td>Nov 05, 2024</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Global Enterprises</strong></td>
+                                <td>Quarterly Maintenance</td>
+                                <td>₹1,50,000</td>
+                                <td>Quarterly</td>
+                                <td>Jan 01, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>StartupHub Inc</strong></td>
+                                <td>Annual Support</td>
+                                <td>₹2,50,000</td>
+                                <td>Yearly</td>
+                                <td>Mar 15, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estimates Section -->
+        <div id="estimates" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📊 Estimates</h1>
+                <p class="page-subtitle">Create and manage estimates for clients</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Estimates</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📊</div>
+                    </div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-change positive">↑ 12 this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Accepted</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">98</div>
+                    <div class="stat-change positive">62.8% conversion</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Pending</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">38</div>
+                    <div class="stat-change">Worth ₹15,67,800</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Declined</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">❌</div>
+                    </div>
+                    <div class="stat-value">20</div>
+                    <div class="stat-change">12.8%</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Estimates</h2>
+                    <button class="btn btn-primary">➕ Create Estimate</button>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Draft</button>
+                    <button class="filter-btn">Sent</button>
+                    <button class="filter-btn">Accepted</button>
+                    <button class="filter-btn">Declined</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Estimate #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Valid Until</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>EST-2024-0156</strong></td>
+                                <td>Acme Corporation</td>
+                                <td>Oct 13, 2024</td>
+                                <td>Oct 28, 2024</td>
+                                <td><strong>₹2,45,000</strong></td>
+                                <td><span class="status-badge status-pending">Sent</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EST-2024-0155</strong></td>
+                                <td>Tech Solutions Ltd</td>
+                                <td>Oct 11, 2024</td>
+                                <td>Oct 26, 2024</td>
+                                <td><strong>₹1,85,500</strong></td>
+                                <td><span class="status-badge status-paid">Accepted</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Convert</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EST-2024-0154</strong></td>
+                                <td>Global Enterprises</td>
+                                <td>Oct 09, 2024</td>
+                                <td>Oct 24, 2024</td>
+                                <td><strong>₹3,75,000</strong></td>
+                                <td><span class="status-badge status-overdue">Declined</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>EST-2024-0153</strong></td>
+                                <td>StartupHub Inc</td>
+                                <td>Oct 08, 2024</td>
+                                <td>Oct 23, 2024</td>
+                                <td><strong>₹95,800</strong></td>
+                                <td><span class="status-badge status-paid">Accepted</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Convert</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credit Notes -->
+        <div id="credit-notes" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📝 Credit Notes</h1>
+                <p class="page-subtitle">Manage credit notes and refunds</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Credit Notes</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">📝</div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change">This year</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Value</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">💰</div>
+                    </div>
+                    <div class="stat-value">₹6,78,450</div>
+                    <div class="stat-change">YTD 2024</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Pending</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">⏰</div>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-change">Worth ₹1,25,600</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Credit Note List</h2>
+                    <button class="btn btn-primary">➕ Create Credit Note</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Credit Note #</th>
+                                <th>Invoice #</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Reason</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>CN-2024-042</strong></td>
+                                <td>INV-2024-1025</td>
+                                <td>Acme Corporation</td>
+                                <td>Oct 10, 2024</td>
+                                <td>Product Return</td>
+                                <td><strong>₹25,000</strong></td>
+                                <td><span class="status-badge status-paid">Applied</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CN-2024-041</strong></td>
+                                <td>INV-2024-1018</td>
+                                <td>Tech Solutions Ltd</td>
+                                <td>Oct 05, 2024</td>
+                                <td>Service Issue</td>
+                                <td><strong>₹15,600</strong></td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>CN-2024-040</strong></td>
+                                <td>INV-2024-1012</td>
+                                <td>Global Enterprises</td>
+                                <td>Sep 28, 2024</td>
+                                <td>Billing Error</td>
+                                <td><strong>₹45,000</strong></td>
+                                <td><span class="status-badge status-paid">Applied</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bills Section -->
+        <div id="bills" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🧾 Bills</h1>
+                <p class="page-subtitle">Manage vendor bills and purchases</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Bills (MTD)</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">🧾</div>
+                    </div>
+                    <div class="stat-value">₹18,45,230</div>
+                    <div class="stat-change negative">↑ 6% from last month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Paid Bills</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">✅</div>
+                    </div>
+                    <div class="stat-value">₹11,66,330</div>
+                    <div class="stat-change">63% paid</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Unpaid Bills</span>
+                        <div class="stat-icon" style="background: #fef3c7; color: #92400e;">⏰</div>
+                    </div>
+                    <div class="stat-value">₹6,78,900</div>
+                    <div class="stat-change">Due in 15 days</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Bills</h2>
+                    <button class="btn btn-primary">➕ Add Bill</button>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Unpaid</button>
+                    <button class="filter-btn">Paid</button>
+                    <button class="filter-btn">Overdue</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Bill #</th>
+                                <th>Vendor</th>
+                                <th>Bill Date</th>
+                                <th>Due Date</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>BILL-2024-245</strong></td>
+                                <td>Office Supplies Co</td>
+                                <td>Oct 10, 2024</td>
+                                <td>Nov 10, 2024</td>
+                                <td><strong>₹45,000</strong></td>
+                                <td><span class="status-badge status-pending">Unpaid</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Pay</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BILL-2024-244</strong></td>
+                                <td>Tech Hardware Ltd</td>
+                                <td>Oct 08, 2024</td>
+                                <td>Nov 08, 2024</td>
+                                <td><strong>₹1,20,000</strong></td>
+                                <td><span class="status-badge status-pending">Unpaid</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Pay</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BILL-2024-243</strong></td>
+                                <td>Packaging Solutions</td>
+                                <td>Oct 05, 2024</td>
+                                <td>Nov 05, 2024</td>
+                                <td><strong>₹78,900</strong></td>
+                                <td><span class="status-badge status-paid">Paid</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">View</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>BILL-2024-242</strong></td>
+                                <td>Software Services</td>
+                                <td>Oct 01, 2024</td>
+                                <td>Oct 31, 2024</td>
+                                <td><strong>₹2,50,000</strong></td>
+                                <td><span class="status-badge status-pending">Unpaid</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Pay</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payments Section -->
+        <div id="payments" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💰 Payments</h1>
+                <p class="page-subtitle">Record and track payments</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Payments Received</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">💰</div>
+                    </div>
+                    <div class="stat-value">₹32,45,780</div>
+                    <div class="stat-change positive">This month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Payments Made</span>
+                        <div class="stat-icon" style="background: #fee2e2; color: #dc2626;">💸</div>
+                    </div>
+                    <div class="stat-value">₹24,67,890</div>
+                    <div class="stat-change">This month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Net Cash Flow</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">📊</div>
+                    </div>
+                    <div class="stat-value">₹7,77,890</div>
+                    <div class="stat-change positive">Positive</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Payments</h2>
+                    <button class="btn btn-primary">➕ Record Payment</button>
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Received</button>
+                    <button class="filter-btn">Made</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Payment #</th>
+                                <th>Party</th>
+                                <th>Reference</th>
+                                <th>Mode</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 13, 2024</td>
+                                <td><strong>PAY-2024-567</strong></td>
+                                <td>Acme Corporation</td>
+                                <td>INV-2024-1045</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-paid" style="background: #d1fae5;">Received</span></td>
+                                <td style="color: #10b981; font-weight: 600;">+₹1,25,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 12, 2024</td>
+                                <td><strong>PAY-2024-566</strong></td>
+                                <td>Office Supplies Co</td>
+                                <td>BILL-2024-230</td>
+                                <td>Cash</td>
+                                <td><span class="status-badge status-overdue" style="background: #fee2e2;">Made</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹45,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 11, 2024</td>
+                                <td><strong>PAY-2024-565</strong></td>
+                                <td>Employees</td>
+                                <td>Salary Oct 2024</td>
+                                <td>Bank Transfer</td>
+                                <td><span class="status-badge status-overdue" style="background: #fee2e2;">Made</span></td>
+                                <td style="color: var(--danger); font-weight: 600;">-₹12,50,000</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 10, 2024</td>
+                                <td><strong>PAY-2024-564</strong></td>
+                                <td>Tech Solutions Ltd</td>
+                                <td>INV-2024-1044</td>
+                                <td>Online</td>
+                                <td><span class="status-badge status-paid" style="background: #d1fae5;">Received</span></td>
+                                <td style="color: #10b981; font-weight: 600;">+₹89,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Categories -->
+        <div id="expense-categories" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🏷️ Expense Categories</h1>
+                <p class="page-subtitle">Manage expense categories and tags</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Expense Categories</h2>
+                    <button class="btn btn-primary">➕ Add Category</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Category Name</th>
+                                <th>Description</th>
+                                <th>Total Expenses (MTD)</th>
+                                <th>% of Total</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Salaries & Wages</strong></td>
+                                <td>Employee compensation</td>
+                                <td><strong>₹12,50,000</strong></td>
+                                <td>44%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rent & Utilities</strong></td>
+                                <td>Office space and services</td>
+                                <td><strong>₹4,35,000</strong></td>
+                                <td>15%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Marketing & Advertising</strong></td>
+                                <td>Promotional activities</td>
+                                <td><strong>₹3,25,000</strong></td>
+                                <td>11%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Office Supplies</strong></td>
+                                <td>Stationery and equipment</td>
+                                <td><strong>₹1,20,230</strong></td>
+                                <td>4%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Professional Fees</strong></td>
+                                <td>Consultants and advisors</td>
+                                <td><strong>₹1,50,000</strong></td>
+                                <td>5%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Travel & Transportation</strong></td>
+                                <td>Business travel expenses</td>
+                                <td><strong>₹85,000</strong></td>
+                                <td>3%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Insurance</strong></td>
+                                <td>Business insurance premiums</td>
+                                <td><strong>₹75,000</strong></td>
+                                <td>3%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Miscellaneous</strong></td>
+                                <td>Other business expenses</td>
+                                <td><strong>₹45,000</strong></td>
+                                <td>2%</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td><button class="btn btn-secondary" style="padding: 4px 8px; font-size: 12px;">Edit</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Remaining sections continued... -->
+        <!-- Cash Flow -->
+        <div id="cash-flow" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💵 Cash Flow Statement</h1>
+                <p class="page-subtitle">Track cash inflows and outflows</p>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Cash Flow Statement - October 2024</h2>
+                    <button class="btn btn-secondary">📥 Export PDF</button>
+                </div>
+
+                <div style="padding: 20px;">
+                    <table style="width: 100%;">
+                        <tbody>
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px;">OPERATING ACTIVITIES</td>
+                                <td style="padding: 16px; text-align: right;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Net Profit</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹20,23,690</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Add: Depreciation</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹1,25,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Changes in Working Capital</td>
+                                <td style="padding: 12px 16px; text-align: right;">(₹3,45,000)</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Net Cash from Operating Activities</td>
+                                <td style="padding: 12px 16px; text-align: right; color: #10b981;">₹18,03,690</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 32px;">INVESTING ACTIVITIES</td>
+                                <td style="padding: 16px; text-align: right; padding-top: 32px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Purchase of Fixed Assets</td>
+                                <td style="padding: 12px 16px; text-align: right; color: var(--danger);">(₹5,00,000)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Sale of Investments</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹2,00,000</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Net Cash from Investing Activities</td>
+                                <td style="padding: 12px 16px; text-align: right; color: var(--danger);">(₹3,00,000)</td>
+                            </tr>
+
+                            <tr style="background: var(--muted); font-weight: 700;">
+                                <td style="padding: 16px; font-size: 16px; padding-top: 32px;">FINANCING ACTIVITIES</td>
+                                <td style="padding: 16px; text-align: right; padding-top: 32px;"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Loan Received</td>
+                                <td style="padding: 12px 16px; text-align: right;">₹5,00,000</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Loan Repayment</td>
+                                <td style="padding: 12px 16px; text-align: right; color: var(--danger);">(₹1,50,000)</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px 16px; padding-left: 32px;">Dividends Paid</td>
+                                <td style="padding: 12px 16px; text-align: right; color: var(--danger);">(₹2,00,000)</td>
+                            </tr>
+                            <tr style="border-top: 1px solid var(--border); font-weight: 600;">
+                                <td style="padding: 12px 16px;">Net Cash from Financing Activities</td>
+                                <td style="padding: 12px 16px; text-align: right; color: #10b981;">₹1,50,000</td>
+                            </tr>
+
+                            <tr style="font-weight: 700; font-size: 18px; border-top: 3px solid var(--foreground); background: var(--muted);">
+                                <td style="padding: 20px;">NET INCREASE IN CASH</td>
+                                <td style="padding: 20px; text-align: right; color: #10b981; font-size: 24px;">₹16,53,690</td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 16px;">Opening Cash Balance</td>
+                                <td style="padding: 16px; text-align: right;">₹11,89,200</td>
+                            </tr>
+                            <tr style="font-weight: 700; border-top: 2px solid var(--border);">
+                                <td style="padding: 16px;">CLOSING CASH BALANCE</td>
+                                <td style="padding: 16px; text-align: right; font-size: 20px;">₹28,42,890</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue with remaining sections -->
+        <!-- Trial Balance, Custom Reports, Fixed Assets, Depreciation, Asset Register, 
+             Payslips, Attendance, Leave Management, TDS, Income Tax, Tax Reports, 
+             Journal Entries, Ledger, Budget Planning, Budget vs Actual, Forecasting -->
+
+        <!-- For brevity, I'll add placeholder sections for the remaining ones -->
+        
+        <!-- Trial Balance -->
+        <div id="trial-balance" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📑 Trial Balance</h1>
+                <p class="page-subtitle">View your trial balance report - All debits and credits</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Trial Balance - October 2024</h2>
+                    <button class="btn btn-secondary">📥 Export</button>
+                </div>
+                <div style="padding: 20px;">
+                    <div style="text-align: center; padding: 60px;">
+                        <p style="font-size: 48px; margin-bottom: 16px;">⚖️</p>
+                        <h3 style="font-size: 20px; margin-bottom: 8px;">Trial Balance Report</h3>
+                        <p style="color: var(--muted-foreground);">Detailed trial balance showing all account balances</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="custom-reports" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">⚙️ Custom Reports</h1>
+                <p class="page-subtitle">Create and manage custom financial reports</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Custom Report Builder</h2>
+                    <button class="btn btn-primary">➕ Create New Report</button>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <h3>Build Custom Reports</h3>
+                    <p>Create customized financial reports tailored to your business needs</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="fixed-assets" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🏗️ Fixed Assets</h1>
+                <p class="page-subtitle">Manage your fixed assets inventory</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Assets</span>
+                        <div class="stat-icon" style="background: #e0f2fe; color: #0369a1;">🏗️</div>
+                    </div>
+                    <div class="stat-value">₹45,00,000</div>
+                    <div class="stat-change">Original cost</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Net Book Value</span>
+                        <div class="stat-icon" style="background: #d1fae5; color: #065f46;">📊</div>
+                    </div>
+                    <div class="stat-value">₹36,75,000</div>
+                    <div class="stat-change">After depreciation</div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Fixed Assets List</h2>
+                    <button class="btn btn-primary">➕ Add Asset</button>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">🏗️</div>
+                    <h3>Fixed Assets Management</h3>
+                    <p>Track and manage all company fixed assets</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="depreciation" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📉 Depreciation</h1>
+                <p class="page-subtitle">Calculate and track asset depreciation</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Depreciation Schedule</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📉</div>
+                    <h3>Depreciation Tracking</h3>
+                    <p>Monitor depreciation of fixed assets over time</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="asset-register" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📖 Asset Register</h1>
+                <p class="page-subtitle">Complete register of all company assets</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Asset Register</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📖</div>
+                    <h3>Comprehensive Asset Register</h3>
+                    <p>Detailed records of all company assets</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="payslips" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📄 Payslips</h1>
+                <p class="page-subtitle">Generate and manage employee payslips</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Payslip Management</h2>
+                    <button class="btn btn-primary">Generate Payslips</button>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📄</div>
+                    <h3>Employee Payslips</h3>
+                    <p>Generate and distribute monthly payslips</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="attendance" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📅 Attendance</h1>
+                <p class="page-subtitle">Track employee attendance and working hours</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Attendance Tracker</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📅</div>
+                    <h3>Attendance Management</h3>
+                    <p>Monitor employee attendance and calculate working hours</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="leave-management" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🏖️ Leave Management</h1>
+                <p class="page-subtitle">Manage employee leave requests and balances</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Leave Requests</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">🏖️</div>
+                    <h3>Leave Management System</h3>
+                    <p>Handle leave requests and track leave balances</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tds" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">💼 TDS Management</h1>
+                <p class="page-subtitle">Track and file TDS returns</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">TDS Dashboard</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">💼</div>
+                    <h3>TDS Compliance</h3>
+                    <p>Manage TDS deductions and quarterly returns</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="income-tax" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📝 Income Tax</h1>
+                <p class="page-subtitle">Manage income tax calculations and filing</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Income Tax Management</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📝</div>
+                    <h3>Income Tax Filing</h3>
+                    <p>Calculate and file income tax returns</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tax-reports" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📑 Tax Reports</h1>
+                <p class="page-subtitle">Generate tax-related reports</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Tax Reporting</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📑</div>
+                    <h3>Comprehensive Tax Reports</h3>
+                    <p>Generate detailed tax reports for compliance</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="journal-entries" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">✍️ Journal Entries</h1>
+                <p class="page-subtitle">Create and manage journal entries</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Journal Entry Log</h2>
+                    <button class="btn btn-primary">➕ New Entry</button>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">✍️</div>
+                    <h3>Journal Entries</h3>
+                    <p>Record manual accounting adjustments and entries</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="ledger" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📔 General Ledger</h1>
+                <p class="page-subtitle">View general ledger and account postings</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">General Ledger</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📔</div>
+                    <h3>General Ledger</h3>
+                    <p>Complete record of all financial transactions</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="budget-planning" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📋 Budget Planning</h1>
+                <p class="page-subtitle">Create and manage annual budgets</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Budget Planning Tool</h2>
+                    <button class="btn btn-primary">➕ Create Budget</button>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    <h3>Budget Planning</h3>
+                    <p>Plan and allocate budgets for different departments</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="budget-vs-actual" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">📊 Budget vs Actual</h1>
+                <p class="page-subtitle">Compare budgeted vs actual performance</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Budget Analysis</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">📊</div>
+                    <h3>Budget vs Actual Analysis</h3>
+                    <p>Compare planned budget with actual spending</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="forecasting" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">🔮 Financial Forecasting</h1>
+                <p class="page-subtitle">Create financial forecasts and projections</p>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Forecasting Tools</h2>
+                </div>
+                <div class="empty-state">
+                    <div class="empty-state-icon">🔮</div>
+                    <h3>Financial Forecasting</h3>
+                    <p>Project future financial performance and trends</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Navigation functionality
+        document.querySelectorAll('[data-section]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const sectionId = item.getAttribute('data-section');
+                
+                // Hide all sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show selected section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.style.display = 'block';
+                }
+                
+                // Update active state in nav
+                document.querySelectorAll('.nav-item').forEach(navItem => {
+                    navItem.classList.remove('active');
+                });
+                
+                // If clicked item is in dropdown, activate parent nav-item
+                const parentNavItem = item.closest('.nav-item');
+                if (parentNavItem) {
+                    parentNavItem.classList.add('active');
+                } else if (item.classList.contains('nav-item')) {
+                    item.classList.add('active');
+                }
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Prevent dropdown from closing when clicking inside
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+    </script>
+
+</body>
+</html>
