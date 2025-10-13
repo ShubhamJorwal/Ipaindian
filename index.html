@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA - Dashboard Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #fafafa;
+            color: #000;
+            line-height: 1.6;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .header p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Main Dashboard Section */
+        .section {
+            background: #fff;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            color: #000;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .dashboard-link {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .dashboard-link:hover {
+            border-color: #000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .dashboard-link.primary {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .dashboard-link.primary:hover {
+            background: #333;
+            border-color: #333;
+        }
+
+        .btn-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Category Sections */
+        .category {
+            margin-bottom: 35px;
+        }
+
+        .category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 900px;
+            width: 90%;
+            border: 1px solid #e0e0e0;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #e0e0e0;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: #000;
+            font-weight: 600;
+        }
+
+        .close {
+            font-size: 28px;
+            font-weight: 300;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+        }
+
+        .candidate-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .candidate-card:hover {
+            border-color: #000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .candidate-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .candidate-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .candidate-constituency {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 40px 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+
+            .candidate-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Indian Political Analysis</h1>
+            <p>Strategic Campaign Management Platform</p>
+        </div>
+
+        <!-- Main Dashboards Section -->
+        <div class="section">
+            <h2 class="section-title">Main Dashboards</h2>
+            <div class="button-grid">
+                <a href="national-dashboard.html" class="dashboard-link primary">
+                    <span class="btn-icon">🏛️</span>
+                    <span>National Dashboard | India</span>
+                </a>
+
+                <a href="state-dashboard.html" class="dashboard-link primary">
+                    <span class="btn-icon">📊</span>
+                    <span>State Dashboard</span>
+                </a>
+
+                <a href="#" class="dashboard-link primary" onclick="openModal(); return false;">
+                    <span class="btn-icon">🎯</span>
+                    <span>Constituency Dashboard</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Management Dashboards Section -->
+        <div class="section">
+            <h2 class="section-title">Management Dashboards</h2>
+            
+            <!-- Core Management -->
+            <div class="category">
+                <h3 class="category-title">Core Management</h3>
+                <div class="button-grid">
+                    <a href="dashboards/hr-dashboard.html" class="dashboard-link">
+                        <span class="btn-icon">👥</span>
+                        <span>HR Dashboard</span>
+                    </a>
+
+                    <a href="dashboards/admin-dashboard.html" class="dashboard-link">
+                        <span class="btn-icon">⚙️</span>
+                        <span>Admin Dashboard</span>
+                    </a>
+
+                    <a href="dashboards/campaign-manager.html" class="dashboard-link">
+                        <span class="btn-icon">🎯</span>
+                        <span>Campaign Manager</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Digital & Content -->
+            <div class="category">
+                <h3 class="category-title">Digital & Content</h3>
+                <div class="button-grid">
+                    <a href="dashboards/social-media.html" class="dashboard-link">
+                        <span class="btn-icon">📱</span>
+                        <span>Social Media Staff</span>
+                    </a>
+
+                    <a href="dashboards/marketing.html" class="dashboard-link">
+                        <span class="btn-icon">📢</span>
+                        <span>Marketing Team</span>
+                    </a>
+
+                    <a href="dashboards/content-writer.html" class="dashboard-link">
+                        <span class="btn-icon">✍️</span>
+                        <span>Content Writer</span>
+                    </a>
+
+                    <a href="dashboards/it-web.html" class="dashboard-link">
+                        <span class="btn-icon">💻</span>
+                        <span>IT & Web Management</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Finance & Legal -->
+            <div class="category">
+                <h3 class="category-title">Finance & Legal</h3>
+                <div class="button-grid">
+                    <a href="dashboards/accounting.html" class="dashboard-link">
+                        <span class="btn-icon">💰</span>
+                        <span>Accounting</span>
+                    </a>
+
+                    <a href="dashboards/legal.html" class="dashboard-link">
+                        <span class="btn-icon">⚖️</span>
+                        <span>Legal & Compliance</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Field Operations -->
+            <div class="category">
+                <h3 class="category-title">Field Operations</h3>
+                <div class="button-grid">
+                    <a href="dashboards/field-operations.html" class="dashboard-link">
+                        <span class="btn-icon">🚶</span>
+                        <span>Field Operations</span>
+                    </a>
+
+                    <a href="dashboards/volunteer.html" class="dashboard-link">
+                        <span class="btn-icon">🤝</span>
+                        <span>Volunteer Coordinator</span>
+                    </a>
+
+                    <a href="dashboards/events.html" class="dashboard-link">
+                        <span class="btn-icon">🎪</span>
+                        <span>Event Management</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Research & Analytics -->
+            <div class="category">
+                <h3 class="category-title">Research & Analytics</h3>
+                <div class="button-grid">
+                    <a href="dashboards/data-analytics.html" class="dashboard-link">
+                        <span class="btn-icon">📈</span>
+                        <span>Data Analytics</span>
+                    </a>
+
+                    <a href="dashboards/survey-polling.html" class="dashboard-link">
+                        <span class="btn-icon">📊</span>
+                        <span>Survey & Polling</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Communication -->
+            <div class="category">
+                <h3 class="category-title">Communication & PR</h3>
+                <div class="button-grid">
+                    <a href="dashboards/media-relations.html" class="dashboard-link">
+                        <span class="btn-icon">📺</span>
+                        <span>Media Relations</span>
+                    </a>
+
+                    <a href="dashboards/public-relations.html" class="dashboard-link">
+                        <span class="btn-icon">🎤</span>
+                        <span>Public Relations</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Candidate Profiles -->
+    <div id="candidateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Select Candidate Profile</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+
+            <div class="candidate-grid">
+                <a href="candidate/candidate-1.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Rajesh Kumar</div>
+                    <div class="candidate-constituency">Bangalore North</div>
+                </a>
+
+                <a href="candidate/candidate-2.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Priya Sharma</div>
+                    <div class="candidate-constituency">Mysore City</div>
+                </a>
+
+                <a href="candidate/candidate-3.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Arun Desai</div>
+                    <div class="candidate-constituency">Hubli-Dharwad</div>
+                </a>
+
+                <a href="candidate/candidate-4.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Lakshmi Patel</div>
+                    <div class="candidate-constituency">Mangalore Central</div>
+                </a>
+
+                <a href="candidate/candidate-5.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Vijay Reddy</div>
+                    <div class="candidate-constituency">Belgaum North</div>
+                </a>
+
+                <a href="candidate/candidate-6.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Anjali Singh</div>
+                    <div class="candidate-constituency">Shimoga Rural</div>
+                </a>
+
+                <a href="candidate/candidate-7.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Suresh Rao</div>
+                    <div class="candidate-constituency">Udupi</div>
+                </a>
+
+                <a href="candidate/candidate-8.html" class="candidate-card">
+                    <div class="candidate-icon">👤</div>
+                    <div class="candidate-name">Kavita Nair</div>
+                    <div class="candidate-constituency">Hassan</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('candidateModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('candidateModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('candidateModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
