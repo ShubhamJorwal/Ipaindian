@@ -19,7 +19,6 @@
             line-height: 1.6;
         }
 
-        /* Top Bar - Logo and Icons */
         .top-bar {
             background: white;
             border-bottom: 1px solid #e5e5e5;
@@ -46,6 +45,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
         .logo-icon {
@@ -91,7 +91,6 @@
             cursor: pointer;
         }
 
-        /* Navigation Bar - Second Layer */
         .nav-bar {
             background: white;
             border-bottom: 1px solid #e5e5e5;
@@ -138,7 +137,6 @@
             transform: rotate(180deg);
         }
 
-        /* Dropdown Menu */
         .dropdown {
             position: absolute;
             top: 100%;
@@ -187,7 +185,6 @@
             margin: 4px 0;
         }
 
-        /* Main Content */
         .main-content {
             padding: 32px;
             max-width: 1600px;
@@ -213,7 +210,6 @@
             color: #737373;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -279,7 +275,6 @@
             color: #dc2626;
         }
 
-        /* Module Grid */
         .modules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -331,14 +326,12 @@
             padding: 24px;
         }
 
-        /* Chart Container */
         .chart-container {
             position: relative;
             height: 300px;
             margin-bottom: 16px;
         }
 
-        /* Table Styles */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -363,7 +356,6 @@
             background: #fafafa;
         }
 
-        /* Filter Bar */
         .filter-bar {
             background: white;
             border: 1px solid #e5e5e5;
@@ -437,7 +429,6 @@
             background: #fafafa;
         }
 
-        /* Color Schemes */
         .bg-blue { background: #dbeafe; }
         .text-blue { color: #1e40af; }
         .bg-green { background: #dcfce7; }
@@ -451,12 +442,10 @@
         .bg-indigo { background: #e0e7ff; }
         .text-indigo { color: #4338ca; }
 
-        /* Large Module Card */
         .large-module {
             grid-column: 1 / -1;
         }
 
-        /* Data Stats */
         .data-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -484,7 +473,6 @@
             font-weight: 500;
         }
 
-        /* Progress Bar */
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -501,7 +489,6 @@
             transition: width 0.3s;
         }
 
-        /* List Styles */
         .info-list {
             list-style: none;
             padding: 0;
@@ -519,7 +506,6 @@
             border-bottom: none;
         }
 
-        /* Badge */
         .badge {
             padding: 4px 12px;
             border-radius: 12px;
@@ -547,7 +533,6 @@
             color: #1e40af;
         }
 
-        /* Metric Card */
         .metric-card {
             background: #fafafa;
             padding: 20px;
@@ -567,13 +552,6 @@
             color: #171717;
         }
 
-        /* Section Divider */
-        .section-divider {
-            height: 1px;
-            background: #e5e5e5;
-            margin: 32px 0;
-        }
-
         .section-title {
             font-size: 24px;
             font-weight: 700;
@@ -581,7 +559,14 @@
             color: #171717;
         }
 
-        /* Responsive */
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
         @media (max-width: 768px) {
             .top-bar, .nav-bar, .main-content {
                 padding: 16px;
@@ -604,19 +589,13 @@
                 font-size: 24px;
             }
         }
-
-        /* Hidden class */
-        .hidden {
-            display: none;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Top Bar -->
     <div class="top-bar">
         <div class="logo-section">
-            <div class="logo">
+            <div class="logo" onclick="navigateToSection('overview')">
                 <span class="logo-icon">📊</span>
                 <span>Indian Political Analysis</span>
             </div>
@@ -629,1065 +608,2222 @@
         </div>
     </div>
 
-    <!-- Navigation Bar -->
     <div class="nav-bar">
-        <div class="nav-item" data-section="overview">
+        <div class="nav-item active" data-section="overview" onclick="navigateToSection('overview')">
             <span>📊</span> Overview
         </div>
         <div class="nav-item" data-has-dropdown="true">
             <span>📈</span> Reports <span class="nav-arrow">▼</span>
             <div class="dropdown">
-                <div class="dropdown-item" data-section="voter-analytics">📄 Voter Analytics</div>
-                <div class="dropdown-item" data-section="survey-reports">📊 Survey Reports</div>
-                <div class="dropdown-item" data-section="performance-metrics">📉 Performance Metrics</div>
+                <div class="dropdown-item" onclick="navigateToSection('voter-analytics')">📄 Voter Analytics</div>
+                <div class="dropdown-item" onclick="navigateToSection('survey-reports')">📊 Survey Reports</div>
+                <div class="dropdown-item" onclick="navigateToSection('performance-metrics')">📉 Performance Metrics</div>
                 <div class="dropdown-divider"></div>
-                <div class="dropdown-item" data-section="custom-reports">⚙️ Custom Reports</div>
+                <div class="dropdown-item" onclick="navigateToSection('custom-reports')">⚙️ Custom Reports</div>
             </div>
         </div>
         <div class="nav-item" data-has-dropdown="true">
             <span>🎯</span> Constituencies <span class="nav-arrow">▼</span>
             <div class="dropdown">
-                <div class="dropdown-item" data-section="all-constituencies">🗺️ All Constituencies</div>
-                <div class="dropdown-item" data-section="district-view">📍 District View</div>
-                <div class="dropdown-item" data-section="booth-analysis">🏘️ Booth Analysis</div>
-                <div class="dropdown-item" data-section="demographics">👥 Demographics</div>
+                <div class="dropdown-item" onclick="navigateToSection('all-constituencies')">🗺️ All Constituencies</div>
+                <div class="dropdown-item" onclick="navigateToSection('district-view')">📍 District View</div>
+                <div class="dropdown-item" onclick="navigateToSection('booth-analysis')">🏘️ Booth Analysis</div>
+                <div class="dropdown-item" onclick="navigateToSection('demographics')">👥 Demographics</div>
             </div>
         </div>
         <div class="nav-item" data-has-dropdown="true">
             <span>📱</span> Campaigns <span class="nav-arrow">▼</span>
             <div class="dropdown">
-                <div class="dropdown-item" data-section="active-campaigns">🚀 Active Campaigns</div>
-                <div class="dropdown-item" data-section="campaign-analytics">📊 Campaign Analytics</div>
-                <div class="dropdown-item" data-section="social-media">💬 Social Media</div>
-                <div class="dropdown-item" data-section="email-tracking">📧 Email Tracking</div>
+                <div class="dropdown-item" onclick="navigateToSection('active-campaigns')">🚀 Active Campaigns</div>
+                <div class="dropdown-item" onclick="navigateToSection('campaign-analytics')">📊 Campaign Analytics</div>
+                <div class="dropdown-item" onclick="navigateToSection('social-media')">💬 Social Media</div>
+                <div class="dropdown-item" onclick="navigateToSection('email-tracking')">📧 Email Tracking</div>
             </div>
         </div>
         <div class="nav-item" data-has-dropdown="true">
             <span>👥</span> Voters <span class="nav-arrow">▼</span>
             <div class="dropdown">
-                <div class="dropdown-item" data-section="voter-database">📋 Voter Database</div>
-                <div class="dropdown-item" data-section="segmentation">🔍 Segmentation</div>
-                <div class="dropdown-item" data-section="behavior-analysis">📊 Behavior Analysis</div>
-                <div class="dropdown-item" data-section="targeting">🎯 Targeting</div>
+                <div class="dropdown-item" onclick="navigateToSection('voter-database')">📋 Voter Database</div>
+                <div class="dropdown-item" onclick="navigateToSection('segmentation')">🔍 Segmentation</div>
+                <div class="dropdown-item" onclick="navigateToSection('behavior-analysis')">📊 Behavior Analysis</div>
+                <div class="dropdown-item" onclick="navigateToSection('targeting')">🎯 Targeting</div>
             </div>
         </div>
-        <div class="nav-item active" data-section="data-analytics">
+        <div class="nav-item" data-section="data-analytics" onclick="navigateToSection('data-analytics')">
             <span>📈</span> Data Analytics
         </div>
         <div class="nav-item" data-has-dropdown="true">
             <span>⚙️</span> Tools <span class="nav-arrow">▼</span>
             <div class="dropdown">
-                <div class="dropdown-item" data-section="import-data">📥 Import Data</div>
-                <div class="dropdown-item" data-section="export-reports">📤 Export Reports</div>
-                <div class="dropdown-item" data-section="data-sync">🔄 Data Sync</div>
-                <div class="dropdown-item" data-section="archive">🗄️ Archive</div>
+                <div class="dropdown-item" onclick="navigateToSection('import-data')">📥 Import Data</div>
+                <div class="dropdown-item" onclick="navigateToSection('export-reports')">📤 Export Reports</div>
+                <div class="dropdown-item" onclick="navigateToSection('data-sync')">🔄 Data Sync</div>
+                <div class="dropdown-item" onclick="navigateToSection('archive')">🗄️ Archive</div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
     <div class="main-content">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="page-title">
-                <span>📈</span> Data Analytics
-            </h1>
-            <p class="page-subtitle">Comprehensive analytics and insights for Karnataka 2028 Assembly Elections</p>
-        </div>
 
-        <!-- Filter Bar -->
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label class="filter-label">Time Period</label>
-                <select class="filter-select" id="timePeriod">
-                    <option>Last 7 Days</option>
-                    <option>Last 30 Days</option>
-                    <option>Last 3 Months</option>
-                    <option>Last 6 Months</option>
-                    <option>This Year</option>
-                    <option>Custom Range</option>
-                </select>
+        <!-- OVERVIEW SECTION -->
+        <div id="overview" class="content-section active">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📊</span> Overview Dashboard
+                </h1>
+                <p class="page-subtitle">Real-time insights for Karnataka 2028 Assembly Elections</p>
             </div>
-            <div class="filter-group">
-                <label class="filter-label">Region</label>
-                <select class="filter-select" id="region">
-                    <option>All Karnataka</option>
-                    <option>Bangalore Division</option>
-                    <option>Mysore Division</option>
-                    <option>Belgaum Division</option>
-                    <option>Gulbarga Division</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">District</label>
-                <select class="filter-select" id="district">
-                    <option>All Districts (31)</option>
-                    <option>Bangalore Urban</option>
-                    <option>Bangalore Rural</option>
-                    <option>Mysore</option>
-                    <option>Belgaum</option>
-                </select>
-            </div>
-            <div class="filter-group">
-                <label class="filter-label">Party</label>
-                <select class="filter-select" id="party">
-                    <option>All Parties</option>
-                    <option>INC</option>
-                    <option>BJP</option>
-                    <option>JD(S)</option>
-                    <option>Others</option>
-                </select>
-            </div>
-            <button class="btn btn-primary" style="margin-top: 20px;" onclick="applyFilters()">
-                <span>🔍</span> Apply Filters
-            </button>
-            <button class="btn btn-secondary" style="margin-top: 20px;" onclick="resetFilters()">
-                <span>🔄</span> Reset
-            </button>
-        </div>
 
-        <!-- Key Metrics -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-label">Total Voters Analyzed</span>
-                    <div class="stat-icon bg-blue text-blue">👥</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Constituencies</span>
+                        <div class="stat-icon bg-blue text-blue">🗳️</div>
+                    </div>
+                    <div class="stat-value">224</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> All constituencies covered
+                    </div>
                 </div>
-                <div class="stat-value">4.85M</div>
-                <div class="stat-change positive">
-                    <span>↑</span> 12.5% from last month
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Voters</span>
+                        <div class="stat-icon bg-green text-green">👥</div>
+                    </div>
+                    <div class="stat-value">5.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 8.5% increase from 2023
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Campaigns</span>
+                        <div class="stat-icon bg-purple text-purple">🚀</div>
+                    </div>
+                    <div class="stat-value">187</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 23 new this month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">System Health</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">99.8%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Excellent uptime
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-label">Active Data Points</span>
-                    <div class="stat-icon bg-green text-green">📊</div>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Campaign Performance
+                        </h3>
+                        <span class="module-badge">LIVE</span>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="overviewCampaignChart"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <div class="stat-value">245K</div>
-                <div class="stat-change positive">
-                    <span>↑</span> 8.3% from last month
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-label">Survey Responses</span>
-                    <div class="stat-icon bg-purple text-purple">📋</div>
-                </div>
-                <div class="stat-value">1.2M</div>
-                <div class="stat-change positive">
-                    <span>↑</span> 15.7% from last month
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <span class="stat-label">Data Accuracy Score</span>
-                    <div class="stat-icon bg-orange text-orange">🎯</div>
-                </div>
-                <div class="stat-value">94.2%</div>
-                <div class="stat-change positive">
-                    <span>↑</span> 2.1% from last month
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> Key Metrics
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Survey Response Rate</span>
+                                <span class="badge badge-success">89%</span>
+                            </li>
+                            <li>
+                                <span>Data Accuracy</span>
+                                <span class="badge badge-success">94.2%</span>
+                            </li>
+                            <li>
+                                <span>Active Field Workers</span>
+                                <span><strong>12,456</strong></span>
+                            </li>
+                            <li>
+                                <span>Districts Online</span>
+                                <span class="badge badge-info">31/31</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Core Analytics Modules -->
-        <div class="modules-grid">
-            
-            <!-- Voter Demographics Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>👥</span> Voter Demographics Analytics
-                    </h3>
-                    <span class="module-badge">CORE</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="demographicsChart"></canvas>
+        <!-- VOTER ANALYTICS SECTION -->
+        <div id="voter-analytics" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📄</span> Voter Analytics
+                </h1>
+                <p class="page-subtitle">Comprehensive voter analysis and insights</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Registered Voters</span>
+                        <div class="stat-icon bg-blue text-blue">👥</div>
                     </div>
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">52.3%</div>
-                            <div class="data-stat-label">Male Voters</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">47.7%</div>
-                            <div class="data-stat-label">Female Voters</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">2.8M</div>
-                            <div class="data-stat-label">Youth (18-35)</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">485K</div>
-                            <div class="data-stat-label">First-Time Voters</div>
-                        </div>
+                    <div class="stat-value">5.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 8.5% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">First Time Voters</span>
+                        <div class="stat-icon bg-green text-green">🎓</div>
+                    </div>
+                    <div class="stat-value">485K</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> New registrations
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Female Voters</span>
+                        <div class="stat-icon bg-purple text-purple">👩</div>
+                    </div>
+                    <div class="stat-value">47.7%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 2.3% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Youth Voters</span>
+                        <div class="stat-icon bg-orange text-orange">🎯</div>
+                    </div>
+                    <div class="stat-value">2.8M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 54% of total
                     </div>
                 </div>
             </div>
 
-            <!-- Voting Patterns Analysis -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📊</span> Voting Patterns Analysis
-                    </h3>
-                    <span class="module-badge">CORE</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="votingPatternsChart"></canvas>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Age Distribution
+                        </h3>
                     </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Party Loyalty Rate</span>
-                            <span class="badge badge-success">68%</span>
-                        </li>
-                        <li>
-                            <span>Swing Voters Identified</span>
-                            <span class="badge badge-warning">1.2M</span>
-                        </li>
-                        <li>
-                            <span>Historical Turnout Avg</span>
-                            <span class="badge badge-info">72.4%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Survey Data Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📋</span> Survey Data Analytics
-                    </h3>
-                    <span class="module-badge">CORE</span>
-                </div>
-                <div class="module-body">
-                    <div class="metric-card">
-                        <div class="metric-title">Total Surveys Conducted</div>
-                        <div class="metric-value">1,245,678</div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="surveyChart"></canvas>
-                    </div>
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">89%</div>
-                            <div class="data-stat-label">Response Rate</div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="voterAgeChart"></canvas>
                         </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">224</div>
-                            <div class="data-stat-label">Constituencies</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">58K+</div>
-                            <div class="data-stat-label">Booths Covered</div>
+                    </div>
+                </div>
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>👥</span> Gender Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="voterGenderChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Booth-Level Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🗳️</span> Booth-Level Analytics
-                    </h3>
-                    <span class="module-badge">ADVANCED</span>
-                </div>
-                <div class="module-body">
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">58,546</div>
-                            <div class="data-stat-label">Total Booths</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">12,345</div>
-                            <div class="data-stat-label">Strong Booths</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">8,567</div>
-                            <div class="data-stat-label">Weak Booths</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">37,634</div>
-                            <div class="data-stat-label">Neutral Booths</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="boothChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Social Media Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📱</span> Social Media Analytics
-                    </h3>
-                    <span class="module-badge">DIGITAL</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="socialMediaChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Facebook Reach</span>
-                            <span><strong>8.5M</strong></span>
-                        </li>
-                        <li>
-                            <span>Twitter Impressions</span>
-                            <span><strong>12.3M</strong></span>
-                        </li>
-                        <li>
-                            <span>Instagram Engagement</span>
-                            <span><strong>2.8M</strong></span>
-                        </li>
-                        <li>
-                            <span>WhatsApp Groups</span>
-                            <span><strong>45,678</strong></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Sentiment Analysis -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>😊</span> Sentiment Analysis
-                    </h3>
-                    <span class="module-badge">AI</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="sentimentChart"></canvas>
-                    </div>
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">58%</div>
-                            <div class="data-stat-label">Positive</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">25%</div>
-                            <div class="data-stat-label">Neutral</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">17%</div>
-                            <div class="data-stat-label">Negative</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
-        <!-- Predictive & Strategic Analytics -->
-        <h2 class="section-title">Predictive & Strategic Analytics</h2>
-        <div class="modules-grid">
-            
-            <!-- Predictive Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🔮</span> Predictive Analytics
-                    </h3>
-                    <span class="module-badge">AI</span>
+        <!-- SURVEY REPORTS SECTION -->
+        <div id="survey-reports" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📊</span> Survey Reports
+                </h1>
+                <p class="page-subtitle">Detailed survey analysis and trends</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Surveys</span>
+                        <div class="stat-icon bg-blue text-blue">📋</div>
+                    </div>
+                    <div class="stat-value">1.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 15.7% increase
+                    </div>
                 </div>
-                <div class="module-body">
-                    <div class="metric-card">
-                        <div class="metric-title">2028 Election Forecast - INC</div>
-                        <div class="metric-value">128-135 Seats</div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Response Rate</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="predictionChart"></canvas>
+                    <div class="stat-value">89%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Excellent rate
                     </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Model Accuracy</span>
-                            <span class="badge badge-success">92.3%</span>
-                        </li>
-                        <li>
-                            <span>Confidence Level</span>
-                            <span class="badge badge-info">High</span>
-                        </li>
-                    </ul>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Surveys</span>
+                        <div class="stat-icon bg-purple text-purple">🔄</div>
+                    </div>
+                    <div class="stat-value">45</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 8 new this week
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Completion Rate</span>
+                        <div class="stat-icon bg-orange text-orange">📈</div>
+                    </div>
+                    <div class="stat-value">92%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> High completion
+                    </div>
                 </div>
             </div>
 
-            <!-- Campaign Performance Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🚀</span> Campaign Performance
-                    </h3>
-                    <span class="module-badge">STRATEGY</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="campaignPerformanceChart"></canvas>
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Survey Trends
+                        </h3>
                     </div>
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">₹45Cr</div>
-                            <div class="data-stat-label">Budget Utilized</div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="surveyTrendsChart"></canvas>
                         </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">85%</div>
-                            <div class="data-stat-label">Target Achieved</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">3.2x</div>
-                            <div class="data-stat-label">ROI</div>
-                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Geographic Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🗺️</span> Geographic Analytics
-                    </h3>
-                    <span class="module-badge">SPATIAL</span>
-                </div>
-                <div class="module-body">
-                    <ul class="info-list">
-                        <li>
-                            <span>Urban Constituencies</span>
-                            <span><strong>64</strong> (28.6%)</span>
-                        </li>
-                        <li>
-                            <span>Rural Constituencies</span>
-                            <span><strong>160</strong> (71.4%)</span>
-                        </li>
-                        <li>
-                            <span>High Density Areas</span>
-                            <span class="badge badge-warning">18</span>
-                        </li>
-                        <li>
-                            <span>Remote Areas</span>
-                            <span class="badge badge-info">45</span>
-                        </li>
-                    </ul>
-                    <div class="metric-card">
-                        <div class="metric-title">Average Voters per Constituency</div>
-                        <div class="metric-value">21,652</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Candidate Performance Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>👤</span> Candidate Analytics
-                    </h3>
-                    <span class="module-badge">STRATEGY</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="candidateChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Active Candidates</span>
-                            <span><strong>2,456</strong></span>
-                        </li>
-                        <li>
-                            <span>Our Clients</span>
-                            <span class="badge badge-success">187</span>
-                        </li>
-                        <li>
-                            <span>Success Rate (2023)</span>
-                            <span class="badge badge-success">74%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
         </div>
 
-        <!-- Large Integrated Modules -->
-        <h2 class="section-title">Integrated Analytics Systems</h2>
-        <div class="modules-grid">
-            
-            <!-- Real-Time Integrated Dashboard -->
-            <div class="module-card large-module">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>⚡</span> Real-Time Integrated Dashboard
-                    </h3>
-                    <span class="module-badge">LIVE</span>
-                </div>
-                <div class="module-body">
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">31</div>
-                            <div class="data-stat-label">Districts Online</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">224</div>
-                            <div class="data-stat-label">Constituencies</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">58,546</div>
-                            <div class="data-stat-label">Booths Tracked</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">1,245</div>
-                            <div class="data-stat-label">Active Users</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">99.8%</div>
-                            <div class="data-stat-label">System Uptime</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">2.3GB</div>
-                            <div class="data-stat-label">Data Today</div>
-                        </div>
+        <!-- PERFORMANCE METRICS SECTION -->
+        <div id="performance-metrics" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📉</span> Performance Metrics
+                </h1>
+                <p class="page-subtitle">Track and analyze campaign performance indicators</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Overall Campaign Score</span>
+                        <div class="stat-icon bg-blue text-blue">⭐</div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="realtimeChart"></canvas>
+                    <div class="stat-value">8.7/10</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Excellent performance
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Reach Target</span>
+                        <div class="stat-icon bg-green text-green">🎯</div>
+                    </div>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 12% above plan
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Engagement Rate</span>
+                        <div class="stat-icon bg-purple text-purple">💬</div>
+                    </div>
+                    <div class="stat-value">12.8%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Industry leading
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">ROI</span>
+                        <div class="stat-icon bg-orange text-orange">💰</div>
+                    </div>
+                    <div class="stat-value">3.2x</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Strong returns
                     </div>
                 </div>
             </div>
 
-            <!-- Issue-Based Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📌</span> Issue-Based Analytics
-                    </h3>
-                    <span class="module-badge">INSIGHT</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="issuesChart"></canvas>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Monthly Performance Trend
+                        </h3>
                     </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Employment</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
-                        </li>
-                        <li>
-                            <span>Infrastructure</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 72%"></div></div>
-                        </li>
-                        <li>
-                            <span>Healthcare</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
-                        </li>
-                        <li>
-                            <span>Education</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Media Coverage Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📺</span> Media Coverage Analytics
-                    </h3>
-                    <span class="module-badge">PR</span>
-                </div>
-                <div class="module-body">
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">4,567</div>
-                            <div class="data-stat-label">News Mentions</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">234</div>
-                            <div class="data-stat-label">TV Appearances</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">1,890</div>
-                            <div class="data-stat-label">Print Articles</div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="performanceTrendChart"></canvas>
                         </div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="mediaChart"></canvas>
+                </div>
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> KPI Achievement
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Voter Registration Target</span>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 92%"></div></div>
+                            </li>
+                            <li>
+                                <span>Survey Completion Target</span>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 89%"></div></div>
+                            </li>
+                            <li>
+                                <span>Social Media Reach Target</span>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+                            </li>
+                            <li>
+                                <span>Ground Coverage Target</span>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 78%"></div></div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Specialized Demographics -->
-        <h2 class="section-title">Specialized Demographics & Segmentation</h2>
-        <div class="modules-grid">
-            
-            <!-- Youth Voter Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🎓</span> Youth Voter Analytics
-                    </h3>
-                    <span class="module-badge">DEMOGRAPHIC</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="youthChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>First-Time Voters (18-21)</span>
-                            <span><strong>485,234</strong></span>
-                        </li>
-                        <li>
-                            <span>Youth Voters (18-35)</span>
-                            <span><strong>2,845,678</strong></span>
-                        </li>
-                        <li>
-                            <span>Digital Engagement Rate</span>
-                            <span class="badge badge-success">82%</span>
-                        </li>
-                    </ul>
-                </div>
+        <!-- CUSTOM REPORTS SECTION -->
+        <div id="custom-reports" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>⚙️</span> Custom Reports
+                </h1>
+                <p class="page-subtitle">Create and manage custom analytical reports</p>
             </div>
 
-            <!-- Women Voter Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>👩</span> Women Voter Analytics
-                    </h3>
-                    <span class="module-badge">DEMOGRAPHIC</span>
-                </div>
-                <div class="module-body">
-                    <div class="metric-card">
-                        <div class="metric-title">Total Women Voters</div>
-                        <div class="metric-value">2,312,456</div>
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📄</span> Report Builder
+                        </h3>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="womenChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Participation Rate</span>
-                            <span class="badge badge-success">74.8%</span>
-                        </li>
-                        <li>
-                            <span>Key Issues Prioritized</span>
-                            <span><strong>Safety, Education, Healthcare</strong></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Rural vs Urban Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🏘️</span> Rural vs Urban Analytics
-                    </h3>
-                    <span class="module-badge">GEOGRAPHIC</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="ruralUrbanChart"></canvas>
-                    </div>
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">38%</div>
-                            <div class="data-stat-label">Urban Population</div>
+                    <div class="module-body">
+                        <div class="filter-group" style="margin-bottom: 16px;">
+                            <label class="filter-label">Report Type</label>
+                            <select class="filter-select">
+                                <option>Voter Analysis Report</option>
+                                <option>Campaign Performance Report</option>
+                                <option>Constituency Report</option>
+                                <option>Financial Report</option>
+                                <option>Social Media Report</option>
+                            </select>
                         </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">62%</div>
-                            <div class="data-stat-label">Rural Population</div>
+                        <div class="filter-group" style="margin-bottom: 16px;">
+                            <label class="filter-label">Data Range</label>
+                            <select class="filter-select">
+                                <option>Last 30 Days</option>
+                                <option>Last 3 Months</option>
+                                <option>Last 6 Months</option>
+                                <option>This Year</option>
+                                <option>Custom Range</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Caste-Based Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📊</span> Caste-Based Analytics
-                    </h3>
-                    <span class="module-badge">SOCIAL</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="casteChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>SC Community</span>
-                            <span><strong>17.2%</strong></span>
-                        </li>
-                        <li>
-                            <span>ST Community</span>
-                            <span><strong>6.8%</strong></span>
-                        </li>
-                        <li>
-                            <span>OBC Community</span>
-                            <span><strong>54.3%</strong></span>
-                        </li>
-                        <li>
-                            <span>General Category</span>
-                            <span><strong>21.7%</strong></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Advanced Data Intelligence -->
-        <h2 class="section-title">Advanced Data Intelligence</h2>
-        <div class="modules-grid">
-            
-            <!-- Financial Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>💰</span> Financial Analytics
-                    </h3>
-                    <span class="module-badge">COMPLIANCE</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="financialChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Total Campaign Budget</span>
-                            <span><strong>₹65 Crores</strong></span>
-                        </li>
-                        <li>
-                            <span>Spent to Date</span>
-                            <span><strong>₹45 Crores</strong></span>
-                        </li>
-                        <li>
-                            <span>Budget Remaining</span>
-                            <span class="badge badge-success">₹20 Cr</span>
-                        </li>
-                        <li>
-                            <span>Compliance Status</span>
-                            <span class="badge badge-success">100%</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Ground Team Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>👷</span> Ground Team Analytics
-                    </h3>
-                    <span class="module-badge">OPERATIONS</span>
-                </div>
-                <div class="module-body">
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">12,456</div>
-                            <div class="data-stat-label">Field Workers</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">45,678</div>
-                            <div class="data-stat-label">Volunteers</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">2.8M</div>
-                            <div class="data-stat-label">Doors Knocked</div>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="groundTeamChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Event Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🎪</span> Event Analytics
-                    </h3>
-                    <span class="module-badge">ENGAGEMENT</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="eventChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Total Events Conducted</span>
-                            <span><strong>1,245</strong></span>
-                        </li>
-                        <li>
-                            <span>Average Attendance</span>
-                            <span><strong>2,340</strong></span>
-                        </li>
-                        <li>
-                            <span>Total Reach</span>
-                            <span class="badge badge-success">2.9M</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Opposition Research -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>🕵️</span> Opposition Research
-                    </h3>
-                    <span class="module-badge">INTELLIGENCE</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="oppositionChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>BJP Strongholds</span>
-                            <span class="badge badge-danger">89</span>
-                        </li>
-                        <li>
-                            <span>INC Strongholds</span>
-                            <span class="badge badge-info">76</span>
-                        </li>
-                        <li>
-                            <span>JD(S) Strongholds</span>
-                            <span class="badge badge-warning">34</span>
-                        </li>
-                        <li>
-                            <span>Swing Constituencies</span>
-                            <span class="badge badge-success">25</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- WhatsApp Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>💬</span> WhatsApp Analytics
-                    </h3>
-                    <span class="module-badge">MESSAGING</span>
-                </div>
-                <div class="module-body">
-                    <div class="data-stats">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">45,678</div>
-                            <div class="data-stat-label">Active Groups</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">3.2M</div>
-                            <div class="data-stat-label">Total Members</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">12.5M</div>
-                            <div class="data-stat-label">Messages/Day</div>
-                        </div>
-                    </div>
-                    <div class="metric-card">
-                        <div class="metric-title">Message Delivery Rate</div>
-                        <div class="metric-value">96.8%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Call Center Analytics -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📞</span> Call Center Analytics
-                    </h3>
-                    <span class="module-badge">OPERATIONS</span>
-                </div>
-                <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="callCenterChart"></canvas>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Calls Made Today</span>
-                            <span><strong>45,678</strong></span>
-                        </li>
-                        <li>
-                            <span>Success Rate</span>
-                            <span class="badge badge-success">72%</span>
-                        </li>
-                        <li>
-                            <span>Avg Call Duration</span>
-                            <span><strong>2m 34s</strong></span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Data Quality & Tools -->
-        <h2 class="section-title">Data Management & Tools</h2>
-        <div class="modules-grid">
-            
-            <!-- Data Quality Control -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>✅</span> Data Quality Control
-                    </h3>
-                    <span class="module-badge">GOVERNANCE</span>
-                </div>
-                <div class="module-body">
-                    <div class="metric-card">
-                        <div class="metric-title">Overall Data Quality Score</div>
-                        <div class="metric-value">94.2%</div>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <span>Completeness</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 96%"></div></div>
-                        </li>
-                        <li>
-                            <span>Accuracy</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 94%"></div></div>
-                        </li>
-                        <li>
-                            <span>Consistency</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 92%"></div></div>
-                        </li>
-                        <li>
-                            <span>Timeliness</span>
-                            <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Export & Reporting -->
-            <div class="module-card">
-                <div class="module-header">
-                    <h3 class="module-title">
-                        <span>📤</span> Export & Reporting
-                    </h3>
-                    <span class="module-badge">TOOLS</span>
-                </div>
-                <div class="module-body">
-                    <ul class="info-list">
-                        <li>
-                            <span>Reports Generated This Month</span>
-                            <span><strong>1,456</strong></span>
-                        </li>
-                        <li>
-                            <span>Data Exports</span>
-                            <span><strong>567</strong></span>
-                        </li>
-                        <li>
-                            <span>Scheduled Reports</span>
-                            <span class="badge badge-info">234 Active</span>
-                        </li>
-                    </ul>
-                    <div style="margin-top: 20px;">
                         <button class="btn btn-primary" style="width: 100%; justify-content: center;">
-                            <span>📥</span> Generate Report
+                            <span>🔨</span> Generate Report
                         </button>
                     </div>
                 </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📋</span> Saved Reports
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Monthly Campaign Analysis</span>
+                                <span class="badge badge-info">Updated</span>
+                            </li>
+                            <li>
+                                <span>Voter Demographics Q4</span>
+                                <span class="badge badge-success">Complete</span>
+                            </li>
+                            <li>
+                                <span>Social Media Performance</span>
+                                <span class="badge badge-warning">Pending</span>
+                            </li>
+                            <li>
+                                <span>Constituency Deep Dive</span>
+                                <span class="badge badge-info">Updated</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Recent Report Activity
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Report Name</th>
+                                    <th>Type</th>
+                                    <th>Generated Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Q4 Campaign Analysis</td>
+                                    <td>Performance</td>
+                                    <td>2 hours ago</td>
+                                    <td><span class="badge badge-success">Ready</span></td>
+                                    <td><button class="btn btn-secondary">Download</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Voter Segmentation Study</td>
+                                    <td>Analytics</td>
+                                    <td>1 day ago</td>
+                                    <td><span class="badge badge-success">Ready</span></td>
+                                    <td><button class="btn btn-secondary">Download</button></td>
+                                </tr>
+                                <tr>
+                                    <td>Social Media Impact</td>
+                                    <td>Digital</td>
+                                    <td>3 days ago</td>
+                                    <td><span class="badge badge-success">Ready</span></td>
+                                    <td><button class="btn btn-secondary">Download</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALL CONSTITUENCIES SECTION -->
+        <div id="all-constituencies" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🗺️</span> All Constituencies
+                </h1>
+                <p class="page-subtitle">Complete overview of all 224 constituencies</p>
             </div>
 
-            <!-- Comparative Analytics Engine -->
-            <div class="module-card large-module">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Constituencies</span>
+                        <div class="stat-icon bg-blue text-blue">🗳️</div>
+                    </div>
+                    <div class="stat-value">224</div>
+                    <div class="stat-change">
+                        Assembly seats
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Urban Constituencies</span>
+                        <div class="stat-icon bg-purple text-purple">🏙️</div>
+                    </div>
+                    <div class="stat-value">64</div>
+                    <div class="stat-change">
+                        28.6% of total
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Rural Constituencies</span>
+                        <div class="stat-icon bg-green text-green">🌾</div>
+                    </div>
+                    <div class="stat-value">160</div>
+                    <div class="stat-change">
+                        71.4% of total
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Avg Voters per Seat</span>
+                        <div class="stat-icon bg-orange text-orange">👥</div>
+                    </div>
+                    <div class="stat-value">23.2K</div>
+                    <div class="stat-change">
+                        Average size
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Constituency Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="constituencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISTRICT VIEW SECTION -->
+        <div id="district-view" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📍</span> District View
+                </h1>
+                <p class="page-subtitle">District-wise political landscape and analytics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Districts</span>
+                        <div class="stat-icon bg-blue text-blue">🗺️</div>
+                    </div>
+                    <div class="stat-value">31</div>
+                    <div class="stat-change">
+                        Complete coverage
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Largest District</span>
+                        <div class="stat-icon bg-purple text-purple">📍</div>
+                    </div>
+                    <div class="stat-value">Bangalore Urban</div>
+                    <div class="stat-change">
+                        28 constituencies
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Most Competitive</span>
+                        <div class="stat-icon bg-orange text-orange">⚡</div>
+                    </div>
+                    <div class="stat-value">Mysore</div>
+                    <div class="stat-change">
+                        11 swing seats
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Districts Monitored</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">31/31</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 100% coverage
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> District-wise Party Strength
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="districtPartyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🏆</span> Top Districts
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Bangalore Urban</span>
+                                <span class="badge badge-success">Strong</span>
+                            </li>
+                            <li>
+                                <span>Mysore</span>
+                                <span class="badge badge-warning">Competitive</span>
+                            </li>
+                            <li>
+                                <span>Belgaum</span>
+                                <span class="badge badge-info">Moderate</span>
+                            </li>
+                            <li>
+                                <span>Gulbarga</span>
+                                <span class="badge badge-success">Strong</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Growth Districts
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="districtGrowthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOOTH ANALYSIS SECTION -->
+        <div id="booth-analysis" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🏘️</span> Booth Analysis
+                </h1>
+                <p class="page-subtitle">Granular booth-level insights and performance tracking</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Booths</span>
+                        <div class="stat-icon bg-blue text-blue">🗳️</div>
+                    </div>
+                    <div class="stat-value">58,546</div>
+                    <div class="stat-change">
+                        Statewide coverage
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Strong Booths</span>
+                        <div class="stat-icon bg-green text-green">💪</div>
+                    </div>
+                    <div class="stat-value">12,345</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 21.1% of total
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Weak Booths</span>
+                        <div class="stat-icon bg-red text-red">⚠️</div>
+                    </div>
+                    <div class="stat-value">8,567</div>
+                    <div class="stat-change negative">
+                        <span>↓</span> Need attention
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Neutral Booths</span>
+                        <div class="stat-icon bg-orange text-orange">⚖️</div>
+                    </div>
+                    <div class="stat-value">37,634</div>
+                    <div class="stat-change">
+                        64.3% swing potential
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Booth Strength Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="boothStrengthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> Target Booths
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>High Priority Booths</span>
+                                <span class="badge badge-danger">2,456</span>
+                            </li>
+                            <li>
+                                <span>Medium Priority Booths</span>
+                                <span class="badge badge-warning">6,789</span>
+                            </li>
+                            <li>
+                                <span>Monitored Booths</span>
+                                <span class="badge badge-info">15,234</span>
+                            </li>
+                            <li>
+                                <span>Secured Booths</span>
+                                <span class="badge badge-success">12,345</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📍</span> Booth Performance Timeline
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="boothTimelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEMOGRAPHICS SECTION -->
+        <div id="demographics" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>👥</span> Demographics
+                </h1>
+                <p class="page-subtitle">Detailed demographic analysis of voter base</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Male Voters</span>
+                        <div class="stat-icon bg-blue text-blue">👨</div>
+                    </div>
+                    <div class="stat-value">52.3%</div>
+                    <div class="stat-change">
+                        2.72M voters
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Female Voters</span>
+                        <div class="stat-icon bg-purple text-purple">👩</div>
+                    </div>
+                    <div class="stat-value">47.7%</div>
+                    <div class="stat-change">
+                        2.48M voters
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Youth (18-35)</span>
+                        <div class="stat-icon bg-green text-green">🎓</div>
+                    </div>
+                    <div class="stat-value">54%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 2.8M voters
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Senior Citizens</span>
+                        <div class="stat-icon bg-orange text-orange">👴</div>
+                    </div>
+                    <div class="stat-value">12%</div>
+                    <div class="stat-change">
+                        624K voters
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Age Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="demoAgeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🏘️</span> Urban vs Rural
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="demoUrbanRuralChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📚</span> Education Levels
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="demoEducationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>💼</span> Occupation Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="demoOccupationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVE CAMPAIGNS SECTION -->
+        <div id="active-campaigns" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🚀</span> Active Campaigns
+                </h1>
+                <p class="page-subtitle">Currently running campaign operations</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Campaigns</span>
+                        <div class="stat-icon bg-blue text-blue">🚀</div>
+                    </div>
+                    <div class="stat-value">187</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 23 new this month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Reach</span>
+                        <div class="stat-icon bg-green text-green">📱</div>
+                    </div>
+                    <div class="stat-value">8.5M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 18.5% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Engagement Rate</span>
+                        <div class="stat-icon bg-purple text-purple">💬</div>
+                    </div>
+                    <div class="stat-value">12.8%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Above industry avg
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Budget Utilization</span>
+                        <div class="stat-icon bg-orange text-orange">💰</div>
+                    </div>
+                    <div class="stat-value">69%</div>
+                    <div class="stat-change">
+                        ₹45Cr of ₹65Cr
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Campaign Effectiveness
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="campaignEffectivenessChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CAMPAIGN ANALYTICS SECTION -->
+        <div id="campaign-analytics" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📊</span> Campaign Analytics
+                </h1>
+                <p class="page-subtitle">Deep dive into campaign performance and metrics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Campaign ROI</span>
+                        <div class="stat-icon bg-blue text-blue">💰</div>
+                    </div>
+                    <div class="stat-value">3.2x</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Strong returns
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Conversion Rate</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">18.5%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 3.2% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Cost Per Reach</span>
+                        <div class="stat-icon bg-purple text-purple">₹</div>
+                    </div>
+                    <div class="stat-value">₹5.30</div>
+                    <div class="stat-change positive">
+                        <span>↓</span> 12% decrease
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Avg. Campaign Duration</span>
+                        <div class="stat-icon bg-orange text-orange">⏱️</div>
+                    </div>
+                    <div class="stat-value">45 days</div>
+                    <div class="stat-change">
+                        Optimal timing
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Campaign Performance by Type
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="campaignTypeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>💰</span> Budget Allocation
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="budgetAllocationChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Campaign Timeline Analysis
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="campaignTimelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOCIAL MEDIA SECTION -->
+        <div id="social-media" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>💬</span> Social Media
+                </h1>
+                <p class="page-subtitle">Social media analytics and engagement metrics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Reach</span>
+                        <div class="stat-icon bg-blue text-blue">📱</div>
+                    </div>
+                    <div class="stat-value">23.6M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 28% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Engagement Rate</span>
+                        <div class="stat-icon bg-green text-green">💬</div>
+                    </div>
+                    <div class="stat-value">12.8%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Industry leading
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Followers Growth</span>
+                        <div class="stat-icon bg-purple text-purple">📈</div>
+                    </div>
+                    <div class="stat-value">+45K</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> This month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Post Frequency</span>
+                        <div class="stat-icon bg-orange text-orange">📅</div>
+                    </div>
+                    <div class="stat-value">32/day</div>
+                    <div class="stat-change">
+                        Across all platforms
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Platform Performance
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="platformPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> Engagement by Platform
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Facebook</span>
+                                <span><strong>8.5M reach</strong></span>
+                            </li>
+                            <li>
+                                <span>Twitter</span>
+                                <span><strong>12.3M impressions</strong></span>
+                            </li>
+                            <li>
+                                <span>Instagram</span>
+                                <span><strong>2.8M engagement</strong></span>
+                            </li>
+                            <li>
+                                <span>WhatsApp</span>
+                                <span><strong>45,678 groups</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Social Media Growth Trend
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="socialGrowthChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMAIL TRACKING SECTION -->
+        <div id="email-tracking" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📧</span> Email Tracking
+                </h1>
+                <p class="page-subtitle">Email campaign performance and analytics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Emails Sent</span>
+                        <div class="stat-icon bg-blue text-blue">📧</div>
+                    </div>
+                    <div class="stat-value">1.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> This month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Open Rate</span>
+                        <div class="stat-icon bg-green text-green">📬</div>
+                    </div>
+                    <div class="stat-value">28.5%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Above average
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Click Rate</span>
+                        <div class="stat-icon bg-purple text-purple">🖱️</div>
+                    </div>
+                    <div class="stat-value">4.2%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Strong CTR
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Bounce Rate</span>
+                        <div class="stat-icon bg-orange text-orange">⚠️</div>
+                    </div>
+                    <div class="stat-value">2.1%</div>
+                    <div class="stat-change positive">
+                        <span>↓</span> Low bounce
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Email Performance
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="emailPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Campaign Metrics
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Delivered Rate</span>
+                                <span class="badge badge-success">97.9%</span>
+                            </li>
+                            <li>
+                                <span>Unsubscribe Rate</span>
+                                <span class="badge badge-success">0.3%</span>
+                            </li>
+                            <li>
+                                <span>Spam Reports</span>
+                                <span class="badge badge-success">0.1%</span>
+                            </li>
+                            <li>
+                                <span>Avg. Time to Open</span>
+                                <span><strong>2.5 hours</strong></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📧</span> Top Performing Campaigns
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Campaign Name</th>
+                                    <th>Sent</th>
+                                    <th>Open Rate</th>
+                                    <th>Click Rate</th>
+                                    <th>Performance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Weekly Newsletter #45</td>
+                                    <td>245,678</td>
+                                    <td>32.5%</td>
+                                    <td>5.8%</td>
+                                    <td><span class="badge badge-success">Excellent</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Policy Update - Education</td>
+                                    <td>189,234</td>
+                                    <td>28.3%</td>
+                                    <td>4.2%</td>
+                                    <td><span class="badge badge-success">Good</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Event Invitation - Rally</td>
+                                    <td>156,789</td>
+                                    <td>35.7%</td>
+                                    <td>8.9%</td>
+                                    <td><span class="badge badge-success">Excellent</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VOTER DATABASE SECTION -->
+        <div id="voter-database" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📋</span> Voter Database
+                </h1>
+                <p class="page-subtitle">Comprehensive voter information management</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Records</span>
+                        <div class="stat-icon bg-blue text-blue">💾</div>
+                    </div>
+                    <div class="stat-value">5.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Updated database
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Verified Records</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">4.9M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 94.2% verified
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">New Additions</span>
+                        <div class="stat-icon bg-purple text-purple">➕</div>
+                    </div>
+                    <div class="stat-value">485K</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> This election cycle
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Data Quality</span>
+                        <div class="stat-icon bg-orange text-orange">⭐</div>
+                    </div>
+                    <div class="stat-value">94.2%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Excellent quality
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card" style="margin-top: 24px;">
                 <div class="module-header">
                     <h3 class="module-title">
-                        <span>⚖️</span> Comparative Analytics Engine
+                        <span>📊</span> Database Overview
                     </h3>
-                    <span class="module-badge">ADVANCED</span>
                 </div>
                 <div class="module-body">
-                    <div class="chart-container">
-                        <canvas id="comparativeChart"></canvas>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Count</th>
+                                <th>Percentage</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Male Voters</td>
+                                <td>2,720,400</td>
+                                <td>52.3%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Female Voters</td>
+                                <td>2,480,400</td>
+                                <td>47.7%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>First Time Voters</td>
+                                <td>485,234</td>
+                                <td>9.3%</td>
+                                <td><span class="badge badge-info">New</span></td>
+                            </tr>
+                            <tr>
+                                <td>Senior Citizens</td>
+                                <td>624,000</td>
+                                <td>12.0%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEGMENTATION SECTION -->
+        <div id="segmentation" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🔍</span> Segmentation
+                </h1>
+                <p class="page-subtitle">Advanced voter segmentation and targeting</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Segments</span>
+                        <div class="stat-icon bg-blue text-blue">📊</div>
                     </div>
-                    <div class="data-stats" style="margin-top: 20px;">
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">224</div>
-                            <div class="data-stat-label">Constituencies Compared</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">3</div>
-                            <div class="data-stat-label">Major Parties</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">2,456</div>
-                            <div class="data-stat-label">Candidates Analyzed</div>
-                        </div>
-                        <div class="data-stat-item">
-                            <div class="data-stat-value">15</div>
-                            <div class="data-stat-label">Election Cycles</div>
-                        </div>
+                    <div class="stat-value">45</div>
+                    <div class="stat-change">
+                        Active segments
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">High Priority Segment</span>
+                        <div class="stat-icon bg-green text-green">🎯</div>
+                    </div>
+                    <div class="stat-value">1.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Swing voters
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Youth Segment</span>
+                        <div class="stat-icon bg-purple text-purple">🎓</div>
+                    </div>
+                    <div class="stat-value">2.8M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 54% of total
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Segment Accuracy</span>
+                        <div class="stat-icon bg-orange text-orange">✅</div>
+                    </div>
+                    <div class="stat-value">91.5%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> High precision
                     </div>
                 </div>
             </div>
 
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Segment Distribution
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="segmentDistChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> Top Segments
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Urban Youth Professionals</span>
+                                <span class="badge badge-info">845K</span>
+                            </li>
+                            <li>
+                                <span>Rural Farmers</span>
+                                <span class="badge badge-success">1.2M</span>
+                            </li>
+                            <li>
+                                <span>Women Entrepreneurs</span>
+                                <span class="badge badge-purple">456K</span>
+                            </li>
+                            <li>
+                                <span>Senior Citizens</span>
+                                <span class="badge badge-warning">624K</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Segment Performance
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="segmentPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEHAVIOR ANALYSIS SECTION -->
+        <div id="behavior-analysis" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📊</span> Behavior Analysis
+                </h1>
+                <p class="page-subtitle">Voter behavior patterns and trends</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Party Loyalty Rate</span>
+                        <div class="stat-icon bg-blue text-blue">🔒</div>
+                    </div>
+                    <div class="stat-value">68%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Strong loyalty
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Swing Voters</span>
+                        <div class="stat-icon bg-orange text-orange">🔄</div>
+                    </div>
+                    <div class="stat-value">1.2M</div>
+                    <div class="stat-change">
+                        23% of total
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Voting Frequency</span>
+                        <div class="stat-icon bg-green text-green">📊</div>
+                    </div>
+                    <div class="stat-value">72.4%</div>
+                    <div class="stat-change">
+                        Historical avg
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Issue-Based Voters</span>
+                        <div class="stat-icon bg-purple text-purple">💡</div>
+                    </div>
+                    <div class="stat-value">2.1M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 40% of base
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Voting Patterns
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="votingPatternsAnalysisChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>💡</span> Decision Factors
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="decisionFactorsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Historical Voting Trends
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="historicalTrendsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TARGETING SECTION -->
+        <div id="targeting" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🎯</span> Targeting
+                </h1>
+                <p class="page-subtitle">Strategic voter targeting and outreach planning</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Target Audience</span>
+                        <div class="stat-icon bg-blue text-blue">🎯</div>
+                    </div>
+                    <div class="stat-value">3.2M</div>
+                    <div class="stat-change">
+                        Primary targets
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Conversion Rate</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">18.5%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 3.2% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Reached Targets</span>
+                        <div class="stat-icon bg-purple text-purple">📱</div>
+                    </div>
+                    <div class="stat-value">2.7M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 84% coverage
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Targeting Accuracy</span>
+                        <div class="stat-icon bg-orange text-orange">🎯</div>
+                    </div>
+                    <div class="stat-value">92.3%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> High precision
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Target Effectiveness
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="targetEffectivenessChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🎯</span> Priority Targets
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>High Priority</span>
+                                <span class="badge badge-danger">845K voters</span>
+                            </li>
+                            <li>
+                                <span>Medium Priority</span>
+                                <span class="badge badge-warning">1.2M voters</span>
+                            </li>
+                            <li>
+                                <span>Low Priority</span>
+                                <span class="badge badge-info">1.15M voters</span>
+                            </li>
+                            <li>
+                                <span>Reached</span>
+                                <span class="badge badge-success">2.7M voters</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📈</span> Targeting Performance Timeline
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="targetingTimelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA ANALYTICS SECTION -->
+        <div id="data-analytics" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📈</span> Data Analytics
+                </h1>
+                <p class="page-subtitle">Comprehensive analytics for Karnataka 2028</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Total Voters Analyzed</span>
+                        <div class="stat-icon bg-blue text-blue">👥</div>
+                    </div>
+                    <div class="stat-value">4.85M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 12.5% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Active Data Points</span>
+                        <div class="stat-icon bg-green text-green">📊</div>
+                    </div>
+                    <div class="stat-value">245K</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 8.3% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Survey Responses</span>
+                        <div class="stat-icon bg-purple text-purple">📋</div>
+                    </div>
+                    <div class="stat-value">1.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 15.7% increase
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Data Accuracy</span>
+                        <div class="stat-icon bg-orange text-orange">🎯</div>
+                    </div>
+                    <div class="stat-value">94.2%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> 2.1% increase
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Comprehensive Analytics Dashboard
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="dataAnalyticsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPORT DATA SECTION -->
+        <div id="import-data" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📥</span> Import Data
+                </h1>
+                <p class="page-subtitle">Import voter data, surveys, and campaign information</p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> CSV Import
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <p style="color: #737373; margin-bottom: 16px;">Upload CSV files containing voter data.</p>
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>📤</span> Choose CSV File
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Excel Import
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <p style="color: #737373; margin-bottom: 16px;">Import Excel files with multiple sheets.</p>
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>📤</span> Choose Excel File
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📋</span> Recent Imports
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Type</th>
+                                    <th>Records</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>voter_data_bangalore.csv</td>
+                                    <td>Voter Database</td>
+                                    <td>245,678</td>
+                                    <td>2 hours ago</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>survey_results_mysore.xlsx</td>
+                                    <td>Survey Data</td>
+                                    <td>12,456</td>
+                                    <td>5 hours ago</td>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPORT REPORTS SECTION -->
+        <div id="export-reports" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📤</span> Export Reports
+                </h1>
+                <p class="page-subtitle">Export analytics and reports in various formats</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Reports Generated</span>
+                        <div class="stat-icon bg-blue text-blue">📄</div>
+                    </div>
+                    <div class="stat-value">1,456</div>
+                    <div class="stat-change">
+                        This month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Data Exports</span>
+                        <div class="stat-icon bg-green text-green">📊</div>
+                    </div>
+                    <div class="stat-value">567</div>
+                    <div class="stat-change">
+                        This month
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Scheduled Reports</span>
+                        <div class="stat-icon bg-purple text-purple">⏰</div>
+                    </div>
+                    <div class="stat-value">234</div>
+                    <div class="stat-change">
+                        Active schedules
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Export Success Rate</span>
+                        <div class="stat-icon bg-orange text-orange">✅</div>
+                    </div>
+                    <div class="stat-value">99.2%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> High reliability
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📄</span> Quick Export
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="filter-group" style="margin-bottom: 16px;">
+                            <label class="filter-label">Export Format</label>
+                            <select class="filter-select">
+                                <option>PDF Report</option>
+                                <option>Excel Spreadsheet</option>
+                                <option>CSV Data</option>
+                                <option>PowerPoint</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%; justify-content: center;">
+                            <span>📤</span> Export Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>⏰</span> Schedule Export
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Daily Summary</span>
+                                <span class="badge badge-success">Active</span>
+                            </li>
+                            <li>
+                                <span>Weekly Report</span>
+                                <span class="badge badge-success">Active</span>
+                            </li>
+                            <li>
+                                <span>Monthly Analytics</span>
+                                <span class="badge badge-success">Active</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA SYNC SECTION -->
+        <div id="data-sync" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🔄</span> Data Sync
+                </h1>
+                <p class="page-subtitle">Synchronize data across systems and platforms</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Last Sync</span>
+                        <div class="stat-icon bg-blue text-blue">🔄</div>
+                    </div>
+                    <div class="stat-value">2 mins</div>
+                    <div class="stat-change positive">
+                        <span>✓</span> Successful
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Sync Status</span>
+                        <div class="stat-icon bg-green text-green">✅</div>
+                    </div>
+                    <div class="stat-value">Active</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> All systems online
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Records Synced</span>
+                        <div class="stat-icon bg-purple text-purple">📊</div>
+                    </div>
+                    <div class="stat-value">2.3GB</div>
+                    <div class="stat-change">
+                        Today
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Sync Success Rate</span>
+                        <div class="stat-icon bg-orange text-orange">⭐</div>
+                    </div>
+                    <div class="stat-value">99.8%</div>
+                    <div class="stat-change positive">
+                        <span>↑</span> Excellent
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>🔄</span> Connected Systems
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <ul class="info-list">
+                            <li>
+                                <span>Mobile App</span>
+                                <span class="badge badge-success">Connected</span>
+                            </li>
+                            <li>
+                                <span>Field Database</span>
+                                <span class="badge badge-success">Connected</span>
+                            </li>
+                            <li>
+                                <span>Social Media APIs</span>
+                                <span class="badge badge-success">Connected</span>
+                            </li>
+                            <li>
+                                <span>Survey Platform</span>
+                                <span class="badge badge-success">Connected</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📊</span> Sync Activity
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <div class="chart-container">
+                            <canvas id="syncActivityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ARCHIVE SECTION -->
+        <div id="archive" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🗄️</span> Archive
+                </h1>
+                <p class="page-subtitle">Historical data and archived campaigns</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Archived Records</span>
+                        <div class="stat-icon bg-blue text-blue">📦</div>
+                    </div>
+                    <div class="stat-value">8.2M</div>
+                    <div class="stat-change">
+                        Historical data
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Archived Campaigns</span>
+                        <div class="stat-icon bg-green text-green">📁</div>
+                    </div>
+                    <div class="stat-value">456</div>
+                    <div class="stat-change">
+                        Past campaigns
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Storage Used</span>
+                        <div class="stat-icon bg-purple text-purple">💾</div>
+                    </div>
+                    <div class="stat-value">245GB</div>
+                    <div class="stat-change">
+                        Of 500GB available
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-label">Elections Archived</span>
+                        <div class="stat-icon bg-orange text-orange">🗳️</div>
+                    </div>
+                    <div class="stat-value">15</div>
+                    <div class="stat-change">
+                        Election cycles
+                    </div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card large-module">
+                    <div class="module-header">
+                        <h3 class="module-title">
+                            <span>📋</span> Archived Elections
+                        </h3>
+                    </div>
+                    <div class="module-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Election Year</th>
+                                    <th>Type</th>
+                                    <th>Records</th>
+                                    <th>Size</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2023 Assembly</td>
+                                    <td>State</td>
+                                    <td>4.8M records</td>
+                                    <td>45GB</td>
+                                    <td><button class="btn btn-secondary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>2019 Lok Sabha</td>
+                                    <td>National</td>
+                                    <td>5.1M records</td>
+                                    <td>52GB</td>
+                                    <td><button class="btn btn-secondary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>2018 Assembly</td>
+                                    <td>State</td>
+                                    <td>4.6M records</td>
+                                    <td>42GB</td>
+                                    <td><button class="btn btn-secondary">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // Navigation functionality
-        document.querySelectorAll('.nav-item').forEach(item => {
+        let charts = {};
+
+        function navigateToSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === sectionId) {
+                    item.classList.add('active');
+                }
+            });
+
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('show-dropdown');
+            });
+
+            setTimeout(() => {
+                initChartsForSection(sectionId);
+            }, 100);
+
+            window.scrollTo(0, 0);
+        }
+
+        document.querySelectorAll('.nav-item[data-has-dropdown="true"]').forEach(item => {
             item.addEventListener('click', function(e) {
                 e.stopPropagation();
                 
-                // Handle dropdown toggle
-                if (this.getAttribute('data-has-dropdown') === 'true') {
-                    // Close other dropdowns
-                    document.querySelectorAll('.nav-item').forEach(other => {
-                        if (other !== this) {
-                            other.classList.remove('show-dropdown');
-                        }
-                    });
-                    
-                    // Toggle current dropdown
-                    this.classList.toggle('show-dropdown');
-                } else {
-                    // Handle direct navigation
-                    const section = this.getAttribute('data-section');
-                    if (section) {
-                        console.log('Navigating to:', section);
-                        // Remove active class from all
-                        document.querySelectorAll('.nav-item').forEach(nav => {
-                            nav.classList.remove('active');
-                        });
-                        // Add active class to clicked item
-                        this.classList.add('active');
+                document.querySelectorAll('.nav-item').forEach(other => {
+                    if (other !== this) {
+                        other.classList.remove('show-dropdown');
                     }
-                }
-            });
-        });
-
-        // Dropdown item clicks
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const section = this.getAttribute('data-section');
-                console.log('Dropdown item clicked:', section);
-                // Close all dropdowns
-                document.querySelectorAll('.nav-item').forEach(nav => {
-                    nav.classList.remove('show-dropdown');
                 });
+                
+                this.classList.toggle('show-dropdown');
             });
         });
 
-        // Close dropdowns when clicking outside
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.nav-item')) {
                 document.querySelectorAll('.nav-item').forEach(nav => {
@@ -1696,521 +2832,594 @@
             }
         });
 
-        // Filter functions
-        function applyFilters() {
-            const timePeriod = document.getElementById('timePeriod').value;
-            const region = document.getElementById('region').value;
-            const district = document.getElementById('district').value;
-            const party = document.getElementById('party').value;
-            
-            console.log('Filters applied:', { timePeriod, region, district, party });
-            alert('Filters applied successfully! Data will be updated based on your selection.');
+        function initChartsForSection(sectionId) {
+            // Initialize charts based on section
+            const chartInitializers = {
+                'overview': initOverviewCharts,
+                'voter-analytics': initVoterAnalyticsCharts,
+                'survey-reports': initSurveyReportsCharts,
+                'performance-metrics': initPerformanceMetricsCharts,
+                'all-constituencies': initConstituencyCharts,
+                'district-view': initDistrictViewCharts,
+                'booth-analysis': initBoothAnalysisCharts,
+                'demographics': initDemographicsCharts,
+                'campaign-analytics': initCampaignAnalyticsCharts,
+                'social-media': initSocialMediaCharts,
+                'email-tracking': initEmailTrackingCharts,
+                'segmentation': initSegmentationCharts,
+                'behavior-analysis': initBehaviorAnalysisCharts,
+                'targeting': initTargetingCharts,
+                'data-analytics': initDataAnalyticsCharts,
+                'active-campaigns': initActiveCampaignsCharts,
+                'data-sync': initDataSyncCharts
+            };
+
+            if (chartInitializers[sectionId]) {
+                chartInitializers[sectionId]();
+            }
         }
 
-        function resetFilters() {
-            document.getElementById('timePeriod').selectedIndex = 0;
-            document.getElementById('region').selectedIndex = 0;
-            document.getElementById('district').selectedIndex = 0;
-            document.getElementById('party').selectedIndex = 0;
-            console.log('Filters reset');
+        function initOverviewCharts() {
+            const ctx = document.getElementById('overviewCampaignChart');
+            if (ctx && !charts['overviewCampaignChart']) {
+                charts['overviewCampaignChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Campaign Reach',
+                            data: [120, 150, 180, 220, 250, 290],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
         }
 
-        // Initialize all charts
-        function initCharts() {
-            // Demographics Chart
-            new Chart(document.getElementById('demographicsChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
-                    datasets: [{
-                        data: [15, 23, 22, 18, 12, 10],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
+        function initVoterAnalyticsCharts() {
+            const ctx1 = document.getElementById('voterAgeChart');
+            if (ctx1 && !charts['voterAgeChart']) {
+                charts['voterAgeChart'] = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
+                        datasets: [{
+                            label: 'Voters',
+                            data: [780000, 1190000, 1144000, 936000, 624000, 520000],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
 
-            // Voting Patterns Chart
-            new Chart(document.getElementById('votingPatternsChart'), {
-                type: 'line',
-                data: {
-                    labels: ['2008', '2013', '2018', '2023', '2028 (Predicted)'],
-                    datasets: [{
-                        label: 'INC',
-                        data: [80, 122, 78, 135, 130],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4
-                    }, {
-                        label: 'BJP',
-                        data: [110, 40, 104, 66, 75],
-                        borderColor: '#f093fb',
-                        backgroundColor: 'rgba(240, 147, 251, 0.1)',
-                        tension: 0.4
-                    }, {
-                        label: 'JD(S)',
-                        data: [28, 40, 37, 19, 15],
-                        borderColor: '#4facfe',
-                        backgroundColor: 'rgba(79, 172, 254, 0.1)',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Survey Chart
-            new Chart(document.getElementById('surveyChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'Surveys Completed',
-                        data: [45000, 52000, 48000, 61000, 55000, 67000],
-                        backgroundColor: '#667eea'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // Booth Chart
-            new Chart(document.getElementById('boothChart'), {
-                type: 'pie',
-                data: {
-                    labels: ['Strong', 'Weak', 'Neutral'],
-                    datasets: [{
-                        data: [12345, 8567, 37634],
-                        backgroundColor: ['#43e97b', '#fa709a', '#fed7aa']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Social Media Chart
-            new Chart(document.getElementById('socialMediaChart'), {
-                type: 'radar',
-                data: {
-                    labels: ['Facebook', 'Twitter', 'Instagram', 'WhatsApp', 'YouTube'],
-                    datasets: [{
-                        label: 'Engagement Score',
-                        data: [85, 78, 92, 88, 75],
-                        backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                        borderColor: '#667eea',
-                        pointBackgroundColor: '#667eea'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-
-            // Sentiment Chart
-            new Chart(document.getElementById('sentimentChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Positive', 'Neutral', 'Negative'],
-                    datasets: [{
-                        data: [58, 25, 17],
-                        backgroundColor: ['#43e97b', '#fed7aa', '#fa709a']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Prediction Chart
-            new Chart(document.getElementById('predictionChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['INC', 'BJP', 'JD(S)', 'Others'],
-                    datasets: [{
-                        label: '2028 Seat Projection',
-                        data: [130, 75, 15, 4],
-                        backgroundColor: ['#667eea', '#f093fb', '#4facfe', '#fed7aa']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
-
-            // Campaign Performance Chart
-            new Chart(document.getElementById('campaignPerformanceChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-                    datasets: [{
-                        label: 'Reach (in thousands)',
-                        data: [120, 150, 180, 220, 250, 290],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Candidate Chart
-            new Chart(document.getElementById('candidateChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Excellent', 'Good', 'Average', 'Poor'],
-                    datasets: [{
-                        label: 'Candidate Performance',
-                        data: [45, 78, 52, 12],
-                        backgroundColor: ['#43e97b', '#667eea', '#fed7aa', '#fa709a']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Real-time Chart
-            new Chart(document.getElementById('realtimeChart'), {
-                type: 'line',
-                data: {
-                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
-                    datasets: [{
-                        label: 'Data Points Collected',
-                        data: [1200, 1800, 3400, 5600, 4200, 6800, 7200],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Issues Chart
-            new Chart(document.getElementById('issuesChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Employment', 'Infrastructure', 'Healthcare', 'Education', 'Agriculture', 'Water'],
-                    datasets: [{
-                        label: 'Priority Score',
-                        data: [85, 72, 68, 65, 58, 54],
-                        backgroundColor: '#667eea'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y'
-                }
-            });
-
-            // Media Chart
-            new Chart(document.getElementById('mediaChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                    datasets: [{
-                        label: 'TV',
-                        data: [35, 42, 38, 45, 52, 48],
-                        borderColor: '#667eea',
-                        tension: 0.4
-                    }, {
-                        label: 'Print',
-                        data: [28, 32, 30, 35, 38, 42],
-                        borderColor: '#f093fb',
-                        tension: 0.4
-                    }, {
-                        label: 'Digital',
-                        data: [45, 52, 58, 65, 72, 78],
-                        borderColor: '#4facfe',
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Youth Chart
-            new Chart(document.getElementById('youthChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['18-21', '22-25', '26-30', '31-35'],
-                    datasets: [{
-                        data: [17, 21, 32, 30],
-                        backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Women Chart
-            new Chart(document.getElementById('womenChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
-                    datasets: [{
-                        label: 'Women Voters',
-                        data: [285000, 432000, 458000, 398000, 287000, 452000],
-                        backgroundColor: '#f093fb'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Rural Urban Chart
-            new Chart(document.getElementById('ruralUrbanChart'), {
-                type: 'pie',
-                data: {
-                    labels: ['Urban', 'Rural'],
-                    datasets: [{
-                        data: [38, 62],
-                        backgroundColor: ['#667eea', '#43e97b']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Caste Chart
-            new Chart(document.getElementById('casteChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['SC', 'ST', 'OBC', 'General'],
-                    datasets: [{
-                        data: [17.2, 6.8, 54.3, 21.7],
-                        backgroundColor: ['#667eea', '#43e97b', '#f093fb', '#fed7aa']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-
-            // Financial Chart
-            new Chart(document.getElementById('financialChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Digital', 'Ground', 'Events', 'Media', 'Print', 'Other'],
-                    datasets: [{
-                        label: 'Expenditure (in Crores)',
-                        data: [12, 15, 8, 5, 3, 2],
-                        backgroundColor: ['#667eea', '#f093fb', '#4facfe', '#43e97b', '#fed7aa', '#fa709a']
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Ground Team Chart
-            new Chart(document.getElementById('groundTeamChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                    datasets: [{
-                        label: 'Coverage (in thousands)',
-                        data: [450, 680, 820, 950],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Event Chart
-            new Chart(document.getElementById('eventChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Rallies', 'Town Halls', 'Door-to-Door', 'Public Meetings', 'Digital Events'],
-                    datasets: [{
-                        label: 'Events Count',
-                        data: [234, 156, 567, 189, 99],
-                        backgroundColor: '#667eea'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y'
-                }
-            });
-
-            // Opposition Chart
-            new Chart(document.getElementById('oppositionChart'), {
-                type: 'radar',
-                data: {
-                    labels: ['Social Media', 'Ground Work', 'Media Coverage', 'Funding', 'Organization', 'Public Support'],
-                    datasets: [{
-                        label: 'INC',
-                        data: [85, 78, 82, 75, 88, 80],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.2)'
-                    }, {
-                        label: 'BJP',
-                        data: [90, 82, 88, 85, 85, 75],
-                        borderColor: '#f093fb',
-                        backgroundColor: 'rgba(240, 147, 251, 0.2)'
-                    }, {
-                        label: 'JD(S)',
-                        data: [65, 70, 68, 62, 72, 58],
-                        borderColor: '#4facfe',
-                        backgroundColor: 'rgba(79, 172, 254, 0.2)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-
-            // Call Center Chart
-            new Chart(document.getElementById('callCenterChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [{
-                        label: 'Calls Made',
-                        data: [42000, 45000, 48000, 46000, 49000, 38000, 35000],
-                        borderColor: '#667eea',
-                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                        tension: 0.4,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-
-            // Comparative Chart
-            new Chart(document.getElementById('comparativeChart'), {
-                type: 'bar',
-                data: {
-                    labels: ['Urban North', 'Urban South', 'Rural North', 'Rural South', 'Coastal'],
-                    datasets: [{
-                        label: 'INC Support',
-                        data: [45, 52, 38, 48, 42],
-                        backgroundColor: '#667eea'
-                    }, {
-                        label: 'BJP Support',
-                        data: [38, 32, 45, 35, 40],
-                        backgroundColor: '#f093fb'
-                    }, {
-                        label: 'JD(S) Support',
-                        data: [12, 10, 13, 14, 15],
-                        backgroundColor: '#4facfe'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
+            const ctx2 = document.getElementById('voterGenderChart');
+            if (ctx2 && !charts['voterGenderChart']) {
+                charts['voterGenderChart'] = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Male', 'Female', 'Other'],
+                        datasets: [{
+                            data: [52.3, 47.7, 0.1],
+                            backgroundColor: ['#667eea', '#f093fb', '#4facfe']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
         }
 
-        // Initialize charts when page loads
-        window.addEventListener('load', initCharts);
+        function initSurveyReportsCharts() {
+            const ctx = document.getElementById('surveyTrendsChart');
+            if (ctx && !charts['surveyTrendsChart']) {
+                charts['surveyTrendsChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Surveys',
+                            data: [45000, 52000, 48000, 61000, 55000, 67000],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initPerformanceMetricsCharts() {
+            const ctx = document.getElementById('performanceTrendChart');
+            if (ctx && !charts['performanceTrendChart']) {
+                charts['performanceTrendChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Performance Score',
+                            data: [7.5, 7.8, 8.2, 8.5, 8.6, 8.7],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initConstituencyCharts() {
+            const ctx = document.getElementById('constituencyChart');
+            if (ctx && !charts['constituencyChart']) {
+                charts['constituencyChart'] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Bangalore', 'Mysore', 'Belgaum', 'Gulbarga', 'Mangalore', 'Hubli'],
+                        datasets: [{
+                            label: 'Constituencies',
+                            data: [28, 24, 32, 38, 18, 22],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initDistrictViewCharts() {
+            const ctx1 = document.getElementById('districtPartyChart');
+            if (ctx1 && !charts['districtPartyChart']) {
+                charts['districtPartyChart'] = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Bangalore', 'Mysore', 'Belgaum', 'Gulbarga', 'Mangalore'],
+                        datasets: [{
+                            label: 'INC',
+                            data: [52, 48, 35, 42, 38],
+                            backgroundColor: '#667eea'
+                        }, {
+                            label: 'BJP',
+                            data: [32, 35, 48, 35, 40],
+                            backgroundColor: '#f093fb'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('districtGrowthChart');
+            if (ctx2 && !charts['districtGrowthChart']) {
+                charts['districtGrowthChart'] = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['2018', '2019', '2020', '2021', '2022', '2023'],
+                        datasets: [{
+                            label: 'Growth',
+                            data: [12, 15, 18, 22, 25, 28],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initBoothAnalysisCharts() {
+            const ctx1 = document.getElementById('boothStrengthChart');
+            if (ctx1 && !charts['boothStrengthChart']) {
+                charts['boothStrengthChart'] = new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Strong', 'Weak', 'Neutral'],
+                        datasets: [{
+                            data: [12345, 8567, 37634],
+                            backgroundColor: ['#43e97b', '#fa709a', '#fed7aa']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('boothTimelineChart');
+            if (ctx2 && !charts['boothTimelineChart']) {
+                charts['boothTimelineChart'] = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Coverage',
+                            data: [15000, 25000, 35000, 45000, 52000, 58546],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initDemographicsCharts() {
+            const ctx1 = document.getElementById('demoAgeChart');
+            if (ctx1 && !charts['demoAgeChart']) {
+                charts['demoAgeChart'] = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['18-25', '26-35', '36-45', '46-55', '56-65', '65+'],
+                        datasets: [{
+                            label: 'Population',
+                            data: [780, 1190, 1144, 936, 624, 520],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('demoUrbanRuralChart');
+            if (ctx2 && !charts['demoUrbanRuralChart']) {
+                charts['demoUrbanRuralChart'] = new Chart(ctx2, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Urban', 'Rural'],
+                        datasets: [{
+                            data: [38, 62],
+                            backgroundColor: ['#667eea', '#43e97b']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx3 = document.getElementById('demoEducationChart');
+            if (ctx3 && !charts['demoEducationChart']) {
+                charts['demoEducationChart'] = new Chart(ctx3, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Primary', 'Secondary', 'Graduate', 'Post-Graduate'],
+                        datasets: [{
+                            label: 'Education Levels',
+                            data: [25, 35, 28, 12],
+                            backgroundColor: '#f093fb'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+                });
+            }
+
+            const ctx4 = document.getElementById('demoOccupationChart');
+            if (ctx4 && !charts['demoOccupationChart']) {
+                charts['demoOccupationChart'] = new Chart(ctx4, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Agriculture', 'Business', 'Service', 'Professional', 'Other'],
+                        datasets: [{
+                            data: [32, 18, 25, 15, 10],
+                            backgroundColor: ['#43e97b', '#667eea', '#f093fb', '#4facfe', '#fed7aa']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initCampaignAnalyticsCharts() {
+            const ctx1 = document.getElementById('campaignTypeChart');
+            if (ctx1 && !charts['campaignTypeChart']) {
+                charts['campaignTypeChart'] = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Digital', 'Ground', 'Events', 'Media'],
+                        datasets: [{
+                            label: 'Performance',
+                            data: [85, 72, 68, 78],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('budgetAllocationChart');
+            if (ctx2 && !charts['budgetAllocationChart']) {
+                charts['budgetAllocationChart'] = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Digital', 'Ground', 'Events', 'Media', 'Other'],
+                        datasets: [{
+                            data: [27, 33, 18, 11, 11],
+                            backgroundColor: ['#667eea', '#43e97b', '#f093fb', '#4facfe', '#fed7aa']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx3 = document.getElementById('campaignTimelineChart');
+            if (ctx3 && !charts['campaignTimelineChart']) {
+                charts['campaignTimelineChart'] = new Chart(ctx3, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Reach',
+                            data: [120, 150, 180, 220, 250, 290],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initSocialMediaCharts() {
+            const ctx1 = document.getElementById('platformPerformanceChart');
+            if (ctx1 && !charts['platformPerformanceChart']) {
+                charts['platformPerformanceChart'] = new Chart(ctx1, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Facebook', 'Twitter', 'Instagram', 'WhatsApp', 'YouTube'],
+                        datasets: [{
+                            label: 'Engagement',
+                            data: [85, 78, 92, 88, 75],
+                            backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                            borderColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('socialGrowthChart');
+            if (ctx2 && !charts['socialGrowthChart']) {
+                charts['socialGrowthChart'] = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Facebook',
+                            data: [6.5, 6.8, 7.2, 7.8, 8.2, 8.5],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }, {
+                            label: 'Twitter',
+                            data: [9.5, 10.2, 10.8, 11.5, 11.9, 12.3],
+                            borderColor: '#4facfe',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initEmailTrackingCharts() {
+            const ctx = document.getElementById('emailPerformanceChart');
+            if (ctx && !charts['emailPerformanceChart']) {
+                charts['emailPerformanceChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [{
+                            label: 'Open Rate',
+                            data: [25.5, 26.8, 27.5, 28.5],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }, {
+                            label: 'Click Rate',
+                            data: [3.2, 3.5, 3.8, 4.2],
+                            borderColor: '#43e97b',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initSegmentationCharts() {
+            const ctx1 = document.getElementById('segmentDistChart');
+            if (ctx1 && !charts['segmentDistChart']) {
+                charts['segmentDistChart'] = new Chart(ctx1, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Youth', 'Middle Age', 'Senior', 'Rural', 'Urban'],
+                        datasets: [{
+                            data: [28, 32, 12, 38, 24],
+                            backgroundColor: ['#667eea', '#43e97b', '#f093fb', '#4facfe', '#fed7aa']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('segmentPerformanceChart');
+            if (ctx2 && !charts['segmentPerformanceChart']) {
+                charts['segmentPerformanceChart'] = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Youth', 'Professionals', 'Farmers', 'Women', 'Senior'],
+                        datasets: [{
+                            label: 'Engagement',
+                            data: [85, 78, 72, 82, 68],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initBehaviorAnalysisCharts() {
+            const ctx1 = document.getElementById('votingPatternsAnalysisChart');
+            if (ctx1 && !charts['votingPatternsAnalysisChart']) {
+                charts['votingPatternsAnalysisChart'] = new Chart(ctx1, {
+                    type: 'line',
+                    data: {
+                        labels: ['2008', '2013', '2018', '2023'],
+                        datasets: [{
+                            label: 'Turnout %',
+                            data: [68, 71, 72.4, 74],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('decisionFactorsChart');
+            if (ctx2 && !charts['decisionFactorsChart']) {
+                charts['decisionFactorsChart'] = new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Issues', 'Candidate', 'Party', 'Caste', 'Development'],
+                        datasets: [{
+                            label: 'Importance',
+                            data: [85, 72, 65, 45, 78],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y' }
+                });
+            }
+
+            const ctx3 = document.getElementById('historicalTrendsChart');
+            if (ctx3 && !charts['historicalTrendsChart']) {
+                charts['historicalTrendsChart'] = new Chart(ctx3, {
+                    type: 'line',
+                    data: {
+                        labels: ['2008', '2013', '2018', '2023'],
+                        datasets: [{
+                            label: 'INC',
+                            data: [80, 122, 78, 135],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }, {
+                            label: 'BJP',
+                            data: [110, 40, 104, 66],
+                            borderColor: '#f093fb',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initTargetingCharts() {
+            const ctx1 = document.getElementById('targetEffectivenessChart');
+            if (ctx1 && !charts['targetEffectivenessChart']) {
+                charts['targetEffectivenessChart'] = new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Digital', 'Ground', 'Events', 'Direct'],
+                        datasets: [{
+                            label: 'Effectiveness',
+                            data: [85, 72, 68, 78],
+                            backgroundColor: '#667eea'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            const ctx2 = document.getElementById('targetingTimelineChart');
+            if (ctx2 && !charts['targetingTimelineChart']) {
+                charts['targetingTimelineChart'] = new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Targets Reached',
+                            data: [450, 850, 1250, 1680, 2150, 2700],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initDataAnalyticsCharts() {
+            const ctx = document.getElementById('dataAnalyticsChart');
+            if (ctx && !charts['dataAnalyticsChart']) {
+                charts['dataAnalyticsChart'] = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Bangalore', 'Mysore', 'Belgaum', 'Gulbarga', 'Other'],
+                        datasets: [{
+                            label: 'INC',
+                            data: [52, 48, 35, 42, 38],
+                            backgroundColor: '#667eea'
+                        }, {
+                            label: 'BJP',
+                            data: [32, 35, 48, 35, 40],
+                            backgroundColor: '#f093fb'
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initActiveCampaignsCharts() {
+            const ctx = document.getElementById('campaignEffectivenessChart');
+            if (ctx && !charts['campaignEffectivenessChart']) {
+                charts['campaignEffectivenessChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Digital',
+                            data: [120, 140, 160, 185, 210, 235],
+                            borderColor: '#667eea',
+                            tension: 0.4
+                        }, {
+                            label: 'Ground',
+                            data: [80, 95, 110, 125, 140, 158],
+                            borderColor: '#f093fb',
+                            tension: 0.4
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function initDataSyncCharts() {
+            const ctx = document.getElementById('syncActivityChart');
+            if (ctx && !charts['syncActivityChart']) {
+                charts['syncActivityChart'] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                        datasets: [{
+                            label: 'Data Synced (GB)',
+                            data: [0.2, 0.3, 0.8, 1.2, 1.8, 2.3],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        window.addEventListener('load', function() {
+            initOverviewCharts();
+        });
     </script>
 
 </body>
