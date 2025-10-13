@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Relations Dashboard - Indian Political Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: #fafafa;
+            color: #0a0a0a;
+            line-height: 1.6;
+        }
+
+        /* Top Bar - Logo and Icons */
+        .top-bar {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 32px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a0a0a;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .top-icons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 1px solid #e5e5e5;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #fafafa;
+            border-color: #d4d4d4;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Navigation Header - Second Layer */
+        .nav-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 0 32px;
+            position: sticky;
+            top: 64px;
+            z-index: 999;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-item {
+            position: relative;
+            padding: 16px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 500;
+            color: #525252;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            color: #0a0a0a;
+            background: #fafafa;
+        }
+
+        .nav-item.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 240px;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: none;
+            margin-top: 8px;
+            z-index: 1000;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            color: #525252;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #fafafa;
+            color: #0a0a0a;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 32px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a0a0a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #737373;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-color: #d4d4d4;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #737373;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0a0a0a;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive {
+            color: #10b981;
+        }
+
+        .stat-change.negative {
+            color: #ef4444;
+        }
+
+        /* Section Container */
+        .section {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0a0a0a;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e5e5e5;
+            background: white;
+            color: #0a0a0a;
+        }
+
+        .btn:hover {
+            background: #fafafa;
+            border-color: #d4d4d4;
+        }
+
+        .btn-primary {
+            background: #0a0a0a;
+            color: white;
+            border-color: #0a0a0a;
+        }
+
+        .btn-primary:hover {
+            background: #262626;
+        }
+
+        /* Under Construction */
+        .under-construction {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .construction-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .construction-text {
+            font-size: 18px;
+            color: #737373;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .construction-subtext {
+            font-size: 14px;
+            color: #a3a3a3;
+        }
+
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: #fafafa;
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: #525252;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        td {
+            padding: 16px;
+            font-size: 14px;
+            color: #0a0a0a;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        tr:hover {
+            background: #fafafa;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .badge-danger {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        /* List Items */
+        .list-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #f5f5f5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0a0a0a;
+            margin-bottom: 4px;
+        }
+
+        .list-item-subtitle {
+            font-size: 13px;
+            color: #737373;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #a3a3a3;
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        /* Chart Placeholder */
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a3a3a3;
+            font-size: 14px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #737373;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: #0a0a0a;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 0 16px;
+            }
+
+            .nav-header {
+                padding: 0 16px;
+            }
+
+            .main-content {
+                padding: 16px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="logo-section">
+            <div class="logo-icon">🎤</div>
+            <div class="logo">Indian Political Analysis</div>
+        </div>
+        <div class="top-icons">
+            <div class="icon-btn" title="Notifications">🔔</div>
+            <div class="icon-btn" title="Search">🔍</div>
+            <div class="icon-btn" title="Settings">⚙️</div>
+            <div class="user-avatar">AD</div>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <div class="nav-header">
+        <div class="nav-container">
+            <div class="nav-item active" onclick="showSection('dashboard')">Dashboard</div>
+            
+            <div class="nav-item dropdown">
+                <span>Media Relations</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('mediaContacts')">Media Contacts</div>
+                    <div class="dropdown-item" onclick="showSection('mediaOutreach')">Media Outreach</div>
+                    <div class="dropdown-item" onclick="showSection('mediaPartnership')">Media Partnerships</div>
+                    <div class="dropdown-item" onclick="showSection('journalistDatabase')">Journalist Database</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Press & Releases</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('pressReleases')">Press Releases</div>
+                    <div class="dropdown-item" onclick="showSection('pressConference')">Press Conferences</div>
+                    <div class="dropdown-item" onclick="showSection('mediaBriefings')">Media Briefings</div>
+                    <div class="dropdown-item" onclick="showSection('pressKit')">Press Kit</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Social Media</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('socialMonitoring')">Social Monitoring</div>
+                    <div class="dropdown-item" onclick="showSection('socialCalendar')">Content Calendar</div>
+                    <div class="dropdown-item" onclick="showSection('socialAnalytics')">Analytics</div>
+                    <div class="dropdown-item" onclick="showSection('influencerManagement')">Influencer Management</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Brand Management</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('brandGuidelines')">Brand Guidelines</div>
+                    <div class="dropdown-item" onclick="showSection('brandAssets')">Brand Assets</div>
+                    <div class="dropdown-item" onclick="showSection('brandMonitoring')">Brand Monitoring</div>
+                    <div class="dropdown-item" onclick="showSection('reputationTracking')">Reputation Tracking</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Crisis Management</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('crisisProtocol')">Crisis Protocol</div>
+                    <div class="dropdown-item" onclick="showSection('crisisResponse')">Crisis Response</div>
+                    <div class="dropdown-item" onclick="showSection('issueTracking')">Issue Tracking</div>
+                    <div class="dropdown-item" onclick="showSection('damageControl')">Damage Control</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Events</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('eventPlanning')">Event Planning</div>
+                    <div class="dropdown-item" onclick="showSection('eventCalendar')">Event Calendar</div>
+                    <div class="dropdown-item" onclick="showSection('eventCoverage')">Event Coverage</div>
+                    <div class="dropdown-item" onclick="showSection('eventAnalytics')">Event Analytics</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Content</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('contentLibrary')">Content Library</div>
+                    <div class="dropdown-item" onclick="showSection('speechWriting')">Speech Writing</div>
+                    <div class="dropdown-item" onclick="showSection('articleManagement')">Article Management</div>
+                    <div class="dropdown-item" onclick="showSection('videoProduction')">Video Production</div>
+                </div>
+            </div>
+
+            <div class="nav-item dropdown">
+                <span>Analytics</span>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="showSection('mediaCoverage')">Media Coverage</div>
+                    <div class="dropdown-item" onclick="showSection('sentimentAnalysis')">Sentiment Analysis</div>
+                    <div class="dropdown-item" onclick="showSection('reachMetrics')">Reach Metrics</div>
+                    <div class="dropdown-item" onclick="showSection('competitorAnalysis')">Competitor Analysis</div>
+                </div>
+            </div>
+
+            <div class="nav-item" onclick="showSection('reports')">Reports</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Public Relations Dashboard</h1>
+                <p class="page-subtitle">Comprehensive PR management and media relations for Karnataka 2028 Elections</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Media Reach</div>
+                    <div class="stat-value">2.4M</div>
+                    <div class="stat-change positive">↑ 18.2% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Press Releases</div>
+                    <div class="stat-value">47</div>
+                    <div class="stat-change positive">↑ 12 this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Media Mentions</div>
+                    <div class="stat-value">1,284</div>
+                    <div class="stat-change positive">↑ 34.5% this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Sentiment Score</div>
+                    <div class="stat-value">78%</div>
+                    <div class="stat-change positive">↑ 5% positive shift</div>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="grid-2">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Recent Press Releases</h2>
+                        <button class="btn btn-primary">Create New</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Infrastructure Development Initiative</td>
+                                    <td>Oct 12, 2025</td>
+                                    <td><span class="badge badge-success">Published</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Youth Employment Program Launch</td>
+                                    <td>Oct 10, 2025</td>
+                                    <td><span class="badge badge-success">Published</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Healthcare Reform Announcement</td>
+                                    <td>Oct 8, 2025</td>
+                                    <td><span class="badge badge-warning">Draft</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Upcoming Events</h2>
+                        <button class="btn">View All</button>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">Press Conference - Policy Launch</div>
+                            <div class="list-item-subtitle">Oct 15, 2025 at 11:00 AM</div>
+                        </div>
+                        <span class="badge badge-info">Scheduled</span>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">Media Interaction Session</div>
+                            <div class="list-item-subtitle">Oct 18, 2025 at 3:00 PM</div>
+                        </div>
+                        <span class="badge badge-info">Scheduled</span>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">Town Hall Meeting Coverage</div>
+                            <div class="list-item-subtitle">Oct 20, 2025 at 5:00 PM</div>
+                        </div>
+                        <span class="badge badge-warning">Planning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Media Coverage Analysis -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Media Coverage Analysis</h2>
+                    <div class="section-actions">
+                        <button class="btn">Last 7 Days</button>
+                        <button class="btn">Last 30 Days</button>
+                        <button class="btn">Custom Range</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    📊 Media Coverage Chart (7-Day Trend)
+                </div>
+            </div>
+
+            <!-- Sentiment Overview -->
+            <div class="grid-2">
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Sentiment Breakdown</h2>
+                    </div>
+                    <div class="chart-placeholder">
+                        📈 Sentiment Distribution Chart
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Top Media Outlets</h2>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">The Times of India</div>
+                            <div class="list-item-subtitle">234 mentions</div>
+                        </div>
+                        <span class="badge badge-success">High Reach</span>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">Deccan Herald</div>
+                            <div class="list-item-subtitle">187 mentions</div>
+                        </div>
+                        <span class="badge badge-success">High Reach</span>
+                    </div>
+                    <div class="list-item">
+                        <div>
+                            <div class="list-item-title">Vijaya Karnataka</div>
+                            <div class="list-item-subtitle">156 mentions</div>
+                        </div>
+                        <span class="badge badge-info">Medium Reach</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Contacts Section -->
+        <div id="mediaContacts" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Media Contacts</h1>
+                <p class="page-subtitle">Manage journalist database and media relationships</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Outreach Section -->
+        <div id="mediaOutreach" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Media Outreach</h1>
+                <p class="page-subtitle">Plan and execute media outreach campaigns</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Partnership Section -->
+        <div id="mediaPartnership" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Media Partnerships</h1>
+                <p class="page-subtitle">Manage strategic media partnerships</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Journalist Database Section -->
+        <div id="journalistDatabase" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Journalist Database</h1>
+                <p class="page-subtitle">Comprehensive database of media professionals</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Press Releases Section -->
+        <div id="pressReleases" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Press Releases</h1>
+                <p class="page-subtitle">Create, manage, and distribute press releases</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Press Conference Section -->
+        <div id="pressConference" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Press Conferences</h1>
+                <p class="page-subtitle">Schedule and manage press conferences</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Briefings Section -->
+        <div id="mediaBriefings" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Media Briefings</h1>
+                <p class="page-subtitle">Organize media briefings and interactions</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Press Kit Section -->
+        <div id="pressKit" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Press Kit</h1>
+                <p class="page-subtitle">Digital press kit management</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Monitoring Section -->
+        <div id="socialMonitoring" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Social Media Monitoring</h1>
+                <p class="page-subtitle">Real-time social media tracking and analysis</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Calendar Section -->
+        <div id="socialCalendar" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Content Calendar</h1>
+                <p class="page-subtitle">Plan and schedule social media content</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Analytics Section -->
+        <div id="socialAnalytics" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Social Media Analytics</h1>
+                <p class="page-subtitle">Track performance across all platforms</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Influencer Management Section -->
+        <div id="influencerManagement" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Influencer Management</h1>
+                <p class="page-subtitle">Manage relationships with influencers and brand ambassadors</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Guidelines Section -->
+        <div id="brandGuidelines" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Brand Guidelines</h1>
+                <p class="page-subtitle">Maintain brand consistency and guidelines</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Assets Section -->
+        <div id="brandAssets" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Brand Assets</h1>
+                <p class="page-subtitle">Digital asset management system</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Monitoring Section -->
+        <div id="brandMonitoring" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Brand Monitoring</h1>
+                <p class="page-subtitle">Track brand mentions and perception</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reputation Tracking Section -->
+        <div id="reputationTracking" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Reputation Tracking</h1>
+                <p class="page-subtitle">Monitor and manage online reputation</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crisis Protocol Section -->
+        <div id="crisisProtocol" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Crisis Protocol</h1>
+                <p class="page-subtitle">Crisis management protocols and procedures</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Crisis Response Section -->
+        <div id="crisisResponse" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Crisis Response</h1>
+                <p class="page-subtitle">Real-time crisis response management</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Issue Tracking Section -->
+        <div id="issueTracking" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Issue Tracking</h1>
+                <p class="page-subtitle">Monitor and track potential issues</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Damage Control Section -->
+        <div id="damageControl" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Damage Control</h1>
+                <p class="page-subtitle">Strategies and actions for damage control</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Planning Section -->
+        <div id="eventPlanning" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Event Planning</h1>
+                <p class="page-subtitle">Plan and coordinate PR events</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Calendar Section -->
+        <div id="eventCalendar" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Event Calendar</h1>
+                <p class="page-subtitle">Comprehensive event calendar and scheduling</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Coverage Section -->
+        <div id="eventCoverage" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Event Coverage</h1>
+                <p class="page-subtitle">Media coverage planning for events</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Analytics Section -->
+        <div id="eventAnalytics" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Event Analytics</h1>
+                <p class="page-subtitle">Measure event impact and ROI</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Library Section -->
+        <div id="contentLibrary" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Content Library</h1>
+                <p class="page-subtitle">Centralized content repository</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speech Writing Section -->
+        <div id="speechWriting" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Speech Writing</h1>
+                <p class="page-subtitle">Speech drafting and management system</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Management Section -->
+        <div id="articleManagement" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Article Management</h1>
+                <p class="page-subtitle">Manage articles, op-eds, and published content</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Production Section -->
+        <div id="videoProduction" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Video Production</h1>
+                <p class="page-subtitle">Video content production and management</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Media Coverage Section -->
+        <div id="mediaCoverage" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Media Coverage Analytics</h1>
+                <p class="page-subtitle">Track and analyze media coverage</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sentiment Analysis Section -->
+        <div id="sentimentAnalysis" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Sentiment Analysis</h1>
+                <p class="page-subtitle">AI-powered sentiment analysis and tracking</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reach Metrics Section -->
+        <div id="reachMetrics" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Reach Metrics</h1>
+                <p class="page-subtitle">Comprehensive reach and engagement metrics</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competitor Analysis Section -->
+        <div id="competitorAnalysis" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Competitor Analysis</h1>
+                <p class="page-subtitle">Monitor and analyze competitor PR activities</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reports" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">PR Reports</h1>
+                <p class="page-subtitle">Generate comprehensive PR reports and analytics</p>
+            </div>
+            <div class="section">
+                <div class="under-construction">
+                    <div class="construction-icon">🚧</div>
+                    <div class="construction-text">Under Construction</div>
+                    <div class="construction-subtext">We'll generate the code for this module later</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.style.display = 'none');
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+            }
+
+            // Update active nav item - remove active from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Add active class to dashboard nav if showing dashboard
+            if (sectionId === 'dashboard') {
+                const dashboardNav = document.querySelector('.nav-item[data-section="dashboard"]');
+                if (dashboardNav) {
+                    dashboardNav.classList.add('active');
+                }
+            }
+
+            // Scroll to top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Close any open dropdowns
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+        }
+
+        // Initialize navigation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up dashboard navigation
+            const dashboardNav = document.querySelector('.nav-item[data-section="dashboard"]');
+            if (dashboardNav) {
+                dashboardNav.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection('dashboard');
+                });
+            }
+
+            // Set up reports navigation
+            const reportsNav = document.querySelector('.nav-item[data-section="reports"]');
+            if (reportsNav) {
+                reportsNav.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showSection('reports');
+                });
+            }
+
+            // Set up all dropdown items
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const sectionId = this.getAttribute('data-section');
+                    if (sectionId) {
+                        showSection(sectionId);
+                    }
+                });
+            });
+
+            // Prevent dropdown parent from closing on hover
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!event.target.closest('.dropdown')) {
+                    const dropdownMenus = document.querySelectorAll('.dropdown-menu');
+                    dropdownMenus.forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

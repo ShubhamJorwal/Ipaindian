@@ -160,6 +160,10 @@
             font-weight: 500;
             transition: all 0.2s;
             border-bottom: 2px solid transparent;
+            cursor: pointer;
+            .dropdown-arrow {
+                display: none;
+            }
         }
 
         .nav-link:hover {
@@ -212,6 +216,7 @@
             font-size: 14px;
             transition: all 0.2s;
             border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
         }
 
         .dropdown-item:last-child {
@@ -229,6 +234,14 @@
             padding: 32px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
         }
 
         .page-header {
@@ -375,27 +388,24 @@
             background: #404040;
         }
 
-        /* Under Construction */
-        .under-construction {
-            text-align: center;
-            padding: 60px 24px;
-            color: #737373;
+        .btn-success {
+            background: #22c55e;
+            color: #ffffff;
+            border-color: #22c55e;
         }
 
-        .under-construction-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
+        .btn-success:hover {
+            background: #16a34a;
         }
 
-        .under-construction h3 {
-            font-size: 20px;
-            color: #525252;
-            margin-bottom: 8px;
+        .btn-danger {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #ef4444;
         }
 
-        .under-construction p {
-            font-size: 14px;
+        .btn-danger:hover {
+            background: #dc2626;
         }
 
         /* Table Styles */
@@ -458,6 +468,11 @@
             color: #2563eb;
         }
 
+        .badge-purple {
+            background: #e9d5ff;
+            color: #9333ea;
+        }
+
         /* Grid Layout */
         .grid-2 {
             display: grid;
@@ -510,8 +525,84 @@
             line-height: 1.6;
         }
 
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #171717;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #171717;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        textarea.form-input {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Alert Box */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .alert-critical {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            color: #92400e;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+
         /* Chart Placeholder */
-        .chart-placeholder {
+        .chart-container {
             height: 300px;
             background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
             border-radius: 8px;
@@ -520,6 +611,207 @@
             justify-content: center;
             color: #a3a3a3;
             font-size: 14px;
+            border: 1px solid #f5f5f5;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 8px;
+            background: #f5f5f5;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #22c55e;
+            transition: width 0.3s;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: #fafafa;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            transition: all 0.2s;
+        }
+
+        .contact-card:hover {
+            background: #f5f5f5;
+        }
+
+        .contact-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .contact-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-weight: 600;
+            color: #171717;
+            font-size: 15px;
+        }
+
+        .contact-role {
+            font-size: 13px;
+            color: #737373;
+        }
+
+        .contact-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            font-size: 13px;
+            color: #525252;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e5e5e5;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 24px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -28px;
+            top: 4px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #22c55e;
+        }
+
+        .timeline-dot.warning {
+            border-color: #f59e0b;
+        }
+
+        .timeline-dot.danger {
+            border-color: #ef4444;
+        }
+
+        .timeline-content {
+            background: #fafafa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .timeline-time {
+            font-size: 12px;
+            color: #737373;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #171717;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 13px;
+            color: #525252;
+        }
+
+        /* Metric Card */
+        .metric-card {
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #171717;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: #737373;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+        }
+
+        .filter-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            color: #737373;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .tab:hover {
+            color: #171717;
+        }
+
+        .tab.active {
+            color: #171717;
+            border-bottom-color: #171717;
         }
 
         /* Responsive */
@@ -536,6 +828,7 @@
             
             .nav-bar {
                 padding: 0 16px;
+                overflow-x: auto;
             }
             
             .main-content {
@@ -552,6 +845,14 @@
             
             .stats-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+            }
+
+            .filter-item {
+                width: 100%;
             }
         }
     </style>
@@ -593,84 +894,84 @@
     <nav class="nav-bar">
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#overview" class="nav-link active">
+                <a class="nav-link active" onclick="showSection('overview')">
                     📊 Overview
                 </a>
             </li>
             
             <li class="nav-item">
-                <a href="#monitoring" class="nav-link">
+                <a class="nav-link">
                     👁️ Monitoring
                     <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#live-monitoring" class="dropdown-item">Live Media Monitoring</a>
-                    <a href="#news-tracking" class="dropdown-item">News Coverage Tracking</a>
-                    <a href="#social-monitoring" class="dropdown-item">Social Media Monitoring</a>
-                    <a href="#sentiment-analysis" class="dropdown-item">Sentiment Analysis</a>
+                    <a class="dropdown-item" onclick="showSection('live-monitoring')">Live Media Monitoring</a>
+                    <a class="dropdown-item" onclick="showSection('news-tracking')">News Coverage Tracking</a>
+                    <a class="dropdown-item" onclick="showSection('social-monitoring')">Social Media Monitoring</a>
+                    <a class="dropdown-item" onclick="showSection('sentiment-analysis')">Sentiment Analysis</a>
                 </div>
             </li>
             
             <li class="nav-item">
-                <a href="#press" class="nav-link">
+                <a class="nav-link">
                     📰 Press Management
                     <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#press-releases" class="dropdown-item">Press Releases</a>
-                    <a href="#press-conferences" class="dropdown-item">Press Conferences</a>
-                    <a href="#media-kits" class="dropdown-item">Media Kits</a>
-                    <a href="#spokesperson" class="dropdown-item">Spokesperson Management</a>
+                    <a class="dropdown-item" onclick="showSection('press-releases')">Press Releases</a>
+                    <a class="dropdown-item" onclick="showSection('press-conferences')">Press Conferences</a>
+                    <a class="dropdown-item" onclick="showSection('media-kits')">Media Kits</a>
+                    <a class="dropdown-item" onclick="showSection('spokesperson')">Spokesperson Management</a>
                 </div>
             </li>
             
             <li class="nav-item">
-                <a href="#journalist" class="nav-link">
+                <a class="nav-link">
                     👥 Journalist Relations
                     <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#journalist-database" class="dropdown-item">Journalist Database</a>
-                    <a href="#media-contacts" class="dropdown-item">Media Contacts</a>
-                    <a href="#relationship-tracker" class="dropdown-item">Relationship Tracker</a>
-                    <a href="#interview-schedule" class="dropdown-item">Interview Scheduling</a>
+                    <a class="dropdown-item" onclick="showSection('journalist-database')">Journalist Database</a>
+                    <a class="dropdown-item" onclick="showSection('media-contacts')">Media Contacts</a>
+                    <a class="dropdown-item" onclick="showSection('relationship-tracker')">Relationship Tracker</a>
+                    <a class="dropdown-item" onclick="showSection('interview-schedule')">Interview Scheduling</a>
                 </div>
             </li>
             
             <li class="nav-item">
-                <a href="#analytics" class="nav-link">
+                <a class="nav-link">
                     📈 Analytics
                     <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#coverage-analytics" class="dropdown-item">Coverage Analytics</a>
-                    <a href="#reach-analysis" class="dropdown-item">Reach Analysis</a>
-                    <a href="#impact-metrics" class="dropdown-item">Impact Metrics</a>
-                    <a href="#competitor-analysis" class="dropdown-item">Competitor Analysis</a>
+                    <a class="dropdown-item" onclick="showSection('coverage-analytics')">Coverage Analytics</a>
+                    <a class="dropdown-item" onclick="showSection('reach-analysis')">Reach Analysis</a>
+                    <a class="dropdown-item" onclick="showSection('impact-metrics')">Impact Metrics</a>
+                    <a class="dropdown-item" onclick="showSection('competitor-analysis')">Competitor Analysis</a>
                 </div>
             </li>
             
             <li class="nav-item">
-                <a href="#crisis" class="nav-link">
+                <a class="nav-link">
                     🚨 Crisis Management
                     <span class="dropdown-arrow">▼</span>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#alert-system" class="dropdown-item">Alert System</a>
-                    <a href="#response-protocols" class="dropdown-item">Response Protocols</a>
-                    <a href="#crisis-team" class="dropdown-item">Crisis Team</a>
-                    <a href="#reputation-monitor" class="dropdown-item">Reputation Monitor</a>
+                    <a class="dropdown-item" onclick="showSection('alert-system')">Alert System</a>
+                    <a class="dropdown-item" onclick="showSection('response-protocols')">Response Protocols</a>
+                    <a class="dropdown-item" onclick="showSection('crisis-team')">Crisis Team</a>
+                    <a class="dropdown-item" onclick="showSection('reputation-monitor')">Reputation Monitor</a>
                 </div>
             </li>
             
             <li class="nav-item">
-                <a href="#calendar" class="nav-link">
+                <a class="nav-link" onclick="showSection('calendar')">
                     📅 Calendar
                 </a>
             </li>
             
             <li class="nav-item">
-                <a href="#reports" class="nav-link">
+                <a class="nav-link" onclick="showSection('reports')">
                     📋 Reports
                 </a>
             </li>
@@ -679,395 +980,2376 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="page-title">
-                <span>📺</span>
-                Media Relations Dashboard
-            </h1>
-            <p class="page-subtitle">Comprehensive media monitoring, press management, and analytics for Karnataka political campaigns</p>
-        </div>
-
-        <!-- Stats Overview -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Total Media Coverage</div>
-                    <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📰</div>
-                </div>
-                <div class="stat-value">2,847</div>
-                <div class="stat-change positive">
-                    <span>↑ 18.2%</span>
-                    <span style="color: #737373;">vs last month</span>
-                </div>
+        
+        <!-- OVERVIEW SECTION -->
+        <section id="overview" class="page-section active">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📺</span>
+                    Media Relations Dashboard
+                </h1>
+                <p class="page-subtitle">Comprehensive media monitoring, press management, and analytics for Karnataka political campaigns</p>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Positive Sentiment</div>
-                    <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">😊</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Media Coverage</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📰</div>
+                    </div>
+                    <div class="stat-value">2,847</div>
+                    <div class="stat-change positive">
+                        <span>↑ 18.2%</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
                 </div>
-                <div class="stat-value">68.4%</div>
-                <div class="stat-change positive">
-                    <span>↑ 5.3%</span>
-                    <span style="color: #737373;">vs last month</span>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Positive Sentiment</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">😊</div>
+                    </div>
+                    <div class="stat-value">68.4%</div>
+                    <div class="stat-change positive">
+                        <span>↑ 5.3%</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Reach</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📊</div>
+                    </div>
+                    <div class="stat-value">45.2M</div>
+                    <div class="stat-change positive">
+                        <span>↑ 23.7%</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Active Journalists</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">👥</div>
+                    </div>
+                    <div class="stat-value">342</div>
+                    <div class="stat-change positive">
+                        <span>↑ 12</span>
+                        <span style="color: #737373;">new this month</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Total Reach</div>
-                    <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📊</div>
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Coverage Trends</h2>
+                        <button class="btn">Last 30 Days</button>
+                    </div>
+                    <div class="chart-container">
+                        📈 Media Coverage Trend Chart
+                    </div>
                 </div>
-                <div class="stat-value">45.2M</div>
-                <div class="stat-change positive">
-                    <span>↑ 23.7%</span>
-                    <span style="color: #737373;">vs last month</span>
-                </div>
-            </div>
 
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-title">Active Journalists</div>
-                    <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">👥</div>
-                </div>
-                <div class="stat-value">342</div>
-                <div class="stat-change positive">
-                    <span>↑ 12</span>
-                    <span style="color: #737373;">new this month</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Live Media Monitoring Section -->
-        <section id="live-monitoring" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">🔴 Live Media Monitoring</h2>
-                <div class="section-actions">
-                    <button class="btn">🔄 Refresh</button>
-                    <button class="btn btn-primary">⚙️ Configure Alerts</button>
-                </div>
-            </div>
-            
-            <div class="under-construction">
-                <div class="under-construction-icon">🚧</div>
-                <h3>Under Construction</h3>
-                <p>Real-time media monitoring module will be available soon. This will include live news tracking, social media mentions, and instant alerts.</p>
-            </div>
-        </section>
-
-        <!-- Recent Media Coverage -->
-        <section id="news-tracking" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">📰 Recent Media Coverage</h2>
-                <div class="section-actions">
-                    <button class="btn">📥 Export</button>
-                    <button class="btn btn-primary">+ New Coverage</button>
-                </div>
-            </div>
-            
-            <div class="media-item">
-                <div class="media-item-header">
-                    <div>
-                        <div class="media-item-title">Karnataka CM Announces New Rural Development Initiative</div>
-                        <div class="media-item-meta">
-                            <span>Times of India</span> • 
-                            <span>2 hours ago</span> • 
-                            <span class="badge badge-success">Positive</span>
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">😊 Sentiment Distribution</h2>
+                        <button class="btn">View Details</button>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 14px; color: #525252;">Positive</span>
+                                <span style="font-size: 14px; font-weight: 600;">68.4%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 68.4%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 14px; color: #525252;">Neutral</span>
+                                <span style="font-size: 14px; font-weight: 600;">23.1%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 23.1%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 14px; color: #525252;">Negative</span>
+                                <span style="font-size: 14px; font-weight: 600;">8.5%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 8.5%; background: #ef4444;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="media-item-content">
-                    The Chief Minister today unveiled a comprehensive rural development package worth ₹5,000 crores aimed at transforming infrastructure in villages across Karnataka...
-                </div>
             </div>
 
-            <div class="media-item">
-                <div class="media-item-header">
-                    <div>
-                        <div class="media-item-title">Opposition Questions Government's Healthcare Policy</div>
-                        <div class="media-item-meta">
-                            <span>The Hindu</span> • 
-                            <span>5 hours ago</span> • 
-                            <span class="badge badge-warning">Neutral</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="media-item-content">
-                    Opposition leaders have raised concerns about the implementation timeline of the new healthcare scheme, seeking clarification on funding allocation...
-                </div>
-            </div>
-
-            <div class="media-item">
-                <div class="media-item-header">
-                    <div>
-                        <div class="media-item-title">Education Reforms Receive Positive Response from Stakeholders</div>
-                        <div class="media-item-meta">
-                            <span>Indian Express</span> • 
-                            <span>8 hours ago</span> • 
-                            <span class="badge badge-success">Positive</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="media-item-content">
-                    The newly announced education reforms have been welcomed by teachers' associations and parent groups, with many praising the focus on digital literacy...
-                </div>
-            </div>
-        </section>
-
-        <!-- Press Release Management -->
-        <section id="press-releases" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">📝 Press Release Management</h2>
-                <div class="section-actions">
-                    <button class="btn">📋 Templates</button>
-                    <button class="btn btn-primary">+ Create Release</button>
-                </div>
-            </div>
-            
-            <div class="under-construction">
-                <div class="under-construction-icon">🚧</div>
-                <h3>Under Construction</h3>
-                <p>Press release creation, approval workflow, and distribution management module coming soon.</p>
-            </div>
-        </section>
-
-        <!-- Analytics Grid -->
-        <div class="grid-2">
-            <!-- Coverage Analytics -->
-            <section id="coverage-analytics" class="section-card">
+            <div class="section-card">
                 <div class="section-header">
-                    <h2 class="section-title">📊 Coverage Analytics</h2>
-                    <button class="btn">View Details</button>
+                    <h2 class="section-title">🔥 Top Stories Today</h2>
+                    <button class="btn btn-primary">View All</button>
                 </div>
                 
-                <div class="chart-placeholder">
-                    📈 Coverage Trends Chart (Last 30 Days)
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div>
+                            <div class="media-item-title">Karnataka CM Announces New Rural Development Initiative</div>
+                            <div class="media-item-meta">
+                                <span>Times of India</span> • 
+                                <span>2 hours ago</span> • 
+                                <span class="badge badge-success">Positive</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        The Chief Minister today unveiled a comprehensive rural development package worth ₹5,000 crores aimed at transforming infrastructure in villages across Karnataka...
+                    </div>
                 </div>
-            </section>
 
-            <!-- Sentiment Analysis -->
-            <section id="sentiment-analysis" class="section-card">
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div>
+                            <div class="media-item-title">Opposition Questions Government's Healthcare Policy</div>
+                            <div class="media-item-meta">
+                                <span>The Hindu</span> • 
+                                <span>5 hours ago</span> • 
+                                <span class="badge badge-warning">Neutral</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        Opposition leaders have raised concerns about the implementation timeline of the new healthcare scheme, seeking clarification on funding allocation...
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE MONITORING SECTION -->
+        <section id="live-monitoring" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🔴</span>
+                    Live Media Monitoring
+                </h1>
+                <p class="page-subtitle">Real-time tracking of media mentions across all platforms</p>
+            </div>
+
+            <div class="alert alert-info">
+                <span style="font-size: 20px;">ℹ️</span>
+                <div>
+                    <strong>Live Monitoring Active</strong><br>
+                    Tracking 247 sources including newspapers, TV channels, online portals, and social media platforms
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Mentions Today</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📢</div>
+                    </div>
+                    <div class="stat-value">186</div>
+                    <div class="stat-change positive">
+                        <span>↑ 24</span>
+                        <span style="color: #737373;">vs yesterday</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Live Sources</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">📡</div>
+                    </div>
+                    <div class="stat-value">247</div>
+                    <div class="stat-change positive">
+                        <span>All Active</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Avg Response Time</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">⚡</div>
+                    </div>
+                    <div class="stat-value">4.2m</div>
+                    <div class="stat-change positive">
+                        <span>↓ 1.3m</span>
+                        <span style="color: #737373;">improved</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Alert Triggers</div>
+                        <div class="stat-icon" style="background: #fee2e2; color: #ef4444;">🚨</div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change negative">
+                        <span>↑ 5</span>
+                        <span style="color: #737373;">vs yesterday</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
                 <div class="section-header">
-                    <h2 class="section-title">😊 Sentiment Distribution</h2>
-                    <button class="btn">View Report</button>
+                    <h2 class="section-title">🔴 Live Feed</h2>
+                    <div class="section-actions">
+                        <button class="btn">🔄 Auto-refresh: ON</button>
+                        <button class="btn btn-primary">⚙️ Configure Sources</button>
+                    </div>
                 </div>
-                
-                <div class="chart-placeholder">
-                    🥧 Sentiment Breakdown Chart
-                </div>
-            </section>
-        </div>
 
-        <!-- Journalist Database -->
-        <section id="journalist-database" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">👥 Journalist Database</h2>
-                <div class="section-actions">
-                    <button class="btn">🔍 Search</button>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">2 minutes ago</div>
+                            <div class="timeline-title">Deccan Herald - Online Edition</div>
+                            <div class="timeline-desc">"CM inaugurates new tech park in Bengaluru, creating 50,000 jobs"</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">8 minutes ago</div>
+                            <div class="timeline-title">TV9 Kannada - Live Broadcast</div>
+                            <div class="timeline-desc">Positive coverage of education reforms announcement</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot warning"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">15 minutes ago</div>
+                            <div class="timeline-title">Twitter Trending - #KarnatakaHealthcare</div>
+                            <div class="timeline-desc">Mixed reactions to healthcare policy announcement</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">23 minutes ago</div>
+                            <div class="timeline-title">Prajavani - Breaking News</div>
+                            <div class="timeline-desc">Infrastructure development project receives public approval</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot danger"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-time">35 minutes ago</div>
+                            <div class="timeline-title">News18 Kannada - Alert</div>
+                            <div class="timeline-desc">Opposition leader criticizes budget allocation - Alert triggered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Source Distribution</h2>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Newspapers</span>
+                                <span style="font-weight: 600;">45 mentions</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>TV News</span>
+                                <span style="font-weight: 600;">38 mentions</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 38%;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Online Portals</span>
+                                <span style="font-weight: 600;">67 mentions</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 67%;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Social Media</span>
+                                <span style="font-weight: 600;">36 mentions</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 36%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">⚡ Quick Actions</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <button class="btn" style="justify-content: center;">🔔 Create New Alert</button>
+                        <button class="btn" style="justify-content: center;">📊 Generate Report</button>
+                        <button class="btn" style="justify-content: center;">💬 Respond to Mention</button>
+                        <button class="btn" style="justify-content: center;">📤 Share Update</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEWS TRACKING SECTION -->
+        <section id="news-tracking" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📰</span>
+                    News Coverage Tracking
+                </h1>
+                <p class="page-subtitle">Track and analyze news coverage across all media outlets</p>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-item">
+                    <label class="form-label">Date Range</label>
+                    <select class="form-select">
+                        <option>Last 7 Days</option>
+                        <option>Last 30 Days</option>
+                        <option>Last 3 Months</option>
+                        <option>Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Publication Type</label>
+                    <select class="form-select">
+                        <option>All Publications</option>
+                        <option>National Newspapers</option>
+                        <option>Regional Newspapers</option>
+                        <option>Online Portals</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Sentiment</label>
+                    <select class="form-select">
+                        <option>All Sentiments</option>
+                        <option>Positive</option>
+                        <option>Neutral</option>
+                        <option>Negative</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Language</label>
+                    <select class="form-select">
+                        <option>All Languages</option>
+                        <option>English</option>
+                        <option>Kannada</option>
+                        <option>Hindi</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Coverage Summary</h2>
+                    <button class="btn btn-primary">📥 Export Data</button>
+                </div>
+
+                <div class="grid-3">
+                    <div class="metric-card">
+                        <div class="metric-value">1,247</div>
+                        <div class="metric-label">Total Articles</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">32.5M</div>
+                        <div class="metric-label">Total Reach</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">4.8</div>
+                        <div class="metric-label">Avg. Sentiment Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📰 Recent Coverage</h2>
+                    <div class="section-actions">
+                        <button class="btn">Sort By</button>
+                        <button class="btn btn-primary">+ Add Coverage</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Publication</th>
+                            <th>Headline</th>
+                            <th>Date</th>
+                            <th>Reach</th>
+                            <th>Sentiment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Times of India</strong></td>
+                            <td>Karnataka CM Announces New Rural Development Initiative</td>
+                            <td>Oct 13, 2025</td>
+                            <td>2.5M</td>
+                            <td><span class="badge badge-success">Positive</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Hindu</strong></td>
+                            <td>Opposition Questions Healthcare Policy Implementation</td>
+                            <td>Oct 13, 2025</td>
+                            <td>1.8M</td>
+                            <td><span class="badge badge-warning">Neutral</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Indian Express</strong></td>
+                            <td>Education Reforms Receive Stakeholder Approval</td>
+                            <td>Oct 13, 2025</td>
+                            <td>3.2M</td>
+                            <td><span class="badge badge-success">Positive</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deccan Herald</strong></td>
+                            <td>Tech Park Inauguration Creates 50,000 Jobs</td>
+                            <td>Oct 12, 2025</td>
+                            <td>1.6M</td>
+                            <td><span class="badge badge-success">Positive</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prajavani</strong></td>
+                            <td>Infrastructure Project Receives Public Support</td>
+                            <td>Oct 12, 2025</td>
+                            <td>980K</td>
+                            <td><span class="badge badge-success">Positive</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SOCIAL MONITORING SECTION -->
+        <section id="social-monitoring" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>💬</span>
+                    Social Media Monitoring
+                </h1>
+                <p class="page-subtitle">Track social media mentions and engagement across platforms</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Twitter Mentions</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">🐦</div>
+                    </div>
+                    <div class="stat-value">8,456</div>
+                    <div class="stat-change positive">
+                        <span>↑ 32.4%</span>
+                        <span style="color: #737373;">vs last week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Facebook Engagement</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">👍</div>
+                    </div>
+                    <div class="stat-value">24.3K</div>
+                    <div class="stat-change positive">
+                        <span>↑ 18.7%</span>
+                        <span style="color: #737373;">vs last week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Instagram Reach</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📸</div>
+                    </div>
+                    <div class="stat-value">156K</div>
+                    <div class="stat-change positive">
+                        <span>↑ 45.2%</span>
+                        <span style="color: #737373;">vs last week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">YouTube Views</div>
+                        <div class="stat-icon" style="background: #fee2e2; color: #ef4444;">📺</div>
+                    </div>
+                    <div class="stat-value">89.4K</div>
+                    <div class="stat-change positive">
+                        <span>↑ 28.9%</span>
+                        <span style="color: #737373;">vs last week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">🔥 Trending Hashtags</h2>
+                        <button class="btn">Last 24 Hours</button>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600; color: #2563eb;">#KarnatakaDevleopment</span>
+                            <span class="badge badge-success">12.5K posts</span>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600; color: #2563eb;">#EducationReforms</span>
+                            <span class="badge badge-info">8.2K posts</span>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600; color: #2563eb;">#TechBangalore</span>
+                            <span class="badge badge-info">6.7K posts</span>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-weight: 600; color: #2563eb;">#KarnatakaHealthcare</span>
+                            <span class="badge badge-warning">4.3K posts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Platform Breakdown</h2>
+                    </div>
+                    <div class="chart-container">
+                        📊 Platform Distribution Chart
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">💬 Recent Social Mentions</h2>
+                    <div class="section-actions">
+                        <button class="btn">Filter Platform</button>
+                        <button class="btn btn-primary">🔄 Refresh</button>
+                    </div>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div>
+                            <div class="media-item-title">@RajeshKumar47 on Twitter</div>
+                            <div class="media-item-meta">
+                                <span>🐦 Twitter</span> • 
+                                <span>15 minutes ago</span> • 
+                                <span class="badge badge-success">Positive</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        "Impressed by the new rural development initiative. Finally seeing real progress in our villages! #KarnatakaDevelopment"<br>
+                        <span style="color: #737373; font-size: 13px;">❤️ 234 likes • 🔄 89 retweets</span>
+                    </div>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div>
+                            <div class="media-item-title">Karnataka News Today - Facebook</div>
+                            <div class="media-item-meta">
+                                <span>👍 Facebook</span> • 
+                                <span>1 hour ago</span> • 
+                                <span class="badge badge-success">Positive</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        CM's tech park inauguration creates 50,000 jobs. A major win for Karnataka's IT sector!<br>
+                        <span style="color: #737373; font-size: 13px;">👍 1.2K likes • 💬 345 comments • 📤 567 shares</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SENTIMENT ANALYSIS SECTION -->
+        <section id="sentiment-analysis" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>😊</span>
+                    Sentiment Analysis
+                </h1>
+                <p class="page-subtitle">Comprehensive sentiment tracking and analysis across all media</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Overall Sentiment Score</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">⭐</div>
+                    </div>
+                    <div class="stat-value">7.8/10</div>
+                    <div class="stat-change positive">
+                        <span>↑ 0.7</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Positive Coverage</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">😊</div>
+                    </div>
+                    <div class="stat-value">68.4%</div>
+                    <div class="stat-change positive">
+                        <span>↑ 5.3%</span>
+                        <span style="color: #737373;">improvement</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Neutral Coverage</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">😐</div>
+                    </div>
+                    <div class="stat-value">23.1%</div>
+                    <div class="stat-change negative">
+                        <span>↓ 2.8%</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Negative Coverage</div>
+                        <div class="stat-icon" style="background: #fee2e2; color: #ef4444;">😟</div>
+                    </div>
+                    <div class="stat-value">8.5%</div>
+                    <div class="stat-change positive">
+                        <span>↓ 2.5%</span>
+                        <span style="color: #737373;">improvement</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📈 Sentiment Trend</h2>
+                        <button class="btn">Last 90 Days</button>
+                    </div>
+                    <div class="chart-container">
+                        📈 Sentiment Score Trend Over Time
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">🎯 Sentiment by Topic</h2>
+                    </div>
+                    <div style="padding: 20px;">
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Infrastructure</span>
+                                <span style="font-weight: 600; color: #22c55e;">82% Positive</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 82%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Education</span>
+                                <span style="font-weight: 600; color: #22c55e;">76% Positive</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 76%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Healthcare</span>
+                                <span style="font-weight: 600; color: #f59e0b;">54% Positive</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 54%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span>Agriculture</span>
+                                <span style="font-weight: 600; color: #22c55e;">71% Positive</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 71%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Sentiment by Publication Type</h2>
+                </div>
+
+                <div class="grid-3">
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 16px; color: #525252;">Print Media</h3>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Positive</span>
+                                <span style="font-weight: 600;">72%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 72%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Neutral</span>
+                                <span style="font-weight: 600;">21%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 21%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Negative</span>
+                                <span style="font-weight: 600;">7%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 7%; background: #ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 16px; color: #525252;">Digital Media</h3>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Positive</span>
+                                <span style="font-weight: 600;">64%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 64%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Neutral</span>
+                                <span style="font-weight: 600;">26%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 26%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Negative</span>
+                                <span style="font-weight: 600;">10%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 10%; background: #ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 16px; color: #525252;">Social Media</h3>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Positive</span>
+                                <span style="font-weight: 600;">69%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 69%; background: #22c55e;"></div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Neutral</span>
+                                <span style="font-weight: 600;">22%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 22%; background: #f59e0b;"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 14px;">
+                                <span>Negative</span>
+                                <span style="font-weight: 600;">9%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 9%; background: #ef4444;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESS RELEASES SECTION -->
+        <section id="press-releases" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📝</span>
+                    Press Release Management
+                </h1>
+                <p class="page-subtitle">Create, manage, and distribute press releases effectively</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Releases</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📄</div>
+                    </div>
+                    <div class="stat-value">127</div>
+                    <div class="stat-change positive">
+                        <span>↑ 8</span>
+                        <span style="color: #737373;">this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Published</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">✅</div>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-change positive">
+                        <span>This Week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">In Review</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">⏳</div>
+                    </div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Pending Approval</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Drafts</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">📝</div>
+                    </div>
+                    <div class="stat-value">7</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">In Progress</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📝 Press Releases</h2>
+                    <div class="section-actions">
+                        <button class="btn">📋 Templates</button>
+                        <button class="btn btn-primary">+ Create New Release</button>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active">All</button>
+                    <button class="tab">Published</button>
+                    <button class="tab">In Review</button>
+                    <button class="tab">Drafts</button>
+                    <button class="tab">Scheduled</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Reach</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rural Development Initiative Launch</strong></td>
+                            <td>Infrastructure</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 13, 2025</td>
+                            <td>2.5M</td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Education Reform Announcement</strong></td>
+                            <td>Education</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 12, 2025</td>
+                            <td>3.2M</td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Healthcare Policy Update</strong></td>
+                            <td>Healthcare</td>
+                            <td><span class="badge badge-warning">In Review</span></td>
+                            <td>Oct 13, 2025</td>
+                            <td>-</td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tech Park Inauguration</strong></td>
+                            <td>Technology</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 11, 2025</td>
+                            <td>1.8M</td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agricultural Support Package</strong></td>
+                            <td>Agriculture</td>
+                            <td><span class="badge badge-info">Draft</span></td>
+                            <td>Oct 13, 2025</td>
+                            <td>-</td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Release Performance</h2>
+                    </div>
+                    <div class="chart-container">
+                        📈 Press Release Reach Over Time
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📋 Quick Templates</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='#fafafa'">
+                            <div style="font-weight: 600; margin-bottom: 4px;">📢 Policy Announcement</div>
+                            <div style="font-size: 13px; color: #737373;">Standard template for policy announcements</div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='#fafafa'">
+                            <div style="font-weight: 600; margin-bottom: 4px;">🎉 Event Launch</div>
+                            <div style="font-size: 13px; color: #737373;">Template for program/event launches</div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='#fafafa'">
+                            <div style="font-weight: 600; margin-bottom: 4px;">💬 Statement Response</div>
+                            <div style="font-size: 13px; color: #737373;">Response to media queries or criticism</div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#f5f5f5'" onmouseout="this.style.background='#fafafa'">
+                            <div style="font-weight: 600; margin-bottom: 4px;">📊 Progress Update</div>
+                            <div style="font-size: 13px; color: #737373;">Updates on ongoing projects/initiatives</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRESS CONFERENCES SECTION -->
+        <section id="press-conferences" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🎤</span>
+                    Press Conference Management
+                </h1>
+                <p class="page-subtitle">Plan, coordinate, and manage press conferences and media events</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Conferences</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">🎤</div>
+                    </div>
+                    <div class="stat-value">34</div>
+                    <div class="stat-change positive">
+                        <span>↑ 3</span>
+                        <span style="color: #737373;">this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Upcoming Events</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📅</div>
+                    </div>
+                    <div class="stat-value">5</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Next 30 days</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Avg. Attendance</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">👥</div>
+                    </div>
+                    <div class="stat-value">87</div>
+                    <div class="stat-change positive">
+                        <span>↑ 12</span>
+                        <span style="color: #737373;">journalists</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Media Coverage</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">📺</div>
+                    </div>
+                    <div class="stat-value">156</div>
+                    <div class="stat-change positive">
+                        <span>Articles Generated</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📅 Upcoming Press Conferences</h2>
+                    <button class="btn btn-primary">+ Schedule Conference</button>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div style="flex: 1;">
+                            <div class="media-item-title">Healthcare Policy Implementation Briefing</div>
+                            <div class="media-item-meta">
+                                <span>📍 Vidhana Soudha, Bengaluru</span> • 
+                                <span>📅 Oct 18, 2025 - 11:00 AM</span> • 
+                                <span class="badge badge-success">Confirmed</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="padding: 6px 14px;">View Details</button>
+                            <button class="btn btn-primary" style="padding: 6px 14px;">Edit</button>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px;">
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Expected Attendees</div>
+                                <div style="font-weight: 600;">95 journalists</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Spokesperson</div>
+                                <div style="font-weight: 600;">Health Minister</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Duration</div>
+                                <div style="font-weight: 600;">60 minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="media-item">
+                    <div class="media-item-header">
+                        <div style="flex: 1;">
+                            <div class="media-item-title">Q3 Development Progress Report</div>
+                            <div class="media-item-meta">
+                                <span>📍 Press Club of Bangalore</span> • 
+                                <span>📅 Oct 22, 2025 - 3:00 PM</span> • 
+                                <span class="badge badge-warning">Planning</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="padding: 6px 14px;">View Details</button>
+                            <button class="btn btn-primary" style="padding: 6px 14px;">Edit</button>
+                        </div>
+                    </div>
+                    <div class="media-item-content">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px;">
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Expected Attendees</div>
+                                <div style="font-weight: 600;">120 journalists</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Spokesperson</div>
+                                <div style="font-weight: 600;">Chief Minister</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 13px; color: #737373; margin-bottom: 4px;">Duration</div>
+                                <div style="font-weight: 600;">90 minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Recent Conferences</h2>
+                        <button class="btn">View All</button>
+                    </div>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Attendance</th>
+                                <th>Coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Tech Park Inauguration</strong></td>
+                                <td>Oct 12, 2025</td>
+                                <td>132</td>
+                                <td>47 articles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Budget Announcement</strong></td>
+                                <td>Oct 8, 2025</td>
+                                <td>156</td>
+                                <td>89 articles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Education Reform Launch</strong></td>
+                                <td>Oct 5, 2025</td>
+                                <td>98</td>
+                                <td>52 articles</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">✅ Conference Checklist</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; align-items: start; gap: 12px;">
+                            <input type="checkbox" checked style="margin-top: 4px; width: 16px; height: 16px;">
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 2px;">Venue Booking</div>
+                                <div style="font-size: 13px; color: #737373;">Confirm venue availability and facilities</div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; align-items: start; gap: 12px;">
+                            <input type="checkbox" checked style="margin-top: 4px; width: 16px; height: 16px;">
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 2px;">Media Invitations</div>
+                                <div style="font-size: 13px; color: #737373;">Send invitations to journalist database</div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; align-items: start; gap: 12px;">
+                            <input type="checkbox" style="margin-top: 4px; width: 16px; height: 16px;">
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 2px;">Press Kit Preparation</div>
+                                <div style="font-size: 13px; color: #737373;">Prepare and print press kits</div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; align-items: start; gap: 12px;">
+                            <input type="checkbox" style="margin-top: 4px; width: 16px; height: 16px;">
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 2px;">AV Equipment Setup</div>
+                                <div style="font-size: 13px; color: #737373;">Test audio, video, and presentation systems</div>
+                            </div>
+                        </div>
+                        <div style="padding: 12px; background: #fafafa; border-radius: 8px; display: flex; align-items: start; gap: 12px;">
+                            <input type="checkbox" style="margin-top: 4px; width: 16px; height: 16px;">
+                            <div>
+                                <div style="font-weight: 500; margin-bottom: 2px;">Spokesperson Briefing</div>
+                                <div style="font-size: 13px; color: #737373;">Brief spokesperson on key messages and Q&A</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDIA KITS SECTION -->
+        <section id="media-kits" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📦</span>
+                    Media Kit Library
+                </h1>
+                <p class="page-subtitle">Organize and distribute comprehensive media kits to journalists</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Media Kits</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📦</div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-change positive">
+                        <span>↑ 4</span>
+                        <span style="color: #737373;">this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Downloads</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">📥</div>
+                    </div>
+                    <div class="stat-value">847</div>
+                    <div class="stat-change positive">
+                        <span>↑ 112</span>
+                        <span style="color: #737373;">this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Active Kits</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📄</div>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Currently distributed</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Media Assets</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">🖼️</div>
+                    </div>
+                    <div class="stat-value">326</div>
+                    <div class="stat-change positive">
+                        <span>Photos, Videos, Docs</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📦 Media Kit Library</h2>
+                    <div class="section-actions">
+                        <button class="btn">🔍 Search</button>
+                        <button class="btn btn-primary">+ Create New Kit</button>
+                    </div>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab active">All Kits</button>
+                    <button class="tab">Policy Announcements</button>
+                    <button class="tab">Events</button>
+                    <button class="tab">Biographies</button>
+                    <button class="tab">Projects</button>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#d4d4d4'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)'" onmouseout="this.style.borderColor='#e5e5e5'; this.style.boxShadow='none'">
+                        <div style="width: 100%; height: 120px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; font-size: 40px;">
+                            📄
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Rural Development Initiative</h3>
+                        <p style="font-size: 13px; color: #737373; margin-bottom: 12px;">Complete media kit with policy details, impact analysis, and multimedia assets</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <span class="badge badge-success">Active</span>
+                            <span style="font-size: 12px; color: #737373;">124 downloads</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">View</button>
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">Download</button>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#d4d4d4'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)'" onmouseout="this.style.borderColor='#e5e5e5'; this.style.boxShadow='none'">
+                        <div style="width: 100%; height: 120px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; font-size: 40px;">
+                            🎓
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Education Reforms 2025</h3>
+                        <p style="font-size: 13px; color: #737373; margin-bottom: 12px;">Comprehensive reform package documentation with infographics and video content</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <span class="badge badge-success">Active</span>
+                            <span style="font-size: 12px; color: #737373;">98 downloads</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">View</button>
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">Download</button>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#d4d4d4'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)'" onmouseout="this.style.borderColor='#e5e5e5'; this.style.boxShadow='none'">
+                        <div style="width: 100%; height: 120px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; font-size: 40px;">
+                            💼
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Chief Minister Biography</h3>
+                        <p style="font-size: 13px; color: #737373; margin-bottom: 12px;">Official biography, photos, and key achievements documentation</p>
+                        <div style="display: flex; justify-space-between; align-items: center; margin-bottom: 12px;">
+                            <span class="badge badge-success">Active</span>
+                            <span style="font-size: 12px; color: #737373;">234 downloads</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">View</button>
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">Download</button>
+                        </div>
+                    </div>
+
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.borderColor='#d4d4d4'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)'" onmouseout="this.style.borderColor='#e5e5e5'; this.style.boxShadow='none'">
+                        <div style="width: 100%; height: 120px; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; color: white; font-size: 40px;">
+                            🏥
+                        </div>
+                        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 8px;">Healthcare Policy Update</h3>
+                        <p style="font-size: 13px; color: #737373; margin-bottom: 12px;">New healthcare initiatives with statistics and success stories</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <span class="badge badge-warning">Draft</span>
+                            <span style="font-size: 12px; color: #737373;">12 downloads</span>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">View</button>
+                            <button class="btn" style="flex: 1; padding: 6px; font-size: 13px;">Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">🖼️ Media Asset Library</h2>
+                    <div class="section-actions">
+                        <button class="btn">Upload Assets</button>
+                        <button class="btn btn-primary">Organize Library</button>
+                    </div>
+                </div>
+
+                <div class="grid-3">
+                    <div class="metric-card">
+                        <div class="metric-value">182</div>
+                        <div class="metric-label">Photos</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">47</div>
+                        <div class="metric-label">Videos</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">97</div>
+                        <div class="metric-label">Documents</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPOKESPERSON MANAGEMENT SECTION -->
+        <section id="spokesperson" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🗣️</span>
+                    Spokesperson Management
+                </h1>
+                <p class="page-subtitle">Manage spokespersons, schedule media appearances, and track messaging</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Active Spokespersons</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">👤</div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Across departments</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Media Appearances</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">📺</div>
+                    </div>
+                    <div class="stat-value">47</div>
+                    <div class="stat-change positive">
+                        <span>This Month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Scheduled Interviews</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">📅</div>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Next 7 days</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Message Consistency</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">✅</div>
+                    </div>
+                    <div class="stat-value">94%</div>
+                    <div class="stat-change positive">
+                        <span>↑ 3%</span>
+                        <span style="color: #737373;">vs last month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">👥 Spokesperson Directory</h2>
+                    <button class="btn btn-primary">+ Add Spokesperson</button>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">CM</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Chief Minister</div>
+                            <div class="contact-role">Primary Spokesperson - All Major Announcements</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="padding: 6px 14px;">Schedule</button>
+                            <button class="btn" style="padding: 6px 14px;">Brief</button>
+                        </div>
+                    </div>
+                    <div class="contact-details">
+                        <div>📞 +91 80 2220 0000</div>
+                        <div>📧 cm@karnataka.gov.in</div>
+                        <div>🎯 Policy, Infrastructure, Major Events</div>
+                        <div>📊 32 appearances this month</div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-avatar" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">HM</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Health Minister</div>
+                            <div class="contact-role">Healthcare & Public Health</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="padding: 6px 14px;">Schedule</button>
+                            <button class="btn" style="padding: 6px 14px;">Brief</button>
+                        </div>
+                    </div>
+                    <div class="contact-details">
+                        <div>📞 +91 80 2220 0001</div>
+                        <div>📧 health@karnataka.gov.in</div>
+                        <div>🎯 Healthcare, Medical Facilities</div>
+                        <div>📊 12 appearances this month</div>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-header">
+                        <div class="contact-avatar" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">EM</div>
+                        <div class="contact-info">
+                            <div class="contact-name">Education Minister</div>
+                            <div class="contact-role">Education & Skill Development</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn" style="padding: 6px 14px;">Schedule</button>
+                            <button class="btn" style="padding: 6px 14px;">Brief</button>
+                        </div>
+                    </div>
+                    <div class="contact-details">
+                        <div>📞 +91 80 2220 0002</div>
+                        <div>📧 education@karnataka.gov.in</div>
+                        <div>🎯 Education, Youth Programs</div>
+                        <div>📊 8 appearances this month</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📅 Upcoming Appearances</h2>
+                        <button class="btn">View Calendar</button>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Tomorrow - 10:00 AM</div>
+                                <div class="timeline-title">CM - TV9 Kannada Interview</div>
+                                <div class="timeline-desc">Discussion on rural development initiatives</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Oct 16 - 3:00 PM</div>
+                                <div class="timeline-title">Health Minister - Press Conference</div>
+                                <div class="timeline-desc">Healthcare policy implementation briefing</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">Oct 18 - 11:00 AM</div>
+                                <div class="timeline-title">Education Minister - Radio Interview</div>
+                                <div class="timeline-desc">Education reforms discussion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📝 Key Messages</h2>
+                        <button class="btn">Update Messages</button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="padding: 12px; background: #dcfce7; border-radius: 8px; border-left: 4px solid #22c55e;">
+                            <div style="font-weight: 600; margin-bottom: 4px; color: #166534;">Rural Development Focus</div>
+                            <div style="font-size: 13px; color: #166534;">₹5,000 crore investment in rural infrastructure and connectivity</div>
+                        </div>
+                        <div style="padding: 12px; background: #dbeafe; border-radius: 8px; border-left: 4px solid #2563eb;">
+                            <div style="font-weight: 600; margin-bottom: 4px; color: #1e40af;">Education Transformation</div>
+                            <div style="font-size: 13px; color: #1e40af;">Comprehensive reforms focusing on digital literacy and skill development</div>
+                        </div>
+                        <div style="padding: 12px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                            <div style="font-weight: 600; margin-bottom: 4px; color: #92400e;">Healthcare Expansion</div>
+                            <div style="font-size: 13px; color: #92400e;">New policy aims to provide universal healthcare access across Karnataka</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOURNALIST DATABASE SECTION -->
+        <section id="journalist-database" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>👥</span>
+                    Journalist Database
+                </h1>
+                <p class="page-subtitle">Comprehensive database of journalists and media contacts</p>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-item">
+                    <label class="form-label">Publication Type</label>
+                    <select class="form-select">
+                        <option>All Types</option>
+                        <option>Newspapers</option>
+                        <option>TV News</option>
+                        <option>Online Portals</option>
+                        <option>Radio</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Beat</label>
+                    <select class="form-select">
+                        <option>All Beats</option>
+                        <option>Politics</option>
+                        <option>Government</option>
+                        <option>Business</option>
+                        <option>Social</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Language</label>
+                    <select class="form-select">
+                        <option>All Languages</option>
+                        <option>English</option>
+                        <option>Kannada</option>
+                        <option>Hindi</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label class="form-label">Status</label>
+                    <select class="form-select">
+                        <option>All Statuses</option>
+                        <option>Active</option>
+                        <option>Regular</option>
+                        <option>Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">👥 Journalist Directory</h2>
+                    <div class="section-actions">
+                        <button class="btn">📥 Import</button>
+                        <button class="btn">📤 Export</button>
+                        <button class="btn btn-primary">+ Add Journalist</button>
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Publication</th>
+                            <th>Beat</th>
+                            <th>Contact</th>
+                            <th>Reach</th>
+                            <th>Last Contact</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rajesh Kumar</strong></td>
+                            <td>Times of India</td>
+                            <td>Politics</td>
+                            <td>rajesh.k@toi.com</td>
+                            <td>2.5M</td>
+                            <td>2 days ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Priya Sharma</strong></td>
+                            <td>The Hindu</td>
+                            <td>Government</td>
+                            <td>priya.s@thehindu.co.in</td>
+                            <td>1.8M</td>
+                            <td>1 week ago</td>
+                            <td><span class="badge badge-info">Regular</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anand Rao</strong></td>
+                            <td>Indian Express</td>
+                            <td>State Politics</td>
+                            <td>anand.r@indianexpress.com</td>
+                            <td>3.2M</td>
+                            <td>3 days ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deepa Menon</strong></td>
+                            <td>Deccan Herald</td>
+                            <td>Social Issues</td>
+                            <td>deepa.m@deccanherald.com</td>
+                            <td>1.6M</td>
+                            <td>5 days ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vikram Reddy</strong></td>
+                            <td>TV9 Kannada</td>
+                            <td>Political Analysis</td>
+                            <td>vikram.r@tv9kannada.com</td>
+                            <td>4.1M</td>
+                            <td>1 day ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Meera Nair</strong></td>
+                            <td>Prajavani</td>
+                            <td>Development</td>
+                            <td>meera.n@prajavani.net</td>
+                            <td>980K</td>
+                            <td>2 weeks ago</td>
+                            <td><span class="badge badge-info">Regular</span></td>
+                            <td>
+                                <button class="btn" style="padding: 4px 12px; font-size: 13px;">View</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid-2">
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">📊 Database Statistics</h2>
+                    </div>
+                    <div class="grid-2">
+                        <div class="metric-card">
+                            <div class="metric-value">342</div>
+                            <div class="metric-label">Total Journalists</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">89</div>
+                            <div class="metric-label">Active Contacts</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">45</div>
+                            <div class="metric-label">Publications</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">Beat Categories</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h2 class="section-title">🎯 Top Journalists by Reach</h2>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #fafafa; border-radius: 6px;">
+                            <span style="font-weight: 600;">Vikram Reddy - TV9</span>
+                            <span class="badge badge-purple">4.1M reach</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #fafafa; border-radius: 6px;">
+                            <span style="font-weight: 600;">Anand Rao - IE</span>
+                            <span class="badge badge-purple">3.2M reach</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #fafafa; border-radius: 6px;">
+                            <span style="font-weight: 600;">Rajesh Kumar - TOI</span>
+                            <span class="badge badge-purple">2.5M reach</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #fafafa; border-radius: 6px;">
+                            <span style="font-weight: 600;">Priya Sharma - Hindu</span>
+                            <span class="badge badge-purple">1.8M reach</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEDIA CONTACTS SECTION -->
+        <section id="media-contacts" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📇</span>
+                    Media Contacts
+                </h1>
+                <p class="page-subtitle">Manage and organize all media outlet contacts and relationships</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Publications</div>
+                        <div class="stat-icon" style="background: #dbeafe; color: #2563eb;">📰</div>
+                    </div>
+                    <div class="stat-value">45</div>
+                    <div class="stat-change positive">
+                        <span>↑ 3</span>
+                        <span style="color: #737373;">new this month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">TV Channels</div>
+                        <div class="stat-icon" style="background: #dcfce7; color: #16a34a;">📺</div>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">Active channels</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Online Portals</div>
+                        <div class="stat-icon" style="background: #fef3c7; color: #d97706;">💻</div>
+                    </div>
+                    <div class="stat-value">67</div>
+                    <div class="stat-change positive">
+                        <span>↑ 8</span>
+                        <span style="color: #737373;">this quarter</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Radio Stations</div>
+                        <div class="stat-icon" style="background: #e9d5ff; color: #9333ea;">📻</div>
+                    </div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-change">
+                        <span style="color: #737373;">FM & AM stations</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📰 Print Media Contacts</h2>
+                    <button class="btn btn-primary">+ Add Publication</button>
+                </div>
+
+                <div class="grid-3">
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Times of India</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">National English Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-2559 9999</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 bangalore@timesgroup.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 MG Road, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">The Hindu</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">National English Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-2558 5858</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 blr@thehindu.co.in</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Kasturba Road, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Deccan Herald</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Regional English Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-2559 1791</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 news@deccanherald.co.in</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Residency Road, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Prajavani</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Kannada Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-2559 1800</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 news@prajavani.net</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Queen's Road, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Vijaya Karnataka</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Kannada Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-2559 9900</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 vk@vijaykarnataka.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 MG Road, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Indian Express</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">National English Daily</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-4127 9999</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 bangaloredesk@expressindia.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Richmond Town, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📺 Television Channels</h2>
+                    <button class="btn btn-primary">+ Add Channel</button>
+                </div>
+
+                <div class="grid-3">
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">TV9 Kannada</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Regional News Channel</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-4612 9999</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 news@tv9kannada.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Koramangala, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">News18 Kannada</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Regional News Channel</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-4921 1818</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 news@news18kannada.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Indiranagar, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                       <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Suvarna News</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Regional News Channel</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📞 080-4055 5555</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 newsdesk@suvarnanews.tv</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">📍 Rajajinagar, Bengaluru</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">💻 Online Portals</h2>
+                    <button class="btn btn-primary">+ Add Portal</button>
+                </div>
+
+                <div class="grid-3">
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">The Wire</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Independent News Portal</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 editor@thewire.in</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">🌐 thewire.in</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">Scroll.in</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">Digital News Platform</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 contact@scroll.in</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">🌐 scroll.in</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; font-size: 16px; margin-bottom: 8px;">News Minute</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 12px;">South Indian News Portal</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 4px;">📧 info@thenewsminute.com</div>
+                        <div style="font-size: 13px; color: #525252; margin-bottom: 8px;">🌐 thenewsminute.com</div>
+                        <span class="badge badge-success">Active</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOURNALIST DATABASE SECTION -->
+        <section id="journalist-database" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>👥</span>
+                    Journalist Database
+                </h1>
+                <p class="page-subtitle">Comprehensive database of journalists and media contacts</p>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">👥 Journalist Directory</h2>
                     <button class="btn btn-primary">+ Add Journalist</button>
                 </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Publication</th>
+                            <th>Beat</th>
+                            <th>Contact</th>
+                            <th>Last Contact</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rajesh Kumar</strong></td>
+                            <td>Times of India</td>
+                            <td>Politics</td>
+                            <td>rajesh.k@toi.com</td>
+                            <td>2 days ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Priya Sharma</strong></td>
+                            <td>The Hindu</td>
+                            <td>Government</td>
+                            <td>priya.s@thehindu.co.in</td>
+                            <td>1 week ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anand Rao</strong></td>
+                            <td>Indian Express</td>
+                            <td>State Politics</td>
+                            <td>anand.r@indianexpress.com</td>
+                            <td>3 days ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vikram Reddy</strong></td>
+                            <td>TV9 Kannada</td>
+                            <td>Political Analysis</td>
+                            <td>vikram.r@tv9kannada.com</td>
+                            <td>1 day ago</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Publication</th>
-                        <th>Beat</th>
-                        <th>Reach</th>
-                        <th>Last Contact</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Rajesh Kumar</strong></td>
-                        <td>Times of India</td>
-                        <td>Politics</td>
-                        <td>2.5M</td>
-                        <td>2 days ago</td>
-                        <td><span class="badge badge-success">Active</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Priya Sharma</strong></td>
-                        <td>The Hindu</td>
-                        <td>Government</td>
-                        <td>1.8M</td>
-                        <td>1 week ago</td>
-                        <td><span class="badge badge-info">Regular</span></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Anand Rao</strong></td>
-                        <td>Indian Express</td>
-                        <td>State Politics</td>
-                        <td>3.2M</td>
-                        <td>3 days ago</td>
-                        <td><span class="badge badge-success">Active</span></td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
 
-        <!-- Crisis Management -->
-        <section id="alert-system" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">🚨 Crisis Alert System</h2>
-                <div class="section-actions">
-                    <button class="btn">⚙️ Configure</button>
-                    <button class="btn btn-primary">+ Create Alert</button>
+        <!-- PRESS RELEASES SECTION -->
+        <section id="press-releases" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📝</span>
+                    Press Release Management
+                </h1>
+                <p class="page-subtitle">Create, manage, and distribute press releases</p>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📝 Recent Press Releases</h2>
+                    <button class="btn btn-primary">+ Create New Release</button>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Reach</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Rural Development Initiative Launch</strong></td>
+                            <td>Infrastructure</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 13, 2025</td>
+                            <td>2.5M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Education Reform Announcement</strong></td>
+                            <td>Education</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 12, 2025</td>
+                            <td>3.2M</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tech Park Inauguration</strong></td>
+                            <td>Technology</td>
+                            <td><span class="badge badge-success">Published</span></td>
+                            <td>Oct 11, 2025</td>
+                            <td>1.8M</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CALENDAR SECTION -->
+        <section id="calendar" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📅</span>
+                    Media Calendar
+                </h1>
+                <p class="page-subtitle">Schedule and track media events, press conferences, and interviews</p>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📅 October 2025</h2>
+                    <div style="display: flex; gap: 12px;">
+                        <button class="btn">← Previous</button>
+                        <button class="btn">Today</button>
+                        <button class="btn">Next →</button>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 12px; font-weight: 600; text-align: center;">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-day" style="opacity: 0.3;">29</div>
+                    <div class="calendar-day" style="opacity: 0.3;">30</div>
+                    <div class="calendar-day">1</div>
+                    <div class="calendar-day">2</div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day has-event">8</div>
+                    <div class="calendar-day">9</div>
+                    <div class="calendar-day">10</div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day has-event">12</div>
+                    <div class="calendar-day" style="background: #fef3c7; border-color: #f59e0b; font-weight: 600;">13</div>
+                    <div class="calendar-day">14</div>
+                    <div class="calendar-day">15</div>
+                    <div class="calendar-day has-event">16</div>
+                    <div class="calendar-day">17</div>
+                    <div class="calendar-day has-event">18</div>
+                    <div class="calendar-day">19</div>
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day has-event">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day has-event">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
                 </div>
             </div>
-            
-            <div class="under-construction">
-                <div class="under-construction-icon">🚧</div>
-                <h3>Under Construction</h3>
-                <p>Real-time crisis detection, alert system, and rapid response protocol module under development.</p>
-            </div>
-        </section>
 
-        <!-- Media Calendar -->
-        <section id="calendar" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">📅 Media Calendar</h2>
-                <div class="section-actions">
-                    <button class="btn">← Previous</button>
-                    <button class="btn">Next →</button>
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">🎯 Upcoming Events</h2>
                     <button class="btn btn-primary">+ Schedule Event</button>
                 </div>
-            </div>
-            
-            <div class="under-construction">
-                <div class="under-construction-icon">🚧</div>
-                <h3>Under Construction</h3>
-                <p>Integrated media calendar with press conferences, interviews, and event scheduling coming soon.</p>
-            </div>
-        </section>
 
-        <!-- Additional Modules Grid -->
-        <div class="grid-3">
-            <!-- Press Conferences -->
-            <section id="press-conferences" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">🎤 Press Conferences</h2>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="padding: 16px; border: 1px solid #e5e5e5; border-radius: 8px;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Healthcare Policy Briefing</div>
+                        <div style="font-size: 13px; color: #737373;">📅 Oct 18, 2025 - 11:00 AM • 📍 Vidhana Soudha</div>
+                        <div style="margin-top: 8px;"><span class="badge badge-success">Press Conference</span></div>
+                    </div>
+                    <div style="padding: 16px; border: 1px solid #e5e5e5; border-radius: 8px;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Q3 Development Progress Report</div>
+                        <div style="font-size: 13px; color: #737373;">📅 Oct 22, 2025 - 3:00 PM • 📍 Press Club</div>
+                        <div style="margin-top: 8px;"><span class="badge badge-success">Press Conference</span></div>
+                    </div>
+                    <div style="padding: 16px; border: 1px solid #e5e5e5; border-radius: 8px;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">TV9 Interview with CM</div>
+                        <div style="font-size: 13px; color: #737373;">📅 Oct 16, 2025 - 10:00 AM • 📍 TV9 Studio</div>
+                        <div style="margin-top: 8px;"><span class="badge badge-success">Interview</span></div>
+                    </div>
                 </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Press conference management module</p>
-                </div>
-            </section>
-
-            <!-- Media Kits -->
-            <section id="media-kits" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">📦 Media Kits</h2>
-                </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Media kit library and distribution</p>
-                </div>
-            </section>
-
-            <!-- Spokesperson Management -->
-            <section id="spokesperson" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">🗣️ Spokesperson</h2>
-                </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Spokesperson tracking and scheduling</p>
-                </div>
-            </section>
-
-            <!-- Interview Scheduling -->
-            <section id="interview-schedule" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">📺 Interviews</h2>
-                </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Interview scheduling and preparation</p>
-                </div>
-            </section>
-
-            <!-- Reach Analysis -->
-            <section id="reach-analysis" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">📡 Reach Analysis</h2>
-                </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Audience reach and impact metrics</p>
-                </div>
-            </section>
-
-            <!-- Competitor Analysis -->
-            <section id="competitor-analysis" class="section-card">
-                <div class="section-header">
-                    <h2 class="section-title" style="font-size: 18px;">🔍 Competitors</h2>
-                </div>
-                <div class="under-construction" style="padding: 40px 16px;">
-                    <div class="under-construction-icon" style="font-size: 40px;">🚧</div>
-                    <h3 style="font-size: 16px;">Under Construction</h3>
-                    <p style="font-size: 13px;">Competitor media tracking</p>
-                </div>
-            </section>
-        </div>
-
-        <!-- Reports Section -->
-        <section id="reports" class="section-card">
-            <div class="section-header">
-                <h2 class="section-title">📋 Media Reports</h2>
-                <div class="section-actions">
-                    <button class="btn">📊 Generate Report</button>
-                    <button class="btn btn-primary">📥 Export All</button>
-                </div>
-            </div>
-            
-            <div class="under-construction">
-                <div class="under-construction-icon">🚧</div>
-                <h3>Under Construction</h3>
-                <p>Comprehensive media reporting with custom filters, scheduled reports, and automated distribution coming soon.</p>
             </div>
         </section>
 
+        <!-- REPORTS SECTION -->
+        <section id="reports" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>📋</span>
+                    Reports & Analytics
+                </h1>
+                <p class="page-subtitle">Generate and view comprehensive media relations reports</p>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Report Templates</h2>
+                    <button class="btn btn-primary">+ Create Custom Report</button>
+                </div>
+
+                <div class="grid-3">
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fafafa'" onmouseout="this.style.background='#ffffff'">
+                        <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">📰</div>
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; text-align: center;">Coverage Report</h3>
+                        <p style="font-size: 13px; color: #737373; text-align: center; margin-bottom: 16px;">Complete media coverage analysis</p>
+                        <button class="btn" style="width: 100%;">Generate Report</button>
+                    </div>
+
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fafafa'" onmouseout="this.style.background='#ffffff'">
+                        <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">😊</div>
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; text-align: center;">Sentiment Report</h3>
+                        <p style="font-size: 13px; color: #737373; text-align: center; margin-bottom: 16px;">Detailed sentiment analysis</p>
+                        <button class="btn" style="width: 100%;">Generate Report</button>
+                    </div>
+
+                    <div style="border: 1px solid #e5e5e5; border-radius: 12px; padding: 24px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fafafa'" onmouseout="this.style.background='#ffffff'">
+                        <div style="font-size: 40px; text-align: center; margin-bottom: 16px;">👥</div>
+                        <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px; text-align: center;">Journalist Engagement</h3>
+                        <p style="font-size: 13px; color: #737373; text-align: center; margin-bottom: 16px;">Track journalist interactions</p>
+                        <button class="btn" style="width: 100%;">Generate Report</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📋 Recent Reports</h2>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Type</th>
+                            <th>Generated</th>
+                            <th>Period</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>September 2025 Coverage Report</strong></td>
+                            <td>Monthly Coverage</td>
+                            <td>Oct 1, 2025</td>
+                            <td>Sep 2025</td>
+                            <td><button class="btn" style="padding: 6px 14px; font-size: 13px;">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Q3 2025 Sentiment Analysis</strong></td>
+                            <td>Quarterly Sentiment</td>
+                            <td>Oct 2, 2025</td>
+                            <td>Q3 2025</td>
+                            <td><button class="btn" style="padding: 6px 14px; font-size: 13px;">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Press Release Performance - September</strong></td>
+                            <td>Press Release</td>
+                            <td>Oct 1, 2025</td>
+                            <td>Sep 2025</td>
+                            <td><button class="btn" style="padding: 6px 14px; font-size: 13px;">Download</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- CRISIS MANAGEMENT SECTION -->
+        <section id="crisis" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">
+                    <span>🚨</span>
+                    Crisis Management
+                </h1>
+                <p class="page-subtitle">Monitor and respond to potential crisis situations</p>
+            </div>
+
+            <div style="background: #fee2e2; border: 1px solid #fecaca; border-radius: 12px; padding: 24px; margin-bottom: 24px;">
+                <div style="display: flex; align-items: start; gap: 16px;">
+                    <span style="font-size: 32px;">⚠️</span>
+                    <div>
+                        <h3 style="font-size: 18px; font-weight: 600; color: #991b1b; margin-bottom: 8px;">Crisis Alert System Active</h3>
+                        <p style="color: #991b1b; margin-bottom: 12px;">Currently monitoring 247 sources for potential crisis situations</p>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn">View Alert Settings</button>
+                            <button class="btn">Crisis Response Plan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">🚨 Recent Alerts</h2>
+                    <button class="btn btn-primary">+ Create Alert</button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="padding: 16px; background: #dcfce7; border-left: 4px solid #22c55e; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 4px;">Positive coverage spike detected</div>
+                                <div style="font-size: 13px; color: #525252;">Rural development initiative receiving widespread positive coverage</div>
+                            </div>
+                            <span class="badge badge-success">Resolved</span>
+                        </div>
+                        <div style="font-size: 12px; color: #737373;">2 hours ago</div>
+                    </div>
+
+                    <div style="padding: 16px; background: #fef3c7; border-left: 4px solid #f59e0b; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                            <div>
+                                <div style="font-weight: 600; margin-bottom: 4px;">Monitoring healthcare policy coverage</div>
+                                <div style="font-size: 13px; color: #525252;">Mixed reactions to healthcare announcement - monitoring closely</div>
+                            </div>
+                            <span class="badge" style="background: #fef3c7; color: #92400e;">Monitoring</span>
+                        </div>
+                        <div style="font-size: 12px; color: #737373;">5 hours ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <div class="section-header">
+                    <h2 class="section-title">📞 Crisis Response Team</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                    <div class="contact-card">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Crisis Lead</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 8px;">Communications Director</div>
+                        <div style="font-size: 13px;">📞 +91 98765 43210</div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Media Spokesperson</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 8px;">Press Secretary</div>
+                        <div style="font-size: 13px;">📞 +91 98765 43211</div>
+                    </div>
+
+                    <div class="contact-card">
+                        <div style="font-weight: 600; margin-bottom: 4px;">Legal Advisor</div>
+                        <div style="font-size: 13px; color: #737373; margin-bottom: 8px;">Chief Legal Counsel</div>
+                        <div style="font-size: 13px;">📞 +91 98765 43212</div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <script>
-        // Navigation active state
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (!this.querySelector('.dropdown-arrow')) {
-                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
             });
-        });
-
-        // Dropdown items
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.closest('.nav-item').querySelector('.nav-link').classList.add('active');
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
             });
-        });
-
-        // Search functionality placeholder
-        document.querySelector('.search-box input').addEventListener('focus', function() {
-            this.style.width = '350px';
-        });
-
-        document.querySelector('.search-box input').addEventListener('blur', function() {
-            if (!this.value) {
-                this.style.width = '300px';
-            }
-        });
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
     </script>
 </body>
 </html>
