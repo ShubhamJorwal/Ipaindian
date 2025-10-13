@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HR Management Dashboard - Enterprise Edition</title>
     <style>
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +21,9 @@
             line-height: 1.6;
         }
 
-        /* Header Styles */
+        /* ============================================
+           HEADER & NAVIGATION
+           ============================================ */
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-bottom: 3px solid #5a67d8;
@@ -235,7 +240,9 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* Main Content */
+        /* ============================================
+           MAIN CONTENT & LAYOUT
+           ============================================ */
         main {
             max-width: 1600px;
             margin: 0 auto;
@@ -260,7 +267,6 @@
             font-weight: 600;
         }
 
-        /* Module Content */
         .module-content {
             display: none;
             animation: fadeIn 0.4s ease;
@@ -275,7 +281,15 @@
             display: block;
         }
 
-        /* Stats Grid */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 32px;
+        }
+
+        /* ============================================
+           CARDS & STATS
+           ============================================ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -367,7 +381,6 @@
             color: #fff;
         }
 
-        /* Content Card */
         .content-card {
             background: #fff;
             border: 2px solid #e2e8f0;
@@ -400,7 +413,16 @@
             border-radius: 2px;
         }
 
-        /* Quick Actions */
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        /* ============================================
+           QUICK ACTIONS & BUTTONS
+           ============================================ */
         .quick-actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -466,14 +488,42 @@
             z-index: 1;
         }
 
-        /* Two Column Layout */
-        .two-col-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 32px;
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Activity Item */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #edf2f7;
+        }
+
+        /* ============================================
+           ACTIVITY & LISTS
+           ============================================ */
         .activity-list {
             display: flex;
             flex-direction: column;
@@ -520,7 +570,6 @@
             color: #718096;
         }
 
-        /* Department List */
         .dept-list {
             display: flex;
             flex-direction: column;
@@ -563,7 +612,9 @@
         .badge-yellow { background: linear-gradient(135deg, #F2C94C 0%, #F2994A 100%); color: #fff; }
         .badge-pink { background: linear-gradient(135deg, #FA71CD 0%, #C471F5 100%); color: #fff; }
 
-        /* Module Header */
+        /* ============================================
+           MODULE HEADER
+           ============================================ */
         .module-header {
             display: flex;
             align-items: center;
@@ -604,7 +655,9 @@
             color: rgba(255,255,255,0.95);
         }
 
-        /* Mini Stats */
+        /* ============================================
+           MINI STATS
+           ============================================ */
         .mini-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -645,7 +698,9 @@
             opacity: 0.8;
         }
 
-        /* Data Table Styles */
+        /* ============================================
+           TABLES & DATA DISPLAY
+           ============================================ */
         .data-table {
             overflow-x: auto;
             border-radius: 12px;
@@ -692,7 +747,6 @@
             border-bottom: none;
         }
 
-        /* Status Badges */
         .status-badge {
             display: inline-block;
             padding: 6px 14px;
@@ -717,7 +771,6 @@
         .status-completed { background: #c6f6d5; color: #22543d; }
         .status-progress { background: #fef5e7; color: #744210; }
 
-        /* Action Buttons in Tables */
         .table-action-btn {
             padding: 8px 16px;
             border: 2px solid #e2e8f0;
@@ -747,7 +800,9 @@
             box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
         }
 
-        /* Search Bar */
+        /* ============================================
+           SEARCH & FILTERS
+           ============================================ */
         .search-bar {
             position: relative;
             margin-bottom: 24px;
@@ -776,7 +831,38 @@
             color: #718096;
         }
 
-        /* Modal Styles */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            background: #fff;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            background: #f7fafc;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* ============================================
+           FORMS & MODALS
+           ============================================ */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -915,89 +1001,9 @@
             background: linear-gradient(135deg, #fff 0%, #f7fafc 100%);
         }
 
-        .btn {
-            padding: 12px 32px;
-            border: none;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
-        }
-
-        .btn-secondary {
-            background: #f7fafc;
-            color: #4a5568;
-            border: 2px solid #e2e8f0;
-        }
-
-        .btn-secondary:hover {
-            background: #edf2f7;
-        }
-
-        /* Success Message */
-        .success-message {
-            display: none;
-            padding: 16px 20px;
-            background: #c6f6d5;
-            border: 2px solid #9ae6b4;
-            border-radius: 12px;
-            color: #22543d;
-            font-weight: 600;
-            margin-bottom: 20px;
-            animation: slideDown 0.3s;
-        }
-
-        .success-message.show {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 12px 20px;
-            border: 2px solid #e2e8f0;
-            background: #fff;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .filter-btn:hover {
-            border-color: #667eea;
-            background: #f7fafc;
-        }
-
-        .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-            border-color: transparent;
-        }
-
-        /* Notification Panel */
+        /* ============================================
+           NOTIFICATIONS & MESSAGES
+           ============================================ */
         .notification-panel {
             display: none;
             position: fixed;
@@ -1071,7 +1077,75 @@
             color: #a0aec0;
         }
 
-        /* Employee Cards */
+        .success-message {
+            display: none;
+            padding: 16px 20px;
+            background: #c6f6d5;
+            border: 2px solid #9ae6b4;
+            border-radius: 12px;
+            color: #22543d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: slideDown 0.3s;
+        }
+
+        .success-message.show {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Global Success Toast */
+        .global-toast {
+            position: fixed;
+            top: 100px;
+            right: 32px;
+            z-index: 3000;
+            display: none;
+            padding: 16px 24px;
+            background: #c6f6d5;
+            border: 2px solid #9ae6b4;
+            border-radius: 12px;
+            color: #22543d;
+            font-weight: 600;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            animation: slideDown 0.3s;
+        }
+
+        .global-toast.show {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ============================================
+           INFO BOX & ALERTS
+           ============================================ */
+        .info-box {
+            padding: 16px;
+            background: #ebf4ff;
+            border: 2px solid #bee3f8;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-box svg {
+            color: #2c5282;
+            flex-shrink: 0;
+        }
+
+        .info-box-text {
+            font-size: 14px;
+            color: #2c5282;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           EMPLOYEE CARDS
+           ============================================ */
         .employee-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1138,7 +1212,93 @@
             margin-top: 16px;
         }
 
-        /* Responsive */
+        .placeholder-center {
+            text-align: center;
+            padding: 60px 24px;
+        }
+
+        .placeholder-icon {
+            width: 80px;
+            height: 80px;
+            color: #667eea;
+            margin: 0 auto 24px;
+        }
+
+        .placeholder-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 16px;
+        }
+
+        .placeholder-text {
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto 28px;
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+           ============================================ */
+        .icon {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .metric-item {
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .metric-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .metric-bar {
+            background: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+
+        .metric-note {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
         @media (max-width: 768px) {
             .header-container {
                 padding: 16px 20px;
@@ -1172,42 +1332,21 @@
                 right: 16px;
                 width: calc(100% - 32px);
             }
-        }
 
-        /* SVG Icons */
-        .icon {
-            width: 24px;
-            height: 24px;
-            stroke-width: 2;
-            stroke: currentColor;
-            fill: none;
-        }
-
-        /* Info Box */
-        .info-box {
-            padding: 16px;
-            background: #ebf4ff;
-            border: 2px solid #bee3f8;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-        }
-
-        .info-box svg {
-            color: #2c5282;
-            flex-shrink: 0;
-        }
-
-        .info-box-text {
-            font-size: 14px;
-            color: #2c5282;
-            line-height: 1.6;
+            .global-toast {
+                right: 16px;
+                left: 16px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Global Success Toast -->
+    <div id="globalSuccessToast" class="global-toast">
+        <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        <span id="toastMessage"></span>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="header-container">
@@ -1268,14 +1407,6 @@
                         <div class="dropdown-item" onclick="switchModule('training')">
                             <svg class="icon" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                             Training & Development
-                        </div>
-                        <div class="dropdown-item" onclick="switchModule('benefits')">
-                            <svg class="icon" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                            Benefits & Compensation
-                        </div>
-                        <div class="dropdown-item" onclick="switchModule('compliance')">
-                            <svg class="icon" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                            Compliance
                         </div>
                         <div class="dropdown-item" onclick="switchModule('analytics')">
                             <svg class="icon" style="width: 18px; height: 18px;" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
@@ -1583,6 +1714,878 @@
             </div>
 
             <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h4>Active Job Postings</h4>
+                    <div class="value" style="color: #fff;">18</div>
+                    <div class="desc" style="color: rgba(255,255,255,0.9);">Across all departments</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);">
+                    <h4>Candidates in Pipeline</h4>
+                    <div class="value" style="color: #fff;">247</div>
+                    <div class="desc" style="color: rgba(255,255,255,0.9);">Various stages</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);">
+                    <h4>Interviews Scheduled</h4>
+                    <div class="value" style="color: #fff;">34</div>
+                    <div class="desc" style="color: rgba(255,255,255,0.9);">This week</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #F2994A 0%, #F2C94C 100%);">
+                    <h4>Offers Extended</h4>
+                    <div class="value" style="color: #fff;">8</div>
+                    <div class="desc" style="color: rgba(255,255,255,0.9);">Awaiting acceptance</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Active Job Postings</h3>
+                    <button class="btn btn-primary" onclick="openModal('postJobModal')">
+                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Post New Job
+                    </button>
+                </div>
+
+                <div class="search-bar">
+                    <svg class="search-icon icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                    <input type="text" class="search-input" placeholder="Search job postings by title, department, or location...">
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Position Title</th>
+                                <th>Department</th>
+                                <th>Location</th>
+                                <th>Applicants</th>
+                                <th>Status</th>
+                                <th>Posted Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Senior Full Stack Developer</strong></td>
+                                <td>Engineering</td>
+                                <td>Bangalore, India</td>
+                                <td>42</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Oct 1, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">View Details</button>
+                                    <button class="table-action-btn">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product Marketing Manager</strong></td>
+                                <td>Marketing</td>
+                                <td>Mumbai, India</td>
+                                <td>28</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Oct 5, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">View Details</button>
+                                    <button class="table-action-btn">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Scientist</strong></td>
+                                <td>Engineering</td>
+                                <td>Hyderabad, India</td>
+                                <td>35</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Sep 28, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">View Details</button>
+                                    <button class="table-action-btn">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sales Executive</strong></td>
+                                <td>Sales</td>
+                                <td>Delhi, India</td>
+                                <td>56</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Sep 25, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">View Details</button>
+                                    <button class="table-action-btn">Edit</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>HR Business Partner</strong></td>
+                                <td>Human Resources</td>
+                                <td>Pune, India</td>
+                                <td>19</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>Oct 8, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">View Details</button>
+                                    <button class="table-action-btn">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Candidate Pipeline</h3>
+                    <div class="filter-bar" style="margin: 0;">
+                        <button class="filter-btn active">All (247)</button>
+                        <button class="filter-btn">Interview (34)</button>
+                        <button class="filter-btn">Screening (82)</button>
+                        <button class="filter-btn">Offer (8)</button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Candidate Name</th>
+                                <th>Position Applied</th>
+                                <th>Experience</th>
+                                <th>Current Stage</th>
+                                <th>Rating</th>
+                                <th>Applied Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Priya Sharma</strong></td>
+                                <td>Senior Full Stack Developer</td>
+                                <td>6 years</td>
+                                <td><span class="status-badge status-interview">Interview</span></td>
+                                <td>⭐⭐⭐⭐☆ (4.0)</td>
+                                <td>Oct 10, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">Schedule Interview</button>
+                                    <button class="table-action-btn">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rahul Verma</strong></td>
+                                <td>Data Scientist</td>
+                                <td>4 years</td>
+                                <td><span class="status-badge status-review">Screening</span></td>
+                                <td>⭐⭐⭐⭐⭐ (5.0)</td>
+                                <td>Oct 11, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">Move to Interview</button>
+                                    <button class="table-action-btn">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Anita Desai</strong></td>
+                                <td>Product Marketing Manager</td>
+                                <td>8 years</td>
+                                <td><span class="status-badge status-offer">Offer Sent</span></td>
+                                <td>⭐⭐⭐⭐⭐ (4.8)</td>
+                                <td>Oct 7, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">Track Offer</button>
+                                    <button class="table-action-btn">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Vikram Singh</strong></td>
+                                <td>Sales Executive</td>
+                                <td>3 years</td>
+                                <td><span class="status-badge status-new">New Application</span></td>
+                                <td>⭐⭐⭐☆☆ (3.5)</td>
+                                <td>Oct 12, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">Review Application</button>
+                                    <button class="table-action-btn">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sneha Patel</strong></td>
+                                <td>HR Business Partner</td>
+                                <td>7 years</td>
+                                <td><span class="status-badge status-interview">Interview</span></td>
+                                <td>⭐⭐⭐⭐☆ (4.2)</td>
+                                <td>Oct 9, 2025</td>
+                                <td>
+                                    <button class="table-action-btn primary">Schedule Interview</button>
+                                    <button class="table-action-btn">View Profile</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employee Management Module -->
+        <div id="employees" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Employee Management</h2>
+                    <p>Complete employee directory and comprehensive profile management system</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
+                    <h4>Total Employees</h4>
+                    <div class="value" style="color: #374151;">1,248</div>
+                    <div class="desc" style="color: #6b7280;">All departments</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Active Employees</h4>
+                    <div class="value" style="color: #15803d;">1,202</div>
+                    <div class="desc" style="color: #16a34a;">Currently working</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
+                    <h4>On Leave</h4>
+                    <div class="value" style="color: #a16207;">38</div>
+                    <div class="desc" style="color: #ca8a04;">Various leave types</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);">
+                    <h4>Notice Period</h4>
+                    <div class="value" style="color: #b91c1c;">8</div>
+                    <div class="desc" style="color: #dc2626;">Exiting soon</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Employee Directory</h3>
+                    <button class="btn btn-primary" onclick="openModal('addEmployeeModal')">
+                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Add New Employee
+                    </button>
+                </div>
+
+                <div class="search-bar">
+                    <svg class="search-icon icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                    <input type="text" class="search-input" placeholder="Search employees by name, department, position, or employee ID...">
+                </div>
+
+                <div class="filter-bar">
+                    <button class="filter-btn active">All (1,248)</button>
+                    <button class="filter-btn">Engineering (342)</button>
+                    <button class="filter-btn">Sales (156)</button>
+                    <button class="filter-btn">Marketing (89)</button>
+                    <button class="filter-btn">Operations (234)</button>
+                </div>
+
+                <div class="employee-grid">
+                    <div class="employee-card">
+                        <div class="employee-avatar-large">SJ</div>
+                        <h4>Sarah Johnson</h4>
+                        <div class="position">Senior Developer</div>
+                        <div class="department">Engineering Department</div>
+                        <span class="status-badge status-active">Active</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 sarah.j@company.com</div>
+                            <div>📞 +91 98765 43210</div>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);">RK</div>
+                        <h4>Rajesh Kumar</h4>
+                        <div class="position">Sales Manager</div>
+                        <div class="department">Sales Department</div>
+                        <span class="status-badge status-active">Active</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 rajesh.k@company.com</div>
+                            <div>📞 +91 98765 43211</div>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #F2994A 0%, #F2C94C 100%);">PM</div>
+                        <h4>Priya Mehta</h4>
+                        <div class="position">Marketing Lead</div>
+                        <div class="department">Marketing Department</div>
+                        <span class="status-badge status-leave">On Leave</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 priya.m@company.com</div>
+                            <div>📞 +91 98765 43212</div>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);">AS</div>
+                        <h4>Amit Singh</h4>
+                        <div class="position">Operations Manager</div>
+                        <div class="department">Operations Department</div>
+                        <span class="status-badge status-active">Active</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 amit.s@company.com</div>
+                            <div>📞 +91 98765 43213</div>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #FA71CD 0%, #C471F5 100%);">NK</div>
+                        <h4>Neha Kapoor</h4>
+                        <div class="position">HR Business Partner</div>
+                        <div class="department">Human Resources</div>
+                        <span class="status-badge status-active">Active</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 neha.k@company.com</div>
+                            <div>📞 +91 98765 43214</div>
+                        </div>
+                    </div>
+
+                    <div class="employee-card">
+                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #2F80ED 0%, #56CCF2 100%);">VG</div>
+                        <h4>Vikram Gupta</h4>
+                        <div class="position">Finance Manager</div>
+                        <div class="department">Finance Department</div>
+                        <span class="status-badge status-active">Active</span>
+                        <div class="contact-info">
+                            <div style="margin-bottom: 4px;">📧 vikram.g@company.com</div>
+                            <div>📞 +91 98765 43215</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="card-title">Recent Joiners - October 2025</h3>
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Employee ID</th>
+                                <th>Position</th>
+                                <th>Department</th>
+                                <th>Join Date</th>
+                                <th>Email Address</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Aditi Sharma</strong></td>
+                                <td>EMP-2045</td>
+                                <td>Software Engineer</td>
+                                <td>Engineering</td>
+                                <td>Oct 1, 2025</td>
+                                <td>aditi.s@company.com</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="table-action-btn primary">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Karan Malhotra</strong></td>
+                                <td>EMP-2046</td>
+                                <td>Business Analyst</td>
+                                <td>Operations</td>
+                                <td>Oct 3, 2025</td>
+                                <td>karan.m@company.com</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="table-action-btn primary">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Simran Bhatia</strong></td>
+                                <td>EMP-2047</td>
+                                <td>Content Writer</td>
+                                <td>Marketing</td>
+                                <td>Oct 7, 2025</td>
+                                <td>simran.b@company.com</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="table-action-btn primary">View Profile</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arjun Reddy</strong></td>
+                                <td>EMP-2048</td>
+                                <td>Sales Executive</td>
+                                <td>Sales</td>
+                                <td>Oct 10, 2025</td>
+                                <td>arjun.r@company.com</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="table-action-btn primary">View Profile</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Module -->
+        <div id="attendance" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Attendance & Leave Management</h2>
+                    <p>Real-time attendance tracking, leave management, and time-off request processing</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Present Today</h4>
+                    <div class="value" style="color: #15803d;">1,176</div>
+                    <div class="desc" style="color: #16a34a;">94.2% attendance rate</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
+                    <h4>Leave Requests</h4>
+                    <div class="value" style="color: #c2410c;">12</div>
+                    <div class="desc" style="color: #ea580c;">Pending approval</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <h4>Avg Leave Balance</h4>
+                    <div class="value" style="color: #1e40af;">18.5</div>
+                    <div class="desc" style="color: #2563eb;">Days per employee</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);">
+                    <h4>Absent Today</h4>
+                    <div class="value" style="color: #4f46e5;">34</div>
+                    <div class="desc" style="color: #6366f1;">2.7% of workforce</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="card-title">Today's Attendance - Monday, October 13, 2025</h3>
+                <p style="color: #718096; margin-bottom: 24px;">Real-time attendance tracking and monitoring for all employees</p>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Department</th>
+                                <th>Check In Time</th>
+                                <th>Check Out Time</th>
+                                <th>Work Hours</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sarah Johnson</strong></td>
+                                <td>Engineering</td>
+                                <td>09:15 AM</td>
+                                <td>06:30 PM</td>
+                                <td>9h 15m</td>
+                                <td><span class="status-badge status-present">Present</span></td>
+                                <td><button class="table-action-btn">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rajesh Kumar</strong></td>
+                                <td>Sales</td>
+                                <td>09:00 AM</td>
+                                <td>06:00 PM</td>
+                                <td>9h 0m</td>
+                                <td><span class="status-badge status-present">Present</span></td>
+                                <td><button class="table-action-btn">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Priya Mehta</strong></td>
+                                <td>Marketing</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td><span class="status-badge status-leave">On Leave</span></td>
+                                <td><button class="table-action-btn">View Leave</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amit Singh</strong></td>
+                                <td>Operations</td>
+                                <td>09:30 AM</td>
+                                <td><em>In Progress</em></td>
+                                <td>4h 43m</td>
+                                <td><span class="status-badge status-present">Present</span></td>
+                                <td><button class="table-action-btn">View Details</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neha Kapoor</strong></td>
+                                <td>HR</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td><span class="status-badge status-absent">Absent</span></td>
+                                <td><button class="table-action-btn primary">Mark Attendance</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Leave Requests Pending Approval</h3>
+                    <div class="filter-bar" style="margin: 0;">
+                        <button class="filter-btn active">All (12)</button>
+                        <button class="filter-btn">Sick Leave (3)</button>
+                        <button class="filter-btn">Casual Leave (5)</button>
+                        <button class="filter-btn">Annual Leave (4)</button>
+                    </div>
+                </div>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Leave Type</th>
+                                <th>From Date</th>
+                                <th>To Date</th>
+                                <th>Days</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Vikram Gupta</strong></td>
+                                <td>Sick Leave</td>
+                                <td>Oct 15, 2025</td>
+                                <td>Oct 16, 2025</td>
+                                <td>2 days</td>
+                                <td>Medical appointment and recovery</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="table-action-btn primary" onclick="showSuccessToast('Leave request approved successfully!')">Approve</button>
+                                    <button class="table-action-btn">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Aisha Patel</strong></td>
+                                <td>Casual Leave</td>
+                                <td>Oct 18, 2025</td>
+                                <td>Oct 20, 2025</td>
+                                <td>3 days</td>
+                                <td>Personal work and family matters</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="table-action-btn primary" onclick="showSuccessToast('Leave request approved successfully!')">Approve</button>
+                                    <button class="table-action-btn">Reject</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rohan Verma</strong></td>
+                                <td>Annual Leave</td>
+                                <td>Oct 25, 2025</td>
+                                <td>Oct 29, 2025</td>
+                                <td>5 days</td>
+                                <td>Family vacation to Goa</td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button class="table-action-btn">View Details</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Meera Singh</strong></td>
+                                <td>Work From Home</td>
+                                <td>Oct 14, 2025</td>
+                                <td>Oct 14, 2025</td>
+                                <td>1 day</td>
+                                <td>Home emergency - plumber visit</td>
+                                <td><span class="status-badge status-approved">Approved</span></td>
+                                <td>
+                                    <button class="table-action-btn">View Details</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payroll Module -->
+        <div id="payroll" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Payroll Management</h2>
+                    <p>Comprehensive salary processing, tax calculations, and secure payment disbursement</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Monthly Payroll</h4>
+                    <div class="value" style="color: #15803d;">₹8.4Cr</div>
+                    <div class="desc" style="color: #16a34a;">October 2025</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <h4>Employees Paid</h4>
+                    <div class="value" style="color: #1e40af;">1,248</div>
+                    <div class="desc" style="color: #2563eb;">100% processed</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                    <h4>Tax Deducted (TDS)</h4>
+                    <div class="value" style="color: #7e22ce;">₹1.2Cr</div>
+                    <div class="desc" style="color: #9333ea;">This month</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
+                    <h4>Average Salary</h4>
+                    <div class="value" style="color: #c2410c;">₹67,307</div>
+                    <div class="desc" style="color: #ea580c;">Per employee</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Payroll Processing Center</h3>
+                    <button class="btn btn-primary" onclick="openModal('processPayrollModal')">
+                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Process Payroll
+                    </button>
+                </div>
+
+                <p style="color: #718096; margin-bottom: 24px;">Detailed payroll management and salary disbursement tracking for all employees</p>
+
+                <div class="data-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Employee Name</th>
+                                <th>Employee ID</th>
+                                <th>Gross Salary</th>
+                                <th>Deductions</th>
+                                <th>Net Salary</th>
+                                <th>Payment Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Sarah Johnson</strong></td>
+                                <td>EMP-1024</td>
+                                <td>₹95,000</td>
+                                <td>₹12,500</td>
+                                <td><strong>₹82,500</strong></td>
+                                <td>Oct 1, 2025</td>
+                                <td><span class="status-badge status-approved">Paid</span></td>
+                                <td><button class="table-action-btn">Download Slip</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rajesh Kumar</strong></td>
+                                <td>EMP-1156</td>
+                                <td>₹85,000</td>
+                                <td>₹10,800</td>
+                                <td><strong>₹74,200</strong></td>
+                                <td>Oct 1, 2025</td>
+                                <td><span class="status-badge status-approved">Paid</span></td>
+                                <td><button class="table-action-btn">Download Slip</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Priya Mehta</strong></td>
+                                <td>EMP-1203</td>
+                                <td>₹78,000</td>
+                                <td>₹9,800</td>
+                                <td><strong>₹68,200</strong></td>
+                                <td>Oct 1, 2025</td>
+                                <td><span class="status-badge status-approved">Paid</span></td>
+                                <td><button class="table-action-btn">Download Slip</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amit Singh</strong></td>
+                                <td>EMP-1087</td>
+                                <td>₹92,000</td>
+                                <td>₹11,900</td>
+                                <td><strong>₹80,100</strong></td>
+                                <td>Oct 1, 2025</td>
+                                <td><span class="status-badge status-approved">Paid</span></td>
+                                <td><button class="table-action-btn">Download Slip</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Neha Kapoor</strong></td>
+                                <td>EMP-1298</td>
+                                <td>₹88,000</td>
+                                <td>₹11,200</td>
+                                <td><strong>₹76,800</strong></td>
+                                <td>Oct 1, 2025</td>
+                                <td><span class="status-badge status-approved">Paid</span></td>
+                                <td><button class="table-action-btn">Download Slip</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Module -->
+        <div id="performance" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Performance Management</h2>
+                    <p>Employee goals, performance reviews, and comprehensive tracking system</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Goals Completed</h4>
+                    <div class="value" style="color: #15803d;">842</div>
+                    <div class="desc" style="color: #16a34a;">Q4 2025</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <h4>Reviews Due</h4>
+                    <div class="value" style="color: #1e40af;">156</div>
+                    <div class="desc" style="color: #2563eb;">This month</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                    <h4>Average Rating</h4>
+                    <div class="value" style="color: #7e22ce;">4.3/5.0</div>
+                    <div class="desc" style="color: #9333ea;">Company-wide</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
+                    <h4>Top Performers</h4>
+                    <div class="value" style="color: #c2410c;">47</div>
+                    <div class="desc" style="color: #ea580c;">4.5+ rating</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="card-title">Performance Overview</h3>
+                <div class="info-box">
+                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <div class="info-box-text">
+                        <strong>Performance Management System Active:</strong> Track employee performance, goals, and review cycles efficiently. Access comprehensive performance data, 360-degree feedback, KPI monitoring, and detailed analytics through this module.
+                    </div>
+                </div>
+                <div class="placeholder-center">
+                    <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                    <h3 class="placeholder-title">Advanced Performance Analytics Available</h3>
+                    <p class="placeholder-text">Manage goal setting, track progress, conduct performance reviews, and analyze employee productivity with our comprehensive system.</p>
+                    <button class="btn btn-primary">View Full Performance Dashboard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Module -->
+        <div id="training" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Training & Development</h2>
+                    <p>Employee learning programs, certification tracking, and comprehensive skill development</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <h4>Active Courses</h4>
+                    <div class="value" style="color: #1e40af;">42</div>
+                    <div class="desc" style="color: #2563eb;">Available programs</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Total Enrollments</h4>
+                    <div class="value" style="color: #15803d;">687</div>
+                    <div class="desc" style="color: #16a34a;">This quarter</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
+                    <h4>Completion Rate</h4>
+                    <div class="value" style="color: #7e22ce;">87%</div>
+                    <div class="desc" style="color: #9333ea;">Average completion</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
+                    <h4>Certifications</h4>
+                    <div class="value" style="color: #c2410c;">156</div>
+                    <div class="desc" style="color: #ea580c;">Awarded this year</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header-flex">
+                    <h3 class="card-title" style="margin-bottom: 0;">Training Programs</h3>
+                    <button class="btn btn-primary" onclick="openModal('scheduleTrainingModal')">
+                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Schedule Training
+                    </button>
+                </div>
+
+                <div class="info-box">
+                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <div class="info-box-text">
+                        <strong>Learning Management System:</strong> Access comprehensive course catalogs, enroll employees in training programs, track progress, manage certifications, and monitor skill development across your organization.
+                    </div>
+                </div>
+
+                <p style="color: #718096; margin-bottom: 24px;">Comprehensive learning and development programs for continuous employee growth and skill enhancement</p>
+                <div class="placeholder-center">
+                    <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                    </svg>
+                    <h3 class="placeholder-title">Training Catalog & Enrollment System Ready</h3>
+                    <p class="placeholder-text">Browse 42 active courses, enroll employees, track completion rates, and manage certifications through our advanced training management system.</p>
+                    <button class="btn btn-primary">View Training Catalog</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Module -->
+        <div id="analytics" class="module-content">
+            <div class="module-header">
+                <div class="module-icon-large">
+                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <div class="module-header-text">
+                    <h2>Analytics & Reports</h2>
+                    <p>Comprehensive HR metrics, advanced insights, and customizable reporting engine</p>
+                </div>
+            </div>
+
+            <div class="mini-stats">
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+                    <h4>Turnover Rate</h4>
+                    <div class="value" style="color: #1e40af;">8.2%</div>
+                    <div class="desc" style="color: #2563eb;">Below industry avg</div>
+                </div>
+                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
+                    <h4>Time to Hire</h4>
+                    <div class="value" style="color: #15803d;">32 days</div>
+                    <div class="desc" style="color: #16a34a;">Average duration</div>
+                </div>
                 <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
                     <h4>Engagement Score</h4>
                     <div class="value" style="color: #7e22ce;">8.6/10</div>
@@ -1596,7 +2599,7 @@
             </div>
 
             <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <div class="card-header-flex">
                     <h3 class="card-title" style="margin-bottom: 0;">Analytics Dashboard</h3>
                     <button class="btn btn-primary" onclick="openModal('viewReportsModal')">
                         <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
@@ -1610,15 +2613,91 @@
                     </div>
                 </div>
                 <p style="color: #718096; margin-bottom: 24px;">Powerful analytics, predictive insights, and comprehensive reporting for strategic HR decision-making</p>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="placeholder-center">
+                    <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <line x1="18" y1="20" x2="18" y2="10"></line>
                         <line x1="12" y1="20" x2="12" y2="4"></line>
                         <line x1="6" y1="20" x2="6" y2="14"></line>
                     </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Powerful Analytics & Reporting Engine</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Access custom dashboards, generate automated reports, track KPIs, leverage predictive analytics, and make strategic HR decisions backed by comprehensive data insights.</p>
+                    <h3 class="placeholder-title">Powerful Analytics & Reporting Engine</h3>
+                    <p class="placeholder-text">Access custom dashboards, generate automated reports, track KPIs, leverage predictive analytics, and make strategic HR decisions backed by comprehensive data insights.</p>
                     <button class="btn btn-primary" onclick="openModal('viewReportsModal')">View Analytics Dashboard</button>
+                </div>
+            </div>
+
+            <div class="two-col-grid">
+                <div class="content-card">
+                    <h3 class="card-title">Key HR Metrics</h3>
+                    <div class="metric-item">
+                        <div class="metric-header">
+                            <span class="metric-label">Employee Retention Rate</span>
+                            <span class="metric-value">91.8%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" style="width: 91.8%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-item" style="border-left-color: #56CCF2;">
+                        <div class="metric-header">
+                            <span class="metric-label">Cost per Hire</span>
+                            <span class="metric-value" style="color: #2F80ED;">₹68,500</span>
+                        </div>
+                        <p class="metric-note">12% reduction from last quarter</p>
+                    </div>
+
+                    <div class="metric-item" style="border-left-color: #F2994A;">
+                        <div class="metric-header">
+                            <span class="metric-label">Training Hours per Employee</span>
+                            <span class="metric-value" style="color: #F2994A;">42.5</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="metric-bar-fill" style="width: 85%; background: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%);"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-item" style="border-left-color: #C471F5;">
+                        <div class="metric-header">
+                            <span class="metric-label">Absenteeism Rate</span>
+                            <span class="metric-value" style="color: #C471F5;">2.7%</span>
+                        </div>
+                        <p class="metric-note">Below industry benchmark of 3.5%</p>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3 class="card-title">Quick Report Templates</h3>
+                    <div class="quick-actions-grid">
+                        <div class="action-btn" onclick="openModal('viewReportsModal')">
+                            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            <span class="action-label">Headcount Report</span>
+                        </div>
+                        <div class="action-btn" onclick="openModal('viewReportsModal')">
+                            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                            <span class="action-label">Payroll Summary</span>
+                        </div>
+                        <div class="action-btn" onclick="openModal('viewReportsModal')">
+                            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span class="action-label">Attendance Analytics</span>
+                        </div>
+                        <div class="action-btn" onclick="openModal('viewReportsModal')">
+                            <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <span class="action-label">Performance Metrics</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1867,7 +2946,7 @@
                             <p style="font-size: 14px; color: #4a5568;">Medical appointment and recovery time needed.</p>
                         </div>
                         <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-primary" style="flex: 1;" onclick="closeModal('approveLeaveModal'); showSuccessMessage('successMessageLeave');">
+                            <button class="btn btn-primary" style="flex: 1;" onclick="closeModal('approveLeaveModal'); showSuccessToast('Leave request approved successfully!');">
                                 <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 Approve
                             </button>
@@ -2175,8 +3254,6 @@
             payroll: 'Payroll',
             performance: 'Performance',
             training: 'Training & Development',
-            benefits: 'Benefits & Compensation',
-            compliance: 'Compliance',
             analytics: 'Analytics & Reports'
         };
 
@@ -2232,1445 +3309,41 @@
             }
         }
 
-        function showSuccessMessage(messageId) {
-            const message = document.getElementById(messageId);
-            if (message) {
-                message.classList.add('show');
-                setTimeout(() => {
-                    message.classList.remove('show');
-                }, 5000);
-            }
+        function showSuccessToast(message) {
+            const toast = document.getElementById('globalSuccessToast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 5000);
         }
 
         function submitEmployeeForm() {
             closeModal('addEmployeeModal');
-            alert('✅ Employee added successfully! Welcome aboard!');
+            showSuccessToast('✅ Employee added successfully! Welcome aboard!');
         }
 
         function processPayroll() {
             closeModal('processPayrollModal');
-            showSuccessMessage('successMessagePayroll');
-            switchModule('payroll');
+            showSuccessToast('💰 Payroll successfully processed for October 2025 - All payments disbursed!');
+            setTimeout(() => {
+                switchModule('payroll');
+            }, 1500);
         }
 
         function generateReport() {
             closeModal('viewReportsModal');
-            alert('📊 Report is being generated! You will receive a download link shortly.');
+            showSuccessToast('📊 Report is being generated! You will receive a download link shortly.');
         }
 
         function postJob() {
             closeModal('postJobModal');
-            alert('✅ Job posting created successfully and published to careers page!');
+            showSuccessToast('✅ Job posting created successfully and published to careers page!');
         }
 
         function scheduleTraining() {
             closeModal('scheduleTrainingModal');
-            alert('✅ Training program scheduled successfully! Invitations will be sent to participants.');
-        }
-
-        document.addEventListener('click', function(event) {
-            if (!event.target.closest('.dropdown') && !event.target.closest('.notification-panel')) {
-                document.querySelectorAll('.dropdown-content').forEach(dropdown => {
-                    dropdown.classList.remove('show');
-                });
-                
-                const notifPanel = document.getElementById('notificationPanel');
-                if (notifPanel && !event.target.closest('.icon-btn')) {
-                    notifPanel.classList.remove('show');
-                }
-            }
-        });
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                document.querySelectorAll('.modal-overlay.show').forEach(modal => {
-                    modal.classList.remove('show');
-                });
-                document.body.style.overflow = 'auto';
-            }
-        });
-    </script>
-</body>
-</html>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <h4>Active Job Postings</h4>
-                    <div class="value" style="color: #fff;">18</div>
-                    <div class="desc" style="color: rgba(255,255,255,0.9);">Across all departments</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);">
-                    <h4>Candidates in Pipeline</h4>
-                    <div class="value" style="color: #fff;">247</div>
-                    <div class="desc" style="color: rgba(255,255,255,0.9);">Various stages</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);">
-                    <h4>Interviews Scheduled</h4>
-                    <div class="value" style="color: #fff;">34</div>
-                    <div class="desc" style="color: rgba(255,255,255,0.9);">This week</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #F2994A 0%, #F2C94C 100%);">
-                    <h4>Offers Extended</h4>
-                    <div class="value" style="color: #fff;">8</div>
-                    <div class="desc" style="color: rgba(255,255,255,0.9);">Awaiting acceptance</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Active Job Postings</h3>
-                    <button class="btn btn-primary" onclick="openModal('postJobModal')">
-                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Post New Job
-                    </button>
-                </div>
-
-                <div class="search-bar">
-                    <svg class="search-icon icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                    <input type="text" class="search-input" placeholder="Search job postings by title, department, or location...">
-                </div>
-
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Position Title</th>
-                                <th>Department</th>
-                                <th>Location</th>
-                                <th>Applicants</th>
-                                <th>Status</th>
-                                <th>Posted Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Senior Full Stack Developer</strong></td>
-                                <td>Engineering</td>
-                                <td>Bangalore, India</td>
-                                <td>42</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Oct 1, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">View Details</button>
-                                    <button class="table-action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Product Marketing Manager</strong></td>
-                                <td>Marketing</td>
-                                <td>Mumbai, India</td>
-                                <td>28</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Oct 5, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">View Details</button>
-                                    <button class="table-action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Data Scientist</strong></td>
-                                <td>Engineering</td>
-                                <td>Hyderabad, India</td>
-                                <td>35</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Sep 28, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">View Details</button>
-                                    <button class="table-action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sales Executive</strong></td>
-                                <td>Sales</td>
-                                <td>Delhi, India</td>
-                                <td>56</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Sep 25, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">View Details</button>
-                                    <button class="table-action-btn">Edit</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>HR Business Partner</strong></td>
-                                <td>Human Resources</td>
-                                <td>Pune, India</td>
-                                <td>19</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>Oct 8, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">View Details</button>
-                                    <button class="table-action-btn">Edit</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Candidate Pipeline</h3>
-                    <div class="filter-bar" style="margin: 0;">
-                        <button class="filter-btn active">All (247)</button>
-                        <button class="filter-btn">Interview (34)</button>
-                        <button class="filter-btn">Screening (82)</button>
-                        <button class="filter-btn">Offer (8)</button>
-                    </div>
-                </div>
-
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Candidate Name</th>
-                                <th>Position Applied</th>
-                                <th>Experience</th>
-                                <th>Current Stage</th>
-                                <th>Rating</th>
-                                <th>Applied Date</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Priya Sharma</strong></td>
-                                <td>Senior Full Stack Developer</td>
-                                <td>6 years</td>
-                                <td><span class="status-badge status-interview">Interview</span></td>
-                                <td>⭐⭐⭐⭐☆ (4.0)</td>
-                                <td>Oct 10, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">Schedule Interview</button>
-                                    <button class="table-action-btn">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Rahul Verma</strong></td>
-                                <td>Data Scientist</td>
-                                <td>4 years</td>
-                                <td><span class="status-badge status-review">Screening</span></td>
-                                <td>⭐⭐⭐⭐⭐ (5.0)</td>
-                                <td>Oct 11, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">Move to Interview</button>
-                                    <button class="table-action-btn">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Anita Desai</strong></td>
-                                <td>Product Marketing Manager</td>
-                                <td>8 years</td>
-                                <td><span class="status-badge status-offer">Offer Sent</span></td>
-                                <td>⭐⭐⭐⭐⭐ (4.8)</td>
-                                <td>Oct 7, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">Track Offer</button>
-                                    <button class="table-action-btn">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Vikram Singh</strong></td>
-                                <td>Sales Executive</td>
-                                <td>3 years</td>
-                                <td><span class="status-badge status-new">New Application</span></td>
-                                <td>⭐⭐⭐☆☆ (3.5)</td>
-                                <td>Oct 12, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">Review Application</button>
-                                    <button class="table-action-btn">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sneha Patel</strong></td>
-                                <td>HR Business Partner</td>
-                                <td>7 years</td>
-                                <td><span class="status-badge status-interview">Interview</span></td>
-                                <td>⭐⭐⭐⭐☆ (4.2)</td>
-                                <td>Oct 9, 2025</td>
-                                <td>
-                                    <button class="table-action-btn primary">Schedule Interview</button>
-                                    <button class="table-action-btn">View Profile</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Employee Management Module -->
-        <div id="employees" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Employee Management</h2>
-                    <p>Complete employee directory and comprehensive profile management system</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);">
-                    <h4>Total Employees</h4>
-                    <div class="value" style="color: #374151;">1,248</div>
-                    <div class="desc" style="color: #6b7280;">All departments</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Active Employees</h4>
-                    <div class="value" style="color: #15803d;">1,202</div>
-                    <div class="desc" style="color: #16a34a;">Currently working</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
-                    <h4>On Leave</h4>
-                    <div class="value" style="color: #a16207;">38</div>
-                    <div class="desc" style="color: #ca8a04;">Various leave types</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);">
-                    <h4>Notice Period</h4>
-                    <div class="value" style="color: #b91c1c;">8</div>
-                    <div class="desc" style="color: #dc2626;">Exiting soon</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Employee Directory</h3>
-                    <button class="btn btn-primary" onclick="openModal('addEmployeeModal')">
-                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Add New Employee
-                    </button>
-                </div>
-
-                <div class="search-bar">
-                    <svg class="search-icon icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
-                    <input type="text" class="search-input" placeholder="Search employees by name, department, position, or employee ID...">
-                </div>
-
-                <div class="filter-bar">
-                    <button class="filter-btn active">All (1,248)</button>
-                    <button class="filter-btn">Engineering (342)</button>
-                    <button class="filter-btn">Sales (156)</button>
-                    <button class="filter-btn">Marketing (89)</button>
-                    <button class="filter-btn">Operations (234)</button>
-                </div>
-
-                <div class="employee-grid">
-                    <div class="employee-card">
-                        <div class="employee-avatar-large">SJ</div>
-                        <h4>Sarah Johnson</h4>
-                        <div class="position">Senior Developer</div>
-                        <div class="department">Engineering Department</div>
-                        <span class="status-badge status-active">Active</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 sarah.j@company.com</div>
-                            <div>📞 +91 98765 43210</div>
-                        </div>
-                    </div>
-
-                    <div class="employee-card">
-                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);">RK</div>
-                        <h4>Rajesh Kumar</h4>
-                        <div class="position">Sales Manager</div>
-                        <div class="department">Sales Department</div>
-                        <span class="status-badge status-active">Active</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 rajesh.k@company.com</div>
-                            <div>📞 +91 98765 43211</div>
-                        </div>
-                    </div>
-
-                    <div class="employee-card">
-                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #F2994A 0%, #F2C94C 100%);">PM</div>
-                        <h4>Priya Mehta</h4>
-                        <div class="position">Marketing Lead</div>
-                        <div class="department">Marketing Department</div>
-                        <span class="status-badge status-leave">On Leave</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 priya.m@company.com</div>
-                            <div>📞 +91 98765 43212</div>
-                        </div>
-                    </div>
-
-                    <div class="employee-card">
-                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);">AS</div>
-                        <h4>Amit Singh</h4>
-                        <div class="position">Operations Manager</div>
-                        <div class="department">Operations Department</div>
-                        <span class="status-badge status-active">Active</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 amit.s@company.com</div>
-                            <div>📞 +91 98765 43213</div>
-                        </div>
-                    </div>
-
-                    <div class="employee-card">
-                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #FA71CD 0%, #C471F5 100%);">NK</div>
-                        <h4>Neha Kapoor</h4>
-                        <div class="position">HR Business Partner</div>
-                        <div class="department">Human Resources</div>
-                        <span class="status-badge status-active">Active</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 neha.k@company.com</div>
-                            <div>📞 +91 98765 43214</div>
-                        </div>
-                    </div>
-
-                    <div class="employee-card">
-                        <div class="employee-avatar-large" style="background: linear-gradient(135deg, #2F80ED 0%, #56CCF2 100%);">VG</div>
-                        <h4>Vikram Gupta</h4>
-                        <div class="position">Finance Manager</div>
-                        <div class="department">Finance Department</div>
-                        <span class="status-badge status-active">Active</span>
-                        <div class="contact-info">
-                            <div style="margin-bottom: 4px;">📧 vikram.g@company.com</div>
-                            <div>📞 +91 98765 43215</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Recent Joiners - October 2025</h3>
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Employee ID</th>
-                                <th>Position</th>
-                                <th>Department</th>
-                                <th>Join Date</th>
-                                <th>Email Address</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Aditi Sharma</strong></td>
-                                <td>EMP-2045</td>
-                                <td>Software Engineer</td>
-                                <td>Engineering</td>
-                                <td>Oct 1, 2025</td>
-                                <td>aditi.s@company.com</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <button class="table-action-btn primary">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Karan Malhotra</strong></td>
-                                <td>EMP-2046</td>
-                                <td>Business Analyst</td>
-                                <td>Operations</td>
-                                <td>Oct 3, 2025</td>
-                                <td>karan.m@company.com</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <button class="table-action-btn primary">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Simran Bhatia</strong></td>
-                                <td>EMP-2047</td>
-                                <td>Content Writer</td>
-                                <td>Marketing</td>
-                                <td>Oct 7, 2025</td>
-                                <td>simran.b@company.com</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <button class="table-action-btn primary">View Profile</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Arjun Reddy</strong></td>
-                                <td>EMP-2048</td>
-                                <td>Sales Executive</td>
-                                <td>Sales</td>
-                                <td>Oct 10, 2025</td>
-                                <td>arjun.r@company.com</td>
-                                <td><span class="status-badge status-active">Active</span></td>
-                                <td>
-                                    <button class="table-action-btn primary">View Profile</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Attendance Module -->
-        <div id="attendance" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Attendance & Leave Management</h2>
-                    <p>Real-time attendance tracking, leave management, and time-off request processing</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Present Today</h4>
-                    <div class="value" style="color: #15803d;">1,176</div>
-                    <div class="desc" style="color: #16a34a;">94.2% attendance rate</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Leave Requests</h4>
-                    <div class="value" style="color: #c2410c;">12</div>
-                    <div class="desc" style="color: #ea580c;">Pending approval</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Avg Leave Balance</h4>
-                    <div class="value" style="color: #1e40af;">18.5</div>
-                    <div class="desc" style="color: #2563eb;">Days per employee</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);">
-                    <h4>Absent Today</h4>
-                    <div class="value" style="color: #4f46e5;">34</div>
-                    <div class="desc" style="color: #6366f1;">2.7% of workforce</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Today's Attendance - Monday, October 13, 2025</h3>
-                <p style="color: #718096; margin-bottom: 24px;">Real-time attendance tracking and monitoring for all employees</p>
-
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Department</th>
-                                <th>Check In Time</th>
-                                <th>Check Out Time</th>
-                                <th>Work Hours</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Sarah Johnson</strong></td>
-                                <td>Engineering</td>
-                                <td>09:15 AM</td>
-                                <td>06:30 PM</td>
-                                <td>9h 15m</td>
-                                <td><span class="status-badge status-present">Present</span></td>
-                                <td><button class="table-action-btn">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Rajesh Kumar</strong></td>
-                                <td>Sales</td>
-                                <td>09:00 AM</td>
-                                <td>06:00 PM</td>
-                                <td>9h 0m</td>
-                                <td><span class="status-badge status-present">Present</span></td>
-                                <td><button class="table-action-btn">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Priya Mehta</strong></td>
-                                <td>Marketing</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td><span class="status-badge status-leave">On Leave</span></td>
-                                <td><button class="table-action-btn">View Leave</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Amit Singh</strong></td>
-                                <td>Operations</td>
-                                <td>09:30 AM</td>
-                                <td><em>In Progress</em></td>
-                                <td>4h 43m</td>
-                                <td><span class="status-badge status-present">Present</span></td>
-                                <td><button class="table-action-btn">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Neha Kapoor</strong></td>
-                                <td>HR</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td><span class="status-badge status-absent">Absent</span></td>
-                                <td><button class="table-action-btn primary">Mark Attendance</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Leave Requests Pending Approval</h3>
-                    <div class="filter-bar" style="margin: 0;">
-                        <button class="filter-btn active">All (12)</button>
-                        <button class="filter-btn">Sick Leave (3)</button>
-                        <button class="filter-btn">Casual Leave (5)</button>
-                        <button class="filter-btn">Annual Leave (4)</button>
-                    </div>
-                </div>
-
-                <div id="successMessageLeave" class="success-message">
-                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    <span>Leave request has been approved successfully!</span>
-                </div>
-
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Leave Type</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <th>Days</th>
-                                <th>Reason</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Vikram Gupta</strong></td>
-                                <td>Sick Leave</td>
-                                <td>Oct 15, 2025</td>
-                                <td>Oct 16, 2025</td>
-                                <td>2 days</td>
-                                <td>Medical appointment and recovery</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>
-                                    <button class="table-action-btn primary" onclick="showSuccessMessage('successMessageLeave')">Approve</button>
-                                    <button class="table-action-btn">Reject</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Aisha Patel</strong></td>
-                                <td>Casual Leave</td>
-                                <td>Oct 18, 2025</td>
-                                <td>Oct 20, 2025</td>
-                                <td>3 days</td>
-                                <td>Personal work and family matters</td>
-                                <td><span class="status-badge status-pending">Pending</span></td>
-                                <td>
-                                    <button class="table-action-btn primary" onclick="showSuccessMessage('successMessageLeave')">Approve</button>
-                                    <button class="table-action-btn">Reject</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Rohan Verma</strong></td>
-                                <td>Annual Leave</td>
-                                <td>Oct 25, 2025</td>
-                                <td>Oct 29, 2025</td>
-                                <td>5 days</td>
-                                <td>Family vacation to Goa</td>
-                                <td><span class="status-badge status-approved">Approved</span></td>
-                                <td>
-                                    <button class="table-action-btn">View Details</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>Meera Singh</strong></td>
-                                <td>Work From Home</td>
-                                <td>Oct 14, 2025</td>
-                                <td>Oct 14, 2025</td>
-                                <td>1 day</td>
-                                <td>Home emergency - plumber visit</td>
-                                <td><span class="status-badge status-approved">Approved</span></td>
-                                <td>
-                                    <button class="table-action-btn">View Details</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Payroll Module -->
-        <div id="payroll" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Payroll Management</h2>
-                    <p>Comprehensive salary processing, tax calculations, and secure payment disbursement</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Monthly Payroll</h4>
-                    <div class="value" style="color: #15803d;">₹8.4Cr</div>
-                    <div class="desc" style="color: #16a34a;">October 2025</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Employees Paid</h4>
-                    <div class="value" style="color: #1e40af;">1,248</div>
-                    <div class="desc" style="color: #2563eb;">100% processed</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Tax Deducted (TDS)</h4>
-                    <div class="value" style="color: #7e22ce;">₹1.2Cr</div>
-                    <div class="desc" style="color: #9333ea;">This month</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Average Salary</h4>
-                    <div class="value" style="color: #c2410c;">₹67,307</div>
-                    <div class="desc" style="color: #ea580c;">Per employee</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Payroll Processing Center</h3>
-                    <button class="btn btn-primary" onclick="openModal('processPayrollModal')">
-                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        Process Payroll
-                    </button>
-                </div>
-
-                <div id="successMessagePayroll" class="success-message">
-                    <svg class="icon" style="width: 20px; height: 20px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    <span>Payroll successfully processed for October 2025 - All payments disbursed!</span>
-                </div>
-
-                <p style="color: #718096; margin-bottom: 24px;">Detailed payroll management and salary disbursement tracking for all employees</p>
-
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Employee ID</th>
-                                <th>Gross Salary</th>
-                                <th>Deductions</th>
-                                <th>Net Salary</th>
-                                <th>Payment Date</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Sarah Johnson</strong></td>
-                                <td>EMP-1024</td>
-                                <td>₹95,000</td>
-                                <td>₹12,500</td>
-                                <td><strong>₹82,500</strong></td>
-                                <td>Oct 1, 2025</td>
-                                <td><span class="status-badge status-approved">Paid</span></td>
-                                <td><button class="table-action-btn">Download Slip</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Rajesh Kumar</strong></td>
-                                <td>EMP-1156</td>
-                                <td>₹85,000</td>
-                                <td>₹10,800</td>
-                                <td><strong>₹74,200</strong></td>
-                                <td>Oct 1, 2025</td>
-                                <td><span class="status-badge status-approved">Paid</span></td>
-                                <td><button class="table-action-btn">Download Slip</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Priya Mehta</strong></td>
-                                <td>EMP-1203</td>
-                                <td>₹78,000</td>
-                                <td>₹9,800</td>
-                                <td><strong>₹68,200</strong></td>
-                                <td>Oct 1, 2025</td>
-                                <td><span class="status-badge status-approved">Paid</span></td>
-                                <td><button class="table-action-btn">Download Slip</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Amit Singh</strong></td>
-                                <td>EMP-1087</td>
-                                <td>₹92,000</td>
-                                <td>₹11,900</td>
-                                <td><strong>₹80,100</strong></td>
-                                <td>Oct 1, 2025</td>
-                                <td><span class="status-badge status-approved">Paid</span></td>
-                                <td><button class="table-action-btn">Download Slip</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Neha Kapoor</strong></td>
-                                <td>EMP-1298</td>
-                                <td>₹88,000</td>
-                                <td>₹11,200</td>
-                                <td><strong>₹76,800</strong></td>
-                                <td>Oct 1, 2025</td>
-                                <td><span class="status-badge status-approved">Paid</span></td>
-                                <td><button class="table-action-btn">Download Slip</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Performance Module -->
-        <div id="performance" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Performance Management</h2>
-                    <p>Employee goals, performance reviews, and comprehensive tracking system</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Goals Completed</h4>
-                    <div class="value" style="color: #15803d;">842</div>
-                    <div class="desc" style="color: #16a34a;">Q4 2025</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Reviews Due</h4>
-                    <div class="value" style="color: #1e40af;">156</div>
-                    <div class="desc" style="color: #2563eb;">This month</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Average Rating</h4>
-                    <div class="value" style="color: #7e22ce;">4.3/5.0</div>
-                    <div class="desc" style="color: #9333ea;">Company-wide</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Top Performers</h4>
-                    <div class="value" style="color: #c2410c;">47</div>
-                    <div class="desc" style="color: #ea580c;">4.5+ rating</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Performance Overview</h3>
-                <div class="info-box">
-                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <div class="info-box-text">
-                        <strong>Performance Management System Active:</strong> Track employee performance, goals, and review cycles efficiently. Access comprehensive performance data, 360-degree feedback, KPI monitoring, and detailed analytics through this module.
-                    </div>
-                </div>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Advanced Performance Analytics Available</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Manage goal setting, track progress, conduct performance reviews, and analyze employee productivity with our comprehensive system.</p>
-                    <button class="btn btn-primary">View Full Performance Dashboard</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Training Module -->
-        <div id="training" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Training & Development</h2>
-                    <p>Employee learning programs, certification tracking, and comprehensive skill development</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Active Courses</h4>
-                    <div class="value" style="color: #1e40af;">42</div>
-                    <div class="desc" style="color: #2563eb;">Available programs</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Total Enrollments</h4>
-                    <div class="value" style="color: #15803d;">687</div>
-                    <div class="desc" style="color: #16a34a;">This quarter</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Completion Rate</h4>
-                    <div class="value" style="color: #7e22ce;">87%</div>
-                    <div class="desc" style="color: #9333ea;">Average completion</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Certifications</h4>
-                    <div class="value" style="color: #c2410c;">156</div>
-                    <div class="desc" style="color: #ea580c;">Awarded this year</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Training Programs</h3>
-                    <button class="btn btn-primary" onclick="openModal('scheduleTrainingModal')">
-                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Schedule Training
-                    </button>
-                </div>
-
-                <div class="info-box">
-                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <div class="info-box-text">
-                        <strong>Learning Management System:</strong> Access comprehensive course catalogs, enroll employees in training programs, track progress, manage certifications, and monitor skill development across your organization.
-                    </div>
-                </div>
-
-                <p style="color: #718096; margin-bottom: 24px;">Comprehensive learning and development programs for continuous employee growth and skill enhancement</p>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Training Catalog & Enrollment System Ready</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Browse 42 active courses, enroll employees, track completion rates, and manage certifications through our advanced training management system.</p>
-                    <button class="btn btn-primary">View Training Catalog</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Benefits Module -->
-        <div id="benefits" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Benefits & Compensation</h2>
-                    <p>Employee benefits, insurance enrollment, and comprehensive compensation management</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Health Insurance</h4>
-                    <div class="value" style="color: #15803d;">1,248</div>
-                    <div class="desc" style="color: #16a34a;">Enrolled employees</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>PF Contributions</h4>
-                    <div class="value" style="color: #1e40af;">₹2.1Cr</div>
-                    <div class="desc" style="color: #2563eb;">This month</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Benefits Budget</h4>
-                    <div class="value" style="color: #7e22ce;">₹12.5Cr</div>
-                    <div class="desc" style="color: #9333ea;">Annual allocation</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Claims Processed</h4>
-                    <div class="value" style="color: #c2410c;">234</div>
-                    <div class="desc" style="color: #ea580c;">This month</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Benefits Administration</h3>
-                <div class="info-box">
-                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <div class="info-box-text">
-                        <strong>Complete Benefits Management:</strong> Manage employee benefits enrollment, process insurance claims, track PF contributions, administer compensation structures, and ensure compliance with benefits regulations.
-                    </div>
-                </div>
-                <p style="color: #718096; margin-bottom: 24px;">Comprehensive employee benefits administration, insurance management, and compensation tracking</p>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Comprehensive Benefits Management System</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Access enrollment systems, process claims efficiently, manage compensation structures, and track all employee benefits with complete transparency.</p>
-                    <button class="btn btn-primary">View Benefits Dashboard</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Compliance Module -->
-        <div id="compliance" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Compliance & Policies</h2>
-                    <p>Legal compliance, labor law adherence, and comprehensive policy management</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Compliance Score</h4>
-                    <div class="value" style="color: #15803d;">98%</div>
-                    <div class="desc" style="color: #16a34a;">Excellent status</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Pending Audits</h4>
-                    <div class="value" style="color: #c2410c;">3</div>
-                    <div class="desc" style="color: #ea580c;">This quarter</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Policy Updates</h4>
-                    <div class="value" style="color: #1e40af;">7</div>
-                    <div class="desc" style="color: #2563eb;">This year</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Training Complete</h4>
-                    <div class="value" style="color: #7e22ce;">100%</div>
-                    <div class="desc" style="color: #9333ea;">Compliance training</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Compliance Management</h3>
-                <div class="info-box">
-                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <div class="info-box-text">
-                        <strong>Compliance & Policy System:</strong> Track compliance status across all regulations, manage company policies, schedule and conduct audits, ensure labor law adherence, and maintain complete documentation for regulatory requirements.
-                    </div>
-                </div>
-                <p style="color: #718096; margin-bottom: 24px;">Complete compliance tracking, policy management, audit scheduling, and regulatory adherence</p>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Complete Compliance & Policy System</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Manage legal compliance, track policy acknowledgments, schedule audits, ensure complete labor law adherence, and maintain regulatory documentation.</p>
-                    <button class="btn btn-primary">View Compliance Dashboard</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analytics Module -->
-        <div id="analytics" class="module-content">
-            <div class="module-header">
-                <div class="module-icon-large">
-                    <svg style="width: 40px; height: 40px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                </div>
-                <div class="module-header-text">
-                    <h2>Analytics & Reports</h2>
-                    <p>Comprehensive HR metrics, advanced insights, and customizable reporting engine</p>
-                </div>
-            </div>
-
-            <div class="mini-stats">
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
-                    <h4>Turnover Rate</h4>
-                    <div class="value" style="color: #1e40af;">8.2%</div>
-                    <div class="desc" style="color: #2563eb;">Below industry avg</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);">
-                    <h4>Time to Hire</h4>
-                    <div class="value" style="color: #15803d;">32 days</div>
-                    <div class="desc" style="color: #16a34a;">Average duration</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);">
-                    <h4>Engagement Score</h4>
-                    <div class="value" style="color: #7e22ce;">8.6/10</div>
-                    <div class="desc" style="color: #9333ea;">Company-wide</div>
-                </div>
-                <div class="mini-stat-card" style="background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);">
-                    <h4>Reports Generated</h4>
-                    <div class="value" style="color: #c2410c;">89</div>
-                    <div class="desc" style="color: #ea580c;">This month</div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
-                    <h3 class="card-title" style="margin-bottom: 0;">Analytics Dashboard</h3>
-                    <button class="btn btn-primary" onclick="openModal('viewReportsModal')">
-                        <svg class="icon" style="width: 16px; height: 16px;" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        Generate Report
-                    </button>
-                </div>
-                <div class="info-box">
-                    <svg class="icon" style="width: 24px; height: 24px;" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    <div class="info-box-text">
-                        <strong>Advanced Analytics Engine:</strong> Access custom dashboards, generate automated reports, track KPIs in real-time, leverage predictive analytics, and make data-driven HR decisions with comprehensive workforce insights.
-                    </div>
-                </div>
-                <p style="color: #718096; margin-bottom: 24px;">Powerful analytics, predictive insights, and comprehensive reporting for strategic HR decision-making</p>
-                <div style="text-align: center; padding: 40px 24px;">
-                    <svg style="width: 72px; height: 72px; color: #667eea; margin-bottom: 16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="18" y1="20" x2="18" y2="10"></line>
-                        <line x1="12" y1="20" x2="12" y2="4"></line>
-                        <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                    <h3 style="font-size: 22px; font-weight: 700; color: #1a202c; margin-bottom: 12px;">Powerful Analytics & Reporting Engine</h3>
-                    <p style="color: #718096; max-width: 550px; margin: 0 auto 20px;">Access custom dashboards, generate automated reports, track KPIs, leverage predictive analytics, and make strategic HR decisions backed by comprehensive data insights.</p>
-                    <button class="btn btn-primary" onclick="openModal('viewReportsModal')">View Analytics Dashboard</button>
-                </div>
-            </div>
-
-            <div class="two-col-grid">
-                <div class="content-card">
-                    <h3 class="card-title">Key HR Metrics</h3>
-                    <div style="display: flex; flex-direction: column; gap: 20px;">
-                        <div style="padding: 16px; background: #f7fafc; border-radius: 12px; border-left: 4px solid #667eea;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <span style="font-weight: 600; color: #2d3748;">Employee Retention Rate</span>
-                                <span style="font-size: 18px; font-weight: 700; color: #667eea;">91.8%</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden;">
-                                <div style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); height: 100%; width: 91.8%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-
-                        <div style="padding: 16px; background: #f7fafc; border-radius: 12px; border-left: 4px solid #56CCF2;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <span style="font-weight: 600; color: #2d3748;">Cost per Hire</span>
-                                <span style="font-size: 18px; font-weight: 700; color: #2F80ED;">₹68,500</span>
-                            </div>
-                            <p style="font-size: 13px; color: #718096; margin-top: 4px;">12% reduction from last quarter</p>
-                        </div>
-
-                        <div style="padding: 16px; background: #f7fafc; border-radius: 12px; border-left: 4px solid #F2994A;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <span style="font-weight: 600; color: #2d3748;">Training Hours per Employee</span>
-                                <span style="font-size: 18px; font-weight: 700; color: #F2994A;">42.5</span>
-                            </div>
-                            <div style="background: #e2e8f0; height: 8px; border-radius: 4px; overflow: hidden;">
-                                <div style="background: linear-gradient(90deg, #F2994A 0%, #F2C94C 100%); height: 100%; width: 85%; border-radius: 4px;"></div>
-                            </div>
-                        </div>
-
-                        <div style="padding: 16px; background: #f7fafc; border-radius: 12px; border-left: 4px solid #C471F5;">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <span style="font-weight: 600; color: #2d3748;">Absenteeism Rate</span>
-                                <span style="font-size: 18px; font-weight: 700; color: #C471F5;">2.7%</span>
-                            </div>
-                            <p style="font-size: 13px; color: #718096; margin-top: 4px;">Below industry benchmark of 3.5%</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content-card">
-                    <h3 class="card-title">Recent Report Activities</h3>
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-dot" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);"></div>
-                            <div class="activity-content">
-                                <div class="activity-text">Q4 2025 Headcount Report generated</div>
-                                <div class="activity-time">2 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-dot" style="background: linear-gradient(135deg, #F2994A 0%, #F2C94C 100%);"></div>
-                            <div class="activity-content">
-                                <div class="activity-text">October Payroll Summary Report exported</div>
-                                <div class="activity-time">5 hours ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-dot" style="background: linear-gradient(135deg, #C471F5 0%, #FA71CD 100%);"></div>
-                            <div class="activity-content">
-                                <div class="activity-text">Attendance Analytics Dashboard accessed</div>
-                                <div class="activity-time">1 day ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-dot" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
-                            <div class="activity-content">
-                                <div class="activity-text">Performance Review Analytics exported</div>
-                                <div class="activity-time">2 days ago</div>
-                            </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-dot" style="background: linear-gradient(135deg, #56CCF2 0%, #2F80ED 100%);"></div>
-                            <div class="activity-content">
-                                <div class="activity-text">Training Completion Report generated</div>
-                                <div class="activity-time">3 days ago</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Department-wise Performance Metrics</h3>
-                <div class="data-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Department</th>
-                                <th>Headcount</th>
-                                <th>Attendance Rate</th>
-                                <th>Avg Performance</th>
-                                <th>Training Hours</th>
-                                <th>Turnover Rate</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Engineering</strong></td>
-                                <td>342</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">95.2%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.3)</td>
-                                <td>48.5 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">6.8%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sales</strong></td>
-                                <td>156</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">92.8%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.1)</td>
-                                <td>36.2 hrs</td>
-                                <td><span style="color: #d97706; font-weight: 600;">10.5%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Marketing</strong></td>
-                                <td>89</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">94.5%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐⭐ (4.5)</td>
-                                <td>42.8 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">5.2%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Operations</strong></td>
-                                <td>234</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">93.6%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.2)</td>
-                                <td>38.9 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">7.3%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Finance</strong></td>
-                                <td>67</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">96.1%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.4)</td>
-                                <td>45.3 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">4.8%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Human Resources</strong></td>
-                                <td>45</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">97.2%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐⭐ (4.6)</td>
-                                <td>52.1 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">3.5%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Product</strong></td>
-                                <td>78</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">94.8%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.4)</td>
-                                <td>46.7 hrs</td>
-                                <td><span style="color: #15803d; font-weight: 600;">6.2%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Customer Support</strong></td>
-                                <td>237</td>
-                                <td>
-                                    <span style="color: #22543d; font-weight: 600;">91.5%</span>
-                                </td>
-                                <td>⭐⭐⭐⭐☆ (4.0)</td>
-                                <td>34.6 hrs</td>
-                                <td><span style="color: #d97706; font-weight: 600;">11.2%</span></td>
-                                <td><button class="table-action-btn primary">View Details</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="content-card">
-                <h3 class="card-title">Quick Report Templates</h3>
-                <p style="color: #718096; margin-bottom: 24px;">Access pre-configured report templates for instant insights and data visualization</p>
-                <div class="quick-actions-grid">
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="9" cy="7" r="4"></circle>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                        </svg>
-                        <span class="action-label">Headcount Report</span>
-                    </div>
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="1" x2="12" y2="23"></line>
-                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                        </svg>
-                        <span class="action-label">Payroll Summary</span>
-                    </div>
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <polyline points="12 6 12 12 16 14"></polyline>
-                        </svg>
-                        <span class="action-label">Attendance Analytics</span>
-                    </div>
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                        </svg>
-                        <span class="action-label">Performance Metrics</span>
-                    </div>
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                        <span class="action-label">Recruitment Analytics</span>
-                    </div>
-                    <div class="action-btn" onclick="openModal('viewReportsModal')">
-                        <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                        </svg>
-                        <span class="action-label">Training Report</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        const moduleNames = {
-            overview: 'Dashboard Overview',
-            recruitment: 'Recruitment',
-            employees: 'Employee Management',
-            attendance: 'Attendance & Leave',
-            payroll: 'Payroll',
-            performance: 'Performance',
-            training: 'Training & Development',
-            benefits: 'Benefits & Compensation',
-            compliance: 'Compliance',
-            analytics: 'Analytics & Reports'
-        };
-
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            dropdown.classList.toggle('show');
-            
-            document.querySelectorAll('.dropdown-content').forEach(d => {
-                if (d.id !== id) {
-                    d.classList.remove('show');
-                }
-            });
-        }
-
-        function switchModule(moduleId) {
-            document.querySelectorAll('.module-content').forEach(module => {
-                module.classList.remove('active');
-            });
-
-            document.getElementById(moduleId).classList.add('active');
-            document.getElementById('breadcrumbCurrent').textContent = moduleNames[moduleId];
-
-            document.querySelectorAll('.dropdown-item').forEach((item, index) => {
-                item.classList.remove('active');
-                const keys = Object.keys(moduleNames);
-                if (keys[index] === moduleId) {
-                    item.classList.add('active');
-                }
-            });
-
-            document.getElementById('modulesDropdown').classList.remove('show');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function toggleNotifications() {
-            const panel = document.getElementById('notificationPanel');
-            panel.classList.toggle('show');
-        }
-
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('show');
-            document.body.style.overflow = 'auto';
-        }
-
-        function closeModalOnOverlay(event, modalId) {
-            if (event.target.classList.contains('modal-overlay')) {
-                closeModal(modalId);
-            }
-        }
-
-        function showSuccessMessage(messageId) {
-            const message = document.getElementById(messageId);
-            if (message) {
-                message.classList.add('show');
-                setTimeout(() => {
-                    message.classList.remove('show');
-                }, 5000);
-            }
-        }
-
-        function submitEmployeeForm() {
-            closeModal('addEmployeeModal');
-            alert('✅ Employee added successfully! Welcome aboard!');
-        }
-
-        function processPayroll() {
-            closeModal('processPayrollModal');
-            showSuccessMessage('successMessagePayroll');
-            switchModule('payroll');
-        }
-
-        function generateReport() {
-            closeModal('viewReportsModal');
-            alert('📊 Report is being generated! You will receive a download link shortly.');
-        }
-
-        function postJob() {
-            closeModal('postJobModal');
-            alert('✅ Job posting created successfully and published to careers page!');
-        }
-
-        function scheduleTraining() {
-            closeModal('scheduleTrainingModal');
-            alert('✅ Training program scheduled successfully! Invitations will be sent to participants.');
+            showSuccessToast('✅ Training program scheduled successfully! Invitations will be sent to participants.');
         }
 
         document.addEventListener('click', function(event) {
