@@ -1,0 +1,2825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Campaign Manager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-hover: #f5f5f5;
+            --border-color: #e5e5e5;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --accent-blue: #0070f3;
+            --accent-purple: #7928ca;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+            --accent-red: #ef4444;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header - Two Layer Design */
+        header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Top Bar - Logo and Actions */
+        .top-bar {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .notification-btn {
+            background: transparent;
+            border: none;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+            color: var(--text-secondary);
+            position: relative;
+            transition: all 0.2s;
+            font-size: 18px;
+        }
+
+        .notification-btn:hover {
+            background: var(--bg-hover);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px 6px 6px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .user-profile:hover {
+            background: var(--bg-hover);
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Navigation Bar - Second Layer */
+        .nav-bar {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 48px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            padding: 0 16px;
+            height: 100%;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-button:hover {
+            color: var(--text-primary);
+            border-bottom-color: var(--border-color);
+        }
+
+        .nav-button.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s;
+            padding: 8px;
+            margin-top: 4px;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: block;
+            border-radius: 6px;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 32px;
+            min-height: calc(100vh - 176px);
+        }
+
+        .page-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-icon.blue { background: rgba(0, 112, 243, 0.1); color: var(--accent-blue); }
+        .stat-icon.purple { background: rgba(121, 40, 202, 0.1); color: var(--accent-purple); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--accent-green); }
+        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.positive { color: var(--accent-green); }
+        .stat-change.negative { color: var(--accent-red); }
+
+        /* Module Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .module-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s;
+        }
+
+        .module-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .module-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .module-icon {
+            font-size: 20px;
+        }
+
+        .module-action {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .module-action:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .module-content {
+            min-height: 200px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--text-primary);
+            transform: translateY(-1px);
+        }
+
+        .action-btn.primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .action-btn.primary:hover {
+            background: #333;
+        }
+
+        /* Progress Bar */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .progress-label {
+            font-weight: 500;
+        }
+
+        .progress-value {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        /* List Items */
+        .list-item {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-main {
+            flex: 1;
+        }
+
+        .list-item-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .list-item-meta {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.active {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+        }
+
+        .status-badge.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-orange);
+        }
+
+        .status-badge.completed {
+            background: rgba(0, 112, 243, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .status-badge.planned {
+            background: rgba(121, 40, 202, 0.1);
+            color: var(--accent-purple);
+        }
+
+        /* Content Card */
+        .content-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .content-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        /* Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 14px 12px;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-hover);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
+            padding: 32px;
+        }
+
+        .footer-content {
+            max-width: 1440px;
+            margin: 0 auto;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .top-bar, .nav-bar {
+                padding: 0 16px;
+            }
+
+            .main-container {
+                padding: 20px 16px;
+            }
+
+            .stats-grid,
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Top Bar - Logo and Actions -->
+        <div class="top-bar">
+            <div class="logo" onclick="navigateToPage('overview')">
+                <span>🎯</span>
+                <span>Campaign Manager</span>
+            </div>
+
+            <div class="header-actions">
+                <button class="notification-btn">
+                    🔔
+                    <span class="notification-badge">12</span>
+                </button>
+                <div class="user-profile">
+                    <div class="user-avatar">CM</div>
+                    <span style="font-size: 14px; font-weight: 500;">Campaign Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar - Second Layer -->
+        <div class="nav-bar">
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-dashboard">
+                        Dashboard
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('overview')">Overview</button>
+                        <button class="dropdown-item" onclick="navigateToPage('analytics')">Analytics</button>
+                        <button class="dropdown-item" onclick="navigateToPage('reports')">Reports</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-campaign">
+                        Campaign
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('active-campaigns')">Active Campaigns</button>
+                        <button class="dropdown-item" onclick="navigateToPage('create-campaign')">Create New</button>
+                        <button class="dropdown-item" onclick="navigateToPage('templates')">Templates</button>
+                        <button class="dropdown-item" onclick="navigateToPage('archive')">Archive</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-voter">
+                        Voter Data
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('voter-analytics')">Voter Analytics</button>
+                        <button class="dropdown-item" onclick="navigateToPage('demographics')">Demographics</button>
+                        <button class="dropdown-item" onclick="navigateToPage('booth-management')">Booth Management</button>
+                        <button class="dropdown-item" onclick="navigateToPage('import-data')">Import Data</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-operations">
+                        Operations
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('ground-team')">Ground Team</button>
+                        <button class="dropdown-item" onclick="navigateToPage('volunteers')">Volunteers</button>
+                        <button class="dropdown-item" onclick="navigateToPage('events')">Events</button>
+                        <button class="dropdown-item" onclick="navigateToPage('resources')">Resources</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-digital">
+                        Digital
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('social-media')">Social Media</button>
+                        <button class="dropdown-item" onclick="navigateToPage('content-library')">Content Library</button>
+                        <button class="dropdown-item" onclick="navigateToPage('email-campaigns')">Email Campaigns</button>
+                        <button class="dropdown-item" onclick="navigateToPage('website')">Website</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-finance">
+                        Finance
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('budget-overview')">Budget Overview</button>
+                        <button class="dropdown-item" onclick="navigateToPage('expenses')">Expenses</button>
+                        <button class="dropdown-item" onclick="navigateToPage('donations')">Donations</button>
+                        <button class="dropdown-item" onclick="navigateToPage('compliance')">Compliance</button>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <button class="nav-button" id="nav-settings">
+                        Settings
+                        <span>▼</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <button class="dropdown-item" onclick="navigateToPage('profile')">Profile</button>
+                        <button class="dropdown-item" onclick="navigateToPage('team')">Team</button>
+                        <button class="dropdown-item" onclick="navigateToPage('integrations')">Integrations</button>
+                        <button class="dropdown-item" onclick="navigateToPage('security')">Security</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Overview Page -->
+        <section id="overview" class="page-section active">
+            <div class="page-header">
+                <h1 class="page-title">Campaign Overview</h1>
+                <p class="page-subtitle">Monitor and manage your political campaign operations in real-time</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">👥</div>
+                        <span class="stat-label">Total Voters Reached</span>
+                    </div>
+                    <div class="stat-value">2,45,890</div>
+                    <div class="stat-change positive">↑ +12.5% from last week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">📱</div>
+                        <span class="stat-label">Social Engagement</span>
+                    </div>
+                    <div class="stat-value">89.2K</div>
+                    <div class="stat-change positive">↑ +24.3% from last week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">🎯</div>
+                        <span class="stat-label">Active Volunteers</span>
+                    </div>
+                    <div class="stat-value">1,847</div>
+                    <div class="stat-change positive">↑ +8.1% from last week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">💰</div>
+                        <span class="stat-label">Budget Utilization</span>
+                    </div>
+                    <div class="stat-value">67%</div>
+                    <div class="stat-change negative">↑ 5% from last week</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📊</span> Recent Activity</h3>
+                        <button class="module-action">View All</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">New rally scheduled in Jayanagar</div>
+                                <div class="list-item-meta">2 hours ago • Events</div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Social media campaign reached 50K views</div>
+                                <div class="list-item-meta">5 hours ago • Digital</div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">125 new volunteers registered</div>
+                                <div class="list-item-meta">Yesterday • Volunteers</div>
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Budget report submitted to EC</div>
+                                <div class="list-item-meta">2 days ago • Finance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📅</span> Upcoming Events</h3>
+                        <button class="module-action">Schedule</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Town Hall Meeting</div>
+                                <div class="list-item-meta">Oct 15, 2025 • 10:00 AM</div>
+                            </div>
+                            <span class="status-badge pending">Tomorrow</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Volunteer Training</div>
+                                <div class="list-item-meta">Oct 16, 2025 • 2:00 PM</div>
+                            </div>
+                            <span class="status-badge active">This Week</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Rally at Freedom Park</div>
+                                <div class="list-item-meta">Oct 18, 2025 • 5:00 PM</div>
+                            </div>
+                            <span class="status-badge active">This Week</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">⚡</span> Quick Actions</h3>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn primary"><span>📢</span> Create Campaign</button>
+                    <button class="action-btn"><span>📅</span> Schedule Event</button>
+                    <button class="action-btn"><span>📊</span> View Analytics</button>
+                    <button class="action-btn"><span>👥</span> Add Volunteer</button>
+                    <button class="action-btn"><span>💬</span> Send Message</button>
+                    <button class="action-btn"><span>📄</span> Generate Report</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Page -->
+        <section id="analytics" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Analytics Dashboard</h1>
+                <p class="page-subtitle">Comprehensive data insights and performance metrics</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📈</div>
+                        <span class="stat-label">Campaign Reach</span>
+                    </div>
+                    <div class="stat-value">3.2M</div>
+                    <div class="stat-change positive">↑ +18.2% this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">💬</div>
+                        <span class="stat-label">Engagement Rate</span>
+                    </div>
+                    <div class="stat-value">8.9%</div>
+                    <div class="stat-change positive">↑ +2.1% this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">🎯</div>
+                        <span class="stat-label">Conversion Rate</span>
+                    </div>
+                    <div class="stat-value">12.4%</div>
+                    <div class="stat-change positive">↑ +3.5% this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">⭐</div>
+                        <span class="stat-label">Sentiment Score</span>
+                    </div>
+                    <div class="stat-value">7.8/10</div>
+                    <div class="stat-change positive">↑ +0.5 this month</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📈</span> Campaign Performance</h3>
+                        <button class="module-action">Details</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Voter Outreach</span>
+                                <span class="progress-value">78%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 78%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Event Participation</span>
+                                <span class="progress-value">85%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Social Media Reach</span>
+                                <span class="progress-value">92%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 92%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Volunteer Engagement</span>
+                                <span class="progress-value">88%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 88%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">🎯</span> Target Demographics</h3>
+                        <button class="module-action">Analyze</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Youth (18-35 years)</span>
+                                <span class="progress-value">45.2K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Middle Age (36-55 years)</span>
+                                <span class="progress-value">38.7K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Senior (55+ years)</span>
+                                <span class="progress-value">28.3K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">First-time Voters</span>
+                                <span class="progress-value">15.8K</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 58%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📊</span> Top Performing Channels</h3>
+                    <button class="module-action">View Report</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>Reach</th>
+                            <th>Engagement</th>
+                            <th>Conversion</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Facebook</strong></td>
+                            <td>1.2M</td>
+                            <td>9.8%</td>
+                            <td>14.2%</td>
+                            <td><span class="status-badge active">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Instagram</strong></td>
+                            <td>850K</td>
+                            <td>12.4%</td>
+                            <td>11.8%</td>
+                            <td><span class="status-badge active">Excellent</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Twitter (X)</strong></td>
+                            <td>620K</td>
+                            <td>7.2%</td>
+                            <td>9.5%</td>
+                            <td><span class="status-badge pending">Good</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WhatsApp Groups</strong></td>
+                            <td>450K</td>
+                            <td>18.6%</td>
+                            <td>22.3%</td>
+                            <td><span class="status-badge active">Outstanding</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>YouTube</strong></td>
+                            <td>380K</td>
+                            <td>5.8%</td>
+                            <td>8.1%</td>
+                            <td><span class="status-badge pending">Moderate</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Reports Page -->
+        <section id="reports" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Reports & Insights</h1>
+                <p class="page-subtitle">Generate and view detailed campaign reports</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📄</div>
+                        <span class="stat-label">Total Reports</span>
+                    </div>
+                    <div class="stat-value">127</div>
+                    <div class="stat-change positive">↑ 8 new this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">📊</div>
+                        <span class="stat-label">Analytics Reports</span>
+                    </div>
+                    <div class="stat-value">45</div>
+                    <div class="stat-change positive">↑ 3 new this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">💰</div>
+                        <span class="stat-label">Financial Reports</span>
+                    </div>
+                    <div class="stat-value">38</div>
+                    <div class="stat-change positive">↑ 2 new this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📅</div>
+                        <span class="stat-label">Event Reports</span>
+                    </div>
+                    <div class="stat-value">44</div>
+                    <div class="stat-change positive">↑ 3 new this week</div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📄</span> Recent Reports</h3>
+                    <button class="module-action primary">Generate New</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Report Name</th>
+                            <th>Type</th>
+                            <th>Generated</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Weekly Campaign Performance</strong></td>
+                            <td>Analytics</td>
+                            <td>Oct 13, 2025</td>
+                            <td><span class="status-badge completed">Ready</span></td>
+                            <td><button class="module-action">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Budget Utilization - Q3 2025</strong></td>
+                            <td>Financial</td>
+                            <td>Oct 12, 2025</td>
+                            <td><span class="status-badge completed">Ready</span></td>
+                            <td><button class="module-action">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Social Media Engagement Report</strong></td>
+                            <td>Digital</td>
+                            <td>Oct 11, 2025</td>
+                            <td><span class="status-badge completed">Ready</span></td>
+                            <td><button class="module-action">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Volunteer Activity Summary</strong></td>
+                            <td>Operations</td>
+                            <td>Oct 10, 2025</td>
+                            <td><span class="status-badge completed">Ready</span></td>
+                            <td><button class="module-action">Download</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Voter Demographics Analysis</strong></td>
+                            <td>Analytics</td>
+                            <td>Oct 09, 2025</td>
+                            <td><span class="status-badge completed">Ready</span></td>
+                            <td><button class="module-action">Download</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>📊 Custom Report Builder</h4>
+                    <p>Create custom reports with specific metrics and date ranges tailored to your needs.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Build Custom Report</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📅 Scheduled Reports</h4>
+                    <p>Set up automated report generation and delivery to your team on a regular schedule.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Schedule Reports</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Campaigns Page -->
+        <section id="active-campaigns" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Active Campaigns</h1>
+                <p class="page-subtitle">Manage all your running campaigns</p>
+            </div>
+
+            <div class="content-card">
+                <h4>🚀 Assembly Elections 2028 - Main Campaign</h4>
+                <p><strong>Status:</strong> Active | <strong>Duration:</strong> Jan 15, 2025 - Dec 31, 2028</p>
+                <p><strong>Constituencies:</strong> 28 Assembly Seats in Bengaluru | <strong>Budget:</strong> ₹67 Lakhs</p>
+                <p>This is our primary campaign focusing on winning multiple assembly seats in the Bengaluru region. The campaign includes ground operations, digital outreach, and community engagement programs.</p>
+                <div class="progress-item" style="margin-top: 16px;">
+                    <div class="progress-header">
+                        <span class="progress-label">Campaign Progress</span>
+                        <span class="progress-value">65%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn primary">📊 View Dashboard</button>
+                    <button class="action-btn">✏️ Edit Campaign</button>
+                    <button class="action-btn">📢 Send Update</button>
+                    <button class="action-btn">📄 Generate Report</button>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>📱 Digital First Initiative</h4>
+                <p><strong>Status:</strong> Active | <strong>Duration:</strong> Sep 01, 2025 - Nov 30, 2025</p>
+                <p><strong>Platform:</strong> All Social Media | <strong>Budget:</strong> ₹15 Lakhs</p>
+                <p>A focused digital campaign to increase online presence and engage with younger voters through social media platforms, content creation, and influencer partnerships.</p>
+                <div class="progress-item" style="margin-top: 16px;">
+                    <div class="progress-header">
+                        <span class="progress-label">Campaign Progress</span>
+                        <span class="progress-value">82%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn primary">📊 View Dashboard</button>
+                    <button class="action-btn">✏️ Edit Campaign</button>
+                    <button class="action-btn">📢 Send Update</button>
+                    <button class="action-btn">📄 Generate Report</button>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4>👥 Community Connect Program</h4>
+                <p><strong>Status:</strong> Active | <strong>Duration:</strong> Jul 01, 2025 - Dec 31, 2025</p>
+                <p><strong>Target:</strong> 50+ Community Events | <strong>Budget:</strong> ₹22 Lakhs</p>
+                <p>Grassroots campaign involving town halls, community meetings, and direct voter engagement across different localities to build strong community relationships.</p>
+                <div class="progress-item" style="margin-top: 16px;">
+                    <div class="progress-header">
+                        <span class="progress-label">Campaign Progress</span>
+                        <span class="progress-value">58%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 58%"></div></div>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn primary">📊 View Dashboard</button>
+                    <button class="action-btn">✏️ Edit Campaign</button>
+                    <button class="action-btn">📢 Send Update</button>
+                    <button class="action-btn">📄 Generate Report</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Campaign Page -->
+        <section id="create-campaign" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Create New Campaign</h1>
+                <p class="page-subtitle">Launch a new campaign with customizable templates</p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>🎯 Electoral Campaign</h4>
+                    <p>Complete campaign setup for elections including voter outreach, ground operations, and digital presence.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Use Template</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📱 Social Media Campaign</h4>
+                    <p>Focused digital campaign for social media platforms with content calendar and engagement tracking.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Use Template</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>👥 Community Outreach</h4>
+                    <p>Grassroots campaign template for community events, town halls, and direct voter engagement.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Use Template</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>🎓 Youth Mobilization</h4>
+                    <p>Specialized campaign targeting young voters with campus programs and youth-centric messaging.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Use Template</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>💬 Issue-Based Campaign</h4>
+                    <p>Campaign focused on specific issues with advocacy programs and targeted messaging strategies.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Use Template</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>✨ Custom Campaign</h4>
+                    <p>Start from scratch and build a completely customized campaign based on your specific needs.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Start Fresh</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Templates Page -->
+        <section id="templates" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Campaign Templates</h1>
+                <p class="page-subtitle">Pre-built templates for quick campaign setup</p>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📋</span> All Templates</h3>
+                    <button class="module-action primary">Create Template</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Template Name</th>
+                            <th>Category</th>
+                            <th>Usage Count</th>
+                            <th>Last Updated</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Assembly Election - Full Stack</strong></td>
+                            <td>Electoral</td>
+                            <td>45 times</td>
+                            <td>Oct 10, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Social Media Blitz</strong></td>
+                            <td>Digital</td>
+                            <td>67 times</td>
+                            <td>Oct 08, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Door-to-Door Campaign</strong></td>
+                            <td>Ground Operations</td>
+                            <td>32 times</td>
+                            <td>Oct 05, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Youth Voter Engagement</strong></td>
+                            <td>Demographic</td>
+                            <td>28 times</td>
+                            <td>Oct 03, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Community Town Hall Series</strong></td>
+                            <td>Events</td>
+                            <td>41 times</td>
+                            <td>Sep 30, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>WhatsApp Mass Outreach</strong></td>
+                            <td>Digital</td>
+                            <td>89 times</td>
+                            <td>Sep 28, 2025</td>
+                            <td><button class="module-action">Use</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Archive Page -->
+        <section id="archive" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Campaign Archive</h1>
+                <p class="page-subtitle">View historical campaigns and their results</p>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📦</span> Archived Campaigns</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Campaign Name</th>
+                            <th>Period</th>
+                            <th>Result</th>
+                            <th>Budget Used</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Municipal Elections 2023</strong></td>
+                            <td>Jan - Mar 2023</td>
+                            <td><span class="status-badge active">Won 18/22 Seats</span></td>
+                            <td>₹45L / ₹50L</td>
+                            <td><button class="module-action">View Report</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>By-Election Campaign 2024</strong></td>
+                            <td>Jun - Jul 2024</td>
+                            <td><span class="status-badge active">Victory</span></td>
+                            <td>₹12L / ₹15L</td>
+                            <td><button class="module-action">View Report</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Women Empowerment Drive 2024</strong></td>
+                            <td>Mar - May 2024</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                            <td>₹8L / ₹10L</td>
+                            <td><button class="module-action">View Report</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Student Union Elections 2024</strong></td>
+                            <td>Aug - Sep 2024</td>
+                            <td><span class="status-badge active">Won</span></td>
+                            <td>₹3.5L / ₹5L</td>
+                            <td><button class="module-action">View Report</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Voter Analytics Page -->
+        <section id="voter-analytics" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Voter Analytics</h1>
+                <p class="page-subtitle">Deep insights into voter behavior and preferences</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">👥</div>
+                        <span class="stat-label">Total Registered Voters</span>
+                    </div>
+                    <div class="stat-value">8.45L</div>
+                    <div class="stat-change positive">↑ +2.3% from last year</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">🎯</div>
+                        <span class="stat-label">Target Voters Contacted</span>
+                    </div>
+                    <div class="stat-value">2.45L</div>
+                    <div class="stat-change positive">↑ 29% coverage</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Committed Support</span>
+                    </div>
+                    <div class="stat-value">1.12L</div>
+                    <div class="stat-change positive">↑ 46% commitment rate</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📍</div>
+                        <span class="stat-label">Booths Covered</span>
+                    </div>
+                    <div class="stat-value">487/650</div>
+                    <div class="stat-change positive">75% coverage</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📍</span> Regional Coverage</h3>
+                        <button class="module-action">View Map</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Urban Areas (52 Wards)</span>
+                                <span class="progress-value">78%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 78%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Semi-Urban Areas (28 Wards)</span>
+                                <span class="progress-value">71%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 71%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Rural Areas (18 Wards)</span>
+                                <span class="progress-value">64%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 64%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Slum Areas (12 Wards)</span>
+                                <span class="progress-value">68%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">👤</span> Age Group Analysis</h3>
+                        <button class="module-action">Details</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">18-25 years (First-time Voters)</span>
+                                <span class="progress-value">82%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 82%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">26-35 years (Young Professionals)</span>
+                                <span class="progress-value">75%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">36-55 years (Middle Age)</span>
+                                <span class="progress-value">71%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 71%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">55+ years (Senior Citizens)</span>
+                                <span class="progress-value">68%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 68%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">⚖️</span> Gender Distribution</h3>
+                        <button class="module-action">Analyze</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Male Voters</span>
+                                <span class="progress-value">4.32L (51.1%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 51%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Female Voters</span>
+                                <span class="progress-value">4.08L (48.3%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 48%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Third Gender</span>
+                                <span class="progress-value">5,100 (0.6%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 1%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">🔍</span> Voter Sentiment</h3>
+                        <button class="module-action">Track</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Highly Favorable</span>
+                                <span class="progress-value">32%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 32%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Favorable</span>
+                                <span class="progress-value">41%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 41%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Neutral</span>
+                                <span class="progress-value">18%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 18%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Unfavorable</span>
+                                <span class="progress-value">9%</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 9%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demographics Page -->
+        <section id="demographics" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Voter Demographics</h1>
+                <p class="page-subtitle">Detailed demographic breakdown and analysis</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">🕉️</div>
+                        <span class="stat-label">Hindu Voters</span>
+                    </div>
+                    <div class="stat-value">5.92L</div>
+                    <div class="stat-change">70.1% of total</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">☪️</div>
+                        <span class="stat-label">Muslim Voters</span>
+                    </div>
+                    <div class="stat-value">1.82L</div>
+                    <div class="stat-change">21.5% of total</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">✝️</div>
+                        <span class="stat-label">Christian Voters</span>
+                    </div>
+                    <div class="stat-value">0.48L</div>
+                    <div class="stat-change">5.7% of total</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">🙏</div>
+                        <span class="stat-label">Other Religions</span>
+                    </div>
+                    <div class="stat-value">0.23L</div>
+                    <div class="stat-change">2.7% of total</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📊</span> Caste Distribution</h3>
+                        <button class="module-action">View Details</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">General Category</span>
+                                <span class="progress-value">3.21L (38%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 38%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">OBC (Other Backward Classes)</span>
+                                <span class="progress-value">2.87L (34%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 34%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">SC (Scheduled Castes)</span>
+                                <span class="progress-value">1.52L (18%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 18%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">ST (Scheduled Tribes)</span>
+                                <span class="progress-value">0.85L (10%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 10%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">💼</span> Occupation Profile</h3>
+                        <button class="module-action">Analyze</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Private Sector Employees</span>
+                                <span class="progress-value">2.95L (35%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Self-Employed / Business</span>
+                                <span class="progress-value">2.11L (25%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Government Employees</span>
+                                <span class="progress-value">1.27L (15%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 15%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Students</span>
+                                <span class="progress-value">0.93L (11%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 11%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Others / Unemployed</span>
+                                <span class="progress-value">1.19L (14%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 14%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">🎓</span> Education Level</h3>
+                        <button class="module-action">View Stats</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Graduate & Above</span>
+                                <span class="progress-value">3.38L (40%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 40%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">12th Pass / Intermediate</span>
+                                <span class="progress-value">2.53L (30%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 30%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">10th Pass / High School</span>
+                                <span class="progress-value">1.69L (20%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 20%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Below 10th / Primary</span>
+                                <span class="progress-value">0.85L (10%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 10%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">💰</span> Income Group</h3>
+                        <button class="module-action">Details</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">High Income (>₹10L/year)</span>
+                                <span class="progress-value">1.27L (15%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 15%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Upper Middle (₹5-10L/year)</span>
+                                <span class="progress-value">2.11L (25%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Middle (₹2.5-5L/year)</span>
+                                <span class="progress-value">2.95L (35%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 35%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Lower Middle & Below (<₹2.5L/year)</span>
+                                <span class="progress-value">2.12L (25%)</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booth Management Page -->
+        <section id="booth-management" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Booth Management</h1>
+                <p class="page-subtitle">Manage polling booths and booth-level activities</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">🏛️</div>
+                        <span class="stat-label">Total Booths</span>
+                    </div>
+                    <div class="stat-value">650</div>
+                    <div class="stat-change">Across 28 constituencies</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Booths Covered</span>
+                    </div>
+                    <div class="stat-value">487</div>
+                    <div class="stat-change positive">↑ 75% coverage</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">👥</div>
+                        <span class="stat-label">Booth Agents</span>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-change positive">↑ 92% deployed</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">🎯</div>
+                        <span class="stat-label">Strong Booths</span>
+                    </div>
+                    <div class="stat-value">312</div>
+                    <div class="stat-change positive">48% of total</div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">🏛️</span> Booth Status Overview</h3>
+                    <button class="module-action">Export Data</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Booth No.</th>
+                            <th>Location</th>
+                            <th>Total Voters</th>
+                            <th>Agent Assigned</th>
+                            <th>Strength</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Booth 001</strong></td>
+                            <td>MG Road Primary School</td>
+                            <td>1,245</td>
+                            <td>Rajesh Kumar</td>
+                            <td>Strong</td>
+                            <td><span class="status-badge active">Ready</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth 002</strong></td>
+                            <td>Jayanagar Community Hall</td>
+                            <td>1,187</td>
+                            <td>Priya Sharma</td>
+                            <td>Moderate</td>
+                            <td><span class="status-badge active">Ready</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth 003</strong></td>
+                            <td>Koramangala High School</td>
+                            <td>1,398</td>
+                            <td>Amit Patel</td>
+                            <td>Strong</td>
+                            <td><span class="status-badge active">Ready</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth 004</strong></td>
+                            <td>BTM Layout Govt School</td>
+                            <td>1,052</td>
+                            <td>Not Assigned</td>
+                            <td>Weak</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth 005</strong></td>
+                            <td>HSR Layout Auditorium</td>
+                            <td>1,423</td>
+                            <td>Sunita Reddy</td>
+                            <td>Strong</td>
+                            <td><span class="status-badge active">Ready</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth 006</strong></td>
+                            <td>Whitefield Town Hall</td>
+                            <td>1,156</td>
+                            <td>Mohammed Ali</td>
+                            <td>Moderate</td>
+                            <td><span class="status-badge active">Ready</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>🎯 Booth-Level Strategy</h4>
+                    <p>Develop and implement targeted strategies for each booth based on voter demographics and historical performance.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Create Strategy</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📊 Booth Performance Report</h4>
+                    <p>Analyze booth-wise performance metrics, voter turnout patterns, and agent effectiveness.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Generate Report</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Import Data Page -->
+        <section id="import-data" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Import Voter Data</h1>
+                <p class="page-subtitle">Upload and process voter lists and electoral data</p>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>📤 Upload Electoral Rolls</h4>
+                    <p>Import official voter lists from Election Commission in CSV, Excel, or PDF format.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Upload Files</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>🔄 Sync Booth Data</h4>
+                    <p>Automatically sync polling booth information and voter assignments across constituencies.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Start Sync</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>👥 Import Contact Lists</h4>
+                    <p>Upload voter contact information including phone numbers and addresses for outreach campaigns.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Import Contacts</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📊 Import Survey Results</h4>
+                    <p>Upload field survey data and voter sentiment analysis results for better targeting.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Upload Survey</button>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📁</span> Recent Imports</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Type</th>
+                            <th>Records</th>
+                            <th>Imported On</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Electoral_Roll_2025_Q3.csv</strong></td>
+                            <td>Voter List</td>
+                            <td>245,890</td>
+                            <td>Oct 10, 2025</td>
+                            <td><span class="status-badge completed">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Booth_Assignments_Oct.xlsx</strong></td>
+                            <td>Booth Data</td>
+                            <td>650</td>
+                            <td>Oct 09, 2025</td>
+                            <td><span class="status-badge completed">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Survey_Results_Week40.csv</strong></td>
+                            <td>Survey Data</td>
+                            <td>12,450</td>
+                            <td>Oct 08, 2025</td>
+                            <td><span class="status-badge completed">Success</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Contact_List_Database.xlsx</strong></td>
+                            <td>Contacts</td>
+                            <td>89,230</td>
+                            <td>Oct 05, 2025</td>
+                            <td><span class="status-badge completed">Success</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Ground Team Page -->
+        <section id="ground-team" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Ground Team</h1>
+                <p class="page-subtitle">Manage and track field operations team</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">👥</div>
+                        <span class="stat-label">Total Team Members</span>
+                    </div>
+                    <div class="stat-value">284</div>
+                    <div class="stat-change positive">↑ +12 this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Active Today</span>
+                    </div>
+                    <div class="stat-value">267</div>
+                    <div class="stat-change positive">94% attendance</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">🎯</div>
+                        <span class="stat-label">Tasks Completed</span>
+                    </div>
+                    <div class="stat-value">1,892</div>
+                    <div class="stat-change positive">↑ Today</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📍</div>
+                        <span class="stat-label">Areas Covered</span>
+                    </div>
+                    <div class="stat-value">94/110</div>
+                    <div class="stat-change positive">85% coverage</div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">👥</span> Team Members</h3>
+                    <button class="module-action primary">Add Member</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Area Assigned</th>
+                            <th>Tasks Today</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ramesh Kumar</strong></td>
+                            <td>Field Coordinator</td>
+                            <td>Jayanagar Zone</td>
+                            <td>12/15 Completed</td>
+                            <td><span class="status-badge active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Priya Desai</strong></td>
+                            <td>Booth Manager</td>
+                            <td>Koramangala Zone</td>
+                            <td>18/20 Completed</td>
+                            <td><span class="status-badge active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Suresh Reddy</strong></td>
+                            <td>Volunteer Lead</td>
+                            <td>BTM Layout Zone</td>
+                            <td>10/12 Completed</td>
+                            <td><span class="status-badge active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anjali Sharma</strong></td>
+                            <td>Outreach Officer</td>
+                            <td>HSR Layout Zone</td>
+                            <td>8/10 Completed</td>
+                            <td><span class="status-badge pending">On Break</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mohammed Hassan</strong></td>
+                            <td>Field Coordinator</td>
+                            <td>Whitefield Zone</td>
+                            <td>15/18 Completed</td>
+                            <td><span class="status-badge active">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Volunteers Page -->
+        <section id="volunteers" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Volunteer Network</h1>
+                <p class="page-subtitle">Recruit, manage, and coordinate volunteers</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">🙋</div>
+                        <span class="stat-label">Total Volunteers</span>
+                    </div>
+                    <div class="stat-value">1,847</div>
+                    <div class="stat-change positive">↑ +125 this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Active Volunteers</span>
+                    </div>
+                    <div class="stat-value">1,623</div>
+                    <div class="stat-change positive">88% engagement</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">⭐</div>
+                        <span class="stat-label">Super Volunteers</span>
+                    </div>
+                    <div class="stat-value">287</div>
+                    <div class="stat-change positive">Top performers</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📅</div>
+                        <span class="stat-label">Total Hours</span>
+                    </div>
+                    <div class="stat-value">28.4K</div>
+                    <div class="stat-change positive">This month</div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">🙋</span> Top Volunteers</h3>
+                    <button class="module-action">View All</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Hours Contributed</th>
+                            <th>Events Attended</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Kavita Nair</strong></td>
+                            <td>Super Volunteer</td>
+                            <td>284 hours</td>
+                            <td>42 events</td>
+                            <td><span class="status-badge active">⭐⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Arun Kumar</strong></td>
+                            <td>Super Volunteer</td>
+                            <td>268 hours</td>
+                            <td>38 events</td>
+                            <td><span class="status-badge active">⭐⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deepa Singh</strong></td>
+                            <td>Super Volunteer</td>
+                            <td>245 hours</td>
+                            <td>35 events</td>
+                            <td><span class="status-badge active">⭐⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Vikram Patel</strong></td>
+                            <td>Active Volunteer</td>
+                            <td>198 hours</td>
+                            <td>28 events</td>
+                            <td><span class="status-badge pending">⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sneha Reddy</strong></td>
+                            <td>Active Volunteer</td>
+                            <td>187 hours</td>
+                            <td>25 events</td>
+                            <td><span class="status-badge pending">⭐⭐⭐⭐</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>➕ Recruit Volunteers</h4>
+                    <p>Launch recruitment campaigns and onboard new volunteers to expand your network.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Start Recruitment</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📚 Training Programs</h4>
+                    <p>Schedule and conduct training sessions to empower volunteers with campaign skills.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Schedule Training</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Page -->
+        <section id="events" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Event Management</h1>
+                <p class="page-subtitle">Plan, schedule, and track campaign events</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📅</div>
+                        <span class="stat-label">Total Events</span>
+                    </div>
+                    <div class="stat-value">87</div>
+                    <div class="stat-change positive">This quarter</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Completed Events</span>
+                    </div>
+                    <div class="stat-value">62</div>
+                    <div class="stat-change positive">71% completion</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">🎯</div>
+                        <span class="stat-label">Upcoming Events</span>
+                    </div>
+                    <div class="stat-value">18</div>
+                    <div class="stat-change">Next 30 days</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">👥</div>
+                        <span class="stat-label">Total Attendance</span>
+                    </div>
+                    <div class="stat-value">45.2K</div>
+                    <div class="stat-change positive">Average: 730/event</div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">📅</span> Upcoming Events</h3>
+                    <button class="module-action primary">Schedule New</button>
+                </div>
+                <div class="module-content">
+                    <div class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">Town Hall Meeting - Jayanagar</div>
+                            <div class="list-item-meta">Oct 15, 2025 • 10:00 AM • Community Hall • Expected: 500</div>
+                        </div>
+                        <span class="status-badge pending">Tomorrow</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">Volunteer Training Session</div>
+                            <div class="list-item-meta">Oct 16, 2025 • 2:00 PM • Campaign Office • Expected: 150</div>
+                        </div>
+                        <span class="status-badge planned">This Week</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">Rally at Freedom Park</div>
+                            <div class="list-item-meta">Oct 18, 2025 • 5:00 PM • Freedom Park • Expected: 5,000</div>
+                        </div>
+                        <span class="status-badge active">Confirmed</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">Youth Leadership Summit</div>
+                            <div class="list-item-meta">Oct 22, 2025 • 9:00 AM • Electronic City Auditorium • Expected: 300</div>
+                        </div>
+                        <span class="status-badge planned">Planning</span>
+                    </div>
+                    <div class="list-item">
+                        <div class="list-item-main">
+                            <div class="list-item-title">Door-to-Door Campaign - BTM</div>
+                            <div class="list-item-meta">Oct 25, 2025 • 8:00 AM • BTM Layout • Expected: 200 volunteers</div>
+                        </div>
+                        <span class="status-badge planned">Planning</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <h3 class="module-title"><span class="module-icon">✅</span> Recent Events</h3>
+                    <button class="module-action">View All</button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Attendance</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Booth Worker Training</strong></td>
+                            <td>Oct 12, 2025</td>
+                            <td>Campaign HQ</td>
+                            <td>250 / 300</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Community Meet - Koramangala</strong></td>
+                            <td>Oct 10, 2025</td>
+                            <td>Koramangala Club</td>
+                            <td>420 / 400</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Women Empowerment Program</strong></td>
+                            <td>Oct 08, 2025</td>
+                            <td>HSR Layout Hall</td>
+                            <td>680 / 600</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Youth Engagement Workshop</strong></td>
+                            <td>Oct 05, 2025</td>
+                            <td>MG Road Center</td>
+                            <td>185 / 200</td>
+                            <td><span class="status-badge completed">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Resources Page -->
+        <section id="resources" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Resources</h1>
+                <p class="page-subtitle">Campaign materials, documents, and assets</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📄</div>
+                        <span class="stat-label">Documents</span>
+                    </div>
+                    <div class="stat-value">342</div>
+                    <div class="stat-change">Total files</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">🎨</div>
+                        <span class="stat-label">Design Assets</span>
+                    </div>
+                    <div class="stat-value">189</div>
+                    <div class="stat-change">Graphics & templates</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">🎬</div>
+                        <span class="stat-label">Videos</span>
+                    </div>
+                    <div class="stat-value">67</div>
+                    <div class="stat-change">Campaign videos</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📊</div>
+                        <span class="stat-label">Presentations</span>
+                    </div>
+                    <div class="stat-value">54</div>
+                    <div class="stat-change">PPT & PDF</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>📝 Campaign Documents</h4>
+                    <p>Manifestos, policy documents, speeches, and official campaign literature.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Browse Documents</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>🎨 Creative Assets</h4>
+                    <p>Posters, banners, social media graphics, and branding materials.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">View Assets</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>🎥 Video Library</h4>
+                    <p>Campaign videos, testimonials, event recordings, and promotional content.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Open Library</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📚 Training Materials</h4>
+                    <p>Volunteer handbooks, booth management guides, and training presentations.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Access Materials</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📊 Data & Reports</h4>
+                    <p>Survey data, analytics reports, and performance dashboards.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">View Reports</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>☁️ Cloud Storage</h4>
+                    <p>Access all campaign files stored in secure cloud storage.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Open Drive</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Due to length limitations, I'll add abbreviated versions of the remaining sections -->
+        
+        <!-- Social Media Page -->
+        <section id="social-media" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Social Media Management</h1>
+                <p class="page-subtitle">Manage all social media platforms from one place</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">📱</div>
+                        <span class="stat-label">Total Followers</span>
+                    </div>
+                    <div class="stat-value">4.2M</div>
+                    <div class="stat-change positive">↑ +125K this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">💬</div>
+                        <span class="stat-label">Engagement Rate</span>
+                    </div>
+                    <div class="stat-value">8.9%</div>
+                    <div class="stat-change positive">↑ +2.1% this month</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">📤</div>
+                        <span class="stat-label">Posts This Month</span>
+                    </div>
+                    <div class="stat-value">287</div>
+                    <div class="stat-change positive">Across all platforms</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">👁️</div>
+                        <span class="stat-label">Total Reach</span>
+                    </div>
+                    <div class="stat-value">12.8M</div>
+                    <div class="stat-change positive">↑ +3.2M this month</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="content-card">
+                    <h4>📱 Platform Management</h4>
+                    <p>Manage Facebook, Instagram, Twitter, and YouTube from a unified dashboard.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Open Dashboard</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📅 Content Calendar</h4>
+                    <p>Plan and schedule posts across multiple platforms with content calendar.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">View Calendar</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>📊 Analytics & Insights</h4>
+                    <p>Track performance metrics, engagement rates, and audience demographics.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">View Analytics</button>
+                </div>
+
+                <div class="content-card">
+                    <h4>💬 Social Listening</h4>
+                    <p>Monitor mentions, track sentiment, and respond to audience feedback.</p>
+                    <button class="action-btn primary" style="margin-top: 12px;">Start Listening</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Continue with other sections following similar pattern... -->
+        <!-- For brevity, I'm showing the structure. Each section would have similar detailed content -->
+
+        <!-- Budget Overview Page -->
+        <section id="budget-overview" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Budget Overview</h1>
+                <p class="page-subtitle">Complete financial overview and budget tracking</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon blue">💰</div>
+                        <span class="stat-label">Total Budget</span>
+                    </div>
+                    <div class="stat-value">₹67L</div>
+                    <div class="stat-change">Allocated for campaign</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon orange">📊</div>
+                        <span class="stat-label">Spent So Far</span>
+                    </div>
+                    <div class="stat-value">₹45.2L</div>
+                    <div class="stat-change negative">67% utilized</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon green">✅</div>
+                        <span class="stat-label">Remaining Budget</span>
+                    </div>
+                    <div class="stat-value">₹21.8L</div>
+                    <div class="stat-change positive">33% available</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon purple">📈</div>
+                        <span class="stat-label">Avg Monthly Burn</span>
+                    </div>
+                    <div class="stat-value">₹5.6L</div>
+                    <div class="stat-change">Per month</div>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">📊</span> Budget Allocation</h3>
+                        <button class="module-action">Edit Budget</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Campaign Expenses</span>
+                                <span class="progress-value">₹45.2L / ₹67L</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 67%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Media & Advertising</span>
+                                <span class="progress-value">₹18.5L / ₹25L</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 74%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ground Operations</span>
+                                <span class="progress-value">₹12.8L / ₹20L</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 64%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Events & Rallies</span>
+                                <span class="progress-value">₹8.9L / ₹15L</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 59%"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Digital Marketing</span>
+                                <span class="progress-value">₹5.0L / ₹7L</span>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 71%"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="module-card">
+                    <div class="module-header">
+                        <h3 class="module-title"><span class="module-icon">💳</span> Recent Transactions</h3>
+                        <button class="module-action">View All</button>
+                    </div>
+                    <div class="module-content">
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Social Media Advertising</div>
+                                <div class="list-item-meta">Oct 10, 2025 • Digital</div>
+                            </div>
+                            <span style="font-weight: 600; color: var(--accent-red);">-₹2,45,000</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Rally Setup & Logistics</div>
+                                <div class="list-item-meta">Oct 09, 2025 • Events</div>
+                            </div>
+                            <span style="font-weight: 600; color: var(--accent-red);">-₹1,85,000</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Volunteer Training Materials</div>
+                                <div class="list-item-meta">Oct 08, 2025 • Operations</div>
+                            </div>
+                            <span style="font-weight: 600; color: var(--accent-red);">-₹75,000</span>
+                        </div>
+                        <div class="list-item">
+                            <div class="list-item-main">
+                                <div class="list-item-title">Print Materials (Posters)</div>
+                                <div class="list-item-meta">Oct 07, 2025 • Media</div>
+                            </div>
+                            <span style="font-weight: 600; color: var(--accent-red);">-₹1,20,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder sections for remaining pages -->
+        <section id="content-library" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Content Library</h1>
+                <p class="page-subtitle">Media assets, photos, videos, and creative content</p>
+            </div>
+            <div class="content-card">
+                <h4>🎬 Digital Asset Management</h4>
+                <p>Organize and access all campaign media assets including photos, videos, graphics, and documents.</p>
+            </div>
+        </section>
+
+        <section id="email-campaigns" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Email Campaigns</h1>
+                <p class="page-subtitle">Create and manage email outreach campaigns</p>
+            </div>
+            <div class="content-card">
+                <h4>📧 Email Marketing Platform</h4>
+                <p>Create, schedule, and track email campaigns to reach voters directly.</p>
+            </div>
+        </section>
+
+        <section id="website" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Campaign Website</h1>
+                <p class="page-subtitle">Manage campaign website and online presence</p>
+            </div>
+            <div class="content-card">
+                <h4>🌐 Website Management</h4>
+                <p>Update and maintain your campaign website, publish news, and manage online presence.</p>
+            </div>
+        </section>
+
+        <section id="expenses" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Expenses</h1>
+                <p class="page-subtitle">Track and manage all campaign expenses</p>
+            </div>
+            <div class="content-card">
+                <h4>💸 Expense Management</h4>
+                <p>Record, categorize, and track all campaign expenditures for compliance and reporting.</p>
+            </div>
+        </section>
+
+        <section id="donations" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Donations</h1>
+                <p class="page-subtitle">Manage donations and fundraising activities</p>
+            </div>
+            <div class="content-card">
+                <h4>🎁 Fundraising & Donations</h4>
+                <p>Track donations, manage donors, and ensure compliance with election laws.</p>
+            </div>
+        </section>
+
+        <section id="compliance" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Legal Compliance</h1>
+                <p class="page-subtitle">Election laws, regulations, and compliance tracking</p>
+            </div>
+            <div class="content-card">
+                <h4>⚖️ Compliance Management</h4>
+                <p>Ensure adherence to election commission guidelines and maintain legal compliance.</p>
+            </div>
+        </section>
+
+        <section id="profile" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Profile Settings</h1>
+                <p class="page-subtitle">Manage your account and preferences</p>
+            </div>
+            <div class="content-card">
+                <h4>👤 Account Management</h4>
+                <p>Update your profile information, change password, and manage account settings.</p>
+            </div>
+        </section>
+
+        <section id="team" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Team Management</h1>
+                <p class="page-subtitle">Manage team members, roles, and permissions</p>
+            </div>
+            <div class="content-card">
+                <h4>👥 Team Administration</h4>
+                <p>Add team members, assign roles, and manage access permissions across the platform.</p>
+            </div>
+        </section>
+
+        <section id="integrations" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Integrations</h1>
+                <p class="page-subtitle">Connect with third-party tools and services</p>
+            </div>
+            <div class="content-card">
+                <h4>🔌 Platform Integrations</h4>
+                <p>Connect with social media platforms, email services, and other campaign tools.</p>
+            </div>
+        </section>
+
+        <section id="security" class="page-section">
+            <div class="page-header">
+                <h1 class="page-title">Security Settings</h1>
+                <p class="page-subtitle">Manage security and access controls</p>
+            </div>
+            <div class="content-card">
+                <h4>🔒 Security & Privacy</h4>
+                <p>Configure two-factor authentication, manage sessions, and review security logs.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 Campaign Manager • Indian Political Analysis Platform</p>
+            <p style="margin-top: 8px; font-size: 13px;">Building the future of political campaign management</p>
+        </div>
+    </footer>
+
+    <script>
+        function navigateToPage(pageId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const selectedSection = document.getElementById(pageId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Update nav button active states
+            updateNavActiveState(pageId);
+        }
+
+        function updateNavActiveState(pageId) {
+            // Remove all active states
+            const navButtons = document.querySelectorAll('.nav-button');
+            navButtons.forEach(btn => btn.classList.remove('active'));
+
+            // Map pages to nav items
+            const navMapping = {
+                'overview': 'nav-dashboard',
+                'analytics': 'nav-dashboard',
+                'reports': 'nav-dashboard',
+                'active-campaigns': 'nav-campaign',
+                'create-campaign': 'nav-campaign',
+                'templates': 'nav-campaign',
+                'archive': 'nav-campaign',
+                'voter-analytics': 'nav-voter',
+                'demographics': 'nav-voter',
+                'booth-management': 'nav-voter',
+                'import-data': 'nav-voter',
+                'ground-team': 'nav-operations',
+                'volunteers': 'nav-operations',
+                'events': 'nav-operations',
+                'resources': 'nav-operations',
+                'social-media': 'nav-digital',
+                'content-library': 'nav-digital',
+                'email-campaigns': 'nav-digital',
+                'website': 'nav-digital',
+                'budget-overview': 'nav-finance',
+                'expenses': 'nav-finance',
+                'donations': 'nav-finance',
+                'compliance': 'nav-finance',
+                'profile': 'nav-settings',
+                'team': 'nav-settings',
+                'integrations': 'nav-settings',
+                'security': 'nav-settings'
+            };
+
+            const navId = navMapping[pageId];
+            if (navId) {
+                const navButton = document.getElementById(navId);
+                if (navButton) {
+                    navButton.classList.add('active');
+                }
+            }
+        }
+
+        // Initialize
+        updateNavActiveState('overview');
+    </script>
+</body>
+</html>

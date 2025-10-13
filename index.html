@@ -194,6 +194,13 @@
         .candidate-icon {
             font-size: 2rem;
             margin-bottom: 10px;
+            img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 100px;
+
+            }
         }
 
         .candidate-name {
@@ -241,16 +248,20 @@
         <div class="section">
             <h2 class="section-title">Main Dashboards</h2>
             <div class="button-grid">
-                <a href="national-dashboard.html" class="dashboard-link primary">
+                <a href="india.html" class="dashboard-link primary">
                     <span class="btn-icon">🏛️</span>
                     <span>National Dashboard | India</span>
                 </a>
 
-                <a href="state-dashboard.html" class="dashboard-link primary">
+                <a href="ipastate.html" class="dashboard-link primary">
                     <span class="btn-icon">📊</span>
                     <span>State Dashboard</span>
                 </a>
 
+                <a href="district.html" class="dashboard-link primary">
+                    <span class="btn-icon">🎯</span>
+                    <span>District Dashboard</span>
+                </a>
                 <a href="#" class="dashboard-link primary" onclick="openModal(); return false;">
                     <span class="btn-icon">🎯</span>
                     <span>Constituency Dashboard</span>
@@ -266,17 +277,17 @@
             <div class="category">
                 <h3 class="category-title">Core Management</h3>
                 <div class="button-grid">
-                    <a href="dashboards/hr-dashboard.html" class="dashboard-link">
+                    <a href="hr-dashboard.html" class="dashboard-link">
                         <span class="btn-icon">👥</span>
                         <span>HR Dashboard</span>
                     </a>
 
-                    <a href="dashboards/admin-dashboard.html" class="dashboard-link">
+                    <a href="admin-dashboard.html" class="dashboard-link">
                         <span class="btn-icon">⚙️</span>
                         <span>Admin Dashboard</span>
                     </a>
 
-                    <a href="dashboards/campaign-manager.html" class="dashboard-link">
+                    <a href="campaign-manager.html" class="dashboard-link">
                         <span class="btn-icon">🎯</span>
                         <span>Campaign Manager</span>
                     </a>
@@ -287,7 +298,7 @@
             <div class="category">
                 <h3 class="category-title">Digital & Content</h3>
                 <div class="button-grid">
-                    <a href="dashboards/social-media.html" class="dashboard-link">
+                    <a href="social-media.html" class="dashboard-link">
                         <span class="btn-icon">📱</span>
                         <span>Social Media Staff</span>
                     </a>
@@ -389,12 +400,14 @@
             </div>
 
             <div class="candidate-grid">
-                <a href="candidate/candidate-1.html" class="candidate-card">
-                    <div class="candidate-icon">👤</div>
-                    <div class="candidate-name">Rajesh Kumar</div>
-                    <div class="candidate-constituency">Bangalore North</div>
-                </a>
+                <a href="constituency.html" class="candidate-card">
+                    <div class="candidate-icon">  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSClA5spHcpPTdsFVqKioHsanXnAq9F6EiVvA&s" alt="Thammesh Gowda"></div>
+                    <div class="candidate-name">Thammesh Gowda</div>
+                    <div class="candidate-constituency">Bengaluru North (Byatarayanapura) • Bharatiya Janata Party</div>
 
+                    
+                </a>
+<!-- 
                 <a href="candidate/candidate-2.html" class="candidate-card">
                     <div class="candidate-icon">👤</div>
                     <div class="candidate-name">Priya Sharma</div>
@@ -435,7 +448,7 @@
                     <div class="candidate-icon">👤</div>
                     <div class="candidate-name">Kavita Nair</div>
                     <div class="candidate-constituency">Hassan</div>
-                </a>
+                </a> -->
             </div>
         </div>
     </div>

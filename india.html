@@ -1,0 +1,3712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indian Political Analysis - National Command Center</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #000000;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border-color: #e5e5e5;
+            --accent-blue: #0070f3;
+            --accent-green: #00c853;
+            --accent-orange: #ff9800;
+            --accent-red: #f44336;
+            --accent-purple: #9c27b0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #0060df;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--text-secondary);
+        }
+
+        /* Navigation - Second Layer */
+        .header-nav {
+            background: var(--bg-primary);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-trigger {
+            padding: 1rem 1.25rem;
+            background: none;
+            border: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-trigger:hover {
+            background: var(--bg-tertiary);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            min-width: 280px;
+            display: none;
+            /* margin-top: 0.5rem; */
+            padding: 0.5rem;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            display: block;
+        }
+
+        .dropdown-section {
+            padding: 0.5rem 0;
+        }
+
+        .dropdown-section:not(:last-child) {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dropdown-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--accent-blue);
+        }
+
+        .dropdown-icon {
+            font-size: 1.25rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            opacity: 0.8;
+        }
+
+        .stat-trend {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .trend-up {
+            background: #e8f5e9;
+            color: var(--accent-green);
+        }
+
+        .trend-down {
+            background: #ffebee;
+            color: var(--accent-red);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .card-action {
+            font-size: 0.875rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .card-action:hover {
+            text-decoration: underline;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+        }
+
+        th {
+            text-align: left;
+            padding: 0.875rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* State Grid */
+        .state-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .state-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .state-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .state-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .state-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .state-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .state-stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        .state-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .state-status {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            margin-top: 0.75rem;
+        }
+
+        .status-active {
+            background: #e8f5e9;
+            color: var(--accent-green);
+        }
+
+        .status-planning {
+            background: #fff3e0;
+            color: var(--accent-orange);
+        }
+
+        .status-inactive {
+            background: #f5f5f5;
+            color: var(--text-tertiary);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #e8f5e9;
+            color: var(--accent-green);
+        }
+
+        .badge-warning {
+            background: #fff3e0;
+            color: var(--accent-orange);
+        }
+
+        .badge-danger {
+            background: #ffebee;
+            color: var(--accent-red);
+        }
+
+        .badge-info {
+            background: #e3f2fd;
+            color: var(--accent-blue);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-meta {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-blue);
+            transition: width 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+            }
+
+            .stats-grid,
+            .content-grid,
+            .state-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <!-- Top Bar -->
+        <div class="header-top">
+            <div class="header-brand">
+                <div class="logo">
+                    <div class="logo-icon">🇮🇳</div>
+                    <div class="logo-text">
+                        <div class="logo-title">Indian Political Analysis</div>
+                        <div class="logo-subtitle">National Command Center</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="refreshData()">
+                    <span>🔄</span> Refresh
+                </button>
+                <button class="btn btn-primary" onclick="generateNationalReport()">
+                    <span>📊</span> National Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="header-nav">
+            <div class="nav-container">
+                <!-- National Overview -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>🏛️</span> National Overview <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showDashboard()">
+                                <span class="dropdown-icon">📊</span>
+                                <span>Dashboard</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showStates()">
+                                <span class="dropdown-icon">🗺️</span>
+                                <span>28 States & 8 UTs</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showLokSabha()">
+                                <span class="dropdown-icon">🏛️</span>
+                                <span>543 Lok Sabha Seats</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showAssemblies()">
+                                <span class="dropdown-icon">📍</span>
+                                <span>State Assemblies</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Political Parties -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>🎯</span> Political Parties <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-title">National Parties</div>
+                            <div class="dropdown-item" onclick="showNationalParties()">
+                                <span class="dropdown-icon">🎯</span>
+                                <span>All National Parties</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showRegionalParties()">
+                                <span class="dropdown-icon">🗺️</span>
+                                <span>Regional Parties</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showAlliances()">
+                                <span class="dropdown-icon">🤝</span>
+                                <span>Alliances & Coalitions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Client Management -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>👥</span> Clients <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showClients()">
+                                <span class="dropdown-icon">👤</span>
+                                <span>All Clients</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showOnboarding()">
+                                <span class="dropdown-icon">➕</span>
+                                <span>Client Onboarding</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showContracts()">
+                                <span class="dropdown-icon">📄</span>
+                                <span>Service Agreements</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaign Management -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>📢</span> Campaigns <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showActiveCampaigns()">
+                                <span class="dropdown-icon">🚀</span>
+                                <span>Active Campaigns</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSocialMedia()">
+                                <span class="dropdown-icon">📱</span>
+                                <span>Social Media</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showGroundOps()">
+                                <span class="dropdown-icon">🚶</span>
+                                <span>Ground Operations</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showEvents()">
+                                <span class="dropdown-icon">📅</span>
+                                <span>Events & Rallies</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>📈</span> Analytics <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showVoterAnalytics()">
+                                <span class="dropdown-icon">👥</span>
+                                <span>Voter Analytics</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSurveys()">
+                                <span class="dropdown-icon">📋</span>
+                                <span>Surveys & Polls</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showSentiment()">
+                                <span class="dropdown-icon">💭</span>
+                                <span>Sentiment Analysis</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showPredictions()">
+                                <span class="dropdown-icon">🎯</span>
+                                <span>Predictions</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>🎯</span> Resources <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showTeams()">
+                                <span class="dropdown-icon">👥</span>
+                                <span>Teams</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showFinance()">
+                                <span class="dropdown-icon">💰</span>
+                                <span>Finance</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showTraining()">
+                                <span class="dropdown-icon">🎓</span>
+                                <span>Training</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elections -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>🗳️</span> Elections <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showUpcoming()">
+                                <span class="dropdown-icon">📅</span>
+                                <span>Upcoming Elections</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showCalendar()">
+                                <span class="dropdown-icon">🗓️</span>
+                                <span>Election Calendar</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showResults()">
+                                <span class="dropdown-icon">📊</span>
+                                <span>Past Results</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reports -->
+                <div class="nav-item">
+                    <button class="nav-trigger">
+                        <span>📊</span> Reports <span>▾</span>
+                    </button>
+                    <div class="nav-dropdown">
+                        <div class="dropdown-section">
+                            <div class="dropdown-item" onclick="showReports('daily')">
+                                <span class="dropdown-icon">📄</span>
+                                <span>Daily Reports</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showReports('weekly')">
+                                <span class="dropdown-icon">📋</span>
+                                <span>Weekly Analysis</span>
+                            </div>
+                            <div class="dropdown-item" onclick="showReports('monthly')">
+                                <span class="dropdown-icon">📊</span>
+                                <span>Monthly Insights</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Dashboard View (Default) -->
+        <div id="dashboardView">
+            <div class="page-header">
+                <h1 class="page-title">National Command Center</h1>
+                <p class="page-subtitle">Comprehensive Political Analysis across India - Real-time operations management for 28 States & 8 Union Territories</p>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">🗺️</span>
+                        <span class="stat-trend trend-up">Active</span>
+                    </div>
+                    <div class="stat-value">36</div>
+                    <div class="stat-label">States & Union Territories</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">🏛️</span>
+                        <span class="stat-trend trend-up">Lok Sabha</span>
+                    </div>
+                    <div class="stat-value">543</div>
+                    <div class="stat-label">Parliamentary Constituencies</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">📍</span>
+                        <span class="stat-trend trend-up">Assemblies</span>
+                    </div>
+                    <div class="stat-value">4,033</div>
+                    <div class="stat-label">State Assembly Constituencies</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">👥</span>
+                        <span class="stat-trend trend-up">+12.5%</span>
+                    </div>
+                    <div class="stat-value">968M</div>
+                    <div class="stat-label">Registered Voters</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">🎯</span>
+                        <span class="stat-trend trend-up">+24</span>
+                    </div>
+                    <div class="stat-value">287</div>
+                    <div class="stat-label">Active Clients (Pan-India)</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">💼</span>
+                        <span class="stat-trend trend-up">+156</span>
+                    </div>
+                    <div class="stat-value">2,547</div>
+                    <div class="stat-label">National Team Members</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">📢</span>
+                        <span class="stat-trend trend-up">Active</span>
+                    </div>
+                    <div class="stat-value">142</div>
+                    <div class="stat-label">Ongoing Campaigns</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-icon">💰</span>
+                        <span class="stat-trend trend-up">+18.2%</span>
+                    </div>
+                    <div class="stat-value">₹124Cr</div>
+                    <div class="stat-label">Total Revenue (FY 2024-25)</div>
+                </div>
+            </div>
+
+            <!-- Quick Access Cards -->
+            <div class="content-grid">
+                <!-- Upcoming Elections -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">📅 Upcoming Elections 2025</h2>
+                        <a class="card-action" onclick="showUpcoming()">View All →</a>
+                    </div>
+                    <div class="card-body">
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Delhi Assembly</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">70 Constituencies</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 600; color: var(--accent-blue);">Feb 2025</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Expected</div>
+                                </div>
+                            </div>
+
+                            <div style="padding: 1rem; background: var(--bg-tertiary); border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-weight: 600; margin-bottom: 0.25rem;">Bihar Assembly</div>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">243 Constituencies</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-weight: 600; color: var(--accent-blue);">Oct 2025</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">Expected</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">⚡ Recent Activity</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: var(--accent-green);"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">New client onboarded in Maharashtra</div>
+                                    <div class="timeline-meta">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: var(--accent-blue);"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Karnataka state report generated</div>
+                                    <div class="timeline-meta">5 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Survey completed: UP sentiment analysis</div>
+                                    <div class="timeline-meta">8 hours ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Performing States -->
+            <div class="card" style="margin-bottom: 2rem;">
+                <div class="card-header">
+                    <h2 class="card-title">🏆 Top Performing States</h2>
+                    <a class="card-action" onclick="showStates()">View All States →</a>
+                </div>
+                <div class="card-body">
+                    <div class="state-grid">
+                        <div class="state-card" onclick="alert('Opening Karnataka State Dashboard...')">
+                            <div class="state-name">🟡 Karnataka</div>
+                            <div class="state-stats">
+                                <div class="state-stat">
+                                    <div class="state-stat-value">31</div>
+                                    <div class="state-stat-label">Districts</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">224</div>
+                                    <div class="state-stat-label">Constituencies</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">28</div>
+                                    <div class="state-stat-label">LS Seats</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">52.7M</div>
+                                    <div class="state-stat-label">Voters</div>
+                                </div>
+                            </div>
+                            <span class="state-status status-active">Fully Active</span>
+                        </div>
+
+                        <div class="state-card" onclick="alert('Opening Maharashtra State Dashboard...')">
+                            <div class="state-name">🟠 Maharashtra</div>
+                            <div class="state-stats">
+                                <div class="state-stat">
+                                    <div class="state-stat-value">36</div>
+                                    <div class="state-stat-label">Districts</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">288</div>
+                                    <div class="state-stat-label">Constituencies</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">48</div>
+                                    <div class="state-stat-label">LS Seats</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">96.8M</div>
+                                    <div class="state-stat-label">Voters</div>
+                                </div>
+                            </div>
+                            <span class="state-status status-planning">Planning Phase</span>
+                        </div>
+
+                        <div class="state-card" onclick="alert('Opening Uttar Pradesh State Dashboard...')">
+                            <div class="state-name">🔴 Uttar Pradesh</div>
+                            <div class="state-stats">
+                                <div class="state-stat">
+                                    <div class="state-stat-value">75</div>
+                                    <div class="state-stat-label">Districts</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">403</div>
+                                    <div class="state-stat-label">Constituencies</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">80</div>
+                                    <div class="state-stat-label">LS Seats</div>
+                                </div>
+                                <div class="state-stat">
+                                    <div class="state-stat-value">159.3M</div>
+                                    <div class="state-stat-label">Voters</div>
+                                </div>
+                            </div>
+                            <span class="state-status status-active">Active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // All States Data
+        const allStatesData = [
+            { name: 'Andhra Pradesh', icon: '🟢', districts: 26, constituencies: 175, lsSeats: 25, voters: '40.8M', status: 'active' },
+            { name: 'Arunachal Pradesh', icon: '🟡', districts: 25, constituencies: 60, lsSeats: 2, voters: '0.89M', status: 'planning' },
+            { name: 'Assam', icon: '🔵', districts: 35, constituencies: 126, lsSeats: 14, voters: '23.4M', status: 'active' },
+            { name: 'Bihar', icon: '🟠', districts: 38, constituencies: 243, lsSeats: 40, voters: '74.8M', status: 'active' },
+            { name: 'Chhattisgarh', icon: '🟢', districts: 33, constituencies: 90, lsSeats: 11, voters: '20.2M', status: 'active' },
+            { name: 'Goa', icon: '🔵', districts: 2, constituencies: 40, lsSeats: 2, voters: '1.15M', status: 'active' },
+            { name: 'Gujarat', icon: '🔴', districts: 33, constituencies: 182, lsSeats: 26, voters: '48.5M', status: 'active' },
+            { name: 'Haryana', icon: '🟡', districts: 22, constituencies: 90, lsSeats: 10, voters: '18.6M', status: 'active' },
+            { name: 'Himachal Pradesh', icon: '🔵', districts: 12, constituencies: 68, lsSeats: 4, voters: '5.5M', status: 'active' },
+            { name: 'Jharkhand', icon: '🟢', districts: 24, constituencies: 81, lsSeats: 14, voters: '24.2M', status: 'active' },
+            { name: 'Karnataka', icon: '🟡', districts: 31, constituencies: 224, lsSeats: 28, voters: '52.7M', status: 'active' },
+            { name: 'Kerala', icon: '🔴', districts: 14, constituencies: 140, lsSeats: 20, voters: '26.8M', status: 'active' },
+            { name: 'Madhya Pradesh', icon: '🟠', districts: 55, constituencies: 230, lsSeats: 29, voters: '56.4M', status: 'active' },
+            { name: 'Maharashtra', icon: '🟠', districts: 36, constituencies: 288, lsSeats: 48, voters: '96.8M', status: 'planning' },
+            { name: 'Manipur', icon: '🔵', districts: 16, constituencies: 60, lsSeats: 2, voters: '2.15M', status: 'planning' },
+            { name: 'Meghalaya', icon: '🟢', districts: 12, constituencies: 60, lsSeats: 2, voters: '2.04M', status: 'planning' },
+            { name: 'Mizoram', icon: '🔴', districts: 11, constituencies: 40, lsSeats: 1, voters: '0.77M', status: 'planning' },
+            { name: 'Nagaland', icon: '🟡', districts: 16, constituencies: 60, lsSeats: 1, voters: '1.36M', status: 'planning' },
+            { name: 'Odisha', icon: '🔵', districts: 30, constituencies: 147, lsSeats: 21, voters: '32.5M', status: 'active' },
+            { name: 'Punjab', icon: '🟡', districts: 23, constituencies: 117, lsSeats: 13, voters: '21.2M', status: 'active' },
+            { name: 'Rajasthan', icon: '🟠', districts: 50, constituencies: 200, lsSeats: 25, voters: '51.9M', status: 'active' },
+            { name: 'Sikkim', icon: '🟢', districts: 6, constituencies: 32, lsSeats: 1, voters: '0.48M', status: 'planning' },
+            { name: 'Tamil Nadu', icon: '🔵', districts: 38, constituencies: 234, lsSeats: 39, voters: '64.3M', status: 'planning' },
+            { name: 'Telangana', icon: '🔴', districts: 33, constituencies: 119, lsSeats: 17, voters: '28.4M', status: 'active' },
+            { name: 'Tripura', icon: '🟡', districts: 8, constituencies: 60, lsSeats: 2, voters: '2.78M', status: 'planning' },
+            { name: 'Uttar Pradesh', icon: '🔴', districts: 75, constituencies: 403, lsSeats: 80, voters: '159.3M', status: 'active' },
+            { name: 'Uttarakhand', icon: '🟢', districts: 13, constituencies: 70, lsSeats: 5, voters: '7.8M', status: 'active' },
+            { name: 'West Bengal', icon: '🟢', districts: 23, constituencies: 294, lsSeats: 42, voters: '73.6M', status: 'active' }
+        ];
+
+        // Union Territories Data
+        const unionTerritoriesData = [
+            { name: 'Andaman & Nicobar', icon: '🏝️', districts: 3, constituencies: 0, lsSeats: 1, voters: '0.31M', status: 'inactive' },
+            { name: 'Chandigarh', icon: '🏛️', districts: 1, constituencies: 0, lsSeats: 1, voters: '0.65M', status: 'active' },
+            { name: 'Dadra & Nagar Haveli and Daman & Diu', icon: '🌴', districts: 3, constituencies: 0, lsSeats: 2, voters: '0.45M', status: 'planning' },
+            { name: 'Delhi', icon: '🏛️', districts: 11, constituencies: 70, lsSeats: 7, voters: '14.9M', status: 'active' },
+            { name: 'Jammu & Kashmir', icon: '🏔️', districts: 20, constituencies: 90, lsSeats: 5, voters: '9.1M', status: 'active' },
+            { name: 'Ladakh', icon: '⛰️', districts: 2, constituencies: 0, lsSeats: 1, voters: '0.19M', status: 'planning' },
+            { name: 'Lakshadweep', icon: '🏝️', districts: 1, constituencies: 0, lsSeats: 1, voters: '0.05M', status: 'inactive' },
+            { name: 'Puducherry', icon: '🌊', districts: 4, constituencies: 30, lsSeats: 1, voters: '0.98M', status: 'planning' }
+        ];
+
+        // National Parties Data
+        const nationalPartiesData = [
+            { name: 'Bharatiya Janata Party', symbol: '🪷', abbr: 'BJP', founded: 1980, lsSeats: 303, states: 18, members: '180M+' },
+            { name: 'Indian National Congress', symbol: '✋', abbr: 'INC', founded: 1885, lsSeats: 52, states: 5, members: '40M+' },
+            { name: 'Aam Aadmi Party', symbol: '🧹', abbr: 'AAP', founded: 2012, lsSeats: 10, states: 2, members: '15M+' },
+            { name: 'Bahujan Samaj Party', symbol: '🐘', abbr: 'BSP', founded: 1984, lsSeats: 10, states: 1, members: '8M+' },
+            { name: 'Communist Party of India (Marxist)', symbol: '⚒️', abbr: 'CPI(M)', founded: 1964, lsSeats: 4, states: 2, members: '1M+' },
+            { name: 'Nationalist Congress Party', symbol: '⏰', abbr: 'NCP', founded: 1999, lsSeats: 8, states: 2, members: '5M+' }
+        ];
+
+        // Client Data
+        const clientsData = [
+            { id: 'C001', name: 'Rajesh Kumar', state: 'Karnataka', constituency: 'Bengaluru South', party: 'BJP', status: 'Active', revenue: '₹45L', since: '2024-01' },
+            { id: 'C002', name: 'Priya Sharma', state: 'Maharashtra', constituency: 'Mumbai North', party: 'INC', status: 'Active', revenue: '₹62L', since: '2023-11' },
+            { id: 'C003', name: 'Amit Patel', state: 'Gujarat', constituency: 'Ahmedabad East', party: 'BJP', status: 'Active', revenue: '₹38L', since: '2024-03' },
+            { id: 'C004', name: 'Sunita Devi', state: 'Bihar', constituency: 'Patna Sahib', party: 'JDU', status: 'Active', revenue: '₹51L', since: '2023-09' },
+            { id: 'C005', name: 'Vikram Singh', state: 'Uttar Pradesh', constituency: 'Lucknow Central', party: 'SP', status: 'Active', revenue: '₹74L', since: '2023-08' },
+            { id: 'C006', name: 'Meera Reddy', state: 'Telangana', constituency: 'Hyderabad', party: 'BRS', status: 'Active', revenue: '₹59L', since: '2024-02' },
+            { id: 'C007', name: 'Anil Kumar', state: 'Tamil Nadu', constituency: 'Chennai Central', party: 'DMK', status: 'Planning', revenue: '₹42L', since: '2024-04' },
+            { id: 'C008', name: 'Ravi Verma', state: 'Rajasthan', constituency: 'Jaipur', party: 'INC', status: 'Active', revenue: '₹56L', since: '2023-12' }
+        ];
+
+        // Active Campaigns Data
+        const campaignsData = [
+            { id: 'CAM001', client: 'Rajesh Kumar', state: 'Karnataka', type: 'Social Media', progress: 85, status: 'On Track', reach: '2.4M' },
+            { id: 'CAM002', client: 'Priya Sharma', state: 'Maharashtra', type: 'Ground Campaign', progress: 72, status: 'On Track', reach: '1.8M' },
+            { id: 'CAM003', client: 'Amit Patel', state: 'Gujarat', type: 'Full Service', progress: 91, status: 'Excellent', reach: '3.2M' },
+            { id: 'CAM004', client: 'Sunita Devi', state: 'Bihar', type: 'Digital Marketing', progress: 68, status: 'Needs Attention', reach: '1.5M' },
+            { id: 'CAM005', client: 'Vikram Singh', state: 'Uttar Pradesh', type: 'Full Service', progress: 88, status: 'On Track', reach: '4.1M' }
+        ];
+
+        // Function to show Dashboard
+        function showDashboard() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">National Command Center</h1>
+                    <p class="page-subtitle">Comprehensive Political Analysis across India</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗺️</span>
+                            <span class="stat-trend trend-up">Active</span>
+                        </div>
+                        <div class="stat-value">36</div>
+                        <div class="stat-label">States & Union Territories</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🏛️</span>
+                            <span class="stat-trend trend-up">Lok Sabha</span>
+                        </div>
+                        <div class="stat-value">543</div>
+                        <div class="stat-label">Parliamentary Constituencies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📍</span>
+                            <span class="stat-trend trend-up">Assemblies</span>
+                        </div>
+                        <div class="stat-value">4,033</div>
+                        <div class="stat-label">State Assembly Constituencies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-trend trend-up">+12.5%</span>
+                        </div>
+                        <div class="stat-value">968M</div>
+                        <div class="stat-label">Registered Voters</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">📊 National Performance Metrics</h2>
+                    </div>
+                    <div class="card-body">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">Client Acquisition</span>
+                                <span style="color: var(--accent-blue); font-weight: 600;">287 / 350</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 82%;"></div>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">Campaign Success Rate</span>
+                                <span style="color: var(--accent-green); font-weight: 600;">89%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 89%; background: var(--accent-green);"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-weight: 600;">Revenue Target FY 2024-25</span>
+                                <span style="color: var(--accent-orange); font-weight: 600;">₹124Cr / ₹150Cr</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 83%; background: var(--accent-orange);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show all States
+        function showStates() {
+            let html = `
+                <div class="page-header">
+                    <h1 class="page-title">All States & Union Territories</h1>
+                    <p class="page-subtitle">Complete overview of 28 States and 8 Union Territories</p>
+                </div>
+
+                <div class="card" style="margin-bottom: 2rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">28 Indian States</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="state-grid">
+            `;
+
+            allStatesData.forEach(state => {
+                const statusClass = state.status === 'active' ? 'status-active' : 'status-planning';
+                html += `
+                    <div class="state-card" onclick="alert('Opening ${state.name} Dashboard...')">
+                        <div class="state-name">${state.icon} ${state.name}</div>
+                        <div class="state-stats">
+                            <div class="state-stat">
+                                <div class="state-stat-value">${state.districts}</div>
+                                <div class="state-stat-label">Districts</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${state.constituencies}</div>
+                                <div class="state-stat-label">Constituencies</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${state.lsSeats}</div>
+                                <div class="state-stat-label">LS Seats</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${state.voters}</div>
+                                <div class="state-stat-label">Voters</div>
+                            </div>
+                        </div>
+                        <span class="state-status ${statusClass}">${state.status === 'active' ? 'Active' : 'Planning'}</span>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">8 Union Territories</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="state-grid">
+            `;
+
+            unionTerritoriesData.forEach(ut => {
+                const statusClass = ut.status === 'active' ? 'status-active' : ut.status === 'planning' ? 'status-planning' : 'status-inactive';
+                html += `
+                    <div class="state-card" onclick="alert('Opening ${ut.name} Dashboard...')">
+                        <div class="state-name">${ut.icon} ${ut.name}</div>
+                        <div class="state-stats">
+                            <div class="state-stat">
+                                <div class="state-stat-value">${ut.districts}</div>
+                                <div class="state-stat-label">Districts</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${ut.constituencies}</div>
+                                <div class="state-stat-label">Constituencies</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${ut.lsSeats}</div>
+                                <div class="state-stat-label">LS Seats</div>
+                            </div>
+                            <div class="state-stat">
+                                <div class="state-stat-value">${ut.voters}</div>
+                                <div class="state-stat-label">Voters</div>
+                            </div>
+                        </div>
+                        <span class="state-status ${statusClass}">${ut.status.charAt(0).toUpperCase() + ut.status.slice(1)}</span>
+                    </div>
+                `;
+            });
+
+            html += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('mainContent').innerHTML = html;
+        }
+
+        // Function to show Lok Sabha
+        function showLokSabha() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">543 Lok Sabha Constituencies</h1>
+                    <p class="page-subtitle">Parliamentary constituency management across India</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🏛️</span>
+                        </div>
+                        <div class="stat-value">543</div>
+                        <div class="stat-label">Total Lok Sabha Seats</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📊</span>
+                        </div>
+                        <div class="stat-value">131</div>
+                        <div class="stat-label">Reserved for SC</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📊</span>
+                        </div>
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">Reserved for ST</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗳️</span>
+                        </div>
+                        <div class="stat-value">2024</div>
+                        <div class="stat-label">Last Election Year</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Top States by Lok Sabha Seats</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>State</th>
+                                        <th>LS Seats</th>
+                                        <th>Voters</th>
+                                        <th>Current Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Uttar Pradesh</td>
+                                        <td><strong>80</strong></td>
+                                        <td>159.3M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Maharashtra</td>
+                                        <td><strong>48</strong></td>
+                                        <td>96.8M</td>
+                                        <td><span class="badge badge-warning">Planning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>West Bengal</td>
+                                        <td><strong>42</strong></td>
+                                        <td>73.6M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Bihar</td>
+                                        <td><strong>40</strong></td>
+                                        <td>74.8M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Tamil Nadu</td>
+                                        <td><strong>39</strong></td>
+                                        <td>64.3M</td>
+                                        <td><span class="badge badge-warning">Planning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Madhya Pradesh</td>
+                                        <td><strong>29</strong></td>
+                                        <td>56.4M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Karnataka</td>
+                                        <td><strong>28</strong></td>
+                                        <td>52.7M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Gujarat</td>
+                                        <td><strong>26</strong></td>
+                                        <td>48.5M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Assemblies
+        function showAssemblies() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">State Assembly Constituencies</h1>
+                    <p class="page-subtitle">4,033 Assembly seats across all Indian states</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📍</span>
+                        </div>
+                        <div class="stat-value">4,033</div>
+                        <div class="stat-label">Total Assembly Seats</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗺️</span>
+                        </div>
+                        <div class="stat-value">28</div>
+                        <div class="stat-label">States with Assemblies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🏛️</span>
+                        </div>
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">UTs with Assemblies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📊</span>
+                        </div>
+                        <div class="stat-value">968M</div>
+                        <div class="stat-label">Total Eligible Voters</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Largest State Assemblies</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>State</th>
+                                        <th>Assembly Seats</th>
+                                        <th>Districts</th>
+                                        <th>Total Voters</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Uttar Pradesh</td>
+                                        <td><strong>403</strong></td>
+                                        <td>75</td>
+                                        <td>159.3M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>West Bengal</td>
+                                        <td><strong>294</strong></td>
+                                        <td>23</td>
+                                        <td>73.6M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Maharashtra</td>
+                                        <td><strong>288</strong></td>
+                                        <td>36</td>
+                                        <td>96.8M</td>
+                                        <td><span class="badge badge-warning">Planning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Bihar</td>
+                                        <td><strong>243</strong></td>
+                                        <td>38</td>
+                                        <td>74.8M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Tamil Nadu</td>
+                                        <td><strong>234</strong></td>
+                                        <td>38</td>
+                                        <td>64.3M</td>
+                                        <td><span class="badge badge-warning">Planning</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Madhya Pradesh</td>
+                                        <td><strong>230</strong></td>
+                                        <td>55</td>
+                                        <td>56.4M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Karnataka</td>
+                                        <td><strong>224</strong></td>
+                                        <td>31</td>
+                                        <td>52.7M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Rajasthan</td>
+                                        <td><strong>200</strong></td>
+                                        <td>50</td>
+                                        <td>51.9M</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show National Parties
+        function showNationalParties() {
+            let html = `
+                <div class="page-header">
+                    <h1 class="page-title">National Political Parties</h1>
+                    <p class="page-subtitle">Recognized national parties by Election Commission of India</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">National Party Overview</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Symbol</th>
+                                        <th>Party Name</th>
+                                        <th>Abbreviation</th>
+                                        <th>Founded</th>
+                                        <th>LS Seats (2024)</th>
+                                        <th>States in Power</th>
+                                        <th>Members</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            `;
+
+            nationalPartiesData.forEach(party => {
+                html += `
+                    <tr style="cursor: pointer;" onclick="alert('Opening ${party.name} detailed dashboard...')">
+                        <td style="font-size: 1.5rem;">${party.symbol}</td>
+                        <td><strong>${party.name}</strong></td>
+                        <td>${party.abbr}</td>
+                        <td>${party.founded}</td>
+                        <td><strong>${party.lsSeats}</strong></td>
+                        <td>${party.states}</td>
+                        <td>${party.members}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid" style="margin-top: 2rem;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">🪷 BJP - Bharatiya Janata Party</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Lok Sabha Seats:</strong> 303
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>States in Power:</strong> 18 States
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Founded:</strong> 1980
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Ideology:</strong> Right-wing, Hindu Nationalism
+                            </div>
+                            <div>
+                                <strong>Members:</strong> 180M+ (World's largest political party)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">✋ INC - Indian National Congress</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Lok Sabha Seats:</strong> 52
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>States in Power:</strong> 5 States
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Founded:</strong> 1885
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Ideology:</strong> Center-left, Social Democracy
+                            </div>
+                            <div>
+                                <strong>Members:</strong> 40M+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('mainContent').innerHTML = html;
+        }
+
+        // Function to show Regional Parties
+        function showRegionalParties() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Regional & State Parties</h1>
+                    <p class="page-subtitle">State-level and regional political parties across India</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Major Regional Parties</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Party Name</th>
+                                        <th>State/Region</th>
+                                        <th>LS Seats</th>
+                                        <th>Assembly Seats</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Trinamool Congress (TMC)</strong></td>
+                                        <td>West Bengal</td>
+                                        <td>29</td>
+                                        <td>215</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Samajwadi Party (SP)</strong></td>
+                                        <td>Uttar Pradesh</td>
+                                        <td>37</td>
+                                        <td>111</td>
+                                        <td><span class="badge badge-warning">Opposition</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dravida Munnetra Kazhagam (DMK)</strong></td>
+                                        <td>Tamil Nadu</td>
+                                        <td>22</td>
+                                        <td>133</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Shiv Sena (UBT)</strong></td>
+                                        <td>Maharashtra</td>
+                                        <td>13</td>
+                                        <td>56</td>
+                                        <td><span class="badge badge-warning">Opposition</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Biju Janata Dal (BJD)</strong></td>
+                                        <td>Odisha</td>
+                                        <td>12</td>
+                                        <td>51</td>
+                                        <td><span class="badge badge-warning">Opposition</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Telangana Rashtra Samithi (BRS)</strong></td>
+                                        <td>Telangana</td>
+                                        <td>9</td>
+                                        <td>39</td>
+                                        <td><span class="badge badge-warning">Opposition</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Janata Dal (United)</strong></td>
+                                        <td>Bihar</td>
+                                        <td>12</td>
+                                        <td>45</td>
+                                        <td><span class="badge badge-success">In Coalition</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Shiromani Akali Dal</strong></td>
+                                        <td>Punjab</td>
+                                        <td>1</td>
+                                        <td>3</td>
+                                        <td><span class="badge badge-warning">Opposition</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Alliances
+        function showAlliances() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Political Alliances & Coalitions</h1>
+                    <p class="page-subtitle">National and state-level political alliances</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">NDA - National Democratic Alliance</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Led by:</strong> Bharatiya Janata Party (BJP)
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Lok Sabha Seats:</strong> 353+
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <strong>Key Partners:</strong>
+                            </div>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                                <li>Janata Dal (United) - Bihar</li>
+                                <li>Shiv Sena - Maharashtra</li>
+                                <li>Lok Janshakti Party - Bihar</li>
+                                <li>AIADMK - Tamil Nadu</li>
+                                <li>Telugu Desam Party - Andhra Pradesh</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">INDIA Alliance</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Led by:</strong> Indian National Congress (INC)
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <strong>Lok Sabha Seats:</strong> 230+
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                <strong>Key Partners:</strong>
+                            </div>
+                            <ul style="margin-left: 1.5rem; color: var(--text-secondary);">
+                                <li>Trinamool Congress - West Bengal</li>
+                                <li>Samajwadi Party - Uttar Pradesh</li>
+                                <li>DMK - Tamil Nadu</li>
+                                <li>RJD - Bihar</li>
+                                <li>Shiv Sena (UBT) - Maharashtra</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <h2 class="card-title">State-Level Alliances</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>State</th>
+                                        <th>Alliance Name</th>
+                                        <th>Lead Party</th>
+                                        <th>Partners</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Maharashtra</td>
+                                        <td>Mahayuti</td>
+                                        <td>BJP</td>
+                                        <td>Shiv Sena, NCP</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tamil Nadu</td>
+                                        <td>DMK Alliance</td>
+                                        <td>DMK</td>
+                                        <td>INC, VCK, MDMK</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bihar</td>
+                                        <td>Mahagathbandhan</td>
+                                        <td>JDU</td>
+                                        <td>BJP, LJP</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Karnataka</td>
+                                        <td>INC Alliance</td>
+                                        <td>INC</td>
+                                        <td>No major allies</td>
+                                        <td><span class="badge badge-success">In Power</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Clients
+        function showClients() {
+            let html = `
+                <div class="page-header">
+                    <h1 class="page-title">Client Portfolio</h1>
+                    <p class="page-subtitle">287 Active clients across India</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-trend trend-up">+24</span>
+                        </div>
+                        <div class="stat-value">287</div>
+                        <div class="stat-label">Total Active Clients</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗺️</span>
+                        </div>
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">States Covered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">💰</span>
+                            <span class="stat-trend trend-up">+18.2%</span>
+                        </div>
+                        <div class="stat-value">₹124Cr</div>
+                        <div class="stat-label">Total Revenue</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">✅</span>
+                        </div>
+                        <div class="stat-value">89%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Client Overview</h2>
+                        <button class="btn btn-primary btn-sm" onclick="showOnboarding()">+ Add New Client</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Client ID</th>
+                                        <th>Name</th>
+                                        <th>State</th>
+                                        <th>Constituency</th>
+                                        <th>Party</th>
+                                        <th>Status</th>
+                                        <th>Revenue</th>
+                                        <th>Since</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            `;
+
+            clientsData.forEach(client => {
+                const statusBadge = client.status === 'Active' ? 'badge-success' : 'badge-warning';
+                html += `
+                    <tr style="cursor: pointer;" onclick="alert('Opening detailed profile for ${client.name}...')">
+                        <td><strong>${client.id}</strong></td>
+                        <td>${client.name}</td>
+                        <td>${client.state}</td>
+                        <td>${client.constituency}</td>
+                        <td>${client.party}</td>
+                        <td><span class="badge ${statusBadge}">${client.status}</span></td>
+                        <td><strong>${client.revenue}</strong></td>
+                        <td>${client.since}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('mainContent').innerHTML = html;
+        }
+
+        // Function to show Onboarding
+        function showOnboarding() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Client Onboarding</h1>
+                    <p class="page-subtitle">New client registration and service agreement</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">New Client Registration Form</h2>
+                    </div>
+                    <div class="card-body">
+                        <div style="max-width: 800px;">
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Candidate Name</label>
+                                <input type="text" placeholder="Enter full name" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">State</label>
+                                    <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                                        <option>Select State</option>
+                                        <option>Karnataka</option>
+                                        <option>Maharashtra</option>
+                                        <option>Tamil Nadu</option>
+                                        <option>Uttar Pradesh</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Constituency</label>
+                                    <input type="text" placeholder="Enter constituency" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                                </div>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Political Party</label>
+                                    <select style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                                        <option>Select Party</option>
+                                        <option>BJP</option>
+                                        <option>INC</option>
+                                        <option>AAP</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Phone Number</label>
+                                    <input type="tel" placeholder="+91 XXXXX XXXXX" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                                <input type="email" placeholder="candidate@example.com" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px;">
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Service Package</label>
+                                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                                    <div style="padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Basic</div>
+                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">₹25L</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Social Media Management</div>
+                                    </div>
+                                    <div style="padding: 1rem; border: 2px solid var(--accent-blue); border-radius: 8px; cursor: pointer; background: #f0f7ff;">
+                                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Standard</div>
+                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">₹50L</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Full Digital Campaign</div>
+                                    </div>
+                                    <div style="padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Premium</div>
+                                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-blue); margin-bottom: 0.5rem;">₹1Cr+</div>
+                                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Complete Management</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                                <button class="btn btn-primary" onclick="alert('Client onboarding initiated...')">Submit & Generate Contract</button>
+                                <button class="btn btn-secondary" onclick="showClients()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Contracts
+        function showContracts() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Service Agreements</h1>
+                    <p class="page-subtitle">Active contracts and agreements management</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📄</span>
+                        </div>
+                        <div class="stat-value">287</div>
+                        <div class="stat-label">Active Contracts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">⏰</span>
+                            <span class="stat-trend trend-up">12</span>
+                        </div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Expiring This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🔄</span>
+                        </div>
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Renewals This Quarter</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">💰</span>
+                        </div>
+                        <div class="stat-value">₹124Cr</div>
+                        <div class="stat-label">Total Contract Value</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Contract Management</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Contract ID</th>
+                                        <th>Client Name</th>
+                                        <th>Package</th>
+                                        <th>Value</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>CNT-2024-001</strong></td>
+                                        <td>Rajesh Kumar</td>
+                                        <td>Standard</td>
+                                        <td><strong>₹45L</strong></td>
+                                        <td>Jan 2024</td>
+                                        <td>Jan 2025</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">View</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CNT-2024-002</strong></td>
+                                        <td>Priya Sharma</td>
+                                        <td>Premium</td>
+                                        <td><strong>₹62L</strong></td>
+                                        <td>Nov 2023</td>
+                                        <td>Nov 2024</td>
+                                        <td><span class="badge badge-warning">Expiring Soon</span></td>
+                                        <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">Renew</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CNT-2024-003</strong></td>
+                                        <td>Amit Patel</td>
+                                        <td>Basic</td>
+                                        <td><strong>₹38L</strong></td>
+                                        <td>Mar 2024</td>
+                                        <td>Mar 2025</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                        <td><a href="#" style="color: var(--accent-blue); text-decoration: none;">View</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Active Campaigns
+        function showActiveCampaigns() {
+            let html = `
+                <div class="page-header">
+                    <h1 class="page-title">Active Campaigns</h1>
+                    <p class="page-subtitle">142 Ongoing campaigns across India</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📢</span>
+                        </div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Active Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📱</span>
+                        </div>
+                        <div class="stat-value">89</div>
+                        <div class="stat-label">Social Media Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🚶</span>
+                        </div>
+                        <div class="stat-value">53</div>
+                        <div class="stat-label">Ground Campaigns</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-trend trend-up">+24%</span>
+                        </div>
+                        <div class="stat-value">24.5M</div>
+                        <div class="stat-label">Total Reach</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Campaign Performance</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Campaign ID</th>
+                                        <th>Client</th>
+                                        <th>State</th>
+                                        <th>Type</th>
+                                        <th>Progress</th>
+                                        <th>Status</th>
+                                        <th>Reach</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            `;
+
+            campaignsData.forEach(campaign => {
+                let statusBadge = 'badge-success';
+                if (campaign.status === 'Excellent') statusBadge = 'badge-success';
+                else if (campaign.status === 'On Track') statusBadge = 'badge-info';
+                else if (campaign.status === 'Needs Attention') statusBadge = 'badge-warning';
+
+                html += `
+                    <tr style="cursor: pointer;" onclick="alert('Opening campaign details for ${campaign.client}...')">
+                        <td><strong>${campaign.id}</strong></td>
+                        <td>${campaign.client}</td>
+                        <td>${campaign.state}</td>
+                        <td>${campaign.type}</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: ${campaign.progress}%;"></div>
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">${campaign.progress}%</div>
+                        </td>
+                        <td><span class="badge ${statusBadge}">${campaign.status}</span></td>
+                        <td><strong>${campaign.reach}</strong></td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('mainContent').innerHTML = html;
+        }
+
+        // Function to show Social Media
+        function showSocialMedia() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Social Media Management</h1>
+                    <p class="page-subtitle">Unified social media operations center</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📱</span>
+                            <span class="stat-trend trend-up">+32%</span>
+                        </div>
+                        <div class="stat-value">18.4M</div>
+                        <div class="stat-label">Total Followers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📊</span>
+                            <span class="stat-trend trend-up">+45%</span>
+                        </div>
+                        <div class="stat-value">2,847</div>
+                        <div class="stat-label">Posts This Month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">❤️</span>
+                            <span class="stat-trend trend-up">+28%</span>
+                        </div>
+                        <div class="stat-value">4.2M</div>
+                        <div class="stat-label">Total Engagement</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📈</span>
+                            <span class="stat-trend trend-up">+18%</span>
+                        </div>
+                        <div class="stat-value">89%</div>
+                        <div class="stat-label">Sentiment Score</div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Platform Performance</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">📘 Facebook</span>
+                                    <span style="font-weight: 600;">8.2M followers</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 75%; background: #1877f2;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">🐦 Twitter/X</span>
+                                    <span style="font-weight: 600;">5.4M followers</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 60%; background: #000000;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">📸 Instagram</span>
+                                    <span style="font-weight: 600;">3.8M followers</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 50%; background: #e1306c;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">📹 YouTube</span>
+                                    <span style="font-weight: 600;">1.0M subscribers</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 30%; background: #ff0000;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Top Performing Content</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: var(--accent-green);"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Development Work Showcase - Karnataka</div>
+                                        <div class="timeline-meta">2.4M reach • 340K engagements</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: var(--accent-blue);"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Youth Connect Rally - Maharashtra</div>
+                                        <div class="timeline-meta">1.8M reach • 280K engagements</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Women Empowerment Program - UP</div>
+                                        <div class="timeline-meta">1.5M reach • 220K engagements</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Ground Operations
+        function showGroundOps() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Ground Operations</h1>
+                    <p class="page-subtitle">Field team management and tracking</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🚶</span>
+                        </div>
+                        <div class="stat-value">2,547</div>
+                        <div class="stat-label">Field Team Members</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗺️</span>
+                        </div>
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">States Active</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🏘️</span>
+                        </div>
+                        <div class="stat-value">847</div>
+                        <div class="stat-label">Areas Covered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-trend trend-up">+156K</span>
+                        </div>
+                        <div class="stat-value">4.2M</div>
+                        <div class="stat-label">Voters Contacted</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Ground Campaign Activities</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>State</th>
+                                        <th>Active Teams</th>
+                                        <th>Door-to-Door</th>
+                                        <th>Public Meetings</th>
+                                        <th>Voter Registrations</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Karnataka</strong></td>
+                                        <td>247</td>
+                                        <td>142K</td>
+                                        <td>89</td>
+                                        <td>12,400</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Maharashtra</strong></td>
+                                        <td>389</td>
+                                        <td>218K</td>
+                                        <td>124</td>
+                                        <td>18,900</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Uttar Pradesh</strong></td>
+                                        <td>542</td>
+                                        <td>324K</td>
+                                        <td>187</td>
+                                        <td>24,700</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Bihar</strong></td>
+                                        <td>312</td>
+                                        <td>189K</td>
+                                        <td>98</td>
+                                        <td>15,200</td>
+                                        <td><span class="badge badge-success">Active</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to show Events
+        function showEvents() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Events & Rallies</h1>
+                    <p class="page-subtitle">Event management and coordination</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📅</span>
+                        </div>
+                        <div class="stat-value">847</div>
+                        <div class="stat-label">Total Events Organized</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🎤</span>
+                        </div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Public Rallies</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                        </div>
+                        <div class="stat-value">8.4M</div>
+                        <div class="stat-label">Total Attendance</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📋</span>
+                        </div>
+                        <div class="stat-value">24</div>
+                        <div class="stat-label">Upcoming This Month</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Upcoming Events</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Event Name</th>
+                                        <th>Location</th>
+                                        <th>State</th>
+                                        <th>Expected Attendance</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Oct 15, 2025</strong></td>
+                                        <td>Youth Connect Rally</td>
+                                        <td>Bengaluru</td>
+                                        <td>Karnataka</td>
+                                        <td>50,000+</td>
+                                        <td><span class="badge badge-success">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Oct 18, 2025</strong></td>
+                                        <td>Women Empowerment Meet</td>
+                                        <td>Mumbai</td>
+                                        <td>Maharashtra</td>
+                                        <td>30,000+</td>
+                                        <td><span class="badge badge-success">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Oct 22, 2025</strong></td>
+                                        <td>Farmers Outreach</td>
+                                        <td>Lucknow</td>
+                                        <td>Uttar Pradesh</td>
+                                        <td>75,000+</td>
+                                        <td><span class="badge badge-warning">Planning</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Continue in next part with remaining functions...
+        
+        function showVoterAnalytics() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Voter Analytics</h1>
+                    <p class="page-subtitle">968 Million registered voters across India</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                            <span class="stat-trend trend-up">+12.5%</span>
+                        </div>
+                        <div class="stat-value">968M</div>
+                        <div class="stat-label">Total Registered Voters</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👨</span>
+                        </div>
+                        <div class="stat-value">502M</div>
+                        <div class="stat-label">Male Voters (51.8%)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👩</span>
+                        </div>
+                        <div class="stat-value">466M</div>
+                        <div class="stat-label">Female Voters (48.2%)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🎓</span>
+                            <span class="stat-trend trend-up">+18M</span>
+                        </div>
+                        <div class="stat-value">97M</div>
+                        <div class="stat-label">First-Time Voters</div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Age-wise Distribution</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>18-25 years</span>
+                                    <span style="font-weight: 600;">97M (10%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 10%;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>26-40 years</span>
+                                    <span style="font-weight: 600;">348M (36%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 36%;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>41-60 years</span>
+                                    <span style="font-weight: 600;">387M (40%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 40%;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span>60+ years</span>
+                                    <span style="font-weight: 600;">136M (14%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 14%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Urban vs Rural</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="margin-bottom: 2rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">🏙️ Urban Voters</span>
+                                    <span style="font-weight: 600;">328M (34%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 34%; background: var(--accent-blue);"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 600;">🏘️ Rural Voters</span>
+                                    <span style="font-weight: 600;">640M (66%)</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 66%; background: var(--accent-green);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showSurveys() {
+            document.getElementById('mainContent').innerHTML = `
+                <div class="page-header">
+                    <h1 class="page-title">Surveys & Opinion Polls</h1>
+                    <p class="page-subtitle">Data-driven insights and voter sentiment</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">📋</span>
+                        </div>
+                        <div class="stat-value">847</div>
+                        <div class="stat-label">Surveys Conducted</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">👥</span>
+                        </div>
+                        <div class="stat-value">2.4M</div>
+                        <div class="stat-label">Respondents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">🗺️</span>
+                        </div>
+                        <div class="stat-value">22</div>
+                        <div class="stat-label">States Covered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-icon">✅</span>
+                        </div>
+                        <div class="stat-value">94%</div>
+                        <div class="stat-label">Accuracy Rate</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Surveys</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Survey Name</th>
+                                        <th>State</th>
+                                        <th>Sample Size</th>
+                                        <th>Completion</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Karnataka Pre-Election Survey</strong></td>
+                                        <td>Karnataka</td>
+                                        <td>45,000</td>
+                                        <td>100%</td>
+                                        <td>Oct 2025</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Maharashtra Opinion Poll</strong></td>
+                                        <td>Maharashtra</td>
+                                        <td>62,000</td>
+                                        <td>78%</td>
+                                        <td>Oct 2025</td>
+                                        <td><span class="badge badge-warning">Ongoing</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>UP Voter Sentiment Analysis</strong></td>
+                                        <td>Uttar Pradesh</td>
+                                        <td>98,000</td>
+                                        <td>100%</td>
+                                        <td>Sep 2025</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+       // CONTINUATION OF JAVASCRIPT CODE - Add this after line with showSentiment() function
+
+function showSentiment() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Sentiment Analysis</h1>
+            <p class="page-subtitle">Real-time public sentiment tracking across India</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">💭</span>
+                    <span class="stat-trend trend-up">+5%</span>
+                </div>
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Overall Positive Sentiment</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📱</span>
+                </div>
+                <div class="stat-value">42M</div>
+                <div class="stat-label">Social Media Mentions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📰</span>
+                </div>
+                <div class="stat-value">12,847</div>
+                <div class="stat-label">News Articles Analyzed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎯</span>
+                </div>
+                <div class="stat-value">94%</div>
+                <div class="stat-label">Accuracy Score</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">State-wise Sentiment</h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Karnataka</span>
+                            <span style="color: var(--accent-green); font-weight: 600;">92% Positive</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 92%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Maharashtra</span>
+                            <span style="color: var(--accent-green); font-weight: 600;">87% Positive</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 87%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Uttar Pradesh</span>
+                            <span style="color: var(--accent-green); font-weight: 600;">85% Positive</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 85%; background: var(--accent-green);"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">West Bengal</span>
+                            <span style="color: var(--accent-orange); font-weight: 600;">78% Positive</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 78%; background: var(--accent-orange);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Trending Topics</h2>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--accent-green);"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Development & Infrastructure</div>
+                                <div class="timeline-meta">248K mentions • 94% positive</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--accent-blue);"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Employment & Economy</div>
+                                <div class="timeline-meta">187K mentions • 89% positive</div>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-title">Education & Healthcare</div>
+                                <div class="timeline-meta">156K mentions • 91% positive</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showPredictions() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Election Predictions</h1>
+            <p class="page-subtitle">Data-driven forecasting models and projections</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎯</span>
+                </div>
+                <div class="stat-value">94%</div>
+                <div class="stat-label">Historical Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📊</span>
+                </div>
+                <div class="stat-value">22</div>
+                <div class="stat-label">States Analyzed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🗳️</span>
+                </div>
+                <div class="stat-value">847</div>
+                <div class="stat-label">Constituencies Tracked</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🤖</span>
+                </div>
+                <div class="stat-value">AI</div>
+                <div class="stat-label">ML-Powered Analysis</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Upcoming Election Predictions</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>State</th>
+                                <th>Election Date</th>
+                                <th>Total Seats</th>
+                                <th>Predicted Winner</th>
+                                <th>Seat Range</th>
+                                <th>Confidence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Delhi</strong></td>
+                                <td>Feb 2025</td>
+                                <td>70</td>
+                                <td>AAP</td>
+                                <td>38-45 seats</td>
+                                <td><span class="badge badge-success">High</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bihar</strong></td>
+                                <td>Oct 2025</td>
+                                <td>243</td>
+                                <td>NDA</td>
+                                <td>128-145 seats</td>
+                                <td><span class="badge badge-info">Moderate</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>West Bengal</strong></td>
+                                <td>2026</td>
+                                <td>294</td>
+                                <td>TMC</td>
+                                <td>155-175 seats</td>
+                                <td><span class="badge badge-success">High</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header">
+                <h2 class="card-title">Swing Constituencies Analysis</h2>
+            </div>
+            <div class="card-body">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                    Constituencies where victory margin was less than 5% in previous elections
+                </p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Constituency</th>
+                                <th>State</th>
+                                <th>Previous Margin</th>
+                                <th>Current Leader</th>
+                                <th>Swing Potential</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Bengaluru South</strong></td>
+                                <td>Karnataka</td>
+                                <td>2.3%</td>
+                                <td>BJP</td>
+                                <td><span class="badge badge-warning">High</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mumbai North</strong></td>
+                                <td>Maharashtra</td>
+                                <td>3.8%</td>
+                                <td>INC</td>
+                                <td><span class="badge badge-warning">High</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lucknow Central</strong></td>
+                                <td>Uttar Pradesh</td>
+                                <td>4.2%</td>
+                                <td>SP</td>
+                                <td><span class="badge badge-info">Moderate</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showTeams() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">National Team Management</h1>
+            <p class="page-subtitle">2,547 Team members across India</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">👥</span>
+                    <span class="stat-trend trend-up">+156</span>
+                </div>
+                <div class="stat-value">2,547</div>
+                <div class="stat-label">Total Team Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🗺️</span>
+                </div>
+                <div class="stat-value">22</div>
+                <div class="stat-label">States Covered</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📊</span>
+                </div>
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Performance Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎓</span>
+                </div>
+                <div class="stat-value">94%</div>
+                <div class="stat-label">Training Completion</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Team Distribution by Role</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Count</th>
+                                <th>States</th>
+                                <th>Performance</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Field Campaign Managers</strong></td>
+                                <td>247</td>
+                                <td>22</td>
+                                <td>92%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Social Media Coordinators</strong></td>
+                                <td>189</td>
+                                <td>22</td>
+                                <td>94%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ground Team Workers</strong></td>
+                                <td>1,542</td>
+                                <td>22</td>
+                                <td>87%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Analysts</strong></td>
+                                <td>142</td>
+                                <td>18</td>
+                                <td>96%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Content Creators</strong></td>
+                                <td>234</td>
+                                <td>22</td>
+                                <td>91%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Strategic Advisors</strong></td>
+                                <td>89</td>
+                                <td>22</td>
+                                <td>98%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Administrative Staff</strong></td>
+                                <td>104</td>
+                                <td>22</td>
+                                <td>95%</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showFinance() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Budget & Finance</h1>
+            <p class="page-subtitle">Financial operations and revenue management</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">💰</span>
+                    <span class="stat-trend trend-up">+18.2%</span>
+                </div>
+                <div class="stat-value">₹124Cr</div>
+                <div class="stat-label">Total Revenue FY 2024-25</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📊</span>
+                </div>
+                <div class="stat-value">₹150Cr</div>
+                <div class="stat-label">Revenue Target</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">💳</span>
+                </div>
+                <div class="stat-value">₹87Cr</div>
+                <div class="stat-label">Operating Expenses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📈</span>
+                    <span class="stat-trend trend-up">+24%</span>
+                </div>
+                <div class="stat-value">₹37Cr</div>
+                <div class="stat-label">Net Profit</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Revenue Breakdown</h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Social Media Management</span>
+                            <span style="font-weight: 600;">₹42Cr (34%)</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 34%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Full Campaign Management</span>
+                            <span style="font-weight: 600;">₹38Cr (31%)</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 31%;"></div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Ground Operations</span>
+                            <span style="font-weight: 600;">₹24Cr (19%)</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 19%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span style="font-weight: 600;">Surveys & Analytics</span>
+                            <span style="font-weight: 600;">₹20Cr (16%)</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 16%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">State-wise Revenue</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Revenue</th>
+                                    <th>Growth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Karnataka</strong></td>
+                                    <td>₹18.4Cr</td>
+                                    <td><span class="badge badge-success">+24%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Maharashtra</strong></td>
+                                    <td>₹22.8Cr</td>
+                                    <td><span class="badge badge-success">+18%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Uttar Pradesh</strong></td>
+                                    <td>₹26.4Cr</td>
+                                    <td><span class="badge badge-success">+32%</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tamil Nadu</strong></td>
+                                    <td>₹14.2Cr</td>
+                                    <td><span class="badge badge-success">+16%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showTraining() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Training Programs</h1>
+            <p class="page-subtitle">Team development and skill enhancement</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎓</span>
+                </div>
+                <div class="stat-value">2,394</div>
+                <div class="stat-label">Trained Team Members</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📚</span>
+                </div>
+                <div class="stat-value">47</div>
+                <div class="stat-label">Training Modules</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">✅</span>
+                </div>
+                <div class="stat-value">94%</div>
+                <div class="stat-label">Completion Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">⭐</span>
+                </div>
+                <div class="stat-value">4.8/5</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Active Training Programs</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Program Name</th>
+                                <th>Duration</th>
+                                <th>Enrolled</th>
+                                <th>Completed</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Campaign Management 101</strong></td>
+                                <td>4 weeks</td>
+                                <td>247</td>
+                                <td>234</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Social Media Strategy</strong></td>
+                                <td>3 weeks</td>
+                                <td>189</td>
+                                <td>178</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Analytics for Campaigns</strong></td>
+                                <td>6 weeks</td>
+                                <td>142</td>
+                                <td>128</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ground Campaign Techniques</strong></td>
+                                <td>2 weeks</td>
+                                <td>342</td>
+                                <td>318</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showUpcoming() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Upcoming Elections 2025-2026</h1>
+            <p class="page-subtitle">Election calendar and preparation tracking</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">📅</span>
+                </div>
+                <div class="stat-value">8</div>
+                <div class="stat-label">Elections in 2025</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🗳️</span>
+                </div>
+                <div class="stat-value">1,247</div>
+                <div class="stat-label">Total Seats</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">👥</span>
+                </div>
+                <div class="stat-value">187M</div>
+                <div class="stat-label">Eligible Voters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-icon">🎯</span>
+                </div>
+                <div class="stat-value">89</div>
+                <div class="stat-label">Clients Participating</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">2025 Election Schedule</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>State/UT</th>
+                                <th>Expected Date</th>
+                                <th>Total Seats</th>
+                                <th>Voters</th>
+                                <th>Our Clients</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Delhi</strong></td>
+                                <td>February 2025</td>
+                                <td>70</td>
+                                <td>14.9M</td>
+                                <td>12</td>
+                                <td><span class="badge badge-success">Ready</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bihar</strong></td>
+                                <td>October 2025</td>
+                                <td>243</td>
+                                <td>74.8M</td>
+                                <td>28</td>
+                                <td><span class="badge badge-warning">Preparation</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jharkhand</strong></td>
+                                <td>November 2025</td>
+                                <td>81</td>
+                                <td>24.2M</td>
+                                <td>8</td>
+                                <td><span class="badge badge-warning">Preparation</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Assam</strong></td>
+                                <td>March 2026</td>
+                                <td>126</td>
+                                <td>23.4M</td>
+                                <td>14</td>
+                                <td><span class="badge badge-info">Planning</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>West Bengal</strong></td>
+                                <td>May 2026</td>
+                                <td>294</td>
+                                <td>73.6M</td>
+                                <td>32</td>
+                                <td><span class="badge badge-info">Planning</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showCalendar() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Election Calendar</h1>
+            <p class="page-subtitle">Comprehensive election schedule across India</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">2025-2027 Election Timeline</h2>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-green);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Delhi Assembly Elections</div>
+                            <div class="timeline-meta">February 2025 • 70 Seats • 14.9M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-blue);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Bihar Assembly Elections</div>
+                            <div class="timeline-meta">October 2025 • 243 Seats • 74.8M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Jharkhand Assembly Elections</div>
+                            <div class="timeline-meta">November 2025 • 81 Seats • 24.2M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-orange);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Assam Assembly Elections</div>
+                            <div class="timeline-meta">March 2026 • 126 Seats • 23.4M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-green);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">West Bengal Assembly Elections</div>
+                            <div class="timeline-meta">May 2026 • 294 Seats • 73.6M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-blue);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Tamil Nadu Assembly Elections</div>
+                            <div class="timeline-meta">May 2026 • 234 Seats • 64.3M Voters</div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: var(--accent-purple);"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Kerala Assembly Elections</div>
+                            <div class="timeline-meta">May 2026 • 140 Seats • 26.8M Voters</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showResults() {
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">Past Election Results</h1>
+            <p class="page-subtitle">Historical election data and analysis</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">2024 Lok Sabha Results</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Party/Alliance</th>
+                                <th>Seats Won</th>
+                                <th>Vote Share</th>
+                                <th>Change from 2019</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>NDA Alliance</strong></td>
+                                <td>353</td>
+                                <td>43.8%</td>
+                                <td><span class="badge badge-success">+3</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>INDIA Alliance</strong></td>
+                                <td>234</td>
+                                <td>41.2%</td>
+                                <td><span class="badge badge-success">+25</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Others</strong></td>
+                                <td>56</td>
+                                <td>15.0%</td>
+                                <td><span class="badge badge-danger">-28</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <div class="card-header">
+                <h2 class="card-title">Recent State Elections (2023-2024)</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>State</th>
+                                <th>Election Date</th>
+                                <th>Winner</th>
+                                <th>Seats</th>
+                                <th>Turnout</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Telangana</strong></td>
+                                <td>Nov 2023</td>
+                                <td>INC</td>
+                                <td>64/119</td>
+                                <td>71.3%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Madhya Pradesh</strong></td>
+                                <td>Nov 2023</td>
+                                <td>BJP</td>
+                                <td>163/230</td>
+                                <td>75.6%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Rajasthan</strong></td>
+                                <td>Nov 2023</td>
+                                <td>BJP</td>
+                                <td>115/200</td>
+                                <td>74.2%</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Chhattisgarh</strong></td>
+                                <td>Nov 2023</td>
+                                <td>BJP</td>
+                                <td>54/90</td>
+                                <td>72.8%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function showReports(type) {
+    const titles = {
+        'daily': 'Daily Reports',
+        'weekly': 'Weekly Analysis',
+        'monthly': 'Monthly Insights'
+    };
+
+    document.getElementById('mainContent').innerHTML = `
+        <div class="page-header">
+            <h1 class="page-title">${titles[type]}</h1>
+            <p class="page-subtitle">Comprehensive performance reports and analytics</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Recent ${titles[type]}</h2>
+                <button class="btn btn-primary btn-sm" onclick="alert('Generating new report...')">Generate Report</button>
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Report Date</th>
+                                <th>Scope</th>
+                                <th>Generated By</th>
+                                <th>Pages</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Oct 13, 2025</strong></td>
+                                <td>National Overview</td>
+                                <td>System Auto</td>
+                                <td>24 pages</td>
+                                <td><a href="#" style="color: var(--accent-blue);">Download PDF</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Oct 12, 2025</strong></td>
+                                <td>State Performance</td>
+                                <td>Analytics Team</td>
+                                <td>18 pages</td>
+                                <td><a href="#" style="color: var(--accent-blue);">Download PDF</a></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Oct 11, 2025</strong></td>
+                                <td>Campaign Metrics</td>
+                                <td>System Auto</td>
+                                <td>32 pages</td>
+                                <td><a href="#" style="color: var(--accent-blue);">Download PDF</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid" style="margin-top: 2rem;">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Report Metrics</h2>
+                </div>
+                <div class="card-body">
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Total Reports Generated:</strong> 847
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Average Pages:</strong> 26 pages
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>States Covered:</strong> 22 states
+                    </div>
+                    <div>
+                        <strong>Data Sources:</strong> 127 integrated sources
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Actions</h2>
+                </div>
+                <div class="card-body">
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="alert('Creating custom report...')">Create Custom Report</button>
+                        <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="alert('Scheduling report...')">Schedule Auto Report</button>
+                        <button class="btn btn-secondary" style="width: 100%; justify-content: center;" onclick="alert('Opening report templates...')">Report Templates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Utility Functions
+function refreshData() {
+    alert('Refreshing all national data from 28 states and 8 UTs...');
+}
+
+function generateNationalReport() {
+    alert('Generating comprehensive national report with data from all states...');
+}
+
+// END OF JAVASCRIPT CODE
+
+    </script>
+</body>
+</html>
+
