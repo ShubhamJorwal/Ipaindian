@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA - Indian Political Analysis | Winning Elections Through Strategic Excellence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2E86AB;
+            --success: #06D6A0;
+            --dark: #1A1E2E;
+            --light: #F7F9FB;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+        }
+
+        /* Canvas Section */
+        .canvas-container {
+            background: white;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1400px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        #serviceCanvas {
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .service-number {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 3rem;
+            font-weight: bold;
+            color: rgba(102, 126, 234, 0.1);
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .service-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .status-completed {
+            background: #d4f4dd;
+            color: #06D6A0;
+        }
+
+        .status-active {
+            background: #fff3cd;
+            color: #f39c12;
+        }
+
+        .service-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .service-metrics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .metric {
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: linear-gradient(180deg, #f7f9fb 0%, #ffffff 100%);
+            padding: 4rem 2rem;
+        }
+
+        .package-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .package-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .package-card.featured {
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .package-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .package-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        /* Pitch Section */
+        .pitch-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .pitch-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .pitch-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .pitch-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .pitch-point {
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .pitch-point:hover {
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .pitch-point h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 600;
+            border: 2px solid white;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Interactive Elements */
+        .interactive-demo {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 2rem;
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            background: var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .tab-btn.active {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Progress Bars */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        /* Add-on Services */
+        .addon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .addon-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .addon-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .addon-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .addon-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .addon-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1.1rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .package-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .package-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            border: 3px solid var(--light);
+            border-top: 3px solid var(--secondary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">🏛️ IPA</div>
+        <div class="tagline">Indian Political Analysis</div>
+        <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
+            Your Partner in Political Success - Transforming Aspirations into Electoral Victories
+        </p>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">82%</div>
+            <div class="stat-label">Success Rate</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">520</div>
+            <div class="stat-label">Booths Covered</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">2.5M+</div>
+            <div class="stat-label">Voter Reach</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">30K+</div>
+            <div class="stat-label">Surveys Conducted</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">45+</div>
+            <div class="stat-label">Events/Month</div>
+        </div>
+    </div>
+
+    <!-- Canvas Visualization -->
+    <div class="canvas-container">
+        <h2 class="section-title">Interactive Service Overview</h2>
+        <canvas id="serviceCanvas" width="1200" height="600"></canvas>
+        <p style="text-align: center; margin-top: 1rem; color: #666;">
+            Click on any service bubble to see details
+        </p>
+    </div>
+
+    <!-- Interactive Demo -->
+    <div class="interactive-demo">
+        <div class="demo-container">
+            <h2 class="section-title">Explore Our Services</h2>
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="showTab('profile')">Profile Development</button>
+                <button class="tab-btn" onclick="showTab('digital')">Digital Solutions</button>
+                <button class="tab-btn" onclick="showTab('social')">Social Media</button>
+                <button class="tab-btn" onclick="showTab('survey')">Survey & Data</button>
+                <button class="tab-btn" onclick="showTab('campaign')">Campaign Strategy</button>
+                <button class="tab-btn" onclick="showTab('ground')">Ground Team</button>
+                <button class="tab-btn" onclick="showTab('media')">Media & PR</button>
+                <button class="tab-btn" onclick="showTab('promo')">Promotions</button>
+            </div>
+            
+            <div id="profile" class="tab-content active">
+                <h3>Profile Development & Branding</h3>
+                <p>Building a compelling political identity that resonates with voters</p>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Biography Created</span>
+                        <span>✓ Done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Logo & Branding</span>
+                        <span>✓ Done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Vision Document</span>
+                        <span>✓ Done</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Timeline:</strong> 30-45 days for complete brand rollout</p>
+                <p><strong>Team:</strong> Brand Manager, Content Writers, Design Specialists</p>
+            </div>
+
+            <div id="digital" class="tab-content">
+                <h3>IT Solutions & Digital Infrastructure</h3>
+                <p>Professional website, mobile app, and digital infrastructure</p>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Website Development</span>
+                        <span>✓ Live</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Mobile App</span>
+                        <span>Testing Phase</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>CRM System</span>
+                        <span>✓ Live</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>System Uptime:</strong> 95%</p>
+                <p><strong>Team:</strong> IT Team (5), Designers (2)</p>
+            </div>
+
+            <div id="social" class="tab-content">
+                <h3>Social Media Management</h3>
+                <p>24/7 social media presence across all major platforms</p>
+                <div class="service-metrics">
+                    <div class="metric">Facebook: <span class="metric-value">45K followers</span></div>
+                    <div class="metric">Instagram: <span class="metric-value">52K followers</span></div>
+                    <div class="metric">Twitter: <span class="metric-value">28K followers</span></div>
+                    <div class="metric">YouTube: <span class="metric-value">15K subscribers</span></div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Activity:</strong> 42+ posts/week, 6 posts/day minimum</p>
+                <p><strong>Growth Rate:</strong> +2-3K followers/month per platform</p>
+                <p><strong>Team:</strong> Social Media Manager, Content Creators (3), Video Editor</p>
+            </div>
+
+            <div id="survey" class="tab-content">
+                <h3>Survey & Data Analysis</h3>
+                <p>Comprehensive voter surveys, data collection, and analysis</p>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Surveys Completed</span>
+                        <span>12,500 / 30,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 41%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Booths Covered</span>
+                        <span>320 / 520</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Data Digitization</span>
+                        <span>95%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%;"></div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Accuracy:</strong> 85% prediction accuracy in previous elections</p>
+                <p><strong>Team:</strong> Survey Manager, Field Surveyors (25), Data Analysts (3)</p>
+            </div>
+
+            <div id="campaign" class="tab-content">
+                <h3>Campaign Strategy & Planning</h3>
+                <p>Strategic planning, messaging, and campaign execution</p>
+                <div class="service-metrics">
+                    <div class="metric">Master Plan: <span class="metric-value">✓ Completed</span></div>
+                    <div class="metric">Phase 2: <span class="metric-value">75% Complete</span></div>
+                    <div class="metric">Win Rate: <span class="metric-value">82%</span></div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Current Phase:</strong> Awareness & Ground Mobilization</p>
+                <p><strong>Approach:</strong> Data-driven decision making with ground intelligence</p>
+                <p><strong>Lead:</strong> Campaign Manager with 15+ years experience</p>
+            </div>
+
+            <div id="ground" class="tab-content">
+                <h3>Ground Team Coordination</h3>
+                <p>Booth-level workers, door-to-door campaigns, ground events</p>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Active Workers</span>
+                        <span>385 / 520</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 74%;"></div>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Booth Coverage</span>
+                        <span>74%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 74%;"></div>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Structure:</strong> 1 Ward Incharge + 5-8 workers per booth</p>
+                <p><strong>Monthly Events:</strong> 45+ rallies, meetings, and public interactions</p>
+            </div>
+
+            <div id="media" class="tab-content">
+                <h3>Media Relations & PR</h3>
+                <p>Press releases, media coverage, newspaper articles, TV appearances</p>
+                <div class="service-metrics">
+                    <div class="metric">Press Releases: <span class="metric-value">28 Published</span></div>
+                    <div class="metric">News Articles: <span class="metric-value">52</span></div>
+                    <div class="metric">TV Interviews: <span class="metric-value">8</span></div>
+                    <div class="metric">Media Reach: <span class="metric-value">2.5M+</span></div>
+                </div>
+                <p style="margin-top: 1.5rem;"><strong>Network:</strong> Direct connections with 50+ journalists</p>
+                <p><strong>Team:</strong> PR Manager, Media Coordinators (2)</p>
+            </div>
+
+            <div id="promo" class="tab-content">
+                <h3>Promotional Activities</h3>
+                <p>Hoardings, banners, pamphlets, merchandise, and visibility campaigns</p>
+                <div class="service-metrics">
+                    <div class="metric">Hoardings: <span class="metric-value">125 Installed</span></div>
+                    <div class="metric">Pamphlets: <span class="metric-value">85K Distributed</span></div>
+                    <div class="metric">Banners: <span class="metric-value">450 Across booths</span></div>
+                    <div class="metric">Wall Paintings: <span class="metric-value">230 Completed</span></div>
+                </div>
+                <div class="progress-container" style="margin-top: 1.5rem;">
+                    <div class="progress-label">
+                        <span>Budget Utilization</span>
+                        <span>₹8.75L / ₹12.5L</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%;"></div>
+                    </div>
+                </div>
+                <p style="margin-top: 1rem;"><strong>Next:</strong> LED van campaign launching December 2024</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-container">
+        <h2 class="section-title">Our 8-Pillar Service Model</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-number">01</div>
+                <h3 class="service-title">Profile Development & Branding</h3>
+                <span class="service-status status-completed">Completed</span>
+                <p class="service-description">
+                    Transform unknown candidates into household names with compelling political identities
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Biography: <span class="metric-value">✓</span></div>
+                    <div class="metric">Logo: <span class="metric-value">✓</span></div>
+                    <div class="metric">Vision Doc: <span class="metric-value">✓</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">02</div>
+                <h3 class="service-title">IT Solutions & Website</h3>
+                <span class="service-status status-active">Active - 95%</span>
+                <p class="service-description">
+                    Professional website, mobile app, and digital infrastructure for modern campaigning
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Website: <span class="metric-value">Live</span></div>
+                    <div class="metric">Mobile App: <span class="metric-value">Testing</span></div>
+                    <div class="metric">CRM: <span class="metric-value">Live</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">03</div>
+                <h3 class="service-title">Social Media Management</h3>
+                <span class="service-status status-active">Active - 88%</span>
+                <p class="service-description">
+                    24/7 social presence with daily content and engagement across all platforms
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Posts/Week: <span class="metric-value">42+</span></div>
+                    <div class="metric">Growth: <span class="metric-value">+3K/mo</span></div>
+                    <div class="metric">Platforms: <span class="metric-value">5</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">04</div>
+                <h3 class="service-title">Survey & Data Analysis</h3>
+                <span class="service-status status-active">Active - 68%</span>
+                <p class="service-description">
+                    Booth-level voter sentiment analysis with real-time preference tracking
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Surveys: <span class="metric-value">12.5K</span></div>
+                    <div class="metric">Booths: <span class="metric-value">320/520</span></div>
+                    <div class="metric">Accuracy: <span class="metric-value">85%</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">05</div>
+                <h3 class="service-title">Campaign Strategy</h3>
+                <span class="service-status status-active">Active - 82%</span>
+                <p class="service-description">
+                    Data-driven winning strategies with phase-wise execution planning
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Master Plan: <span class="metric-value">✓</span></div>
+                    <div class="metric">Phase 2: <span class="metric-value">75%</span></div>
+                    <div class="metric">Win Rate: <span class="metric-value">82%</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">06</div>
+                <h3 class="service-title">Ground Team Coordination</h3>
+                <span class="service-status status-active">Active - 74%</span>
+                <p class="service-description">
+                    Booth-level worker network with door-to-door campaign management
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Workers: <span class="metric-value">385</span></div>
+                    <div class="metric">Coverage: <span class="metric-value">74%</span></div>
+                    <div class="metric">Events: <span class="metric-value">45/mo</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">07</div>
+                <h3 class="service-title">Media Relations & PR</h3>
+                <span class="service-status status-active">Active - 85%</span>
+                <p class="service-description">
+                    Complete media presence management with press releases and TV coverage
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Articles: <span class="metric-value">52</span></div>
+                    <div class="metric">TV: <span class="metric-value">8 Shows</span></div>
+                    <div class="metric">Reach: <span class="metric-value">2.5M+</span></div>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-number">08</div>
+                <h3 class="service-title">Promotional Activities</h3>
+                <span class="service-status status-active">Active - 65%</span>
+                <p class="service-description">
+                    Complete visibility campaigns with hoardings, banners, and digital displays
+                </p>
+                <div class="service-metrics">
+                    <div class="metric">Hoardings: <span class="metric-value">125</span></div>
+                    <div class="metric">Pamphlets: <span class="metric-value">85K</span></div>
+                    <div class="metric">Budget: <span class="metric-value">70%</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add-on Services -->
+    <div class="services-container">
+        <h2 class="section-title">Available Add-On Services</h2>
+        <div class="addon-grid">
+            <div class="addon-card">
+                <div class="addon-title">📹 Professional Video Production</div>
+                <div class="addon-description">Campaign videos, documentaries, testimonials for better storytelling</div>
+                <div class="addon-price">₹50,000</div>
+            </div>
+            <div class="addon-card">
+                <div class="addon-title">🤖 Advanced AI Analytics</div>
+                <div class="addon-description">Predictive modeling, sentiment analysis, voter behavior AI</div>
+                <div class="addon-price">₹75,000</div>
+            </div>
+            <div class="addon-card">
+                <div class="addon-title">📰 Print Media Campaign</div>
+                <div class="addon-description">Full-page newspaper ads, magazine features for credibility</div>
+                <div class="addon-price">₹1,00,000</div>
+            </div>
+            <div class="addon-card">
+                <div class="addon-title">📻 Radio Advertising</div>
+                <div class="addon-description">Regional FM radio spots, jingles for local penetration</div>
+                <div class="addon-price">₹60,000</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Packages -->
+    <div class="pricing-section">
+        <h2 class="section-title">Choose Your Package</h2>
+        <div class="package-cards">
+            <div class="package-card">
+                <h3 class="package-name">🥉 Bronze</h3>
+                <div class="package-price">₹5 Lakhs</div>
+                <ul class="package-features">
+                    <li>Profile Development</li>
+                    <li>Basic Website</li>
+                    <li>Social Media (3 platforms)</li>
+                    <li>100 Ground Workers</li>
+                    <li>Monthly Reports</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Get Started</a>
+            </div>
+
+            <div class="package-card featured">
+                <h3 class="package-name">🥇 Gold</h3>
+                <div class="package-price">₹15 Lakhs</div>
+                <ul class="package-features">
+                    <li>Complete Profile & Branding</li>
+                    <li>Website + Mobile App</li>
+                    <li>All Social Platforms</li>
+                    <li>Complete Survey & Analysis</li>
+                    <li>300+ Ground Workers</li>
+                    <li>Media & PR Management</li>
+                    <li>Weekly Reports + Analytics</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Most Popular</a>
+            </div>
+
+            <div class="package-card">
+                <h3 class="package-name">💎 Platinum</h3>
+                <div class="package-price">₹25 Lakhs</div>
+                <ul class="package-features">
+                    <li>Everything in Gold +</li>
+                    <li>AI-Powered Analytics</li>
+                    <li>500+ Ground Workers</li>
+                    <li>Video Production</li>
+                    <li>Radio & Print Media</li>
+                    <li>24/7 War Room</li>
+                    <li>Daily Reports + Real-time Dashboard</li>
+                </ul>
+                <a href="#contact" class="btn btn-primary">Premium Choice</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pitch Section -->
+    <div class="pitch-section">
+        <div class="pitch-card">
+            <h2 class="pitch-title">Why Choose IPA?</h2>
+            <div class="pitch-points">
+                <div class="pitch-point">
+                    <h3>🏆 Proven Track Record</h3>
+                    <p>82% success rate across Karnataka elections with testimonials from winning candidates</p>
+                </div>
+                <div class="pitch-point">
+                    <h3>📊 Data-Driven Approach</h3>
+                    <p>Real-time voter sentiment tracking with booth-level micro-management</p>
+                </div>
+                <div class="pitch-point">
+                    <h3>🎯 Complete Solution</h3>
+                    <p>One-stop shop for all campaign needs with single point accountability</p>
+                </div>
+                <div class="pitch-point">
+                    <h3>💡 Technology Edge</h3>
+                    <p>AI-powered analytics and digital tools for modern campaigning</p>
+                </div>
+                <div class="pitch-point">
+                    <h3>👥 Expert Team</h3>
+                    <p>150+ professionals with proven election management experience</p>
+                </div>
+                <div class="pitch-point">
+                    <h3>💰 ROI Focused</h3>
+                    <p>Transparent pricing with measurable results and cost-effective execution</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How We Sell Section -->
+    <div class="services-container">
+        <h2 class="section-title">How to Present to Candidates</h2>
+        <div style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+            <div style="background: var(--gradient); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Opening Pitch</h3>
+                <p style="font-size: 1.1rem; line-height: 1.8;">
+                    "In today's political landscape, winning isn't just about ideology - it's about intelligent campaigning. 
+                    IPA brings you the same professional election management that national parties use, 
+                    now accessible to individual candidates."
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
+                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 1: Build Trust</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Show our Karnataka success stories</li>
+                        <li style="padding: 0.5rem 0;">✓ Present winning candidate testimonials</li>
+                        <li style="padding: 0.5rem 0;">✓ Demonstrate our 82% win rate</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
+                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 2: Show Capabilities</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Live demo of our dashboard</li>
+                        <li style="padding: 0.5rem 0;">✓ Sample campaign strategies</li>
+                        <li style="padding: 0.5rem 0;">✓ Real voter analytics reports</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
+                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 3: Customize Solution</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Analyze their constituency</li>
+                        <li style="padding: 0.5rem 0;">✓ Propose tailored package</li>
+                        <li style="padding: 0.5rem 0;">✓ Show ROI projections</li>
+                    </ul>
+                </div>
+                
+                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
+                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 4: Close the Deal</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Offer limited-time benefits</li>
+                        <li style="padding: 0.5rem 0;">✓ Provide success guarantee</li>
+                        <li style="padding: 0.5rem 0;">✓ Start with pilot project</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section" id="contact">
+        <h2 class="cta-title">Ready to Win Your Election?</h2>
+        <p class="cta-subtitle">Join successful candidates who chose IPA for their victory</p>
+        <div class="cta-buttons">
+            <a href="tel:+919876543210" class="btn btn-primary">📞 Call Now</a>
+            <a href="mailto:contact@ipa.in" class="btn btn-secondary">✉️ Email Us</a>
+            <a href="#" class="btn btn-secondary">📅 Schedule Demo</a>
+        </div>
+    </div>
+
+    <script>
+        // Canvas Animation
+        const canvas = document.getElementById('serviceCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Responsive canvas
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = Math.min(container.clientWidth - 40, 1200);
+            canvas.height = 600;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Service bubbles
+        const services = [
+            { x: 0.15, y: 0.25, r: 60, color: '#FF6B35', label: 'Profile\nDevelopment', value: '100%' },
+            { x: 0.35, y: 0.35, r: 55, color: '#2E86AB', label: 'IT Solutions', value: '95%' },
+            { x: 0.55, y: 0.25, r: 65, color: '#06D6A0', label: 'Social Media', value: '88%' },
+            { x: 0.75, y: 0.35, r: 50, color: '#F71735', label: 'Surveys', value: '68%' },
+            { x: 0.25, y: 0.65, r: 70, color: '#8B5CF6', label: 'Campaign\nStrategy', value: '82%' },
+            { x: 0.45, y: 0.75, r: 55, color: '#EC4899', label: 'Ground Team', value: '74%' },
+            { x: 0.65, y: 0.65, r: 60, color: '#10B981', label: 'Media & PR', value: '85%' },
+            { x: 0.85, y: 0.75, r: 50, color: '#F59E0B', label: 'Promotions', value: '65%' }
+        ];
+        
+        let animationFrame = 0;
+        let hoveredService = null;
+        
+        function drawServices() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connections
+            ctx.strokeStyle = 'rgba(102, 126, 234, 0.1)';
+            ctx.lineWidth = 2;
+            for (let i = 0; i < services.length; i++) {
+                for (let j = i + 1; j < services.length; j++) {
+                    ctx.beginPath();
+                    ctx.moveTo(services[i].x * canvas.width, services[i].y * canvas.height);
+                    ctx.lineTo(services[j].x * canvas.width, services[j].y * canvas.height);
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw service bubbles
+            services.forEach((service, index) => {
+                const x = service.x * canvas.width;
+                const y = service.y * canvas.height;
+                const r = service.r + Math.sin(animationFrame / 50 + index) * 5;
+                
+                // Glow effect for hovered
+                if (hoveredService === index) {
+                    ctx.shadowBlur = 30;
+                    ctx.shadowColor = service.color;
+                }
+                
+                // Draw circle
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fillStyle = service.color;
+                ctx.fill();
+                
+                ctx.shadowBlur = 0;
+                
+                // Draw label
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 14px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                const lines = service.label.split('\n');
+                lines.forEach((line, i) => {
+                    ctx.fillText(line, x, y - 10 + i * 20);
+                });
+                
+                // Draw value
+                ctx.font = 'bold 18px Arial';
+                ctx.fillText(service.value, x, y + 20);
+            });
+            
+            animationFrame++;
+            requestAnimationFrame(drawServices);
+        }
+        
+        // Mouse interaction
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            hoveredService = null;
+            services.forEach((service, index) => {
+                const sx = service.x * canvas.width;
+                const sy = service.y * canvas.height;
+                const dist = Math.sqrt((x - sx) ** 2 + (y - sy) ** 2);
+                if (dist < service.r) {
+                    hoveredService = index;
+                    canvas.style.cursor = 'pointer';
+                }
+            });
+            
+            if (hoveredService === null) {
+                canvas.style.cursor = 'default';
+            }
+        });
+        
+        canvas.addEventListener('click', (e) => {
+            if (hoveredService !== null) {
+                const service = services[hoveredService];
+                alert(`${service.label.replace('\n', ' ')}: ${service.value} Complete\n\nClick to see detailed analytics and reports for this service.`);
+            }
+        });
+        
+        drawServices();
+        
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+        
+        // Animate progress bars on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.progress-fill');
+                    progressBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.progress-container').forEach(container => {
+            observer.observe(container);
+        });
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add-on card interaction
+        document.querySelectorAll('.addon-card').forEach(card => {
+            card.addEventListener('click', () => {
+                alert('Add-on service selected! Contact us to add this to your package.');
+            });
+        });
+    </script>
+</body>
+</html>
