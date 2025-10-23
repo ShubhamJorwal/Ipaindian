@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPA - Indian Political Analysis | Winning Elections Through Strategic Excellence</title>
+    <title>IPA - Indian Political Analysis | Transform Political Aspirations into Electoral Victories</title>
     <style>
         * {
             margin: 0;
@@ -12,448 +12,939 @@
         }
 
         :root {
-            --primary: #FF6B35;
-            --secondary: #2E86AB;
-            --success: #06D6A0;
-            --dark: #1A1E2E;
-            --light: #F7F9FB;
-            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --primary: #1e3a8a;
+            --secondary: #dc2626;
+            --accent: #f97316;
+            --success: #16a34a;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient-primary: linear-gradient(135deg, #1e3a8a 0%, #dc2626 100%);
+            --gradient-secondary: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            --gradient-accent: linear-gradient(135deg, #16a34a 0%, #1e3a8a 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             background: var(--light);
             color: var(--dark);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 2rem;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(270deg, rgba(30, 58, 138, 0.05), rgba(220, 38, 38, 0.05), rgba(249, 115, 22, 0.05));
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
         }
 
-        .header::before {
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat;
+            animation: wave 20s linear infinite;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .logo-container {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .logo {
-            font-size: 3rem;
-            font-weight: bold;
+            font-size: 5rem;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.3);
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -2px;
+        }
+
+        .logo-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            letter-spacing: 10px;
+            text-transform: uppercase;
         }
 
         .tagline {
-            font-size: 1.5rem;
-            opacity: 0.95;
-            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: white;
+            margin: 2rem 0;
+            max-width: 800px;
+            line-height: 1.4;
         }
 
-        /* Canvas Section */
-        .canvas-container {
-            background: white;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 1400px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        #serviceCanvas {
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            cursor: pointer;
-        }
-
-        /* Stats Section */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .hero-cta {
+            display: flex;
             gap: 2rem;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .stat-card {
+        .btn-hero {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary-hero {
             background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
+            color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
-        .stat-card:hover {
+        .btn-secondary-hero {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-hero:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: none;
         }
 
-        .stat-label {
-            color: #666;
-            font-size: 0.9rem;
+        .navbar.show {
+            display: block;
         }
 
-        /* Services Section */
-        .services-container {
+        .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        /* Service Catalogue Section */
+        .services-catalogue {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 900;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .services-grid {
+        /* Comprehensive Service Cards */
+        .services-comprehensive {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
         }
 
-        .service-card {
+        .service-comprehensive-card {
             background: white;
             border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
             transition: all 0.3s ease;
             position: relative;
-            overflow: hidden;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: var(--gradient);
-        }
-
-        .service-card:hover {
+        .service-comprehensive-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-2xl);
         }
 
-        .service-number {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
+        .service-header {
+            background: var(--gradient-primary);
+            padding: 2rem;
+            position: relative;
+        }
+
+        .service-icon {
             font-size: 3rem;
-            font-weight: bold;
-            color: rgba(102, 126, 234, 0.1);
+            margin-bottom: 1rem;
         }
 
         .service-title {
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-tagline {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95rem;
+        }
+
+        .service-body {
+            padding: 2rem;
+        }
+
+        .service-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .service-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .service-deliverables {
+            background: var(--light);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .deliverable-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .deliverable-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .deliverable-tag {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(30, 58, 138, 0.2);
+        }
+
+        /* Interactive Service Timeline */
+        .service-timeline {
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.05) 0%, rgba(220, 38, 38, 0.05) 100%);
+            border-radius: 20px;
+            margin: 3rem 0;
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            width: 45%;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-content.left {
+            margin-right: auto;
+        }
+
+        .timeline-content.right {
+            margin-left: auto;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-phase {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-duration {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(180deg, var(--light) 0%, white 100%);
+        }
+
+        .pricing-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card.featured {
+            transform: scale(1.05);
+            box-shadow: 0 30px 60px rgba(220, 38, 38, 0.2);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MOST COMPREHENSIVE';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .pricing-tier {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-name {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-amount {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--dark);
+        }
+
+        .pricing-currency {
+            font-size: 1.5rem;
+            color: var(--gray);
+        }
+
+        .pricing-duration {
+            color: var(--gray);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .pricing-features {
+            padding: 2rem 0;
+        }
+
+        .pricing-feature {
+            display: flex;
+            align-items: center;
+            padding: 1rem 0;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--success) 0%, var(--primary) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-highlight {
+            background: linear-gradient(90deg, rgba(249, 115, 22, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .pricing-cta {
+            padding: 1.2rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.3);
+        }
+
+        /* Interactive Canvas */
+        .canvas-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .canvas-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--light);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: var(--shadow-xl);
+        }
+
+        #interactiveCanvas {
+            display: block;
+            margin: 2rem auto;
+            border-radius: 20px;
+            background: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Process Flow Section */
+        .process-flow {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--light) 0%, white 100%);
+        }
+
+        .process-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .process-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .process-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .process-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .process-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .process-title {
             font-size: 1.3rem;
             margin-bottom: 1rem;
             color: var(--dark);
         }
 
-        .service-status {
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .status-completed {
-            background: #d4f4dd;
-            color: #06D6A0;
-        }
-
-        .status-active {
-            background: #fff3cd;
-            color: #f39c12;
-        }
-
-        .service-description {
-            color: #666;
-            margin-bottom: 1.5rem;
+        .process-description {
+            color: var(--gray);
             line-height: 1.6;
         }
 
-        .service-metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 1rem;
+        /* Success Stories */
+        .success-stories {
+            padding: 5rem 2rem;
+            background: white;
         }
 
-        .metric {
-            background: var(--light);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            font-size: 0.85rem;
-        }
-
-        .metric-value {
-            font-weight: bold;
-            color: var(--secondary);
-        }
-
-        /* Pricing Section */
-        .pricing-section {
-            background: linear-gradient(180deg, #f7f9fb 0%, #ffffff 100%);
-            padding: 4rem 2rem;
-        }
-
-        .package-cards {
+        .stories-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .story-card {
+            background: var(--light);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .story-card:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .story-quote {
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+        }
+
+        .story-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .story-text {
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .story-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .author-info {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .author-designation {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .story-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid var(--success);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 2rem;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .contact-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
             gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .package-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .package-card.featured {
-            transform: scale(1.05);
-            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
-        }
-
-        .package-card.featured::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient);
-            color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        .package-name {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .package-price {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-        }
-
-        .package-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .package-features li {
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .package-features li::before {
-            content: '✓';
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        /* Pitch Section */
-        .pitch-section {
-            max-width: 1200px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
-
-        .pitch-card {
-            background: white;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .pitch-title {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .pitch-points {
+        .footer-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
-        .pitch-point {
-            padding: 1.5rem;
-            background: var(--light);
-            border-radius: 15px;
-            transition: all 0.3s ease;
+        .footer-column h4 {
+            margin-bottom: 1rem;
+            color: var(--accent);
         }
 
-        .pitch-point:hover {
-            background: white;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        .footer-links {
+            list-style: none;
         }
 
-        .pitch-point h3 {
-            color: var(--secondary);
+        .footer-links li {
             margin-bottom: 0.5rem;
         }
 
-        /* CTA Section */
-        .cta-section {
-            background: var(--gradient);
-            padding: 4rem 2rem;
-            text-align: center;
-            color: white;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            font-weight: 600;
-            border: 2px solid white;
+            transition: color 0.3s ease;
         }
 
-        .btn-primary {
-            background: white;
-            color: #667eea;
+        .footer-links a:hover {
+            color: var(--accent);
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: white;
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Interactive Elements */
-        .interactive-demo {
-            max-width: 1200px;
-            margin: 3rem auto;
-            padding: 2rem;
-        }
-
-        .demo-container {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .tab-buttons {
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
             display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .tab-btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            background: var(--light);
-            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-2xl);
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 600;
+            z-index: 999;
         }
 
-        .tab-btn.active {
-            background: var(--gradient);
-            color: white;
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4);
         }
 
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .tagline {
+                font-size: 1.3rem;
+            }
+
+            .services-comprehensive {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .timeline-content {
+                width: 100%;
+            }
+
+            .timeline-content.left,
+            .timeline-content.right {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
         }
 
-        .tab-content.active {
-            display: block;
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -461,704 +952,1031 @@
             }
         }
 
-        /* Progress Bars */
-        .progress-container {
-            margin: 1rem 0;
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
         }
 
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
-        .progress-bar {
-            height: 10px;
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Pulse Animation */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
             background: var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient-primary);
             border-radius: 5px;
-            overflow: hidden;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient);
-            border-radius: 5px;
-            transition: width 1s ease;
-        }
-
-        /* Add-on Services */
-        .addon-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .addon-card {
-            background: white;
-            border: 2px solid #f0f0f0;
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .addon-card:hover {
-            border-color: var(--secondary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .addon-title {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .addon-description {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 1rem;
-        }
-
-        .addon-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--secondary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-            
-            .tagline {
-                font-size: 1.1rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .package-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .package-card.featured {
-                transform: scale(1);
-            }
-        }
-
-        /* Loading Animation */
-        .loader {
-            border: 3px solid var(--light);
-            border-top: 3px solid var(--secondary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 2rem auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="logo">🏛️ IPA</div>
-        <div class="tagline">Indian Political Analysis</div>
-        <p style="font-size: 1.1rem; max-width: 800px; margin: 0 auto;">
-            Your Partner in Political Success - Transforming Aspirations into Electoral Victories
+    <div class="animated-bg"></div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="logo-container">
+            <div class="logo">IPA</div>
+            <div class="logo-subtitle">Indian Political Analysis</div>
+        </div>
+        <h1 class="tagline">Transform Political Aspirations into Electoral Victories</h1>
+        <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; max-width: 800px;">
+            India's Premier Political Consultancy - Combining Traditional Campaign Wisdom with Cutting-Edge Digital Strategies
         </p>
-    </div>
+        <div class="hero-cta">
+            <a href="tel:+917338153525" class="btn-hero btn-primary-hero">
+                📞 +91 733 815 3525
+            </a>
+            <a href="https://indianpoliticalanalysis.com" target="_blank" class="btn-hero btn-secondary-hero">
+                🌐 Visit Website
+            </a>
+        </div>
+    </section>
 
-    <!-- Stats Section -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number">82%</div>
-            <div class="stat-label">Success Rate</div>
+    <!-- Comprehensive Service Catalogue -->
+    <section class="services-catalogue">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Complete Political Campaign Services</h2>
+            <p class="section-subtitle">
+                Our comprehensive suite of 12+ integrated services ensures every aspect of your political campaign is professionally managed
+            </p>
         </div>
-        <div class="stat-card">
-            <div class="stat-number">520</div>
-            <div class="stat-label">Booths Covered</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">2.5M+</div>
-            <div class="stat-label">Voter Reach</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">30K+</div>
-            <div class="stat-label">Surveys Conducted</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">45+</div>
-            <div class="stat-label">Events/Month</div>
-        </div>
-    </div>
 
-    <!-- Canvas Visualization -->
-    <div class="canvas-container">
-        <h2 class="section-title">Interactive Service Overview</h2>
-        <canvas id="serviceCanvas" width="1200" height="600"></canvas>
-        <p style="text-align: center; margin-top: 1rem; color: #666;">
-            Click on any service bubble to see details
-        </p>
-    </div>
+        <div class="services-comprehensive">
+            <!-- Service 1: Strategic Planning -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">Strategic Campaign Planning</h3>
+                    <p class="service-tagline">Master blueprints for electoral success</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Constituency demographic analysis & voter segmentation</li>
+                        <li>Competition mapping & SWOT analysis</li>
+                        <li>Campaign calendar & milestone planning</li>
+                        <li>Resource allocation & budget optimization</li>
+                        <li>Risk assessment & contingency planning</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Key Deliverables</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Master Strategy Document</span>
+                            <span class="deliverable-tag">90-Day Action Plan</span>
+                            <span class="deliverable-tag">Weekly Roadmaps</span>
+                            <span class="deliverable-tag">KPI Dashboard</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Interactive Demo -->
-    <div class="interactive-demo">
-        <div class="demo-container">
-            <h2 class="section-title">Explore Our Services</h2>
-            <div class="tab-buttons">
-                <button class="tab-btn active" onclick="showTab('profile')">Profile Development</button>
-                <button class="tab-btn" onclick="showTab('digital')">Digital Solutions</button>
-                <button class="tab-btn" onclick="showTab('social')">Social Media</button>
-                <button class="tab-btn" onclick="showTab('survey')">Survey & Data</button>
-                <button class="tab-btn" onclick="showTab('campaign')">Campaign Strategy</button>
-                <button class="tab-btn" onclick="showTab('ground')">Ground Team</button>
-                <button class="tab-btn" onclick="showTab('media')">Media & PR</button>
-                <button class="tab-btn" onclick="showTab('promo')">Promotions</button>
+            <!-- Service 2: Digital Infrastructure -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">💻</div>
+                    <h3 class="service-title">Digital Infrastructure & Technology</h3>
+                    <p class="service-tagline">Complete digital ecosystem for modern campaigns</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Professional campaign website with CMS</li>
+                        <li>Mobile application for volunteers & voters</li>
+                        <li>CRM system for voter database management</li>
+                        <li>Real-time analytics & reporting dashboard</li>
+                        <li>Secure communication systems</li>
+                        <li>AI-powered chatbots & auto-responders</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Technology Stack</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Responsive Website</span>
+                            <span class="deliverable-tag">iOS/Android Apps</span>
+                            <span class="deliverable-tag">Cloud Infrastructure</span>
+                            <span class="deliverable-tag">Data Analytics</span>
+                            <span class="deliverable-tag">Cyber Security</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 3: Brand Development -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">🎨</div>
+                    <h3 class="service-title">Personal Brand Development</h3>
+                    <p class="service-tagline">Crafting memorable political identities</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Personal biography & narrative development</li>
+                        <li>Logo design & visual identity system</li>
+                        <li>Campaign theme & slogan creation</li>
+                        <li>Professional photoshoots & image consulting</li>
+                        <li>Voice & communication training</li>
+                        <li>Signature style development</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Brand Assets</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Brand Guidelines</span>
+                            <span class="deliverable-tag">Logo Variations</span>
+                            <span class="deliverable-tag">Color Palette</span>
+                            <span class="deliverable-tag">Typography System</span>
+                            <span class="deliverable-tag">Image Library</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 4: Social Media -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">📱</div>
+                    <h3 class="service-title">Social Media Management</h3>
+                    <p class="service-tagline">24/7 digital presence across all platforms</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Content creation & curation (6+ posts/day)</li>
+                        <li>Platform management (FB, IG, Twitter, YouTube, LinkedIn)</li>
+                        <li>Community engagement & response management</li>
+                        <li>Influencer partnerships & collaborations</li>
+                        <li>Paid social media advertising campaigns</li>
+                        <li>Viral content strategy & trend jacking</li>
+                        <li>WhatsApp broadcast management</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Monthly Targets</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">180+ Posts</span>
+                            <span class="deliverable-tag">50+ Videos</span>
+                            <span class="deliverable-tag">100+ Stories</span>
+                            <span class="deliverable-tag">3K+ New Followers</span>
+                            <span class="deliverable-tag">1M+ Impressions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 5: Ground Operations -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">👥</div>
+                    <h3 class="service-title">Ground Team Management</h3>
+                    <p class="service-tagline">Building grassroots networks that deliver</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Booth-level committee formation (520+ booths)</li>
+                        <li>Volunteer recruitment & training programs</li>
+                        <li>Door-to-door campaign coordination</li>
+                        <li>Rally & public meeting organization</li>
+                        <li>Voter registration drives</li>
+                        <li>Transport & logistics management</li>
+                        <li>Election day booth management</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Ground Network</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">500+ Workers</span>
+                            <span class="deliverable-tag">Ward Coordinators</span>
+                            <span class="deliverable-tag">Booth Agents</span>
+                            <span class="deliverable-tag">Youth Wing</span>
+                            <span class="deliverable-tag">Women's Wing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 6: Data Analytics -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">📊</div>
+                    <h3 class="service-title">Survey & Data Analytics</h3>
+                    <p class="service-tagline">Data-driven insights for strategic decisions</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Comprehensive voter surveys (30,000+ samples)</li>
+                        <li>Opinion polls & exit poll management</li>
+                        <li>Sentiment analysis using AI/ML</li>
+                        <li>Predictive modeling & forecasting</li>
+                        <li>Demographic & psychographic profiling</li>
+                        <li>Issue tracking & priority mapping</li>
+                        <li>Competition intelligence gathering</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Analytics Reports</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Weekly Surveys</span>
+                            <span class="deliverable-tag">Trend Analysis</span>
+                            <span class="deliverable-tag">Voter Segments</span>
+                            <span class="deliverable-tag">Heat Maps</span>
+                            <span class="deliverable-tag">Predictions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 7: Media Relations -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">📰</div>
+                    <h3 class="service-title">Media Relations & PR</h3>
+                    <p class="service-tagline">Shaping narratives, building credibility</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Press release writing & distribution</li>
+                        <li>Media kit preparation & journalist relations</li>
+                        <li>Press conference organization</li>
+                        <li>TV debate preparation & coaching</li>
+                        <li>Crisis communication management</li>
+                        <li>Editorial placement & op-ed writing</li>
+                        <li>Media monitoring & response strategy</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Media Outcomes</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">50+ Press Releases</span>
+                            <span class="deliverable-tag">100+ News Articles</span>
+                            <span class="deliverable-tag">TV Appearances</span>
+                            <span class="deliverable-tag">Radio Shows</span>
+                            <span class="deliverable-tag">3M+ Reach</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 8: Content Production -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">🎬</div>
+                    <h3 class="service-title">Content Production</h3>
+                    <p class="service-tagline">Professional multimedia content creation</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Campaign videos & documentaries</li>
+                        <li>Professional photography services</li>
+                        <li>Speech writing & teleprompter services</li>
+                        <li>Manifesto design & publication</li>
+                        <li>Newsletter & email campaigns</li>
+                        <li>Podcast production & distribution</li>
+                        <li>Animation & motion graphics</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Content Library</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Campaign Films</span>
+                            <span class="deliverable-tag">Photo Archive</span>
+                            <span class="deliverable-tag">Speech Bank</span>
+                            <span class="deliverable-tag">Infographics</span>
+                            <span class="deliverable-tag">Podcasts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 9: Advertising -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">📢</div>
+                    <h3 class="service-title">Advertising & Promotions</h3>
+                    <p class="service-tagline">Maximum visibility, optimal spend</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Outdoor advertising (hoardings, billboards)</li>
+                        <li>Print media campaigns (newspapers, magazines)</li>
+                        <li>Electronic media (TV, radio spots)</li>
+                        <li>Digital advertising (Google, Meta, YouTube)</li>
+                        <li>Mobile advertising & SMS campaigns</li>
+                        <li>LED van campaigns & roadshows</li>
+                        <li>Merchandise design & distribution</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Campaign Assets</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">200+ Hoardings</span>
+                            <span class="deliverable-tag">TV Commercials</span>
+                            <span class="deliverable-tag">Radio Jingles</span>
+                            <span class="deliverable-tag">100K Pamphlets</span>
+                            <span class="deliverable-tag">Wall Paintings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 10: Legal & Compliance -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">⚖️</div>
+                    <h3 class="service-title">Legal & Compliance Support</h3>
+                    <p class="service-tagline">Navigate regulations with confidence</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Election Commission compliance</li>
+                        <li>Nomination filing assistance</li>
+                        <li>Expenditure management & reporting</li>
+                        <li>Legal documentation & affidavits</li>
+                        <li>Model code of conduct guidance</li>
+                        <li>Dispute resolution support</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Legal Services</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">Nomination Support</span>
+                            <span class="deliverable-tag">Compliance Audit</span>
+                            <span class="deliverable-tag">Documentation</span>
+                            <span class="deliverable-tag">Legal Advisory</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 11: Event Management -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">🎪</div>
+                    <h3 class="service-title">Event & Rally Management</h3>
+                    <p class="service-tagline">Memorable events that mobilize masses</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Mass rally organization (5000+ attendees)</li>
+                        <li>Town halls & community meetings</li>
+                        <li>Roadshow planning & execution</li>
+                        <li>Stage setup & audio-visual management</li>
+                        <li>Celebrity & influencer coordination</li>
+                        <li>Security & crowd management</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">Event Metrics</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">50+ Rallies/Month</span>
+                            <span class="deliverable-tag">Corner Meetings</span>
+                            <span class="deliverable-tag">Roadshows</span>
+                            <span class="deliverable-tag">Town Halls</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Service 12: War Room Operations -->
+            <div class="service-comprehensive-card">
+                <div class="service-header">
+                    <div class="service-icon">🎛️</div>
+                    <h3 class="service-title">24/7 War Room Operations</h3>
+                    <p class="service-tagline">Command center for campaign excellence</p>
+                </div>
+                <div class="service-body">
+                    <ul class="service-features">
+                        <li>Real-time campaign monitoring</li>
+                        <li>Rapid response team management</li>
+                        <li>Social media listening & engagement</li>
+                        <li>Crisis management protocols</li>
+                        <li>Competition tracking & counter-strategy</li>
+                        <li>Daily briefings & situation reports</li>
+                    </ul>
+                    <div class="service-deliverables">
+                        <div class="deliverable-title">War Room Capabilities</div>
+                        <div class="deliverable-items">
+                            <span class="deliverable-tag">24/7 Monitoring</span>
+                            <span class="deliverable-tag">15-Min Response</span>
+                            <span class="deliverable-tag">Multi-Screen Setup</span>
+                            <span class="deliverable-tag">Expert Team</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Canvas Visualization -->
+    <section class="canvas-section">
+        <div class="canvas-container">
+            <div class="section-header">
+                <h2 class="section-title">Service Integration Map</h2>
+                <p class="section-subtitle">See how our services work together for your victory</p>
+            </div>
+            <canvas id="interactiveCanvas" width="1200" height="600"></canvas>
+            <p style="text-align: center; color: var(--gray); margin-top: 1rem;">
+                Click on any service to explore connections
+            </p>
+        </div>
+    </section>
+
+    <!-- Campaign Timeline -->
+    <section class="service-timeline">
+        <div class="timeline-header">
+            <h2 class="section-title">Your Victory Timeline</h2>
+            <p class="section-subtitle">Strategic phases from announcement to victory</p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 1</div>
+                    <h3 class="timeline-title">Foundation Building</h3>
+                    <p class="timeline-duration">Days 1-30</p>
+                    <p>Brand development, team formation, initial surveys</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content right">
+                    <div class="timeline-phase">Phase 2</div>
+                    <h3 class="timeline-title">Digital Launch</h3>
+                    <p class="timeline-duration">Days 31-60</p>
+                    <p>Website launch, social media activation, PR campaign</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 3</div>
+                    <h3 class="timeline-title">Ground Mobilization</h3>
+                    <p class="timeline-duration">Days 61-120</p>
+                    <p>Booth committees, volunteer training, door-to-door campaigns</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content right">
+                    <div class="timeline-phase">Phase 4</div>
+                    <h3 class="timeline-title">Mass Outreach</h3>
+                    <p class="timeline-duration">Days 121-180</p>
+                    <p>Rallies, roadshows, media blitz, advertising campaign</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 5</div>
+                    <h3 class="timeline-title">Final Sprint</h3>
+                    <p class="timeline-duration">Last 30 Days</p>
+                    <p>Intensive campaigning, GOTV operations, election day management</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Pricing Packages -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <div class="section-header">
+                <h2 class="section-title">Investment Packages</h2>
+                <p class="section-subtitle">Choose the right package for your constituency and ambitions</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Essential Package -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-tier">ESSENTIAL</div>
+                        <div class="pricing-name">Foundation Package</div>
+                        <div class="pricing-amount">
+                            <span class="pricing-currency">₹</span>50 Lakhs
+                        </div>
+                        <div class="pricing-duration">Complete Campaign Management</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Strategic Planning & Consulting</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Brand Development & Logo Design</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Professional Website & Basic App</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Social Media Management (3 platforms)</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Ground Team (200 workers)</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Basic Survey & Analytics</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">PR & Media Relations</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">50 Hoardings & 50K Pamphlets</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Monthly Progress Reports</div>
+                        </div>
+                    </div>
+                    <a href="tel:+917338153525" class="pricing-cta">Get Started</a>
+                </div>
+
+                <!-- Professional Package -->
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <div class="pricing-tier">PROFESSIONAL</div>
+                        <div class="pricing-name">Victory Package</div>
+                        <div class="pricing-amount">
+                            <span class="pricing-currency">₹</span>1 Crore
+                        </div>
+                        <div class="pricing-duration">Comprehensive Campaign Solution</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Everything in Essential <span class="feature-highlight">PLUS</span></div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Advanced Digital Infrastructure & CRM</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">All Social Media Platforms + WhatsApp</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">500+ Ground Workers Network</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">AI-Powered Analytics & Predictions</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Professional Video Production</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">TV & Radio Advertising</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">150 Hoardings & LED Van Campaign</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">War Room with Daily Monitoring</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Celebrity Endorsements Coordination</div>
+                        </div>
+                    </div>
+                    <a href="tel:+917338153525" class="pricing-cta">Most Popular Choice</a>
+                </div>
+
+                <!-- Premium Package -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <div class="pricing-tier">PREMIUM</div>
+                        <div class="pricing-name">Dominance Package</div>
+                        <div class="pricing-amount">
+                            <span class="pricing-currency">₹</span>5 Crores
+                        </div>
+                        <div class="pricing-duration">Total Market Dominance</div>
+                    </div>
+                    <div class="pricing-features">
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Everything in Professional <span class="feature-highlight">PLUS</span></div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Dedicated 50+ Member Team</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">1000+ Ground Force Army</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">24/7 Command Center Operations</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Prime Time TV Slots & Front Page Ads</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Helicopter Campaign Support</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">National Media Coverage</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">300+ Hoardings Across Constituency</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Daily Intelligence Briefings</div>
+                        </div>
+                        <div class="pricing-feature">
+                            <div class="feature-icon">✓</div>
+                            <div class="feature-text">Post-Election Support</div>
+                        </div>
+                    </div>
+                    <a href="tel:+917338153525" class="pricing-cta">Ultimate Victory</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Flow -->
+    <section class="process-flow">
+        <div class="section-header">
+            <h2 class="section-title">Our Winning Process</h2>
+            <p class="section-subtitle">From first meeting to victory celebration</p>
+        </div>
+        <div class="process-cards">
+            <div class="process-card">
+                <div class="process-number">1</div>
+                <div class="process-icon">🤝</div>
+                <h3 class="process-title">Initial Consultation</h3>
+                <p class="process-description">Understanding your vision, constituency dynamics, and defining victory parameters</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">2</div>
+                <div class="process-icon">🔍</div>
+                <h3 class="process-title">Strategic Assessment</h3>
+                <p class="process-description">Deep dive analysis of competition, voter segments, and winning possibilities</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">3</div>
+                <div class="process-icon">📋</div>
+                <h3 class="process-title">Campaign Blueprint</h3>
+                <p class="process-description">Customized strategy document with timelines, milestones, and resource allocation</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">4</div>
+                <div class="process-icon">🚀</div>
+                <h3 class="process-title">Launch & Execute</h3>
+                <p class="process-description">Systematic rollout of all campaign elements with continuous optimization</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">5</div>
+                <div class="process-icon">📈</div>
+                <h3 class="process-title">Monitor & Adapt</h3>
+                <p class="process-description">Real-time tracking, course correction, and strategy refinement</p>
+            </div>
+            <div class="process-card">
+                <div class="process-number">6</div>
+                <div class="process-icon">🏆</div>
+                <h3 class="process-title">Victory & Beyond</h3>
+                <p class="process-description">Election day management and post-victory positioning support</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="success-stories">
+        <div class="section-header">
+            <h2 class="section-title">Success Stories</h2>
+            <p class="section-subtitle">Candidates who chose IPA and won</p>
+        </div>
+        <div class="stories-grid">
+            <div class="story-card">
+                <div class="story-quote">"</div>
+                <div class="story-content">
+                    <p class="story-text">
+                        "IPA transformed my political journey. From being a first-time candidate to winning with a 
+                        margin of 15,000+ votes, their data-driven approach and ground management was exceptional."
+                    </p>
+                    <div class="story-author">
+                        <div class="author-avatar">RK</div>
+                        <div class="author-info">
+                            <div class="author-name">Rajesh Kumar</div>
+                            <div class="author-designation">MLA, Bangalore North</div>
+                        </div>
+                    </div>
+                    <div class="story-result">
+                        <div class="result-label">Victory Margin</div>
+                        <div class="result-value">15,342 votes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-quote">"</div>
+                <div class="story-content">
+                    <p class="story-text">
+                        "The social media strategy and youth connect programs designed by IPA helped me reach 
+                        first-time voters effectively. Their 24/7 war room support was a game-changer."
+                    </p>
+                    <div class="story-author">
+                        <div class="author-avatar">PS</div>
+                        <div class="author-info">
+                            <div class="author-name">Priya Sharma</div>
+                            <div class="author-designation">MP, Mysore</div>
+                        </div>
+                    </div>
+                    <div class="story-result">
+                        <div class="result-label">Youth Vote Share</div>
+                        <div class="result-value">68% captured</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card">
+                <div class="story-quote">"</div>
+                <div class="story-content">
+                    <p class="story-text">
+                        "From booth-level management to media relations, IPA handled everything professionally. 
+                        Their survey predictions were accurate within 2% of actual results."
+                    </p>
+                    <div class="story-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-info">
+                            <div class="author-name">Arun Mehta</div>
+                            <div class="author-designation">MLA, Hubli</div>
+                        </div>
+                    </div>
+                    <div class="story-result">
+                        <div class="result-label">Prediction Accuracy</div>
+                        <div class="result-value">98% accurate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2 class="contact-title">Start Your Victory Journey Today</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 3rem;">
+                Join successful leaders who chose IPA for their electoral triumph
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-label">Call Us</div>
+                    <div class="contact-value">
+                        <a href="tel:+917338153525" class="contact-link">+91 733 815 3525</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">🌐</div>
+                    <div class="contact-label">Website</div>
+                    <div class="contact-value">
+                        <a href="https://indianpoliticalanalysis.com" target="_blank" class="contact-link">indianpoliticalanalysis.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">
+                        <a href="mailto:contact@indianpoliticalanalysis.com" class="contact-link">contact@indianpoliticalanalysis.com</a>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-label">Head Office</div>
+                    <div class="contact-value">Bangalore, Karnataka</div>
+                </div>
             </div>
             
-            <div id="profile" class="tab-content active">
-                <h3>Profile Development & Branding</h3>
-                <p>Building a compelling political identity that resonates with voters</p>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Biography Created</span>
-                        <span>✓ Done</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Logo & Branding</span>
-                        <span>✓ Done</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Vision Document</span>
-                        <span>✓ Done</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Timeline:</strong> 30-45 days for complete brand rollout</p>
-                <p><strong>Team:</strong> Brand Manager, Content Writers, Design Specialists</p>
-            </div>
-
-            <div id="digital" class="tab-content">
-                <h3>IT Solutions & Digital Infrastructure</h3>
-                <p>Professional website, mobile app, and digital infrastructure</p>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Website Development</span>
-                        <span>✓ Live</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Mobile App</span>
-                        <span>Testing Phase</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>CRM System</span>
-                        <span>✓ Live</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%;"></div>
-                    </div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>System Uptime:</strong> 95%</p>
-                <p><strong>Team:</strong> IT Team (5), Designers (2)</p>
-            </div>
-
-            <div id="social" class="tab-content">
-                <h3>Social Media Management</h3>
-                <p>24/7 social media presence across all major platforms</p>
-                <div class="service-metrics">
-                    <div class="metric">Facebook: <span class="metric-value">45K followers</span></div>
-                    <div class="metric">Instagram: <span class="metric-value">52K followers</span></div>
-                    <div class="metric">Twitter: <span class="metric-value">28K followers</span></div>
-                    <div class="metric">YouTube: <span class="metric-value">15K subscribers</span></div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Activity:</strong> 42+ posts/week, 6 posts/day minimum</p>
-                <p><strong>Growth Rate:</strong> +2-3K followers/month per platform</p>
-                <p><strong>Team:</strong> Social Media Manager, Content Creators (3), Video Editor</p>
-            </div>
-
-            <div id="survey" class="tab-content">
-                <h3>Survey & Data Analysis</h3>
-                <p>Comprehensive voter surveys, data collection, and analysis</p>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Surveys Completed</span>
-                        <span>12,500 / 30,000</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 41%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Booths Covered</span>
-                        <span>320 / 520</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 62%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Data Digitization</span>
-                        <span>95%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 95%;"></div>
-                    </div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Accuracy:</strong> 85% prediction accuracy in previous elections</p>
-                <p><strong>Team:</strong> Survey Manager, Field Surveyors (25), Data Analysts (3)</p>
-            </div>
-
-            <div id="campaign" class="tab-content">
-                <h3>Campaign Strategy & Planning</h3>
-                <p>Strategic planning, messaging, and campaign execution</p>
-                <div class="service-metrics">
-                    <div class="metric">Master Plan: <span class="metric-value">✓ Completed</span></div>
-                    <div class="metric">Phase 2: <span class="metric-value">75% Complete</span></div>
-                    <div class="metric">Win Rate: <span class="metric-value">82%</span></div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Current Phase:</strong> Awareness & Ground Mobilization</p>
-                <p><strong>Approach:</strong> Data-driven decision making with ground intelligence</p>
-                <p><strong>Lead:</strong> Campaign Manager with 15+ years experience</p>
-            </div>
-
-            <div id="ground" class="tab-content">
-                <h3>Ground Team Coordination</h3>
-                <p>Booth-level workers, door-to-door campaigns, ground events</p>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Active Workers</span>
-                        <span>385 / 520</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 74%;"></div>
-                    </div>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-label">
-                        <span>Booth Coverage</span>
-                        <span>74%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 74%;"></div>
-                    </div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Structure:</strong> 1 Ward Incharge + 5-8 workers per booth</p>
-                <p><strong>Monthly Events:</strong> 45+ rallies, meetings, and public interactions</p>
-            </div>
-
-            <div id="media" class="tab-content">
-                <h3>Media Relations & PR</h3>
-                <p>Press releases, media coverage, newspaper articles, TV appearances</p>
-                <div class="service-metrics">
-                    <div class="metric">Press Releases: <span class="metric-value">28 Published</span></div>
-                    <div class="metric">News Articles: <span class="metric-value">52</span></div>
-                    <div class="metric">TV Interviews: <span class="metric-value">8</span></div>
-                    <div class="metric">Media Reach: <span class="metric-value">2.5M+</span></div>
-                </div>
-                <p style="margin-top: 1.5rem;"><strong>Network:</strong> Direct connections with 50+ journalists</p>
-                <p><strong>Team:</strong> PR Manager, Media Coordinators (2)</p>
-            </div>
-
-            <div id="promo" class="tab-content">
-                <h3>Promotional Activities</h3>
-                <p>Hoardings, banners, pamphlets, merchandise, and visibility campaigns</p>
-                <div class="service-metrics">
-                    <div class="metric">Hoardings: <span class="metric-value">125 Installed</span></div>
-                    <div class="metric">Pamphlets: <span class="metric-value">85K Distributed</span></div>
-                    <div class="metric">Banners: <span class="metric-value">450 Across booths</span></div>
-                    <div class="metric">Wall Paintings: <span class="metric-value">230 Completed</span></div>
-                </div>
-                <div class="progress-container" style="margin-top: 1.5rem;">
-                    <div class="progress-label">
-                        <span>Budget Utilization</span>
-                        <span>₹8.75L / ₹12.5L</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 70%;"></div>
-                    </div>
-                </div>
-                <p style="margin-top: 1rem;"><strong>Next:</strong> LED van campaign launching December 2024</p>
+            <div class="social-links">
+                <a href="https://facebook.com/indianpoliticalanalysis" target="_blank" class="social-link">f</a>
+                <a href="https://twitter.com/IPA_India" target="_blank" class="social-link">𝕏</a>
+                <a href="https://instagram.com/ipa.india" target="_blank" class="social-link">📷</a>
+                <a href="https://linkedin.com/company/indian-political-analysis" target="_blank" class="social-link">in</a>
+                <a href="https://youtube.com/@IPA_India" target="_blank" class="social-link">▶</a>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Services Grid -->
-    <div class="services-container">
-        <h2 class="section-title">Our 8-Pillar Service Model</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-number">01</div>
-                <h3 class="service-title">Profile Development & Branding</h3>
-                <span class="service-status status-completed">Completed</span>
-                <p class="service-description">
-                    Transform unknown candidates into household names with compelling political identities
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Biography: <span class="metric-value">✓</span></div>
-                    <div class="metric">Logo: <span class="metric-value">✓</span></div>
-                    <div class="metric">Vision Doc: <span class="metric-value">✓</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">02</div>
-                <h3 class="service-title">IT Solutions & Website</h3>
-                <span class="service-status status-active">Active - 95%</span>
-                <p class="service-description">
-                    Professional website, mobile app, and digital infrastructure for modern campaigning
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Website: <span class="metric-value">Live</span></div>
-                    <div class="metric">Mobile App: <span class="metric-value">Testing</span></div>
-                    <div class="metric">CRM: <span class="metric-value">Live</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">03</div>
-                <h3 class="service-title">Social Media Management</h3>
-                <span class="service-status status-active">Active - 88%</span>
-                <p class="service-description">
-                    24/7 social presence with daily content and engagement across all platforms
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Posts/Week: <span class="metric-value">42+</span></div>
-                    <div class="metric">Growth: <span class="metric-value">+3K/mo</span></div>
-                    <div class="metric">Platforms: <span class="metric-value">5</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">04</div>
-                <h3 class="service-title">Survey & Data Analysis</h3>
-                <span class="service-status status-active">Active - 68%</span>
-                <p class="service-description">
-                    Booth-level voter sentiment analysis with real-time preference tracking
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Surveys: <span class="metric-value">12.5K</span></div>
-                    <div class="metric">Booths: <span class="metric-value">320/520</span></div>
-                    <div class="metric">Accuracy: <span class="metric-value">85%</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">05</div>
-                <h3 class="service-title">Campaign Strategy</h3>
-                <span class="service-status status-active">Active - 82%</span>
-                <p class="service-description">
-                    Data-driven winning strategies with phase-wise execution planning
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Master Plan: <span class="metric-value">✓</span></div>
-                    <div class="metric">Phase 2: <span class="metric-value">75%</span></div>
-                    <div class="metric">Win Rate: <span class="metric-value">82%</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">06</div>
-                <h3 class="service-title">Ground Team Coordination</h3>
-                <span class="service-status status-active">Active - 74%</span>
-                <p class="service-description">
-                    Booth-level worker network with door-to-door campaign management
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Workers: <span class="metric-value">385</span></div>
-                    <div class="metric">Coverage: <span class="metric-value">74%</span></div>
-                    <div class="metric">Events: <span class="metric-value">45/mo</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">07</div>
-                <h3 class="service-title">Media Relations & PR</h3>
-                <span class="service-status status-active">Active - 85%</span>
-                <p class="service-description">
-                    Complete media presence management with press releases and TV coverage
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Articles: <span class="metric-value">52</span></div>
-                    <div class="metric">TV: <span class="metric-value">8 Shows</span></div>
-                    <div class="metric">Reach: <span class="metric-value">2.5M+</span></div>
-                </div>
-            </div>
-
-            <div class="service-card">
-                <div class="service-number">08</div>
-                <h3 class="service-title">Promotional Activities</h3>
-                <span class="service-status status-active">Active - 65%</span>
-                <p class="service-description">
-                    Complete visibility campaigns with hoardings, banners, and digital displays
-                </p>
-                <div class="service-metrics">
-                    <div class="metric">Hoardings: <span class="metric-value">125</span></div>
-                    <div class="metric">Pamphlets: <span class="metric-value">85K</span></div>
-                    <div class="metric">Budget: <span class="metric-value">70%</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add-on Services -->
-    <div class="services-container">
-        <h2 class="section-title">Available Add-On Services</h2>
-        <div class="addon-grid">
-            <div class="addon-card">
-                <div class="addon-title">📹 Professional Video Production</div>
-                <div class="addon-description">Campaign videos, documentaries, testimonials for better storytelling</div>
-                <div class="addon-price">₹50,000</div>
-            </div>
-            <div class="addon-card">
-                <div class="addon-title">🤖 Advanced AI Analytics</div>
-                <div class="addon-description">Predictive modeling, sentiment analysis, voter behavior AI</div>
-                <div class="addon-price">₹75,000</div>
-            </div>
-            <div class="addon-card">
-                <div class="addon-title">📰 Print Media Campaign</div>
-                <div class="addon-description">Full-page newspaper ads, magazine features for credibility</div>
-                <div class="addon-price">₹1,00,000</div>
-            </div>
-            <div class="addon-card">
-                <div class="addon-title">📻 Radio Advertising</div>
-                <div class="addon-description">Regional FM radio spots, jingles for local penetration</div>
-                <div class="addon-price">₹60,000</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pricing Packages -->
-    <div class="pricing-section">
-        <h2 class="section-title">Choose Your Package</h2>
-        <div class="package-cards">
-            <div class="package-card">
-                <h3 class="package-name">🥉 Bronze</h3>
-                <div class="package-price">₹5 Lakhs</div>
-                <ul class="package-features">
-                    <li>Profile Development</li>
-                    <li>Basic Website</li>
-                    <li>Social Media (3 platforms)</li>
-                    <li>100 Ground Workers</li>
-                    <li>Monthly Reports</li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">Get Started</a>
-            </div>
-
-            <div class="package-card featured">
-                <h3 class="package-name">🥇 Gold</h3>
-                <div class="package-price">₹15 Lakhs</div>
-                <ul class="package-features">
-                    <li>Complete Profile & Branding</li>
-                    <li>Website + Mobile App</li>
-                    <li>All Social Platforms</li>
-                    <li>Complete Survey & Analysis</li>
-                    <li>300+ Ground Workers</li>
-                    <li>Media & PR Management</li>
-                    <li>Weekly Reports + Analytics</li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">Most Popular</a>
-            </div>
-
-            <div class="package-card">
-                <h3 class="package-name">💎 Platinum</h3>
-                <div class="package-price">₹25 Lakhs</div>
-                <ul class="package-features">
-                    <li>Everything in Gold +</li>
-                    <li>AI-Powered Analytics</li>
-                    <li>500+ Ground Workers</li>
-                    <li>Video Production</li>
-                    <li>Radio & Print Media</li>
-                    <li>24/7 War Room</li>
-                    <li>Daily Reports + Real-time Dashboard</li>
-                </ul>
-                <a href="#contact" class="btn btn-primary">Premium Choice</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pitch Section -->
-    <div class="pitch-section">
-        <div class="pitch-card">
-            <h2 class="pitch-title">Why Choose IPA?</h2>
-            <div class="pitch-points">
-                <div class="pitch-point">
-                    <h3>🏆 Proven Track Record</h3>
-                    <p>82% success rate across Karnataka elections with testimonials from winning candidates</p>
-                </div>
-                <div class="pitch-point">
-                    <h3>📊 Data-Driven Approach</h3>
-                    <p>Real-time voter sentiment tracking with booth-level micro-management</p>
-                </div>
-                <div class="pitch-point">
-                    <h3>🎯 Complete Solution</h3>
-                    <p>One-stop shop for all campaign needs with single point accountability</p>
-                </div>
-                <div class="pitch-point">
-                    <h3>💡 Technology Edge</h3>
-                    <p>AI-powered analytics and digital tools for modern campaigning</p>
-                </div>
-                <div class="pitch-point">
-                    <h3>👥 Expert Team</h3>
-                    <p>150+ professionals with proven election management experience</p>
-                </div>
-                <div class="pitch-point">
-                    <h3>💰 ROI Focused</h3>
-                    <p>Transparent pricing with measurable results and cost-effective execution</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- How We Sell Section -->
-    <div class="services-container">
-        <h2 class="section-title">How to Present to Candidates</h2>
-        <div style="background: white; border-radius: 20px; padding: 3rem; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
-            <div style="background: var(--gradient); color: white; padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Opening Pitch</h3>
-                <p style="font-size: 1.1rem; line-height: 1.8;">
-                    "In today's political landscape, winning isn't just about ideology - it's about intelligent campaigning. 
-                    IPA brings you the same professional election management that national parties use, 
-                    now accessible to individual candidates."
-                </p>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 1: Build Trust</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.5rem 0;">✓ Show our Karnataka success stories</li>
-                        <li style="padding: 0.5rem 0;">✓ Present winning candidate testimonials</li>
-                        <li style="padding: 0.5rem 0;">✓ Demonstrate our 82% win rate</li>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Campaign Strategy</a></li>
+                        <li><a href="#">Digital Solutions</a></li>
+                        <li><a href="#">Ground Management</a></li>
+                        <li><a href="#">Media Relations</a></li>
                     </ul>
                 </div>
-                
-                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 2: Show Capabilities</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.5rem 0;">✓ Live demo of our dashboard</li>
-                        <li style="padding: 0.5rem 0;">✓ Sample campaign strategies</li>
-                        <li style="padding: 0.5rem 0;">✓ Real voter analytics reports</li>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About IPA</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
                     </ul>
                 </div>
-                
-                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 3: Customize Solution</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.5rem 0;">✓ Analyze their constituency</li>
-                        <li style="padding: 0.5rem 0;">✓ Propose tailored package</li>
-                        <li style="padding: 0.5rem 0;">✓ Show ROI projections</li>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Election Guide</a></li>
+                        <li><a href="#">Campaign Tips</a></li>
+                        <li><a href="#">Media Kit</a></li>
+                        <li><a href="#">Blog</a></li>
                     </ul>
                 </div>
-                
-                <div style="padding: 1.5rem; background: var(--light); border-radius: 15px;">
-                    <h4 style="color: var(--secondary); margin-bottom: 1rem;">Step 4: Close the Deal</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="padding: 0.5rem 0;">✓ Offer limited-time benefits</li>
-                        <li style="padding: 0.5rem 0;">✓ Provide success guarantee</li>
-                        <li style="padding: 0.5rem 0;">✓ Start with pilot project</li>
+                <div class="footer-column">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Compliance</a></li>
+                        <li><a href="#">Disclaimer</a></li>
                     </ul>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Indian Political Analysis. All rights reserved. | Transforming Political Aspirations into Electoral Victories</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- CTA Section -->
-    <div class="cta-section" id="contact">
-        <h2 class="cta-title">Ready to Win Your Election?</h2>
-        <p class="cta-subtitle">Join successful candidates who chose IPA for their victory</p>
-        <div class="cta-buttons">
-            <a href="tel:+919876543210" class="btn btn-primary">📞 Call Now</a>
-            <a href="mailto:contact@ipa.in" class="btn btn-secondary">✉️ Email Us</a>
-            <a href="#" class="btn btn-secondary">📅 Schedule Demo</a>
-        </div>
+    <!-- Floating Action Button -->
+    <div class="fab pulse" onclick="window.location.href='tel:+917338153525'">
+        📞
     </div>
 
     <script>
         // Canvas Animation
-        const canvas = document.getElementById('serviceCanvas');
+        const canvas = document.getElementById('interactiveCanvas');
         const ctx = canvas.getContext('2d');
         
-        // Responsive canvas
+        // Make canvas responsive
         function resizeCanvas() {
             const container = canvas.parentElement;
-            canvas.width = Math.min(container.clientWidth - 40, 1200);
+            canvas.width = Math.min(container.clientWidth - 60, 1200);
             canvas.height = 600;
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // Service bubbles
+        // Service nodes for visualization
         const services = [
-            { x: 0.15, y: 0.25, r: 60, color: '#FF6B35', label: 'Profile\nDevelopment', value: '100%' },
-            { x: 0.35, y: 0.35, r: 55, color: '#2E86AB', label: 'IT Solutions', value: '95%' },
-            { x: 0.55, y: 0.25, r: 65, color: '#06D6A0', label: 'Social Media', value: '88%' },
-            { x: 0.75, y: 0.35, r: 50, color: '#F71735', label: 'Surveys', value: '68%' },
-            { x: 0.25, y: 0.65, r: 70, color: '#8B5CF6', label: 'Campaign\nStrategy', value: '82%' },
-            { x: 0.45, y: 0.75, r: 55, color: '#EC4899', label: 'Ground Team', value: '74%' },
-            { x: 0.65, y: 0.65, r: 60, color: '#10B981', label: 'Media & PR', value: '85%' },
-            { x: 0.85, y: 0.75, r: 50, color: '#F59E0B', label: 'Promotions', value: '65%' }
+            { id: 1, x: 0.2, y: 0.2, r: 40, color: '#1e3a8a', label: 'Strategy', connections: [2,3,4] },
+            { id: 2, x: 0.5, y: 0.15, r: 45, color: '#dc2626', label: 'Digital', connections: [1,3,5] },
+            { id: 3, x: 0.8, y: 0.2, r: 40, color: '#f97316', label: 'Brand', connections: [1,2,6] },
+            { id: 4, x: 0.15, y: 0.5, r: 50, color: '#16a34a', label: 'Ground Team', connections: [1,5,7] },
+            { id: 5, x: 0.5, y: 0.5, r: 60, color: '#8b5cf6', label: 'War Room', connections: [2,4,6,7,8] },
+            { id: 6, x: 0.85, y: 0.5, r: 45, color: '#ec4899', label: 'Media PR', connections: [3,5,8] },
+            { id: 7, x: 0.3, y: 0.8, r: 45, color: '#06b6d4', label: 'Analytics', connections: [4,5,8] },
+            { id: 8, x: 0.7, y: 0.8, r: 50, color: '#f59e0b', label: 'Advertising', connections: [5,6,7] }
         ];
         
+        let selectedService = null;
         let animationFrame = 0;
-        let hoveredService = null;
+        let particles = [];
+        
+        // Create particles for background effect
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2;
+                this.opacity = Math.random() * 0.5;
+            }
+            
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(30, 58, 138, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
         
         function drawServices() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            // Draw connections
-            ctx.strokeStyle = 'rgba(102, 126, 234, 0.1)';
-            ctx.lineWidth = 2;
-            for (let i = 0; i < services.length; i++) {
-                for (let j = i + 1; j < services.length; j++) {
-                    ctx.beginPath();
-                    ctx.moveTo(services[i].x * canvas.width, services[i].y * canvas.height);
-                    ctx.lineTo(services[j].x * canvas.width, services[j].y * canvas.height);
-                    ctx.stroke();
-                }
-            }
+            // Draw particles
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
             
-            // Draw service bubbles
+            // Draw connections
+            ctx.strokeStyle = 'rgba(30, 58, 138, 0.2)';
+            ctx.lineWidth = 2;
+            
+            services.forEach(service => {
+                if (service.connections) {
+                    service.connections.forEach(targetId => {
+                        const target = services.find(s => s.id === targetId);
+                        if (target) {
+                            ctx.beginPath();
+                            ctx.moveTo(service.x * canvas.width, service.y * canvas.height);
+                            ctx.lineTo(target.x * canvas.width, target.y * canvas.height);
+                            
+                            if (selectedService === service.id || selectedService === target.id) {
+                                ctx.strokeStyle = 'rgba(220, 38, 38, 0.5)';
+                                ctx.lineWidth = 3;
+                            } else {
+                                ctx.strokeStyle = 'rgba(30, 58, 138, 0.1)';
+                                ctx.lineWidth = 1;
+                            }
+                            
+                            ctx.stroke();
+                        }
+                    });
+                }
+            });
+            
+            // Draw service nodes
             services.forEach((service, index) => {
                 const x = service.x * canvas.width;
                 const y = service.y * canvas.height;
-                const r = service.r + Math.sin(animationFrame / 50 + index) * 5;
+                const r = service.r + Math.sin(animationFrame / 50 + index) * 3;
                 
-                // Glow effect for hovered
-                if (hoveredService === index) {
+                // Glow effect for selected
+                if (selectedService === service.id) {
                     ctx.shadowBlur = 30;
                     ctx.shadowColor = service.color;
                 }
@@ -1169,6 +1987,17 @@
                 ctx.fillStyle = service.color;
                 ctx.fill();
                 
+                // Draw pulse effect
+                if (selectedService === service.id) {
+                    ctx.beginPath();
+                    ctx.arc(x, y, r + 10, 0, Math.PI * 2);
+                    ctx.strokeStyle = service.color;
+                    ctx.globalAlpha = 0.3;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                    ctx.globalAlpha = 1;
+                }
+                
                 ctx.shadowBlur = 0;
                 
                 // Draw label
@@ -1176,14 +2005,7 @@
                 ctx.font = 'bold 14px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
-                const lines = service.label.split('\n');
-                lines.forEach((line, i) => {
-                    ctx.fillText(line, x, y - 10 + i * 20);
-                });
-                
-                // Draw value
-                ctx.font = 'bold 18px Arial';
-                ctx.fillText(service.value, x, y + 20);
+                ctx.fillText(service.label, x, y);
             });
             
             animationFrame++;
@@ -1191,97 +2013,88 @@
         }
         
         // Mouse interaction
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            services.forEach(service => {
+                const sx = service.x * canvas.width;
+                const sy = service.y * canvas.height;
+                const dist = Math.sqrt((x - sx) ** 2 + (y - sy) ** 2);
+                
+                if (dist < service.r) {
+                    selectedService = selectedService === service.id ? null : service.id;
+                }
+            });
+        });
+        
         canvas.addEventListener('mousemove', (e) => {
             const rect = canvas.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            hoveredService = null;
-            services.forEach((service, index) => {
+            let hovering = false;
+            services.forEach(service => {
                 const sx = service.x * canvas.width;
                 const sy = service.y * canvas.height;
                 const dist = Math.sqrt((x - sx) ** 2 + (y - sy) ** 2);
+                
                 if (dist < service.r) {
-                    hoveredService = index;
-                    canvas.style.cursor = 'pointer';
+                    hovering = true;
                 }
             });
             
-            if (hoveredService === null) {
-                canvas.style.cursor = 'default';
-            }
-        });
-        
-        canvas.addEventListener('click', (e) => {
-            if (hoveredService !== null) {
-                const service = services[hoveredService];
-                alert(`${service.label.replace('\n', ' ')}: ${service.value} Complete\n\nClick to see detailed analytics and reports for this service.`);
-            }
+            canvas.style.cursor = hovering ? 'pointer' : 'default';
         });
         
         drawServices();
         
-        // Tab functionality
-        function showTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-            
-            // Add active class to clicked button
-            event.target.classList.add('active');
-        }
-        
-        // Animate progress bars on scroll
+        // Intersection Observer for animations
         const observerOptions = {
-            threshold: 0.5
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const progressBars = entry.target.querySelectorAll('.progress-fill');
-                    progressBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0%';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
-                    });
+                    entry.target.classList.add('fade-in');
                 }
             });
         }, observerOptions);
         
-        document.querySelectorAll('.progress-container').forEach(container => {
-            observer.observe(container);
+        document.querySelectorAll('.service-comprehensive-card, .process-card, .story-card').forEach(el => {
+            observer.observe(el);
         });
         
-        // Smooth scroll for navigation
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({
-                        behavior: 'smooth'
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
         });
         
-        // Add-on card interaction
-        document.querySelectorAll('.addon-card').forEach(card => {
-            card.addEventListener('click', () => {
-                alert('Add-on service selected! Contact us to add this to your package.');
-            });
+        // Show navbar on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const navbar = document.querySelector('.navbar');
+            
+            if (currentScroll > 100) {
+                navbar?.classList.add('show');
+            } else {
+                navbar?.classList.remove('show');
+            }
+            
+            lastScroll = currentScroll;
         });
     </script>
 </body>
