@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPA - Indian Political Analysis | Win Elections with Data & Strategy</title>
+    <title>IPA - Indian Political Analysis | Electoral Services & Campaign Management</title>
     <style>
         * {
             margin: 0;
@@ -12,44 +12,36 @@
         }
 
         :root {
-            /* Light and Cool Color Palette */
-            --primary-blue: #5DADE2;
-            --secondary-yellow: #F9E79F;
-            --accent-mint: #76D7C4;
-            --light-purple: #BB8FCE;
-            --light-coral: #F8B4C0;
-            --sky-blue: #85C1E2;
-            --sunshine: #FFD93D;
-            --ocean: #48C9B0;
-            --lavender: #D7BDE2;
-            --peach: #FADBD8;
-            --light-green: #ABEBC6;
-            --light-orange: #FAD7A0;
-            --white: #FFFFFF;
-            --light-gray: #F8F9F9;
-            --text-dark: #34495E;
-            --text-light: #5D6D7E;
+            /* Government-style Professional Color Palette */
+            --gov-primary: #1a3a52;
+            --gov-secondary: #2c5282;
+            --gov-accent: #3182ce;
+            --gov-light-blue: #dbeafe;
+            --gov-dark: #111827;
+            --gov-gray: #6b7280;
+            --gov-light-gray: #f3f4f6;
+            --gov-white: #ffffff;
+            --gov-success: #059669;
+            --gov-gold: #f59e0b;
+            --gov-border: #e5e7eb;
             
-            /* Gradients */
-            --gradient-blue: linear-gradient(135deg, #5DADE2 0%, #85C1E2 100%);
-            --gradient-yellow: linear-gradient(135deg, #F9E79F 0%, #FFD93D 100%);
-            --gradient-mint: linear-gradient(135deg, #76D7C4 0%, #48C9B0 100%);
-            --gradient-purple: linear-gradient(135deg, #BB8FCE 0%, #D7BDE2 100%);
-            --gradient-sunset: linear-gradient(135deg, #FAD7A0 0%, #F8B4C0 100%);
-            --gradient-ocean: linear-gradient(135deg, #5DADE2 0%, #48C9B0 100%);
+            /* Subtle Gradients */
+            --gradient-primary: linear-gradient(135deg, #1a3a52 0%, #2c5282 100%);
+            --gradient-accent: linear-gradient(135deg, #2c5282 0%, #3182ce 100%);
+            --gradient-light: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--white);
-            color: var(--text-dark);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: var(--gov-white);
+            color: var(--gov-dark);
             line-height: 1.6;
         }
 
         /* Hero Section */
         .hero {
-            background: var(--gradient-ocean);
-            min-height: 100vh;
+            background: var(--gradient-primary);
+            min-height: 80vh;
             display: flex;
             align-items: center;
             position: relative;
@@ -64,7 +56,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L60,112C120,128,240,160,360,160C480,160,600,128,720,122.7C840,117,960,139,1080,154.7C1200,171,1320,181,1380,176L1440,170L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L60,112C120,128,240,160,360,160C480,160,600,128,720,122.7C840,117,960,139,1080,154.7C1200,171,1320,181,1380,176L1440,170L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
             background-size: cover;
             background-position: bottom;
         }
@@ -85,18 +77,18 @@
         }
 
         .hero-title {
-            font-size: 4rem;
-            font-weight: 900;
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             letter-spacing: -1px;
         }
 
         .hero-subtitle {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
             opacity: 0.95;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .hero-buttons {
@@ -106,8 +98,8 @@
         }
 
         .btn {
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
+            padding: 1rem 2rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -115,22 +107,24 @@
             align-items: center;
             gap: 0.5rem;
             font-size: 1.1rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
         }
 
         .btn-primary {
-            background: var(--sunshine);
-            color: var(--text-dark);
+            background: var(--gov-gold);
+            color: var(--gov-dark);
         }
 
         .btn-secondary {
             background: rgba(255,255,255,0.95);
-            color: var(--primary-blue);
+            color: var(--gov-primary);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
         }
 
         .hero-image {
@@ -141,34 +135,29 @@
 
         .election-visual {
             width: 100%;
-            max-width: 500px;
-            background: rgba(255,255,255,0.1);
+            max-width: 450px;
+            background: rgba(255,255,255,0.08);
             backdrop-filter: blur(10px);
-            border-radius: 30px;
+            border-radius: 16px;
             padding: 3rem;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .visual-icon {
-            font-size: 8rem;
+            font-size: 6rem;
             margin-bottom: 1rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
         }
 
         /* Stats Bar */
         .stats-bar {
-            background: var(--gradient-yellow);
-            padding: 2rem;
+            background: var(--gov-light-gray);
+            padding: 3rem 2rem;
             margin-top: -50px;
             position: relative;
             z-index: 10;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
         }
 
         .stats-container {
@@ -181,30 +170,33 @@
         }
 
         .stat {
-            background: rgba(255,255,255,0.9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--gov-white);
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid var(--gov-border);
         }
 
         .stat-number {
             font-size: 2.5rem;
             font-weight: bold;
-            background: var(--gradient-blue);
+            background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-label {
-            color: var(--text-light);
-            font-size: 0.9rem;
+            color: var(--gov-gray);
+            font-size: 0.95rem;
             margin-top: 0.5rem;
+            font-weight: 500;
         }
 
         /* Comprehensive Services Section */
         .services-catalogue {
             padding: 5rem 2rem;
-            background: var(--light-gray);
+            background: var(--gov-white);
         }
 
         .section-header {
@@ -213,89 +205,68 @@
         }
 
         .section-title {
-            font-size: 3rem;
-            color: var(--text-dark);
+            font-size: 2.5rem;
+            color: var(--gov-primary);
             margin-bottom: 1rem;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         .section-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-light);
+            font-size: 1.2rem;
+            color: var(--gov-gray);
             max-width: 800px;
             margin: 0 auto;
+            line-height: 1.8;
         }
 
         .services-comprehensive {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
         .service-comprehensive-card {
-            background: var(--white);
-            border-radius: 20px;
+            background: var(--gov-white);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
             position: relative;
+            border: 1px solid var(--gov-border);
         }
 
         .service-comprehensive-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        .service-comprehensive-card:nth-child(1) .service-header { background: var(--gradient-blue); }
-        .service-comprehensive-card:nth-child(2) .service-header { background: var(--gradient-yellow); color: var(--text-dark); }
-        .service-comprehensive-card:nth-child(3) .service-header { background: var(--gradient-mint); }
-        .service-comprehensive-card:nth-child(4) .service-header { background: var(--gradient-purple); }
-        .service-comprehensive-card:nth-child(5) .service-header { background: var(--gradient-sunset); color: var(--text-dark); }
-        .service-comprehensive-card:nth-child(6) .service-header { background: var(--gradient-ocean); }
-        .service-comprehensive-card:nth-child(7) .service-header { background: linear-gradient(135deg, #F8B4C0 0%, #FADBD8 100%); color: var(--text-dark); }
-        .service-comprehensive-card:nth-child(8) .service-header { background: linear-gradient(135deg, #ABEBC6 0%, #76D7C4 100%); }
-        .service-comprehensive-card:nth-child(9) .service-header { background: linear-gradient(135deg, #FAD7A0 0%, #F9E79F 100%); color: var(--text-dark); }
-        .service-comprehensive-card:nth-child(10) .service-header { background: linear-gradient(135deg, #D7BDE2 0%, #BB8FCE 100%); }
-        .service-comprehensive-card:nth-child(11) .service-header { background: linear-gradient(135deg, #85C1E2 0%, #5DADE2 100%); }
-        .service-comprehensive-card:nth-child(12) .service-header { background: linear-gradient(135deg, #48C9B0 0%, #76D7C4 100%); }
-
         .service-header {
-            padding: 1rem;
+            padding: 1.5rem;
+            background: var(--gradient-primary);
             color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .service-header::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .service-comprehensive-card:nth-child(even) .service-header {
+            background: var(--gradient-accent);
         }
 
         .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
             position: relative;
             z-index: 1;
         }
 
         .service-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 0.5rem;
             position: relative;
             z-index: 1;
+            font-weight: 600;
         }
 
         .service-tagline {
@@ -306,43 +277,45 @@
         }
 
         .service-body {
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .service-features {
             list-style: none;
-            margin-bottom: 1 rem;
+            margin-bottom: 1.5rem;
         }
 
         .service-features li {
-            padding: 0.4rem 0;
-            border-bottom: 1px solid rgba(93, 173, 226, 0.1);
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--gov-border);
             display: flex;
-            font-weight: 600;
-            align-items: center;
-            gap: 1rem;
-            color: var(--text-dark);
+            align-items: start;
+            gap: 0.75rem;
+            color: var(--gov-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         .service-features li::before {
-            content: '✨';
-            font-size: 1.2rem;
-            color: var(--primary-blue);
+            content: '✓';
+            font-weight: bold;
+            color: var(--gov-success);
             flex-shrink: 0;
+            margin-top: 2px;
         }
 
         .service-deliverables {
-            background: linear-gradient(135deg, rgba(93, 173, 226, 0.05) 0%, rgba(118, 215, 196, 0.05) 100%);
-            padding: 0.5rem;
-            border-radius: 15px;
-            margin-top: 0rem;
+            background: var(--gov-light-gray);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
         }
 
         .deliverable-title {
             font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
+            color: var(--gov-primary);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
         }
 
         .deliverable-items {
@@ -352,42 +325,131 @@
         }
 
         .deliverable-tag {
-            background: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
+            background: var(--gov-white);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
             font-size: 0.85rem;
-            color: var(--text-light);
-            border: 2px solid rgba(93, 173, 226, 0.2);
-            transition: all 0.3s ease;
+            color: var(--gov-gray);
+            border: 1px solid var(--gov-border);
+            transition: all 0.2s ease;
         }
 
         .deliverable-tag:hover {
-            background: var(--gradient-blue);
+            background: var(--gov-accent);
             color: white;
-            border-color: transparent;
-            transform: scale(1.05);
+            border-color: var(--gov-accent);
         }
 
-        /* Campaign Journey */
-        .journey {
-            padding: 5rem 2rem;
-            background: var(--white);
+        /* Interactive Canvas Section */
+        .interactive-canvas-section {
+            padding: 4rem 2rem;
+            background: var(--gov-light-gray);
         }
 
-        .journey-timeline {
+        .canvas-container {
             max-width: 1200px;
             margin: 3rem auto;
+            background: var(--gov-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            min-height: 500px;
             position: relative;
+            border: 1px solid var(--gov-border);
+        }
+
+        #interactiveCanvas {
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+            background: var(--gradient-light);
+        }
+
+        /* Visual Gallery */
+        .gallery {
+            padding: 5rem 2rem;
+            background: var(--gov-white);
+        }
+
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+            padding: 2rem;
+            background: var(--gradient-primary);
+            border: 1px solid var(--gov-border);
+        }
+
+        .gallery-item:nth-child(even) {
+            background: var(--gradient-accent);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .gallery-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .gallery-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .gallery-desc {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Campaign Timeline */
+        .service-timeline {
+            padding: 5rem 2rem;
+            background: var(--gov-light-gray);
+        }
+
+        .timeline-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .timeline-line {
             position: absolute;
             left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--gradient-ocean);
             transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: var(--gradient-primary);
         }
 
         .timeline-item {
@@ -400,10 +462,11 @@
 
         .timeline-content {
             width: 45%;
-            padding: 2rem;
-            background: var(--light-gray);
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid var(--gov-border);
         }
 
         .timeline-content.left {
@@ -419,101 +482,38 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 30px;
-            height: 30px;
-            background: var(--sunshine);
-            border: 4px solid var(--white);
+            width: 20px;
+            height: 20px;
+            background: var(--gov-gold);
+            border: 4px solid var(--gov-white);
             border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .timeline-phase {
             font-weight: 600;
-            color: var(--primary-blue);
+            color: var(--gov-accent);
             margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-size: 1.3rem;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-duration {
-            color: var(--text-light);
             font-size: 0.9rem;
         }
 
-        /* Visual Gallery */
-        .gallery {
-            padding: 5rem 2rem;
-            background: var(--light-gray);
-        }
-
-        .gallery-grid {
-            max-width: 1200px;
-            margin: 3rem auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            color: white;
-        }
-
-        .gallery-item:nth-child(1) { background: var(--gradient-blue); }
-        .gallery-item:nth-child(2) { background: var(--gradient-mint); }
-        .gallery-item:nth-child(3) { background: var(--gradient-purple); }
-        .gallery-item:nth-child(4) { background: var(--gradient-sunset); }
-        .gallery-item:nth-child(5) { background: var(--gradient-ocean); }
-        .gallery-item:nth-child(6) { background: var(--gradient-yellow); }
-
-        .gallery-item:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-        }
-
-        .gallery-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 5rem;
-            opacity: 0.3;
-        }
-
-        .gallery-content {
-            position: relative;
-            z-index: 1;
-            padding: 2rem;
-            background: linear-gradient(transparent, rgba(0,0,0,0.5));
-        }
-
-        .gallery-title {
-            font-size: 1.5rem;
+        .timeline-title {
+            font-size: 1.2rem;
+            color: var(--gov-primary);
+            margin-bottom: 0.5rem;
             font-weight: 600;
+        }
+
+        .timeline-duration {
+            color: var(--gov-gray);
+            font-size: 0.9rem;
             margin-bottom: 0.5rem;
         }
 
-        .gallery-desc {
-            font-size: 1rem;
-            opacity: 0.95;
-        }
-
-        /* Pricing */
+        /* Pricing Section */
         .pricing {
             padding: 5rem 2rem;
-            background: var(--white);
+            background: var(--gov-white);
         }
 
         .pricing-grid {
@@ -525,31 +525,23 @@
         }
 
         .pricing-card {
-            background: var(--white);
-            border-radius: 25px;
-            padding: 3rem 2rem;
-            text-align: center;
+            background: var(--gov-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             position: relative;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
-            border: 3px solid transparent;
+            border: 1px solid var(--gov-border);
+            text-align: center;
         }
-
-        .pricing-card:nth-child(1) { border-color: var(--sky-blue); }
-        .pricing-card:nth-child(2) { 
-            border-color: var(--sunshine); 
-            transform: scale(1.05);
-            background: linear-gradient(135deg, rgba(249, 231, 159, 0.1) 0%, rgba(255, 217, 61, 0.1) 100%);
-        }
-        .pricing-card:nth-child(3) { border-color: var(--light-purple); }
 
         .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        .pricing-card:nth-child(2):hover {
-            transform: translateY(-10px) scale(1.05);
+        .pricing-card:nth-child(2) {
+            border: 2px solid var(--gov-accent);
         }
 
         .pricing-badge {
@@ -557,83 +549,81 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--gradient-yellow);
-            color: var(--text-dark);
-            padding: 0.5rem 2rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: var(--gov-accent);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .pricing-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
         .pricing-name {
-            font-size: 2rem;
-            color: var(--text-dark);
+            font-size: 1.8rem;
+            color: var(--gov-primary);
             margin-bottom: 0.5rem;
             font-weight: 700;
         }
 
         .pricing-amount {
-            font-size: 3rem;
-            font-weight: 900;
-            margin: 1rem 0;
-            background: var(--gradient-ocean);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 2.5rem;
+            color: var(--gov-accent);
+            margin-bottom: 2rem;
+            font-weight: 800;
         }
 
         .pricing-features {
             list-style: none;
+            margin-bottom: 2rem;
             text-align: left;
-            margin: 2rem 0;
         }
 
         .pricing-features li {
-            padding: 0.8rem 0;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--gov-border);
+            color: var(--gov-gray);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--text-dark);
+            gap: 0.75rem;
         }
 
         .pricing-features li::before {
-            content: '✅';
-            font-size: 1.2rem;
+            content: '✓';
+            color: var(--gov-success);
+            font-weight: bold;
         }
 
         .btn-pricing {
             width: 100%;
-            padding: 1.2rem;
-            background: var(--gradient-ocean);
+            padding: 1rem;
+            background: var(--gradient-primary);
             color: white;
             border: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
 
         .btn-pricing:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         /* Contact Section */
         .contact {
+            background: var(--gradient-primary);
             padding: 5rem 2rem;
-            background: var(--gradient-ocean);
             color: white;
         }
 
         .contact-grid {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 3rem auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -643,16 +633,16 @@
         .contact-card {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
+            border-radius: 12px;
             padding: 2rem;
-            border-radius: 20px;
             text-align: center;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
             transition: all 0.3s ease;
         }
 
         .contact-card:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-3px);
         }
 
         .contact-icon {
@@ -662,7 +652,7 @@
 
         .contact-label {
             font-size: 0.9rem;
-            opacity: 0.9;
+            opacity: 0.8;
             margin-bottom: 0.5rem;
         }
 
@@ -676,19 +666,22 @@
             text-decoration: none;
         }
 
-        /* Social Links */
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
         .social-links {
+            max-width: 600px;
+            margin: 3rem auto 0;
             display: flex;
             justify-content: center;
             gap: 1rem;
-            margin-top: 3rem;
         }
 
         .social-link {
             width: 50px;
             height: 50px;
-            background: rgba(255,255,255,0.2);
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -697,592 +690,53 @@
             text-decoration: none;
             font-size: 1.3rem;
             transition: all 0.3s ease;
-            border: 2px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .social-link:hover {
-            background: var(--sunshine);
-            color: var(--text-dark);
-            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
         }
 
         /* Footer */
         footer {
-            background: var(--text-dark);
+            background: var(--gov-dark);
             color: white;
-            padding: 3rem 2rem 2rem;
+            padding: 2rem;
             text-align: center;
+        }
+
+        footer p {
+            opacity: 0.9;
+            line-height: 1.8;
         }
 
         /* Floating Call Button */
         .float-btn {
             position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 70px;
-            height: 70px;
-            background: var(--gradient-yellow);
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gov-gold);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-dark);
-            font-size: 1.8rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            font-size: 1.5rem;
             cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             z-index: 1000;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(249, 231, 159, 0.7); }
-            70% { box-shadow: 0 0 0 30px rgba(249, 231, 159, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(249, 231, 159, 0); }
         }
 
         .float-btn:hover {
             transform: scale(1.1);
-            background: var(--gradient-ocean);
-            color: white;
-        }
-
-        /* Canvas Section */
-        .canvas-section {
-            padding: 5rem 2rem;
-            background: var(--white);
-        }
-
-        .canvas-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: var(--light-gray);
-            border-radius: 30px;
-            padding: 3rem;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
-        }
-
-        #interactiveCanvas {
-            display: block;
-            margin: 2rem auto;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .services-comprehensive {
-                grid-template-columns: 1fr;
-            }
-            
-            .timeline-content {
-                width: 100%;
-            }
-            
-            .timeline-content.left,
-            .timeline-content.right {
-                margin-left: 0;
-                margin-right: 0;
-                text-align: left;
-            }
-            
-            .timeline-line {
-                left: 20px;
-            }
-            
-            .timeline-dot {
-                left: 20px;
-            }
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
         }
 
         /* Animations */
-        .fade-in {
-            animation: fadeIn 0.8s ease-in;
-        }
-
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    </style>
-
-     <style>
-      
-
-        :root {
-            --viz-primary: #3B82F6;
-            --viz-secondary: #10B981;
-            --viz-accent: #F59E0B;
-            --viz-purple: #8B5CF6;
-            --viz-pink: #EC4899;
-            --viz-teal: #14B8A6;
-            --viz-indigo: #6366F1;
-            --viz-rose: #F43F5E;
-            --viz-amber: #F97316;
-            --viz-emerald: #059669;
-            --viz-sky: #0EA5E9;
-            --viz-violet: #7C3AED;
-            
-            --viz-bg-white: #FFFFFF;
-            --viz-bg-light: #F9FAFB;
-            --viz-bg-soft: #F3F4F6;
-            --viz-border: #E5E7EB;
-            --viz-text-primary: #111827;
-            --viz-text-secondary: #6B7280;
-            --viz-text-muted: #9CA3AF;
-            
-            --viz-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --viz-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --viz-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            --viz-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --viz-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        /* Background Pattern */
-        .pattern-overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            opacity: 0.03;
-            background-image: 
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(59, 130, 246, 0.5) 35px, rgba(59, 130, 246, 0.5) 70px),
-                repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(16, 185, 129, 0.5) 35px, rgba(16, 185, 129, 0.5) 70px);
-        }
-
-        /* Main Wrapper */
-        .network-visualization-wrapper {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 1;
-        }
-
-        .viz-container-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            max-width: 1800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-
-        /* Header Section */
-        .viz-header-section {
-            background: var(--viz-bg-white);
-            border-radius: 24px;
-            padding: 2rem 3rem;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--viz-shadow-lg);
-            border: 1px solid var(--viz-border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .viz-header-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, 
-                var(--viz-primary) 0%, 
-                var(--viz-secondary) 25%, 
-                var(--viz-accent) 50%, 
-                var(--viz-purple) 75%, 
-                var(--viz-pink) 100%);
-        }
-
-        .viz-main-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--viz-primary) 0%, var(--viz-purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        .viz-subtitle-text {
-            color: var(--viz-text-secondary);
-            font-size: 1.1rem;
-        }
-
-        /* Canvas Area */
-        .viz-canvas-area {
-            flex: 1;
-            background: var(--viz-bg-white);
-            border-radius: 24px;
-            box-shadow: var(--viz-shadow-xl);
-            border: 1px solid var(--viz-border);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-    padding-bottom: 90px;
-        }
-
-        .network-render-space {
-            flex: 1;
-            position: relative;
-        }
-
-        #networkCanvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-            cursor: grab;
-        }
-
-        #networkCanvas:active {
-            cursor: grabbing;
-        }
-
-        /* Floating Cards */
-        .viz-floating-card {
-            position: absolute;
-            background: var(--viz-bg-white);
-            border-radius: 20px;
-            padding: 1.5rem;
-            box-shadow: var(--viz-shadow-xl);
-            border: 1px solid var(--viz-border);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 100;
-        }
-
-        /* Service Detail Card */
-        .service-detail-card {
-            top: 2rem;
-            left: 2rem;
-            width: 320px;
-            transform: translateX(-360px);
-        }
-
-        .service-detail-card.visible {
-            transform: translateX(0);
-        }
-
-        .detail-card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid var(--viz-bg-soft);
-        }
-
-        .detail-icon-box {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            background: linear-gradient(135deg, var(--viz-primary) 0%, var(--viz-purple) 100%);
-            box-shadow: 0 8px 16px rgba(99, 102, 241, 0.2);
-        }
-
-        .detail-service-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--viz-text-primary);
-        }
-
-        .detail-service-category {
-            font-size: 0.85rem;
-            color: var(--viz-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .detail-description {
-            color: var(--viz-text-secondary);
-            line-height: 1.6;
-            margin-bottom: 1rem;
-        }
-
-        .detail-feature-list {
-            list-style: none;
-        }
-
-        .detail-feature-item {
-            padding: 0.6rem 0;
-            color: var(--viz-text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .detail-feature-item::before {
-            content: '⚡';
-            color: var(--viz-accent);
-            font-size: 1rem;
-        }
-
-        /* Metrics Dashboard */
-        .metrics-dashboard {
-            top: 2rem;
-            right: 2rem;
-            width: 280px;
-        }
-
-        .metrics-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--viz-text-primary);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .metrics-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .metric-box {
-            background: var(--viz-bg-light);
-            padding: 1rem;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .metric-label {
-            color: var(--viz-text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .metric-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--viz-primary) 0%, var(--viz-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Controller Strip */
-        .controller-strip {
-            position: absolute;
-            bottom: -4rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 0.5rem;
-            background: var(--viz-bg-white);
-            padding: 0.5rem;
-            border-radius: 100px;
-            box-shadow: var(--viz-shadow-xl);
-            border: 1px solid var(--viz-border);
-            z-index: 100;
-        }
-
-        .control-action {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            border: none;
-            border-radius: 100px;
-            color: var(--viz-text-secondary);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 600;
-            font-size: 0.9rem;
-            outline: none;
-        }
-
-        .control-action:hover {
-            background: var(--viz-bg-light);
-            color: var(--viz-primary);
-        }
-
-        .control-action.selected {
-            background: linear-gradient(135deg, var(--viz-primary) 0%, var(--viz-purple) 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        /* Category Legend */
-        .category-legend {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--viz-bg-white);
-            border-radius: 16px;
-            padding: 1rem;
-            box-shadow: var(--viz-shadow-lg);
-            border: 1px solid var(--viz-border);
-            z-index: 100;
-        }
-
-        .legend-header {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--viz-text-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .legend-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .legend-entry {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.85rem;
-            color: var(--viz-text-secondary);
-        }
-
-        .legend-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Hover Info */
-        .hover-info-box {
-            position: absolute;
-            background: var(--viz-text-primary);
-            color: white;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            pointer-events: none;
-            z-index: 1000;
-            display: none;
-            box-shadow: var(--viz-shadow-xl);
-            font-size: 0.9rem;
-            max-width: 250px;
-        }
-
-        .hover-info-box.show {
-            display: block;
-        }
-
-        .hover-info-title {
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-            color: var(--viz-accent);
-        }
-
-        /* Mini Map */
-        .mini-map-container {
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--viz-bg-white);
-            border-radius: 16px;
-            padding: 1rem;
-            box-shadow: var(--viz-shadow-lg);
-            border: 1px solid var(--viz-border);
-            z-index: 100;
-        }
-
-        .mini-map-canvas {
-            width: 150px;
-            height: 100px;
-            border-radius: 8px;
-            border: 2px solid var(--viz-border);
-            background: var(--viz-bg-soft);
-        }
-
-        /* Connection Counter */
-        .connection-counter {
-            position: absolute;
-            bottom: 6rem;
-            left: 2rem;
-            background: linear-gradient(135deg, var(--viz-primary) 0%, var(--viz-purple) 100%);
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
-            box-shadow: var(--viz-shadow-xl);
-            font-weight: 600;
-            z-index: 100;
-        }
-
-        .connection-label {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        .connection-count {
-            font-size: 2rem;
-            font-weight: 800;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .viz-main-title {
-                font-size: 1.8rem;
-            }
-            
-            .service-detail-card,
-            .metrics-dashboard {
-                display: none;
-            }
-            
-            .controller-strip {
-                padding: 0.25rem;
-            }
-            
-            .control-action {
-                padding: 0.5rem 1rem;
-                font-size: 0.8rem;
-            }
-        }
-
-        /* Animations */
-        @keyframes slideIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -1293,42 +747,46 @@
             }
         }
 
-        .viz-floating-card {
-            animation: slideIn 0.5s ease-out;
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
         }
 
-        /* Pulse Animation */
-        @keyframes networkPulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
             }
-            50% {
-                transform: scale(1.05);
-                opacity: 0.8;
+
+            .hero-title {
+                font-size: 2.5rem;
             }
-        }
 
-        /* Loading State */
-        .network-loading {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
+            .services-comprehensive {
+                grid-template-columns: 1fr;
+            }
 
-        .loading-spinner {
-            width: 60px;
-            height: 60px;
-            border: 4px solid var(--viz-border);
-            border-top-color: var(--viz-primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+            .timeline-content {
+                width: 100%;
+            }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+            .timeline-content.left,
+            .timeline-content.right {
+                margin: 0;
+                text-align: left;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1588,8 +1046,8 @@
                             <span class="deliverable-tag">50+ Press Releases</span>
                             <span class="deliverable-tag">100+ News Articles</span>
                             <span class="deliverable-tag">TV Appearances</span>
-                            <span class="deliverable-tag">Radio Shows</span>
-                            <span class="deliverable-tag">3M+ Reach</span>
+                            <span class="deliverable-tag">Radio Interviews</span>
+                            <span class="deliverable-tag">Op-eds</span>
                         </div>
                     </div>
                 </div>
@@ -1599,12 +1057,12 @@
             <div class="service-comprehensive-card">
                 <div class="service-header">
                     <div class="service-icon">🎬</div>
-                    <h3 class="service-title">Content Production</h3>
-                    <p class="service-tagline">Professional multimedia content creation</p>
+                    <h3 class="service-title">Content Production Studio</h3>
+                    <p class="service-tagline">Creating compelling campaign content</p>
                 </div>
                 <div class="service-body">
                     <ul class="service-features">
-                        <li>Campaign videos & documentaries</li>
+                        <li>Campaign video production & editing</li>
                         <li>Professional photography services</li>
                         <li>Speech writing & teleprompter services</li>
                         <li>Manifesto design & publication</li>
@@ -1741,694 +1199,16 @@
         </div>
     </section>
 
-    <!-- Interactive Canvas Visualization -->
-<div class="pattern-overlay"></div>
-    
-    <div class="network-visualization-wrapper">
-        <div class="viz-container-main">
-            <div class="viz-header-section">
-                <h1 class="viz-main-title">Service Network Architecture</h1>
-                <p class="viz-subtitle-text">Discover how our 12 integrated services create a powerful campaign ecosystem</p>
-            </div>
-            
-            <div class="viz-canvas-area">
-                <div class="network-render-space">
-                    <canvas id="networkCanvas"></canvas>
-                    
-                    <!-- Service Detail Card -->
-                    <div class="viz-floating-card service-detail-card" id="serviceDetailPanel">
-                        <div class="detail-card-header">
-                            <div class="detail-icon-box" id="detailIconBox">🎯</div>
-                            <div>
-                                <div class="detail-service-name" id="detailServiceName">Select a Service</div>
-                                <div class="detail-service-category" id="detailCategory">Click to explore</div>
-                            </div>
-                        </div>
-                        <p class="detail-description" id="detailDescription">
-                            Click on any service node to see how it connects with other campaign services and contributes to your victory.
-                        </p>
-                        <ul class="detail-feature-list" id="detailFeatures">
-                            <li class="detail-feature-item">Interactive network visualization</li>
-                            <li class="detail-feature-item">Real-time connection mapping</li>
-                            <li class="detail-feature-item">Service integration insights</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Metrics Dashboard -->
-                    <div class="viz-floating-card metrics-dashboard">
-                        <div class="metrics-title">
-                            📊 Network Metrics
-                        </div>
-                        <div class="metrics-grid">
-                            <div class="metric-box">
-                                <span class="metric-label">Total Services</span>
-                                <span class="metric-value">12</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-label">Connections</span>
-                                <span class="metric-value" id="totalConnections">48</span>
-                            </div>
-                            <div class="metric-box">
-                                <span class="metric-label">Active Links</span>
-                                <span class="metric-value" id="activeLinks">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Controller Strip -->
-                    <div class="controller-strip">
-                        <button class="control-action selected" onclick="changeLayout('force')">Force Layout</button>
-                        <button class="control-action" onclick="changeLayout('circular')">Circular</button>
-                        <button class="control-action" onclick="changeLayout('tree')">Hierarchy</button>
-                        <button class="control-action" onclick="changeLayout('grid')">Grid View</button>
-                        <button class="control-action" onclick="toggleMotion()">Motion</button>
-                        <button class="control-action" onclick="resetNetwork()">Reset</button>
-                    </div>
-                    
-                    <!-- Category Legend -->
-                    <div class="category-legend">
-                        <div class="legend-header">Service Categories</div>
-                        <div class="legend-list">
-                            <div class="legend-entry">
-                                <div class="legend-dot" style="background: #3B82F6;"></div>
-                                <span>Strategic Services</span>
-                            </div>
-                            <div class="legend-entry">
-                                <div class="legend-dot" style="background: #10B981;"></div>
-                                <span>Digital Platform</span>
-                            </div>
-                            <div class="legend-entry">
-                                <div class="legend-dot" style="background: #F59E0B;"></div>
-                                <span>Ground Operations</span>
-                            </div>
-                            <div class="legend-entry">
-                                <div class="legend-dot" style="background: #EC4899;"></div>
-                                <span>Media & Content</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Connection Counter -->
-                    <div class="connection-counter" id="connectionCounter" style="display: none;">
-                        <div class="connection-label">Active Connections</div>
-                        <div class="connection-count" id="connectionCount">0</div>
-                    </div>
-                    
-                    <!-- Hover Info Box -->
-                    <div class="hover-info-box" id="hoverInfo">
-                        <div class="hover-info-title" id="hoverTitle">Service</div>
-                        <div id="hoverContent">Details</div>
-                    </div>
-                </div>
-            </div>
+    <!-- Interactive Canvas Section -->
+    <section class="interactive-canvas-section">
+        <div class="section-header">
+            <h2 class="section-title">Interactive Service Network</h2>
+            <p class="section-subtitle">Explore how our integrated services work together</p>
         </div>
-    </div>
-
-    <script>
-        // Network Visualization Engine
-        const NetworkViz = {
-            canvas: null,
-            ctx: null,
-            width: 0,
-            height: 0,
-            nodes: [],
-            links: [],
-            selectedNode: null,
-            hoveredNode: null,
-            layout: 'force',
-            animationActive: true,
-            mousePos: { x: 0, y: 0 },
-            frameCount: 0,
-            
-            // Service Data Structure
-            serviceData: [
-                {
-                    id: 'S1',
-                    label: 'Strategic Planning',
-                    emoji: '🎯',
-                    category: 'strategic',
-                    color: '#3B82F6',
-                    description: 'Campaign master planning and strategy',
-                    features: ['Voter Analysis', 'Resource Planning', 'Timeline Creation'],
-                    connects: ['S2', 'S3', 'S4', 'S5', 'S12']
-                },
-                {
-                    id: 'S2',
-                    label: 'Digital Platform',
-                    emoji: '💻',
-                    category: 'digital',
-                    color: '#10B981',
-                    description: 'Technology infrastructure and tools',
-                    features: ['Website Development', 'Mobile Apps', 'CRM Systems'],
-                    connects: ['S1', 'S4', 'S6', 'S12']
-                },
-                {
-                    id: 'S3',
-                    label: 'Brand Identity',
-                    emoji: '🎨',
-                    category: 'strategic',
-                    color: '#8B5CF6',
-                    description: 'Political brand and identity creation',
-                    features: ['Logo Design', 'Visual Guidelines', 'Messaging'],
-                    connects: ['S1', 'S4', 'S7', 'S8']
-                },
-                {
-                    id: 'S4',
-                    label: 'Social Media',
-                    emoji: '📱',
-                    category: 'digital',
-                    color: '#14B8A6',
-                    description: 'Social media management and engagement',
-                    features: ['Content Creation', 'Community Management', 'Viral Campaigns'],
-                    connects: ['S1', 'S2', 'S3', 'S7', 'S8']
-                },
-                {
-                    id: 'S5',
-                    label: 'Ground Force',
-                    emoji: '👥',
-                    category: 'ground',
-                    color: '#F59E0B',
-                    description: 'Field operations and volunteer management',
-                    features: ['Volunteer Network', 'Door-to-Door', 'Booth Management'],
-                    connects: ['S1', 'S6', 'S11', 'S12']
-                },
-                {
-                    id: 'S6',
-                    label: 'Data Analytics',
-                    emoji: '📊',
-                    category: 'digital',
-                    color: '#06B6D4',
-                    description: 'Surveys and predictive analytics',
-                    features: ['Voter Surveys', 'Predictive Models', 'Sentiment Analysis'],
-                    connects: ['S2', 'S5', 'S7', 'S12']
-                },
-                {
-                    id: 'S7',
-                    label: 'Media Relations',
-                    emoji: '📰',
-                    category: 'media',
-                    color: '#EC4899',
-                    description: 'Press and public relations',
-                    features: ['Press Releases', 'Media Coverage', 'TV Appearances'],
-                    connects: ['S3', 'S4', 'S6', 'S8', 'S9']
-                },
-                {
-                    id: 'S8',
-                    label: 'Content Creation',
-                    emoji: '🎬',
-                    category: 'media',
-                    color: '#F43F5E',
-                    description: 'Video and content production',
-                    features: ['Campaign Videos', 'Photography', 'Graphic Design'],
-                    connects: ['S3', 'S4', 'S7', 'S9']
-                },
-                {
-                    id: 'S9',
-                    label: 'Advertising',
-                    emoji: '📢',
-                    category: 'media',
-                    color: '#F97316',
-                    description: 'Multi-channel advertising campaigns',
-                    features: ['TV/Radio Ads', 'Print Media', 'Digital Ads'],
-                    connects: ['S7', 'S8', 'S10']
-                },
-                {
-                    id: 'S10',
-                    label: 'Legal Affairs',
-                    emoji: '⚖️',
-                    category: 'strategic',
-                    color: '#6366F1',
-                    description: 'Compliance and legal support',
-                    features: ['EC Compliance', 'Documentation', 'Legal Advisory'],
-                    connects: ['S9', 'S11', 'S12']
-                },
-                {
-                    id: 'S11',
-                    label: 'Event Management',
-                    emoji: '🎪',
-                    category: 'ground',
-                    color: '#EAB308',
-                    description: 'Rally and event organization',
-                    features: ['Mass Rallies', 'Town Halls', 'Roadshows'],
-                    connects: ['S5', 'S10', 'S12']
-                },
-                {
-                    id: 'S12',
-                    label: 'War Room',
-                    emoji: '🎛️',
-                    category: 'strategic',
-                    color: '#7C3AED',
-                    description: '24/7 command and control center',
-                    features: ['Real-time Monitoring', 'Crisis Management', 'Coordination'],
-                    connects: ['S1', 'S2', 'S5', 'S6', 'S10', 'S11']
-                }
-            ],
-            
-            init() {
-                this.canvas = document.getElementById('networkCanvas');
-                this.ctx = this.canvas.getContext('2d');
-                
-                this.setupCanvas();
-                this.createNetwork();
-                this.bindEvents();
-                this.animate();
-            },
-            
-            setupCanvas() {
-                const container = this.canvas.parentElement;
-                this.width = container.clientWidth;
-                this.height = container.clientHeight;
-                
-                this.canvas.width = this.width;
-                this.canvas.height = this.height;
-                
-                // High DPI support
-                const dpr = window.devicePixelRatio || 1;
-                this.canvas.width = this.width * dpr;
-                this.canvas.height = this.height * dpr;
-                this.ctx.scale(dpr, dpr);
-                this.canvas.style.width = this.width + 'px';
-                this.canvas.style.height = this.height + 'px';
-            },
-            
-            createNetwork() {
-                // Create nodes
-                this.nodes = this.serviceData.map((service, index) => ({
-                    ...service,
-                    x: this.width / 2 + Math.cos(index * Math.PI * 2 / 12) * 200,
-                    y: this.height / 2 + Math.sin(index * Math.PI * 2 / 12) * 200,
-                    vx: 0,
-                    vy: 0,
-                    radius: 35,
-                    pulsePhase: Math.random() * Math.PI * 2
-                }));
-                
-                // Create links
-                this.links = [];
-                this.nodes.forEach(node => {
-                    node.connects.forEach(targetId => {
-                        const target = this.nodes.find(n => n.id === targetId);
-                        if (target && !this.links.find(l => 
-                            (l.source === node && l.target === target) ||
-                            (l.source === target && l.target === node))) {
-                            this.links.push({
-                                source: node,
-                                target: target
-                            });
-                        }
-                    });
-                });
-                
-                document.getElementById('totalConnections').textContent = this.links.length;
-            },
-            
-            bindEvents() {
-                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-                this.canvas.addEventListener('click', (e) => this.handleClick(e));
-                this.canvas.addEventListener('mouseleave', () => this.handleMouseLeave());
-                window.addEventListener('resize', () => {
-                    this.setupCanvas();
-                    this.applyLayout(this.layout);
-                });
-            },
-            
-            handleMouseMove(e) {
-                const rect = this.canvas.getBoundingClientRect();
-                this.mousePos.x = e.clientX - rect.left;
-                this.mousePos.y = e.clientY - rect.top;
-                
-                // Check hover
-                this.hoveredNode = null;
-                this.nodes.forEach(node => {
-                    const dx = this.mousePos.x - node.x;
-                    const dy = this.mousePos.y - node.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < node.radius + 5) {
-                        this.hoveredNode = node;
-                        this.showHoverInfo(e.clientX, e.clientY, node);
-                    }
-                });
-                
-                if (!this.hoveredNode) {
-                    this.hideHoverInfo();
-                }
-            },
-            
-            handleClick(e) {
-                if (this.hoveredNode) {
-                    if (this.selectedNode === this.hoveredNode) {
-                        this.selectedNode = null;
-                        this.hideServiceDetail();
-                        this.hideConnectionCounter();
-                    } else {
-                        this.selectedNode = this.hoveredNode;
-                        this.showServiceDetail(this.selectedNode);
-                        this.showConnectionCounter(this.selectedNode);
-                    }
-                    this.updateActiveLinks();
-                }
-            },
-            
-            handleMouseLeave() {
-                this.hoveredNode = null;
-                this.hideHoverInfo();
-            },
-            
-            showHoverInfo(x, y, node) {
-                const info = document.getElementById('hoverInfo');
-                const title = document.getElementById('hoverTitle');
-                const content = document.getElementById('hoverContent');
-                
-                title.textContent = node.label;
-                content.textContent = `${node.connects.length} connections`;
-                
-                info.classList.add('show');
-                info.style.left = x + 15 + 'px';
-                info.style.top = y - 40 + 'px';
-            },
-            
-            hideHoverInfo() {
-                document.getElementById('hoverInfo').classList.remove('show');
-            },
-            
-            showServiceDetail(node) {
-                const panel = document.getElementById('serviceDetailPanel');
-                const icon = document.getElementById('detailIconBox');
-                const name = document.getElementById('detailServiceName');
-                const category = document.getElementById('detailCategory');
-                const description = document.getElementById('detailDescription');
-                const features = document.getElementById('detailFeatures');
-                
-                icon.textContent = node.emoji;
-                icon.style.background = `linear-gradient(135deg, ${node.color} 0%, ${this.adjustColor(node.color, 20)} 100%)`;
-                name.textContent = node.label;
-                category.textContent = node.category.toUpperCase();
-                description.textContent = node.description;
-                
-                features.innerHTML = '';
-                node.features.forEach(feature => {
-                    const li = document.createElement('li');
-                    li.className = 'detail-feature-item';
-                    li.textContent = feature;
-                    features.appendChild(li);
-                });
-                
-                panel.classList.add('visible');
-            },
-            
-            hideServiceDetail() {
-                document.getElementById('serviceDetailPanel').classList.remove('visible');
-            },
-            
-            showConnectionCounter(node) {
-                const counter = document.getElementById('connectionCounter');
-                const count = document.getElementById('connectionCount');
-                
-                count.textContent = node.connects.length;
-                counter.style.display = 'block';
-            },
-            
-            hideConnectionCounter() {
-                document.getElementById('connectionCounter').style.display = 'none';
-            },
-            
-            updateActiveLinks() {
-                const activeCount = this.selectedNode ? this.selectedNode.connects.length : 0;
-                document.getElementById('activeLinks').textContent = activeCount;
-            },
-            
-            applyLayout(layoutType) {
-                switch(layoutType) {
-                    case 'circular':
-                        this.applyCircularLayout();
-                        break;
-                    case 'tree':
-                        this.applyTreeLayout();
-                        break;
-                    case 'grid':
-                        this.applyGridLayout();
-                        break;
-                    case 'force':
-                    default:
-                        this.applyForceLayout();
-                        break;
-                }
-            },
-            
-            applyCircularLayout() {
-                const centerX = this.width / 2;
-                const centerY = this.height / 2;
-                const radius = Math.min(this.width, this.height) * 0.35;
-                
-                this.nodes.forEach((node, index) => {
-                    const angle = (index / this.nodes.length) * Math.PI * 2 - Math.PI / 2;
-                    node.x = centerX + Math.cos(angle) * radius;
-                    node.y = centerY + Math.sin(angle) * radius;
-                    node.vx = 0;
-                    node.vy = 0;
-                });
-            },
-            
-            applyTreeLayout() {
-                const levels = [
-                    ['S1'],
-                    ['S2', 'S3', 'S12'],
-                    ['S4', 'S5', 'S6'],
-                    ['S7', 'S8', 'S9', 'S10', 'S11']
-                ];
-                
-                const levelHeight = this.height / (levels.length + 1);
-                
-                levels.forEach((level, levelIndex) => {
-                    const y = levelHeight * (levelIndex + 1);
-                    const levelWidth = this.width / (level.length + 1);
-                    
-                    level.forEach((nodeId, index) => {
-                        const node = this.nodes.find(n => n.id === nodeId);
-                        if (node) {
-                            node.x = levelWidth * (index + 1);
-                            node.y = y;
-                            node.vx = 0;
-                            node.vy = 0;
-                        }
-                    });
-                });
-            },
-            
-            applyGridLayout() {
-                const cols = 4;
-                const rows = 3;
-                const cellWidth = this.width / (cols + 1);
-                const cellHeight = this.height / (rows + 1);
-                
-                this.nodes.forEach((node, index) => {
-                    const col = index % cols;
-                    const row = Math.floor(index / cols);
-                    
-                    node.x = cellWidth * (col + 1);
-                    node.y = cellHeight * (row + 1);
-                    node.vx = 0;
-                    node.vy = 0;
-                });
-            },
-            
-            applyForceLayout() {
-                // Keep current positions, let physics take over
-                this.nodes.forEach(node => {
-                    node.vx = (Math.random() - 0.5) * 2;
-                    node.vy = (Math.random() - 0.5) * 2;
-                });
-            },
-            
-            updatePhysics() {
-                if (!this.animationActive || this.layout !== 'force') return;
-                
-                // Apply forces
-                this.nodes.forEach((node, i) => {
-                    if (this.selectedNode === node) return;
-                    
-                    // Center gravity
-                    const cx = this.width / 2;
-                    const cy = this.height / 2;
-                    node.vx += (cx - node.x) * 0.0001;
-                    node.vy += (cy - node.y) * 0.0001;
-                    
-                    // Node repulsion
-                    this.nodes.forEach((other, j) => {
-                        if (i !== j) {
-                            const dx = other.x - node.x;
-                            const dy = other.y - node.y;
-                            const distance = Math.sqrt(dx * dx + dy * dy);
-                            
-                            if (distance < 150) {
-                                const force = (150 - distance) / 1000;
-                                node.vx -= dx * force;
-                                node.vy -= dy * force;
-                            }
-                        }
-                    });
-                    
-                    // Link attraction
-                    node.connects.forEach(targetId => {
-                        const target = this.nodes.find(n => n.id === targetId);
-                        if (target) {
-                            const dx = target.x - node.x;
-                            const dy = target.y - node.y;
-                            node.vx += dx * 0.0001;
-                            node.vy += dy * 0.0001;
-                        }
-                    });
-                    
-                    // Apply velocity
-                    node.x += node.vx;
-                    node.y += node.vy;
-                    
-                    // Friction
-                    node.vx *= 0.95;
-                    node.vy *= 0.95;
-                    
-                    // Boundaries
-                    const margin = 50;
-                    if (node.x < margin) node.x = margin;
-                    if (node.x > this.width - margin) node.x = this.width - margin;
-                    if (node.y < margin) node.y = margin;
-                    if (node.y > this.height - margin) node.y = this.height - margin;
-                });
-            },
-            
-            draw() {
-                // Clear canvas
-                this.ctx.clearRect(0, 0, this.width, this.height);
-                
-                // Draw links
-                this.drawLinks();
-                
-                // Draw nodes
-                this.drawNodes();
-                
-                this.frameCount++;
-            },
-            
-            drawLinks() {
-                this.links.forEach(link => {
-                    const isActive = this.selectedNode && 
-                        (this.selectedNode === link.source || this.selectedNode === link.target);
-                    
-                    this.ctx.save();
-                    this.ctx.beginPath();
-                    this.ctx.moveTo(link.source.x, link.source.y);
-                    this.ctx.lineTo(link.target.x, link.target.y);
-                    
-                    if (isActive) {
-                        this.ctx.strokeStyle = 'rgba(251, 191, 36, 0.8)';
-                        this.ctx.lineWidth = 3;
-                    } else {
-                        this.ctx.strokeStyle = 'rgba(156, 163, 175, 0.2)';
-                        this.ctx.lineWidth = 1;
-                    }
-                    
-                    this.ctx.stroke();
-                    this.ctx.restore();
-                });
-            },
-            
-            drawNodes() {
-                this.nodes.forEach(node => {
-                    const isHovered = this.hoveredNode === node;
-                    const isSelected = this.selectedNode === node;
-                    const isConnected = this.selectedNode && this.selectedNode.connects.includes(node.id);
-                    
-                    this.ctx.save();
-                    
-                    // Calculate radius with pulse
-                    let radius = node.radius;
-                    if (this.animationActive) {
-                        radius += Math.sin(this.frameCount / 30 + node.pulsePhase) * 2;
-                    }
-                    if (isHovered) radius += 5;
-                    if (isSelected) radius += 8;
-                    if (isConnected) radius += 3;
-                    
-                    // Draw shadow
-                    if (isHovered || isSelected || isConnected) {
-                        this.ctx.shadowColor = node.color;
-                        this.ctx.shadowBlur = 20;
-                    }
-                    
-                    // Draw node circle
-                    this.ctx.beginPath();
-                    this.ctx.arc(node.x, node.y, radius, 0, Math.PI * 2);
-                    this.ctx.fillStyle = node.color;
-                    this.ctx.fill();
-                    
-                    // Draw border
-                    if (isSelected) {
-                        this.ctx.strokeStyle = '#F59E0B';
-                        this.ctx.lineWidth = 3;
-                        this.ctx.stroke();
-                    }
-                    
-                    // Draw emoji
-                    this.ctx.font = `${radius * 0.8}px sans-serif`;
-                    this.ctx.textAlign = 'center';
-                    this.ctx.textBaseline = 'middle';
-                    this.ctx.fillText(node.emoji, node.x, node.y);
-                    
-                    // Draw label
-                    this.ctx.shadowBlur = 0;
-                    this.ctx.font = '12px sans-serif';
-                    this.ctx.fillStyle = '#374151';
-                    this.ctx.fillText(node.label, node.x, node.y + radius + 15);
-                    
-                    this.ctx.restore();
-                });
-            },
-            
-            animate() {
-                this.updatePhysics();
-                this.draw();
-                requestAnimationFrame(() => this.animate());
-            },
-            
-            adjustColor(color, amount) {
-                const num = parseInt(color.replace('#', ''), 16);
-                const r = Math.min(255, ((num >> 16) & 255) + amount);
-                const g = Math.min(255, ((num >> 8) & 255) + amount);
-                const b = Math.min(255, (num & 255) + amount);
-                return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
-            }
-        };
-        
-        // Global functions for controls
-        function changeLayout(layout) {
-            NetworkViz.layout = layout;
-            NetworkViz.applyLayout(layout);
-            
-            document.querySelectorAll('.control-action').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            event.target.classList.add('selected');
-        }
-        
-        function toggleMotion() {
-            NetworkViz.animationActive = !NetworkViz.animationActive;
-            event.target.classList.toggle('selected');
-        }
-        
-        function resetNetwork() {
-            NetworkViz.selectedNode = null;
-            NetworkViz.hideServiceDetail();
-            NetworkViz.hideConnectionCounter();
-            NetworkViz.updateActiveLinks();
-            NetworkViz.applyLayout(NetworkViz.layout);
-        }
-        
-        // Initialize on load
-        window.addEventListener('load', () => {
-            NetworkViz.init();
-        });
-    </script>
+        <div class="canvas-container">
+            <canvas id="interactiveCanvas"></canvas>
+        </div>
+    </section>
 
     <!-- Visual Gallery -->
     <section class="gallery">
@@ -2437,47 +1217,139 @@
             <p class="section-subtitle">Visual journey of electoral success</p>
         </div>
         <div class="gallery-grid">
-            <div class="gallery-item">
-                <div class="gallery-icon">🏛️</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">Mass Rallies</div>
-                    <div class="gallery-desc">Organizing 5000+ attendee events across constituencies</div>
+<!-- Gallery Item with Background Image -->
+<div class="gallery-item" style="
+    background-image: linear-gradient(rgba(26, 58, 82, 0.7), rgba(26, 58, 82, 0.9)), url('image-url-here.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+">
+    <div class="gallery-icon">🏛️</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Mass Rallies</div>
+        <div class="gallery-desc">Organizing 5000+ attendee events across constituencies</div>
+    </div>
+</div>
+
+<!-- Alternative: Each gallery item with different background -->
+<div class="gallery-item" style="
+    background: linear-gradient(rgba(44, 82, 130, 0.85), rgba(49, 130, 206, 0.85)), url('rally-image.jpg') center/cover no-repeat;
+">
+    <div class="gallery-icon">🏛️</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Mass Rallies</div>
+        <div class="gallery-desc">Organizing 5000+ attendee events across constituencies</div>
+    </div>
+</div>
+
+<!-- For all 6 gallery items with placeholder images -->
+<div class="gallery-item" style="background: linear-gradient(rgba(26, 58, 82, 0.8), rgba(26, 58, 82, 0.95)), url('https://via.placeholder.com/400x250/1a3a52/ffffff?text=Mass+Rallies') center/cover no-repeat;">
+    <div class="gallery-icon">🏛️</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Mass Rallies</div>
+        <div class="gallery-desc">Organizing 5000+ attendee events across constituencies</div>
+    </div>
+</div>
+
+<div class="gallery-item" style="background: linear-gradient(rgba(44, 82, 130, 0.8), rgba(44, 82, 130, 0.95)), url('https://via.placeholder.com/400x250/2c5282/ffffff?text=Public+Outreach') center/cover no-repeat;">
+    <div class="gallery-icon">📢</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Public Outreach</div>
+        <div class="gallery-desc">Direct voter connection through door-to-door campaigns</div>
+    </div>
+</div>
+
+<div class="gallery-item" style="background: linear-gradient(rgba(26, 58, 82, 0.8), rgba(26, 58, 82, 0.95)), url('https://via.placeholder.com/400x250/1a3a52/ffffff?text=Booth+Management') center/cover no-repeat;">
+    <div class="gallery-icon">🗳️</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Booth Management</div>
+        <div class="gallery-desc">520+ booths with dedicated teams and real-time monitoring</div>
+    </div>
+</div>
+
+<div class="gallery-item" style="background: linear-gradient(rgba(44, 82, 130, 0.8), rgba(44, 82, 130, 0.95)), url('https://via.placeholder.com/400x250/2c5282/ffffff?text=War+Room') center/cover no-repeat;">
+    <div class="gallery-icon">🎯</div>
+    <div class="gallery-content">
+        <div class="gallery-title">War Room</div>
+        <div class="gallery-desc">24/7 command center with rapid response capabilities</div>
+    </div>
+</div>
+
+<div class="gallery-item" style="background: linear-gradient(rgba(26, 58, 82, 0.8), rgba(26, 58, 82, 0.95)), url('https://via.placeholder.com/400x250/1a3a52/ffffff?text=Digital+Campaign') center/cover no-repeat;">
+    <div class="gallery-icon">📱</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Digital Dominance</div>
+        <div class="gallery-desc">Social media campaigns reaching millions daily</div>
+    </div>
+</div>
+
+<div class="gallery-item" style="background: linear-gradient(rgba(44, 82, 130, 0.8), rgba(44, 82, 130, 0.95)), url('https://via.placeholder.com/400x250/2c5282/ffffff?text=Ground+Force') center/cover no-repeat;">
+    <div class="gallery-icon">👥</div>
+    <div class="gallery-content">
+        <div class="gallery-title">Ground Force</div>
+        <div class="gallery-desc">500+ trained workers executing grassroots strategies</div>
+    </div>
+</div>
+        </div>
+    </section>
+
+    <!-- Campaign Timeline -->
+    <section class="service-timeline">
+        <div class="timeline-header">
+            <h2 class="section-title">Your Victory Timeline</h2>
+            <p class="section-subtitle">Strategic phases from announcement to victory</p>
+        </div>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 1</div>
+                    <h3 class="timeline-title">Foundation Building</h3>
+                    <p class="timeline-duration">Days 1-30</p>
+                    <p>Brand development, team formation, initial surveys</p>
                 </div>
+                <div class="timeline-dot"></div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-icon">📢</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">Public Outreach</div>
-                    <div class="gallery-desc">Direct voter connection through door-to-door campaigns</div>
+
+            <div class="timeline-item">
+                <div class="timeline-content right">
+                    <div class="timeline-phase">Phase 2</div>
+                    <h3 class="timeline-title">Digital Launch</h3>
+                    <p class="timeline-duration">Days 31-60</p>
+                    <p>Website launch, social media activation, PR campaign</p>
                 </div>
+                <div class="timeline-dot"></div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-icon">🗳️</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">Booth Management</div>
-                    <div class="gallery-desc">520+ booths with dedicated teams and real-time monitoring</div>
+
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 3</div>
+                    <h3 class="timeline-title">Ground Mobilization</h3>
+                    <p class="timeline-duration">Days 61-120</p>
+                    <p>Booth committees, volunteer training, door-to-door campaigns</p>
                 </div>
+                <div class="timeline-dot"></div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-icon">🎯</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">War Room</div>
-                    <div class="gallery-desc">24/7 command center with rapid response capabilities</div>
+
+            <div class="timeline-item">
+                <div class="timeline-content right">
+                    <div class="timeline-phase">Phase 4</div>
+                    <h3 class="timeline-title">Mass Outreach</h3>
+                    <p class="timeline-duration">Days 121-180</p>
+                    <p>Rallies, roadshows, media blitz, advertising campaign</p>
                 </div>
+                <div class="timeline-dot"></div>
             </div>
-            <div class="gallery-item">
-                <div class="gallery-icon">📱</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">Digital Dominance</div>
-                    <div class="gallery-desc">Social media campaigns reaching millions daily</div>
+
+            <div class="timeline-item">
+                <div class="timeline-content left">
+                    <div class="timeline-phase">Phase 5</div>
+                    <h3 class="timeline-title">Final Sprint</h3>
+                    <p class="timeline-duration">Last 30 Days</p>
+                    <p>Intensive campaigning, GOTV operations, election day management</p>
                 </div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-icon">👥</div>
-                <div class="gallery-content">
-                    <div class="gallery-title">Ground Force</div>
-                    <div class="gallery-desc">500+ trained workers executing grassroots strategies</div>
-                </div>
+                <div class="timeline-dot"></div>
             </div>
         </div>
     </section>
@@ -2577,13 +1449,13 @@
                 <div class="contact-value">Bangalore, Karnataka</div>
             </div>
         </div>
-        <div class="social-links">
+        <!-- <div class="social-links">
             <a href="https://facebook.com/indianpoliticalanalysis" target="_blank" class="social-link">f</a>
             <a href="https://twitter.com/IPA_India" target="_blank" class="social-link">𝕏</a>
             <a href="https://instagram.com/ipa.india" target="_blank" class="social-link">📷</a>
             <a href="https://linkedin.com/company/indian-political-analysis" target="_blank" class="social-link">in</a>
             <a href="https://youtube.com/@IPA_India" target="_blank" class="social-link">▶</a>
-        </div>
+        </div> -->
     </section>
 
     <!-- Footer -->
@@ -2598,29 +1470,29 @@
     </div>
 
     <script>
-        // Canvas Animation with Light Colors
+        // Simple Canvas Animation for Service Network
         const canvas = document.getElementById('interactiveCanvas');
         const ctx = canvas.getContext('2d');
         
         function resizeCanvas() {
             const container = canvas.parentElement;
-            canvas.width = Math.min(container.clientWidth - 60, 1200);
-            canvas.height = 600;
+            canvas.width = container.clientWidth - 60;
+            canvas.height = 500;
         }
         
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
-        // Service nodes with light colors
+        // Service nodes with government colors
         const services = [
-            { id: 1, x: 0.2, y: 0.2, r: 40, color: '#5DADE2', label: 'Strategy', connections: [2,3,4] },
-            { id: 2, x: 0.5, y: 0.15, r: 45, color: '#F9E79F', label: 'Digital', connections: [1,3,5] },
-            { id: 3, x: 0.8, y: 0.2, r: 40, color: '#76D7C4', label: 'Brand', connections: [1,2,6] },
-            { id: 4, x: 0.15, y: 0.5, r: 50, color: '#BB8FCE', label: 'Ground', connections: [1,5,7] },
-            { id: 5, x: 0.5, y: 0.5, r: 60, color: '#85C1E2', label: 'War Room', connections: [2,4,6,7,8] },
-            { id: 6, x: 0.85, y: 0.5, r: 45, color: '#F8B4C0', label: 'Media', connections: [3,5,8] },
-            { id: 7, x: 0.3, y: 0.8, r: 45, color: '#ABEBC6', label: 'Analytics', connections: [4,5,8] },
-            { id: 8, x: 0.7, y: 0.8, r: 50, color: '#FAD7A0', label: 'Advertising', connections: [5,6,7] }
+            { id: 1, x: 0.2, y: 0.2, r: 35, color: '#2c5282', label: 'Strategy', connections: [2,3,4] },
+            { id: 2, x: 0.5, y: 0.15, r: 40, color: '#3182ce', label: 'Digital', connections: [1,3,5] },
+            { id: 3, x: 0.8, y: 0.2, r: 35, color: '#2c5282', label: 'Brand', connections: [1,2,6] },
+            { id: 4, x: 0.15, y: 0.5, r: 45, color: '#1a3a52', label: 'Ground', connections: [1,5,7] },
+            { id: 5, x: 0.5, y: 0.5, r: 50, color: '#3182ce', label: 'War Room', connections: [2,4,6,7,8] },
+            { id: 6, x: 0.85, y: 0.5, r: 40, color: '#2c5282', label: 'Media', connections: [3,5,8] },
+            { id: 7, x: 0.3, y: 0.8, r: 40, color: '#1a3a52', label: 'Analytics', connections: [4,5,8] },
+            { id: 8, x: 0.7, y: 0.8, r: 45, color: '#3182ce', label: 'Advertising', connections: [5,6,7] }
         ];
         
         let selectedService = null;
@@ -2640,10 +1512,10 @@
                             ctx.lineTo(target.x * canvas.width, target.y * canvas.height);
                             
                             if (selectedService === service.id || selectedService === target.id) {
-                                ctx.strokeStyle = 'rgba(93, 173, 226, 0.5)';
+                                ctx.strokeStyle = 'rgba(49, 130, 206, 0.5)';
                                 ctx.lineWidth = 3;
                             } else {
-                                ctx.strokeStyle = 'rgba(93, 173, 226, 0.2)';
+                                ctx.strokeStyle = 'rgba(49, 130, 206, 0.2)';
                                 ctx.lineWidth = 1;
                             }
                             
@@ -2657,11 +1529,11 @@
             services.forEach((service, index) => {
                 const x = service.x * canvas.width;
                 const y = service.y * canvas.height;
-                const r = service.r + Math.sin(animationFrame / 50 + index) * 3;
+                const r = service.r + Math.sin(animationFrame / 50 + index) * 2;
                 
                 // Glow effect
                 if (selectedService === service.id) {
-                    ctx.shadowBlur = 30;
+                    ctx.shadowBlur = 20;
                     ctx.shadowColor = service.color;
                 }
                 
@@ -2674,7 +1546,7 @@
                 ctx.shadowBlur = 0;
                 
                 // Draw label
-                ctx.fillStyle = '#34495E';
+                ctx.fillStyle = '#ffffff';
                 ctx.font = 'bold 14px Arial';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
