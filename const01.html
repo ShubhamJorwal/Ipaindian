@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tumkur City Constituency Dashboard - Dr. C.K. Moula Shariff</title>
+    <title>Constituency Dashboard - IPA</title>
     <style>
         * {
             margin: 0;
@@ -216,99 +216,157 @@
         .candidate-photo {
             width: 100px;
             height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 50%;
-            border: 3px solid rgba(102, 126, 234, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .candidate-photo img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
         }
 
         .candidate-details h2 {
             font-size: 28px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
 
-        .candidate-details p {
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 4px;
-        }
-
-        .party-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
+        .candidate-meta {
+            display: flex;
+            gap: 16px;
             margin-top: 8px;
         }
 
-        .campaign-actions {
-            display: flex;
-            gap: 12px;
+        .badge {
+            display: inline-flex;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge-primary {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.2);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .package-info {
+            text-align: right;
+        }
+
+        .package-type {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .grid {
             display: grid;
-            gap: 20px;
+            gap: 24px;
             margin-bottom: 30px;
         }
 
-        .grid-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .grid-4 {
-            grid-template-columns: repeat(4, 1fr);
-        }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
 
         .stat-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 24px;
-            text-align: center;
-            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            transition: all 0.6s;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(102, 126, 234, 0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .stat-card:hover::before {
+            transform: rotate(180deg);
         }
 
         .stat-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
+            font-size: 42px;
+            margin-bottom: 16px;
         }
 
         .stat-value {
-            font-size: 32px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #ffffff 0%, #a8b3ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
         }
 
         .stat-label {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.7);
             font-weight: 500;
         }
 
         .stat-detail {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 12px;
-            color: rgba(255, 255, 255, 0.4);
-            margin-top: 4px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         .card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px;
             margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .card-header {
@@ -316,71 +374,94 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .card-title {
             font-size: 20px;
             font-weight: 700;
             color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .card-action {
-            color: #667eea;
-            font-size: 14px;
-            cursor: pointer;
-            transition: color 0.3s;
+        .card-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
         }
 
-        .card-action:hover {
-            color: #764ba2;
+        .detail-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .info-item {
-            padding: 16px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .info-label {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 600;
-        }
-
-        .demographic-item {
+        .detail-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .demographic-label {
-            color: rgba(255, 255, 255, 0.7);
+        .detail-row:last-child {
+            border-bottom: none;
         }
 
-        .demographic-value {
+        .detail-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        .detail-value {
+            color: white;
             font-weight: 600;
-            color: #667eea;
+            font-size: 16px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            text-align: left;
+            padding: 18px 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .table tr:hover {
+            background: rgba(102, 126, 234, 0.1);
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 10px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             overflow: hidden;
@@ -389,580 +470,1366 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 10px;
             transition: width 0.3s;
+            position: relative;
         }
 
-        .table-container {
-            overflow-x: auto;
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
         }
 
-        .table {
-            width: 100%;
-            border-collapse: collapse;
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        .table th,
-        .table td {
-            padding: 14px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
         }
 
-        .table th {
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-weight: 600;
-        }
-
-        .table td {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-        }
-
-        .table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .badge-success {
-            background: rgba(46, 213, 115, 0.2);
-            color: #2ed573;
-        }
-
-        .badge-warning {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-        }
-
-        .badge-danger {
-            background: rgba(255, 71, 87, 0.2);
-            color: #ff4757;
-        }
-
-        .badge-info {
-            background: rgba(102, 126, 234, 0.2);
-            color: #667eea;
-        }
-
-        .event-item {
-            display: flex;
-            align-items: center;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 12px;
-            margin-bottom: 12px;
+        .social-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.15) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
             transition: all 0.3s;
         }
 
-        .event-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateX(5px);
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
         }
 
-        .event-date {
-            width: 60px;
+        .social-platform {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 12px;
+        }
+
+        .social-count {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #a8b3ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        /* CRAZY VS BATTLE ARENA STYLES */
+        .battle-arena {
+            background: radial-gradient(ellipse at center, rgba(239, 68, 68, 0.2) 0%, rgba(10, 14, 39, 0.95) 70%);
+            border: 3px solid rgba(239, 68, 68, 0.4);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .battle-arena::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(239, 68, 68, 0.03) 2px,
+                rgba(239, 68, 68, 0.03) 4px
+            );
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(50px); }
+        }
+
+        .vs-header {
             text-align: center;
-            margin-right: 20px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
         }
 
-        .event-date-day {
-            font-size: 24px;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .event-date-month {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.5);
+        .vs-title {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
             text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: glow 2s ease-in-out infinite;
         }
 
-        .event-details {
-            flex: 1;
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.6)); }
+            50% { filter: drop-shadow(0 0 40px rgba(239, 68, 68, 0.9)); }
         }
 
-        .event-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
+        .fighters-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 50px;
         }
 
-        .event-info {
+        .fighter-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border: 2px solid;
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .fighter-card.our-fighter {
+            border-color: #10b981;
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .fighter-card.opponent-fighter {
+            border-color: #ef4444;
+            box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+        }
+
+        .fighter-card:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        .fighter-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .fighter-card:hover::before {
+            opacity: 1;
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fighter-photo-large {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            overflow: hidden;
+            border: 5px solid;
+            position: relative;
+        }
+
+        .our-fighter .fighter-photo-large {
+            border-color: #10b981;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+        }
+
+        .opponent-fighter .fighter-photo-large {
+            border-color: #ef4444;
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.6);
+        }
+
+        .fighter-photo-large img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fighter-name {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .our-fighter .fighter-name {
+            color: #10b981;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .opponent-fighter .fighter-name {
+            color: #ef4444;
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+        }
+
+        .fighter-party {
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 20px;
+        }
+
+        .fighter-stats {
+            display: grid;
+            gap: 12px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 16px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-label-vs {
             font-size: 13px;
             color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
         }
 
-        .detail-box {
+        .stat-value-vs {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .our-fighter .stat-value-vs {
+            color: #10b981;
+        }
+
+        .opponent-fighter .stat-value-vs {
+            color: #ef4444;
+        }
+
+        .vs-divider-arena {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .vs-symbol {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+            color: white;
+            box-shadow: 0 0 60px rgba(239, 68, 68, 0.8);
+            animation: pulse 2s ease-in-out infinite, spin 10s linear infinite;
+            position: relative;
+        }
+
+        .vs-symbol::before {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border: 3px solid rgba(239, 68, 68, 0.3);
+            border-radius: 50%;
+            animation: ripple 2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 140px;
+                height: 140px;
+                opacity: 1;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+
+        .lightning-bolt {
+            font-size: 32px;
+            animation: flash 1s ease-in-out infinite;
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 1; color: #f59e0b; }
+            50% { opacity: 0.3; color: #ef4444; }
+        }
+
+        .battle-metrics {
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-battle {
             background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #667eea;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-battle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(16, 185, 129, 0.1) 0%, 
+                transparent 50%, 
+                rgba(239, 68, 68, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .metric-battle:hover::before {
+            opacity: 1;
+        }
+
+        .metric-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .metric-comparison {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .metric-side {
+            text-align: center;
+        }
+
+        .metric-number {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .metric-side.winning .metric-number {
+            color: #10b981;
+            animation: winner-glow 2s ease-in-out infinite;
+        }
+
+        .metric-side.losing .metric-number {
+            color: #ef4444;
+        }
+
+        @keyframes winner-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(16, 185, 129, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(16, 185, 129, 0.9); }
+        }
+
+        .metric-sublabel {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .metric-vs-icon {
+            font-size: 32px;
+            opacity: 0.3;
+        }
+
+        .winner-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .comparison-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
             padding: 20px;
-            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .vs-divider {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 24px;
+            font-weight: 800;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .metric-value.winning {
+            color: #10b981;
+        }
+
+        .metric-value.losing {
+            color: #ef4444;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(102, 126, 234, 0.5);
+            border-radius: 4px;
         }
 
         @media (max-width: 1200px) {
-            .grid-4 {
-                grid-template-columns: repeat(2, 1fr);
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .fighters-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .vs-divider-arena {
+                order: 2;
+                flex-direction: row;
+            }
+            .vs-symbol {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
             }
         }
 
         @media (max-width: 768px) {
             .sidebar {
-                display: none;
+                transform: translateX(-100%);
             }
-
             .main-wrapper {
                 margin-left: 0;
             }
-
-            .grid-3,
-            .grid-4 {
+            .grid-4, .grid-3, .grid-2 {
                 grid-template-columns: 1fr;
-            }
-
-            .candidate-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .candidate-info {
-                flex-direction: column;
-            }
-
-            .campaign-actions {
-                margin-top: 20px;
             }
         }
     </style>
-</head>
-<body>
-    <!-- Top Navigation Bar -->
+</head><body>
+    <!-- Top Bar -->
     <div class="topbar">
         <div class="logo">
-            🏛️ Tumkur City - AC 132
+            🏛️ Indian Political Analysis
         </div>
         <div class="breadcrumb">
-            Karnataka &gt; Tumkur District &gt; Tumkur City
+            <span>Karnataka</span> › <span>Tumkur</span> › <span>Tumkur City</span>
         </div>
         <div class="topbar-actions">
-            <button class="btn btn-sm">📊 Export Data</button>
-            <button class="btn btn-primary btn-sm">🔄 Refresh</button>
+            <button class="btn btn-primary btn-sm">📊 Generate Report</button>
+            <button class="btn btn-primary btn-sm">⚙️ Settings</button>
         </div>
     </div>
 
-    <!-- Sidebar Navigation -->
+    <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-section">
-            <div class="sidebar-header">Main Dashboard</div>
+            <div class="sidebar-header">Dashboard</div>
             <div class="sidebar-item active" onclick="showPage('overview')">
                 📊 Overview
             </div>
-            <div class="sidebar-item" onclick="showPage('demographics')">
-                👥 Demographics
+            <div class="sidebar-item" onclick="showPage('profile')">
+                👤 Candidate Profile
+            </div>
+            <div class="sidebar-item" onclick="showPage('opponent')">
+                ⚔️ Opponent Analysis
+            </div>
+            <div class="sidebar-item" onclick="showPage('comparison')">
+                ⚖️ Head to Head
+            </div>
+            <div class="sidebar-item" onclick="showPage('services')">
+                🎯 Services & Progress
+            </div>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-header">Campaign</div>
+            <div class="sidebar-item" onclick="showPage('survey')">
+                📈 Survey Data
+            </div>
+            <div class="sidebar-item" onclick="showPage('strategy')">
+                🎯 Strategy & Programs
+            </div>
+            <div class="sidebar-item" onclick="showPage('social')">
+                📱 Social Media
+            </div>
+        </div>
+        
+        <div class="sidebar-section">
+            <div class="sidebar-header">Operations</div>
+            <div class="sidebar-item" onclick="showPage('booth')">
+                🗳️ Booth Management
             </div>
             <div class="sidebar-item" onclick="showPage('history')">
                 📜 Electoral History
             </div>
-        </div>
-        <div class="sidebar-section">
-            <div class="sidebar-header">Campaign Management</div>
-            <div class="sidebar-item" onclick="showPage('voter')">
-                🗳️ Voter Analytics
-            </div>
-            <div class="sidebar-item" onclick="showPage('booth')">
-                🏘️ Booth Management
-            </div>
-            <div class="sidebar-item" onclick="showPage('events')">
-                📅 Events & Rallies
-            </div>
-        </div>
-        <div class="sidebar-section">
-            <div class="sidebar-header">Digital Strategy</div>
-            <div class="sidebar-item" onclick="showPage('social')">
-                📱 Social Media
-            </div>
             <div class="sidebar-item" onclick="showPage('analytics')">
-                🎯 Advanced Analytics
+                📊 Analytics
             </div>
         </div>
     </div>
 
-    <!-- Main Content Area -->
+    <!-- Main Content -->
     <div class="main-wrapper">
+        
         <!-- Overview Page -->
         <div id="overview" class="page-content active">
             <div class="page-header">
                 <div class="page-title">Constituency Dashboard</div>
-                <div class="page-subtitle">Real-time campaign intelligence and analytics</div>
+                <div class="page-subtitle">Tumkur City - Complete Overview & Management</div>
             </div>
 
             <!-- Candidate Header -->
             <div class="candidate-header">
                 <div class="candidate-info">
-                    <img src="/mnt/user-data/uploads/1761246363876_image.png" alt="Dr. C.K. Moula Shariff" class="candidate-photo">
+                    <div class="candidate-photo">
+                        <img src="/mnt/user-data/uploads/1761246363876_image.png" alt="Dr. C.K. Moula Shariff">
+                    </div>
                     <div class="candidate-details">
                         <h2>Dr. C.K. Moula Shariff</h2>
-                        <p>📍 Tumkur City Assembly Constituency (AC-132)</p>
-                        <p>🏛️ Karnataka Legislative Assembly</p>
-                        <div class="party-badge">Candidate for MLA</div>
+                        <p style="color: rgba(255,255,255,0.7); margin-bottom: 8px;">Tumkur City • Indian National Congress</p>
+                        <div class="candidate-meta">
+                            <span class="badge badge-success">✓ Active Contract</span>
+                            <span class="badge badge-primary">Premium Package</span>
+                            <span class="badge badge-warning">Campaign Phase 2</span>
+                        </div>
                     </div>
                 </div>
-                <div class="campaign-actions">
-                    <button class="btn btn-primary">📞 Contact Team</button>
-                    <button class="btn">📋 View Manifesto</button>
+                <div class="package-info">
+                    <p style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 4px;">Package Type</p>
+                    <div class="package-type">Premium Plus</div>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 8px;">Valid till: May 15, 2028</p>
+                    <p style="font-size: 12px; color: rgba(255,255,255,0.5);">Days Remaining: 952</p>
                 </div>
             </div>
 
-            <!-- Key Statistics -->
+            <!-- Stats Grid -->
             <div class="grid grid-4">
-                <div class="stat-card">
-                    <div class="stat-icon">🗳️</div>
-                    <div class="stat-value">2,56,355</div>
-                    <div class="stat-label">Total Voters</div>
-                    <div class="stat-detail">As per 2023 rolls</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-value">66.83%</div>
-                    <div class="stat-label">2023 Turnout</div>
-                    <div class="stat-detail">Previous election</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏘️</div>
-                    <div class="stat-value">286</div>
-                    <div class="stat-label">Polling Booths</div>
-                    <div class="stat-detail">Across the constituency</div>
-                </div>
                 <div class="stat-card">
                     <div class="stat-icon">👥</div>
-                    <div class="stat-value">3,02,143</div>
-                    <div class="stat-label">Population</div>
-                    <div class="stat-detail">Total constituency</div>
-                </div>
-            </div>
-
-            <!-- Constituency Information -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Constituency Details</div>
-                    <span class="card-action">View Full Report →</span>
-                </div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Constituency Number</div>
-                        <div class="info-value">132 - Tumkur City</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">District</div>
-                        <div class="info-value">Tumkur (Tumakuru)</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Lok Sabha Constituency</div>
-                        <div class="info-value">Tumkur Parliamentary</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Region</div>
-                        <div class="info-value">Southern Karnataka</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Male Voters</div>
-                        <div class="info-value">1,27,828 (49.8%)</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Female Voters</div>
-                        <div class="info-value">1,28,465 (50.1%)</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Literacy Rate</div>
-                        <div class="info-value">89%</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Urban/Rural</div>
-                        <div class="info-value">Urban Constituency</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="grid grid-3">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📊 Quick Stats</div>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">First-time Voters</span>
-                        <span class="demographic-value">12,450</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Senior Citizens (60+)</span>
-                        <span class="demographic-value">38,200</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Youth Voters (18-35)</span>
-                        <span class="demographic-value">92,300</span>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🎯 Target Groups</div>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Women Voters</span>
-                        <span class="demographic-value">50.1%</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Urban Middle Class</span>
-                        <span class="demographic-value">45%</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Business Community</span>
-                        <span class="demographic-value">18%</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📈 Growth Metrics</div>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Voter Growth (5 yrs)</span>
-                        <span class="demographic-value">+22%</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">New Registrations</span>
-                        <span class="demographic-value">15,240</span>
-                    </div>
-                    <div class="demographic-item">
-                        <span class="demographic-label">Booth Coverage</span>
-                        <span class="demographic-value">82%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Demographics Page -->
-        <div id="demographics" class="page-content">
-            <div class="page-header">
-                <div class="page-title">Demographic Analysis</div>
-                <div class="page-subtitle">Detailed voter composition and community breakdown</div>
-            </div>
-
-            <div class="grid grid-3">
-                <div class="stat-card">
-                    <div class="stat-icon">☪️</div>
-                    <div class="stat-value">24.5%</div>
-                    <div class="stat-label">Muslim Population</div>
-                    <div class="stat-detail">~74,024 voters</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🕉️</div>
-                    <div class="stat-value">71.83%</div>
-                    <div class="stat-label">Hindu Population</div>
-                    <div class="stat-detail">~217,133 voters</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">✝️</div>
-                    <div class="stat-value">1.84%</div>
-                    <div class="stat-label">Christian Population</div>
-                    <div class="stat-detail">~5,559 voters</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Community-wise Distribution</div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Vokkaligas</span>
-                    <span class="demographic-value">28%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 28%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Lingayats</span>
-                    <span class="demographic-value">22%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 22%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Muslims</span>
-                    <span class="demographic-value">24.5%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 24.5%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Scheduled Castes</span>
-                    <span class="demographic-value">15%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 15%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Other Backward Classes</span>
-                    <span class="demographic-value">8.5%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 8.5%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Others</span>
-                    <span class="demographic-value">2%</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 2%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Age Distribution</div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">18-25 Years</span>
-                    <span class="demographic-value">42,300 voters</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 16.5%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">26-35 Years</span>
-                    <span class="demographic-value">50,000 voters</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 19.5%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">36-50 Years</span>
-                    <span class="demographic-value">82,500 voters</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 32.2%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">51-60 Years</span>
-                    <span class="demographic-value">43,355 voters</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 16.9%"></div>
-                    </div>
-                </div>
-                <div class="demographic-item">
-                    <span class="demographic-label">Above 60 Years</span>
-                    <span class="demographic-value">38,200 voters</span>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 14.9%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Voter Analytics Page -->
-        <div id="voter" class="page-content">
-            <div class="page-header">
-                <div class="page-title">Voter Analytics</div>
-                <div class="page-subtitle">Advanced voter behavior and sentiment analysis</div>
-            </div>
-
-            <div class="grid grid-4">
-                <div class="stat-card">
-                    <div class="stat-icon">📈</div>
                     <div class="stat-value">2,56,355</div>
-                    <div class="stat-label">Total Electors</div>
+                    <div class="stat-label">Total Voters</div>
+                    <div class="stat-detail">
+                        ↑ 2.8% from 2023 election<br>
+                        Target Reach: 2,25,000 (88%)
+                    </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-value">1,71,298</div>
-                    <div class="stat-label">Expected Turnout</div>
+                    <div class="stat-icon">🗳️</div>
+                    <div class="stat-value">385</div>
+                    <div class="stat-label">Polling Booths</div>
+                    <div class="stat-detail">
+                        Covered: 290 (75.3%)<br>
+                        Remaining: 95 (24.7%)
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📍</div>
+                    <div class="stat-value">35</div>
+                    <div class="stat-label">Villages/Wards</div>
+                    <div class="stat-detail">
+                        10 Villages<br>
+                        25 Urban Wards
+                    </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🎯</div>
-                    <div class="stat-value">85,650</div>
-                    <div class="stat-label">Target Votes</div>
+                    <div class="stat-value">45%</div>
+                    <div class="stat-label">Win Probability</div>
+                    <div class="stat-detail">
+                        ↑ 3% from last month<br>
+                        Confidence: Moderate
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Row -->
+            <div class="grid grid-4">
+                <div class="stat-card">
+                    <div class="stat-value">62,000</div>
+                    <div class="stat-label">Strong Supporters</div>
+                    <div class="stat-detail">24% of electorate (locked votes)</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon">🔄</div>
-                    <div class="stat-value">32,450</div>
+                    <div class="stat-value">35,000</div>
                     <div class="stat-label">Swing Voters</div>
+                    <div class="stat-detail">14% of electorate (persuadable)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">95,000</div>
+                    <div class="stat-label">Opposition Base</div>
+                    <div class="stat-detail">37% committed to opponent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">64,355</div>
+                    <div class="stat-label">Undecided</div>
+                    <div class="stat-detail">25% haven't decided yet</div>
+                </div>
+            </div>
+
+            <!-- Demographics -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Voter Demographics</div>
+                </div>
+                <div class="grid grid-3">
+                    <div class="detail-box">
+                        <h4 style="color: #a8b3ff; margin-bottom: 16px; font-size: 16px;">Gender Distribution</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">Male Voters</span>
+                            <span class="detail-value">1,27,828 (49.9%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Female Voters</span>
+                            <span class="detail-value">1,28,465 (50.1%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Other</span>
+                            <span class="detail-value">62 (0.02%)</span>
+                        </div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #a8b3ff; margin-bottom: 16px; font-size: 16px;">Religion Distribution</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">Hindu</span>
+                            <span class="detail-value">71.83%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Muslim</span>
+                            <span class="detail-value">24.5%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Christian</span>
+                            <span class="detail-value">1.84%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Others</span>
+                            <span class="detail-value">1.83%</span>
+                        </div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #a8b3ff; margin-bottom: 16px; font-size: 16px;">Age Distribution</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">18-25 years</span>
+                            <span class="detail-value">28,500 (11.1%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">26-40 years</span>
+                            <span class="detail-value">89,700 (35%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">41-60 years</span>
+                            <span class="detail-value">95,200 (37.1%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">60+ years</span>
+                            <span class="detail-value">42,955 (16.8%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Services Overview -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Service Highlights</div>
+                </div>
+                <div class="grid grid-3">
+                    <div class="service-card">
+                        <h4 style="color: #667eea; font-size: 16px; margin-bottom: 12px;">Strategic Planning</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Complete constituency analysis</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Monthly strategy reviews</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Opposition tracking</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Ground report analysis</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <h4 style="color: #667eea; font-size: 16px; margin-bottom: 12px;">Digital Dominance</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Social media management</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ WhatsApp campaigns</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Content creation</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Online reputation management</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <h4 style="color: #667eea; font-size: 16px; margin-bottom: 12px;">Ground Operations</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Booth-level management</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Worker training programs</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Rally organization</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Door-to-door campaigns</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Candidate Profile Page -->
+        <div id="profile" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Candidate Profile</div>
+                <div class="page-subtitle">Complete information about the candidate</div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Personal Information</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Full Name</span>
+                            <span class="detail-value">Dr. C.K. Moula Shariff</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Age</span>
+                            <span class="detail-value">52 years</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Education</span>
+                            <span class="detail-value">MBBS, MD (Medicine)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Profession</span>
+                            <span class="detail-value">Medical Doctor & Social Worker</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Party</span>
+                            <span class="detail-value">Indian National Congress</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Political Journey</div>
+                    </div>
+                    <div class="detail-box">
+                        <ul style="list-style: none; padding: 0; line-height: 1.8;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 12px 0;">• 2024 - INC Candidate for Tumkur City</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 12px 0;">• 2020-Present - Healthcare Advisor</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 12px 0;">• 2015-Present - Social Service Activities</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 12px 0;">• 2010-Present - Medical Practice in Tumkur</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 12px 0;">• Active in healthcare initiatives</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Ward-wise Voter Distribution</div>
+                    <div class="card-title">Key Achievements</div>
+                </div>
+                <div class="grid grid-2">
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Healthcare Initiatives</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Organized 100+ free health camps</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Provided free treatment to 50,000+ patients</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ COVID-19 relief work</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Health awareness programs</li>
+                        </ul>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Social Service</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Education support for underprivileged</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Women empowerment programs</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Youth skill development</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Community harmony initiatives</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opponent Analysis Page -->
+        <div id="opponent" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Opponent Analysis</div>
+                <div class="page-subtitle">Complete analysis of main opponents</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Main Opponent - G.B. Jyothi Ganesh (BJP)</div>
+                </div>
+                <div class="grid grid-2">
+                    <div class="detail-box">
+                        <h4 style="color: #ff6b6b; margin-bottom: 12px;">Profile</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">Name</span>
+                            <span class="detail-value">G.B. Jyothi Ganesh</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Party</span>
+                            <span class="detail-value">Bharatiya Janata Party</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Current Position</span>
+                            <span class="detail-value">Sitting MLA (2023)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Previous Terms</span>
+                            <span class="detail-value">2 Terms (2018, 2023)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Education</span>
+                            <span class="detail-value">B.E. (Mech), MBA</span>
+                        </div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #ff6b6b; margin-bottom: 12px;">Electoral Performance</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">2023 Votes</span>
+                            <span class="detail-value">59,165 (34.5%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">2023 Margin</span>
+                            <span class="detail-value">3,198 votes</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">2018 Votes</span>
+                            <span class="detail-value">60,421 (35.6%)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Strong Areas</span>
+                            <span class="detail-value">Urban wards</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Opponent Strengths</div>
+                    </div>
+                    <div class="detail-box">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Incumbent advantage</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Strong party organization</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Political legacy (Father was 5-time MP)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Resources (₹34.6 crore assets)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Business community support</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Opponent Weaknesses</div>
+                    </div>
+                    <div class="detail-box">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Anti-incumbency (2 terms)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Weak among minorities</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Narrow victory margins</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Limited healthcare initiatives</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Infrastructure complaints</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Head to Head Comparison -->
+        <div id="comparison" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Head to Head Comparison</div>
+                <div class="page-subtitle">Direct comparison with main opponent</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Comparative Analysis</div>
                 </div>
                 <div class="table-container">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Ward No.</th>
-                                <th>Ward Name</th>
-                                <th>Total Voters</th>
-                                <th>Male</th>
-                                <th>Female</th>
-                                <th>Third Gender</th>
-                                <th>Previous Turnout</th>
+                                <th>Parameter</th>
+                                <th style="background: rgba(102, 126, 234, 0.1);">Dr. C.K. Moula Shariff (INC)</th>
+                                <th style="background: rgba(255, 87, 34, 0.1);">G.B. Jyothi Ganesh (BJP)</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>1</strong></td>
-                                <td>Kuvempunagar</td>
-                                <td>12,450</td>
-                                <td>6,200</td>
-                                <td>6,248</td>
-                                <td>2</td>
-                                <td><span class="badge badge-success">72%</span></td>
+                                <td><strong>Education</strong></td>
+                                <td>MBBS, MD (Medicine)</td>
+                                <td>B.E., MBA</td>
                             </tr>
                             <tr>
-                                <td><strong>2</strong></td>
-                                <td>Jayanagar</td>
-                                <td>10,825</td>
-                                <td>5,400</td>
-                                <td>5,423</td>
-                                <td>2</td>
-                                <td><span class="badge badge-success">68%</span></td>
+                                <td><strong>Profession</strong></td>
+                                <td>Medical Doctor</td>
+                                <td>Businessman/Politician</td>
                             </tr>
                             <tr>
-                                <td><strong>3</strong></td>
-                                <td>Ashok Nagar</td>
-                                <td>11,300</td>
-                                <td>5,650</td>
-                                <td>5,648</td>
-                                <td>2</td>
-                                <td><span class="badge badge-warning">62%</span></td>
+                                <td><strong>Political Experience</strong></td>
+                                <td>First-time contestant</td>
+                                <td>2-term MLA</td>
                             </tr>
                             <tr>
-                                <td><strong>4</strong></td>
-                                <td>Gandhi Nagar</td>
-                                <td>9,850</td>
-                                <td>4,920</td>
-                                <td>4,928</td>
-                                <td>2</td>
-                                <td><span class="badge badge-success">70%</span></td>
+                                <td><strong>Age</strong></td>
+                                <td>52 years</td>
+                                <td>48 years</td>
                             </tr>
                             <tr>
-                                <td><strong>5</strong></td>
-                                <td>Sapthagiri Extension</td>
-                                <td>13,200</td>
-                                <td>6,580</td>
-                                <td>6,618</td>
-                                <td>2</td>
-                                <td><span class="badge badge-success">75%</span></td>
+                                <td><strong>Key Strength</strong></td>
+                                <td>Healthcare credibility</td>
+                                <td>Incumbent advantage</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Muslim Vote (24.5%)</strong></td>
+                                <td>Strong appeal</td>
+                                <td>Weak support</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hindu Vote (71.8%)</strong></td>
+                                <td>Building base</td>
+                                <td>Traditional support</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Women Voters</strong></td>
+                                <td>Healthcare focus advantage</td>
+                                <td>Mixed response</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Youth Connect</strong></td>
+                                <td>Employment focus</td>
+                                <td>Development agenda</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Resources</strong></td>
+                                <td>Limited</td>
+                                <td>Strong (₹34.6 crore)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Vote Share Projection</div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 16px;">Expected Vote Distribution</h4>
+                        <div class="detail-row">
+                            <span class="detail-label">Dr. C.K. Moula Shariff (INC)</span>
+                            <span class="detail-value">34-36%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">G.B. Jyothi Ganesh (BJP)</span>
+                            <span class="detail-value">35-37%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">JD(S) Candidate</span>
+                            <span class="detail-value">27-29%</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Others</span>
+                            <span class="detail-value">2%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Critical Success Factors</div>
+                    </div>
+                    <div class="detail-box">
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Consolidate Muslim votes (90%+)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Prevent vote split with JD(S)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Women voter mobilization</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Healthcare campaign effectiveness</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Youth employment messaging</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">✓ Maximum turnout in key areas</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services & Progress Page -->
+        <div id="services" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Services & Campaign Progress</div>
+                <div class="page-subtitle">Comprehensive service delivery and campaign status</div>
+            </div>
+
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Strategic Services</div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Planning & Analysis</h4>
+                        <div class="progress-item">
+                            <span>Constituency Mapping</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 95%;"></div>
+                            </div>
+                            <span class="progress-text">95%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Voter Analysis</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 88%;"></div>
+                            </div>
+                            <span class="progress-text">88%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Opposition Research</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%;"></div>
+                            </div>
+                            <span class="progress-text">92%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Digital Services</div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Online Presence</h4>
+                        <div class="progress-item">
+                            <span>Social Media Setup</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%;"></div>
+                            </div>
+                            <span class="progress-text">100%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Content Creation</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%;"></div>
+                            </div>
+                            <span class="progress-text">78%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>WhatsApp Campaign</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%;"></div>
+                            </div>
+                            <span class="progress-text">85%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Ground Operations</div>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Field Work</h4>
+                        <div class="progress-item">
+                            <span>Booth Coverage</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 75%;"></div>
+                            </div>
+                            <span class="progress-text">75%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Door-to-Door</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%;"></div>
+                            </div>
+                            <span class="progress-text">65%</span>
+                        </div>
+                        <div class="progress-item">
+                            <span>Rally Organization</span>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 70%;"></div>
+                            </div>
+                            <span class="progress-text">70%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Monthly Progress Report</div>
+                </div>
+                <div class="grid grid-4">
+                    <div class="stat-card">
+                        <div class="stat-value">145</div>
+                        <div class="stat-label">Health Camps Conducted</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">25,000</div>
+                        <div class="stat-label">Doors Knocked</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">185</div>
+                        <div class="stat-label">WhatsApp Groups</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1,250</div>
+                        <div class="stat-label">Active Workers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Survey Data Page -->
+        <div id="survey" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Survey Data & Intelligence</div>
+                <div class="page-subtitle">Latest polling data and voter sentiment analysis</div>
+            </div>
+
+            <div class="grid grid-4">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value">34%</div>
+                    <div class="stat-label">Current Support</div>
+                    <div class="stat-detail">+3% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📈</div>
+                    <div class="stat-value">37%</div>
+                    <div class="stat-label">Opponent Support</div>
+                    <div class="stat-detail">-2% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🎯</div>
+                    <div class="stat-value">29%</div>
+                    <div class="stat-label">Undecided/Others</div>
+                    <div class="stat-detail">Critical segment</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value">67%</div>
+                    <div class="stat-label">Expected Turnout</div>
+                    <div class="stat-detail">171,000 voters</div>
+                </div>
+            </div>
+
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Community-wise Support</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Muslim Community</span>
+                            <span class="detail-value">75% support</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">SC/ST</span>
+                            <span class="detail-value">45% support</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">OBC</span>
+                            <span class="detail-value">35% support</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Lingayat</span>
+                            <span class="detail-value">20% support</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Vokkaliga</span>
+                            <span class="detail-value">25% support</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Key Issues (Voter Priority)</div>
+                    </div>
+                    <div class="detail-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Healthcare</span>
+                            <span class="detail-value">85% importance</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Unemployment</span>
+                            <span class="detail-value">78% importance</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Water Supply</span>
+                            <span class="detail-value">72% importance</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Roads/Infrastructure</span>
+                            <span class="detail-value">68% importance</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Education</span>
+                            <span class="detail-value">65% importance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategy & Programs Page -->
+        <div id="strategy" class="page-content">
+            <div class="page-header">
+                <div class="page-title">Strategy & Campaign Programs</div>
+                <div class="page-subtitle">Strategic initiatives and program execution</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Core Campaign Strategy</div>
+                </div>
+                <div class="grid grid-3">
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Target Segments</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Muslim voters (62,000)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Women voters (128,000)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Youth (89,000)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• SC/ST (46,000)</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Healthcare workers</li>
+                        </ul>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Key Messages</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Healthcare for all</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Youth employment</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Women's safety</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Infrastructure development</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Community harmony</li>
+                        </ul>
+                    </div>
+                    <div class="detail-box">
+                        <h4 style="color: #667eea; margin-bottom: 12px;">Campaign Programs</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Doctor at Doorstep</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Youth Job Fair</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Women Empowerment</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Education Support</li>
+                            <li style="color: rgba(255,255,255,0.8); margin: 8px 0;">• Community Outreach</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Upcoming Programs Schedule</div>
+                </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Program</th>
+                                <th>Location</th>
+                                <th>Target Audience</th>
+                                <th>Expected Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oct 28</td>
+                                <td>Health Camp</td>
+                                <td>Amanikere</td>
+                                <td>All residents</td>
+                                <td>500+</td>
+                            </tr>
+                            <tr>
+                                <td>Oct 30</td>
+                                <td>Youth Interaction</td>
+                                <td>Tumkur University</td>
+                                <td>Students</td>
+                                <td>800+</td>
+                            </tr>
+                            <tr>
+                                <td>Nov 2</td>
+                                <td>Women's Meet</td>
+                                <td>SS Puram</td>
+                                <td>Women voters</td>
+                                <td>400+</td>
+                            </tr>
+                            <tr>
+                                <td>Nov 5</td>
+                                <td>Traders Meeting</td>
+                                <td>Central Tumkur</td>
+                                <td>Business community</td>
+                                <td>200+</td>
                             </tr>
                         </tbody>
                     </table>
@@ -970,112 +1837,37 @@
             </div>
         </div>
 
-        <!-- Events Page -->
-        <div id="events" class="page-content">
-            <div class="page-header">
-                <div class="page-title">Campaign Events</div>
-                <div class="page-subtitle">Scheduled rallies, meetings, and public interactions</div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Upcoming Events</div>
-                    <span class="card-action">+ Add Event</span>
-                </div>
-                
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-date-day">15</div>
-                        <div class="event-date-month">JAN</div>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-title">Public Rally - Kuvempunagar</div>
-                        <div class="event-info">📍 Kuvempunagar Ground | ⏰ 5:00 PM | 👥 Expected: 5,000</div>
-                    </div>
-                    <span class="badge badge-info">Confirmed</span>
-                </div>
-
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-date-day">18</div>
-                        <div class="event-date-month">JAN</div>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-title">Women's Empowerment Meeting</div>
-                        <div class="event-info">📍 Community Hall, Ward 3 | ⏰ 10:00 AM | 👥 Expected: 500</div>
-                    </div>
-                    <span class="badge badge-info">Confirmed</span>
-                </div>
-
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-date-day">22</div>
-                        <div class="event-date-month">JAN</div>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-title">Youth Interaction Program</div>
-                        <div class="event-info">📍 Tumkur University | ⏰ 3:00 PM | 👥 Expected: 1,000</div>
-                    </div>
-                    <span class="badge badge-warning">Tentative</span>
-                </div>
-
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-date-day">25</div>
-                        <div class="event-date-month">JAN</div>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-title">Business Community Meet</div>
-                        <div class="event-info">📍 Chamber of Commerce | ⏰ 6:00 PM | 👥 Expected: 200</div>
-                    </div>
-                    <span class="badge badge-info">Confirmed</span>
-                </div>
-
-                <div class="event-item">
-                    <div class="event-date">
-                        <div class="event-date-day">28</div>
-                        <div class="event-date-month">JAN</div>
-                    </div>
-                    <div class="event-details">
-                        <div class="event-title">Door-to-Door Campaign Launch</div>
-                        <div class="event-info">📍 All Wards | ⏰ 7:00 AM | 👥 500 Volunteers</div>
-                    </div>
-                    <span class="badge badge-success">Priority</span>
-                </div>
-            </div>
-        </div>
-
         <!-- Social Media Page -->
         <div id="social" class="page-content">
             <div class="page-header">
-                <div class="page-title">Social Media Analytics</div>
-                <div class="page-subtitle">Digital presence and engagement metrics</div>
+                <div class="page-title">Social Media Management</div>
+                <div class="page-subtitle">Digital presence and social media analytics</div>
             </div>
 
             <div class="grid grid-4">
                 <div class="stat-card">
                     <div class="stat-icon">📘</div>
-                    <div class="stat-value">45.2K</div>
+                    <div class="stat-value">18.5K</div>
                     <div class="stat-label">Facebook Followers</div>
                     <div class="stat-detail">+12% this month</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🐦</div>
-                    <div class="stat-value">28.5K</div>
+                    <div class="stat-value">12.3K</div>
                     <div class="stat-label">Twitter Followers</div>
                     <div class="stat-detail">+8% this month</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📷</div>
-                    <div class="stat-value">32.8K</div>
+                    <div class="stat-value">15.7K</div>
                     <div class="stat-label">Instagram Followers</div>
                     <div class="stat-detail">+15% this month</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">💬</div>
-                    <div class="stat-value">18.5K</div>
-                    <div class="stat-label">WhatsApp Groups</div>
-                    <div class="stat-detail">425 active groups</div>
+                    <div class="stat-value">35K+</div>
+                    <div class="stat-label">WhatsApp Reach</div>
+                    <div class="stat-detail">185 active groups</div>
                 </div>
             </div>
 
@@ -1085,19 +1877,19 @@
                 </div>
                 <div class="grid grid-4">
                     <div class="stat-card">
-                        <div class="stat-value">142</div>
+                        <div class="stat-value">42</div>
                         <div class="stat-label">Posts This Week</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">3.2M</div>
+                        <div class="stat-value">1.8M</div>
                         <div class="stat-label">Total Reach</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">185K</div>
+                        <div class="stat-value">125K</div>
                         <div class="stat-label">Engagements</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value">5.8%</div>
+                        <div class="stat-value">6.9%</div>
                         <div class="stat-label">Engagement Rate</div>
                     </div>
                 </div>
@@ -1114,22 +1906,22 @@
             <div class="grid grid-4">
                 <div class="stat-card">
                     <div class="stat-icon">🗳️</div>
-                    <div class="stat-value">286</div>
+                    <div class="stat-value">385</div>
                     <div class="stat-label">Total Booths</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">✅</div>
-                    <div class="stat-value">235</div>
+                    <div class="stat-value">290</div>
                     <div class="stat-label">Booths Covered</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">👥</div>
-                    <div class="stat-value">1,430</div>
+                    <div class="stat-value">385</div>
                     <div class="stat-label">Active Workers</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📊</div>
-                    <div class="stat-value">82%</div>
+                    <div class="stat-value">75.3%</div>
                     <div class="stat-label">Coverage Rate</div>
                 </div>
             </div>
@@ -1153,43 +1945,27 @@
                         <tbody>
                             <tr>
                                 <td><strong>001</strong></td>
-                                <td>Government High School, Kuvempunagar</td>
-                                <td>945</td>
-                                <td>Mohammed Rafiq</td>
-                                <td>85%</td>
+                                <td>Government School, Central Tumkur</td>
+                                <td>850</td>
+                                <td>Mohammed Rafi</td>
+                                <td>80%</td>
                                 <td><span class="badge badge-success">Active</span></td>
                             </tr>
                             <tr>
                                 <td><strong>002</strong></td>
-                                <td>Community Hall, Jayanagar</td>
-                                <td>1,020</td>
-                                <td>Lakshmi Devi</td>
-                                <td>92%</td>
+                                <td>Community Hall, Amanikere</td>
+                                <td>920</td>
+                                <td>Abdul Rahman</td>
+                                <td>75%</td>
                                 <td><span class="badge badge-success">Active</span></td>
                             </tr>
                             <tr>
                                 <td><strong>003</strong></td>
-                                <td>Primary School, Ashok Nagar</td>
-                                <td>875</td>
-                                <td>Suresh Kumar</td>
-                                <td>78%</td>
-                                <td><span class="badge badge-success">Active</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>004</strong></td>
-                                <td>Town Hall, Gandhi Nagar</td>
-                                <td>1,120</td>
+                                <td>Primary School, SS Puram</td>
+                                <td>780</td>
                                 <td>Not Assigned</td>
                                 <td>0%</td>
                                 <td><span class="badge badge-danger">Vacant</span></td>
-                            </tr>
-                            <tr>
-                                <td><strong>005</strong></td>
-                                <td>College Ground, Sapthagiri Extension</td>
-                                <td>980</td>
-                                <td>Ravi Prakash</td>
-                                <td>65%</td>
-                                <td><span class="badge badge-warning">In Progress</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1206,7 +1982,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Recent Election Results - Tumkur City (AC-132)</div>
+                    <div class="card-title">Recent Election Results</div>
                 </div>
                 <div class="table-container">
                     <table class="table">
@@ -1216,8 +1992,6 @@
                                 <th>Winner</th>
                                 <th>Party</th>
                                 <th>Votes</th>
-                                <th>Runner-up</th>
-                                <th>Runner-up Party</th>
                                 <th>Margin</th>
                                 <th>Turnout</th>
                             </tr>
@@ -1227,9 +2001,7 @@
                                 <td><strong>2023</strong></td>
                                 <td>G.B. Jyothi Ganesh</td>
                                 <td>BJP</td>
-                                <td>58,450</td>
-                                <td>Govindaraju</td>
-                                <td>JD(S)</td>
+                                <td>59,165</td>
                                 <td>3,198</td>
                                 <td>66.83%</td>
                             </tr>
@@ -1238,60 +2010,19 @@
                                 <td>G.B. Jyothi Ganesh</td>
                                 <td>BJP</td>
                                 <td>60,421</td>
-                                <td>N. Govindaraju</td>
-                                <td>JD(S)</td>
                                 <td>5,293</td>
-                                <td>65.44%</td>
+                                <td>65.4%</td>
                             </tr>
                             <tr>
                                 <td><strong>2013</strong></td>
-                                <td>Dr. Rafeeq Ahmed</td>
+                                <td>Dr. Rafeeq Ahmed S</td>
                                 <td>INC</td>
                                 <td>43,681</td>
-                                <td>G.B. Jyothi Ganesh</td>
-                                <td>KJP</td>
                                 <td>3,608</td>
-                                <td>65.73%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>2008</strong></td>
-                                <td>Sogadu Shivanna</td>
-                                <td>BJP</td>
-                                <td>41,250</td>
-                                <td>Rafeeq Ahmed</td>
-                                <td>INC</td>
-                                <td>8,500</td>
-                                <td>62.8%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>2004</strong></td>
-                                <td>Rafeeq Ahmed</td>
-                                <td>INC</td>
-                                <td>38,920</td>
-                                <td>Sogadu Shivanna</td>
-                                <td>BJP</td>
-                                <td>5,200</td>
-                                <td>61.2%</td>
+                                <td>65.7%</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">Voting Pattern Analysis</div>
-                </div>
-                <div class="detail-box">
-                    <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">
-                        <strong>Historical Trends:</strong><br>
-                        • Tumkur City has been a competitive constituency with alternating victories between BJP and Congress<br>
-                        • BJP has won the last two consecutive elections (2018, 2023) with G.B. Jyothi Ganesh<br>
-                        • The constituency has a significant Muslim population (24.5%) which traditionally influences voting patterns<br>
-                        • Voter turnout has been consistently above 65% in recent elections<br>
-                        • JD(S) has emerged as a strong third force, finishing second in both 2018 and 2023<br>
-                        • The winning margin has been relatively narrow in recent elections, indicating a highly competitive seat
-                    </p>
                 </div>
             </div>
         </div>
@@ -1306,19 +2037,19 @@
             <div class="grid grid-4">
                 <div class="stat-card">
                     <div class="stat-icon">🎯</div>
-                    <div class="stat-value">52%</div>
+                    <div class="stat-value">45%</div>
                     <div class="stat-label">Win Probability</div>
                     <div class="stat-detail">Based on current trends</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">📈</div>
-                    <div class="stat-value">+8%</div>
+                    <div class="stat-value">+3%</div>
                     <div class="stat-label">Growth Rate</div>
                     <div class="stat-detail">Last 3 months</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon">🎲</div>
-                    <div class="stat-value">32K</div>
+                    <div class="stat-value">35K</div>
                     <div class="stat-label">Swing Voters</div>
                     <div class="stat-detail">Critical segment</div>
                 </div>
@@ -1326,7 +2057,7 @@
                     <div class="stat-icon">⚡</div>
                     <div class="stat-value">Moderate</div>
                     <div class="stat-label">Momentum</div>
-                    <div class="stat-detail">Building steadily</div>
+                    <div class="stat-detail">Building trend</div>
                 </div>
             </div>
 
@@ -1336,25 +2067,7 @@
                 </div>
                 <div class="detail-box">
                     <p style="color: rgba(255,255,255,0.8); line-height: 1.8;">
-                        <strong>Key Factors for Victory:</strong><br><br>
-                        
-                        <strong>Strengths:</strong><br>
-                        • Strong presence in minority communities (24.5% Muslim population)<br>
-                        • Growing support among women voters (50.1% of electorate)<br>
-                        • Increasing youth engagement through digital campaigns<br>
-                        • Medical professional background resonates with educated urban voters<br><br>
-                        
-                        <strong>Focus Areas:</strong><br>
-                        • Need to strengthen booth-level organization (currently 82% coverage)<br>
-                        • Expand outreach to Vokkaliga and Lingayat communities<br>
-                        • Counter BJP's incumbent advantage from last two elections<br>
-                        • Mobilize first-time voters (12,450 new voters)<br><br>
-                        
-                        <strong>Recommended Strategy:</strong><br>
-                        • Intensify door-to-door campaigns in uncovered booths<br>
-                        • Focus on healthcare and education issues leveraging Dr. Shariff's background<br>
-                        • Build coalition with smaller community groups<br>
-                        • Target 70%+ voter turnout for favorable outcome
+                        Based on current trends, survey data, and historical patterns, the race in Tumkur City is highly competitive with three strong contenders. Our candidate Dr. C.K. Moula Shariff has a 45% probability of winning, with key strengths in healthcare credibility and minority support. Critical factors include consolidating Muslim votes, preventing vote split with JD(S), and maximizing women voter turnout. The incumbent's anti-incumbency after two terms provides an opportunity, but strong organizational effort is needed to convert this into victory.
                     </p>
                 </div>
             </div>
